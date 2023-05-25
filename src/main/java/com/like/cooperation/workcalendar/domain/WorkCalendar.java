@@ -1,4 +1,4 @@
-package com.like.cooperation.workschedule.domain;
+package com.like.cooperation.workcalendar.domain;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -27,12 +27,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(exclude = {"scheduleList", "memberList"})
+@ToString(exclude = {"eventList", "memberList"})
 @Getter
 @Entity
-@Table(name = "GRWWORKGROUP")
+@Table(name = "GRWWORKCALENDAR")
 @EntityListeners(AuditingEntityListener.class)
-public class WorkGroup extends AbstractAuditEntity {
+public class WorkCalendar extends AbstractAuditEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,17 +45,17 @@ public class WorkGroup extends AbstractAuditEntity {
 	@Column(name="COLOR")
 	String color;
 	
-	@OneToMany(mappedBy = "workGroup")
-	List<Schedule> scheduleList;
+	@OneToMany(mappedBy = "workCalendar")
+	List<WorkCalendarEvent> eventList;
 	
 	@OrderBy("USER_ID asc")
-	@OneToMany(mappedBy = "workGroup", fetch=FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval=true)
-	Set<WorkGroupMember> memberList = new LinkedHashSet<>();
+	@OneToMany(mappedBy = "workCalendar", fetch=FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval=true)
+	Set<WorkCalendarMember> memberList = new LinkedHashSet<>();
 	
-	public WorkGroup(String name, String color) {		
+	public WorkCalendar(String name, String color) {		
 		this.name = name;
 		this.color = color;
-		this.scheduleList = null;
+		this.eventList = null;
 		this.memberList = null;
 	}
 	
@@ -64,7 +64,7 @@ public class WorkGroup extends AbstractAuditEntity {
 		this.color = color;
 	}
 	
-	public void addWorkGroupMember(WorkGroupMember member) {
+	public void addWorkGroupMember(WorkCalendarMember member) {
 		if (this.memberList == null) { 
 			this.memberList = new LinkedHashSet<>();
 		}		
@@ -79,7 +79,7 @@ public class WorkGroup extends AbstractAuditEntity {
 	}
 	
 	public void deleteWorkGroupMember(SystemUser user) {		
-		this.memberList.remove(new WorkGroupMember(this, user));		
+		this.memberList.remove(new WorkCalendarMember(this, user));		
 	}
 	
 	public void clearWorkGroupMember() {

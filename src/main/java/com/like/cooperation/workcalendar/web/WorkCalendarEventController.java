@@ -1,4 +1,4 @@
-package com.like.cooperation.workschedule.web;
+package com.like.cooperation.workcalendar.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
@@ -13,39 +13,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.workschedule.boundary.ScheduleDTO;
-import com.like.cooperation.workschedule.domain.Schedule;
-import com.like.cooperation.workschedule.service.ScheduleService;
+import com.like.cooperation.workcalendar.boundary.WorkCalendarEventDTO;
+import com.like.cooperation.workcalendar.domain.WorkCalendarEvent;
+import com.like.cooperation.workcalendar.service.WorkCalendarEventService;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
-public class ScheduleController {
+public class WorkCalendarEventController {
 
-	private ScheduleService service;
+	private WorkCalendarEventService service;
 	
-	public ScheduleController(ScheduleService service) {
+	public WorkCalendarEventController(WorkCalendarEventService service) {
 		this.service = service;
 	}
 	
-	@GetMapping("/api/grw/schedule/{id}")	
+	@GetMapping("/api/grw/workcalendarevent/{id}")	
 	public ResponseEntity<?> getSchedule(@PathVariable Long id) {
 						
-		Schedule entity = service.getSchedule(id);							
+		WorkCalendarEvent entity = service.getSchedule(id);							
 		
-		ScheduleDTO.Response dto = ScheduleDTO.Response.convert(entity);
+		WorkCalendarEventDTO.Response dto = WorkCalendarEventDTO.Response.convert(entity);
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
 	}
 		
-	@PostMapping("/api/grw/schedule")
-	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody ScheduleDTO.Form dto) {				
+	@PostMapping("/api/grw/workcalendarevent")
+	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody WorkCalendarEventDTO.Form dto) {				
 		
 		service.saveSchedule(dto);		
 										 					
 		return toOne(dto, MessageUtil.getSaveMessage(1));
 	}
 	
-	@DeleteMapping("/api/grw/schedule/{id}")
+	@DeleteMapping("/api/grw/workcalendarevent/{id}")
 	public ResponseEntity<?> deleteSchedule(@PathVariable(value="id") Long id) {
 						
 		service.deleteSchedule(id);							

@@ -1,4 +1,4 @@
-package com.like.cooperation.workschedule.domain;
+package com.like.cooperation.workcalendar.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,15 +21,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@IdClass(WorkGroupMemberId.class)
-@Table(name = "GRWWORKGROUPUSER")
-public class WorkGroupMember extends AbstractAuditEntity {
+@IdClass(WorkCalendarMemberId.class)
+@Table(name = "GRWWORKCALENDARUSER")
+public class WorkCalendarMember extends AbstractAuditEntity {
 	
 	@JsonBackReference
 	@Id	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "WORKGROUP_ID")
-	WorkGroup workGroup;
+	@JoinColumn(name = "WORKCALENDAR_ID")
+	WorkCalendar workCalendar;
 	
 	@JsonBackReference
 	@Id	
@@ -37,8 +37,8 @@ public class WorkGroupMember extends AbstractAuditEntity {
 	@JoinColumn(name="USER_ID")
 	SystemUser user;
 	
-	public WorkGroupMember(WorkGroup workGroup, SystemUser user) {
-		this.workGroup = workGroup;
+	public WorkCalendarMember(WorkCalendar workCalendar, SystemUser user) {
+		this.workCalendar = workCalendar;
 		this.user = user;
 	}
 	
@@ -48,20 +48,20 @@ public class WorkGroupMember extends AbstractAuditEntity {
 
 	@Override
 	public String toString() {
-		return "WorkGroupMember [workGroup=" + workGroup.id + ", user=" + user.getId() + "]";
+		return "WorkCalendarMember [workCalendar=" + workCalendar.id + ", user=" + user.getId() + "]";
 	}
 	
-	public void setWorkGroup(WorkGroup workGroup) {
+	public void setWorkGroup(WorkCalendar workCalendar) {
 		// 기존에 존재했던 참조 삭제
-		if (this.workGroup != null) {
-			this.workGroup.getMemberList().remove(this);
+		if (this.workCalendar != null) {
+			this.workCalendar.getMemberList().remove(this);
 		}
 		
-		this.workGroup = workGroup;
+		this.workCalendar = workCalendar;
 		
 		// 참조 추가
-		if (workGroup != null && !workGroup.getMemberList().contains(this)) {
-			this.workGroup.getMemberList().add(this);
+		if (workCalendar != null && !workCalendar.getMemberList().contains(this)) {
+			this.workCalendar.getMemberList().add(this);
 		}
 		
 	}

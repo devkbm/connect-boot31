@@ -1,4 +1,4 @@
-package com.like.cooperation.workschedule.web;
+package com.like.cooperation.workcalendar.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 
@@ -12,42 +12,42 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.workschedule.boundary.WorkDTO;
-import com.like.cooperation.workschedule.domain.WorkGroup;
-import com.like.cooperation.workschedule.service.WorkGroupService;
+import com.like.cooperation.workcalendar.boundary.WorkCalendarDTO;
+import com.like.cooperation.workcalendar.domain.WorkCalendar;
+import com.like.cooperation.workcalendar.service.WorkCalendarService;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
-public class WorkGroupController {	
+public class WorkCalendarController {	
 		
-	private WorkGroupService workGroupService;				
+	private WorkCalendarService service;				
 		
-	public WorkGroupController(WorkGroupService workGroupService) {
-		this.workGroupService = workGroupService;
+	public WorkCalendarController(WorkCalendarService service) {
+		this.service = service;
 	}			
 	
-	@GetMapping("/api/grw/workgroup/{id}")
+	@GetMapping("/api/grw/workcalendar/{id}")
 	public ResponseEntity<?> getWorkGroup(@PathVariable Long id) {
 						
-		WorkGroup entity = workGroupService.getWorkGroup(id);										
+		WorkCalendar entity = service.getWorkGroup(id);										
 		
-		WorkDTO.Form dto = WorkDTO.Form.convertDTO(entity);
+		WorkCalendarDTO.Form dto = WorkCalendarDTO.Form.convertDTO(entity);
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
 	}
 		
-	@PostMapping("/api/grw/workgroup")
-	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody WorkDTO.Form dto) {				
+	@PostMapping("/api/grw/workcalendar")
+	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody WorkCalendarDTO.Form dto) {				
 					
-		workGroupService.saveWorkGroup(dto);		
+		service.saveWorkGroup(dto);		
 		
 		return toOne(dto, MessageUtil.getSaveMessage(1));
 	}
 	
-	@DeleteMapping("/api/grw/workgroup/{id}")
+	@DeleteMapping("/api/grw/workcalendar/{id}")
 	public ResponseEntity<?> deleteWorkGroup(@PathVariable Long id) {
 						
-		workGroupService.deleteWorkGroup(id);
+		service.deleteWorkGroup(id);
 		
 		return toOne(null, MessageUtil.getDeleteMessage(1));													
 	}

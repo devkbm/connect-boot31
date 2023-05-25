@@ -1,4 +1,4 @@
-package com.like.cooperation.workschedule.domain;
+package com.like.cooperation.workcalendar.domain;
 
 import java.io.Serializable;
 
@@ -10,16 +10,16 @@ import lombok.Setter;
 @Getter
 //@EqualsAndHashCode
 @NoArgsConstructor
-public class WorkGroupMemberId implements Serializable {
+public class WorkCalendarMemberId implements Serializable {
 		
 	private static final long serialVersionUID = -9015996959356053573L;
 
-	Long workGroup;
+	Long workCalendar;
 			
 	String user;		
 
-	public WorkGroupMemberId(Long workgroupId, String userId) {		
-		this.workGroup = workgroupId;
+	public WorkCalendarMemberId(Long workCalendar, String userId) {		
+		this.workCalendar = workCalendar;
 		this.user = userId;
 	}
 
@@ -31,16 +31,16 @@ public class WorkGroupMemberId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		WorkGroupMemberId other = (WorkGroupMemberId) obj;
+		WorkCalendarMemberId other = (WorkCalendarMemberId) obj;
 		if (user == null) {
 			if (other.user != null)
 				return false;
 		} else if (!user.equals(other.user))
 			return false;
-		if (workGroup == null) {
-			if (other.workGroup != null)
+		if (workCalendar == null) {
+			if (other.workCalendar != null)
 				return false;
-		} else if (!workGroup.equals(other.workGroup))
+		} else if (!workCalendar.equals(other.workCalendar))
 			return false;
 		return true;
 	}
@@ -50,7 +50,7 @@ public class WorkGroupMemberId implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		result = prime * result + ((workGroup == null) ? 0 : workGroup.hashCode());
+		result = prime * result + ((workCalendar == null) ? 0 : workCalendar.hashCode());
 		return result;
 	}
 	

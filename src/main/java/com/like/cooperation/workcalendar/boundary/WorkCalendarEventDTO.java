@@ -1,10 +1,8 @@
-package com.like.cooperation.workschedule.boundary;
+package com.like.cooperation.workcalendar.boundary;
 
 import static org.springframework.util.StringUtils.hasText;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +13,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.like.cooperation.workschedule.domain.QSchedule;
-import com.like.cooperation.workschedule.domain.Schedule;
-import com.like.cooperation.workschedule.domain.WorkGroup;
+import com.like.cooperation.workcalendar.domain.QWorkCalendarEvent;
+import com.like.cooperation.workcalendar.domain.WorkCalendarEvent;
+import com.like.cooperation.workcalendar.domain.WorkCalendar;
+
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.DateTimeExpression;
@@ -25,11 +24,11 @@ import com.querydsl.core.types.dsl.Expressions;
 
 import lombok.Builder;
 
-public class ScheduleDTO {		
+public class WorkCalendarEventDTO {		
 	
 	public record Search(
 			@NotEmpty
-			String fkWorkGroup,
+			String fkWorkCalendar,
 			@NotEmpty
 			String fromDate,
 			@NotEmpty
@@ -37,7 +36,7 @@ public class ScheduleDTO {
 			String title
 			) {
 		
-		private static final QSchedule qSchedule = QSchedule.schedule;
+		private static final QWorkCalendarEvent qWorkCalendarEvent = QWorkCalendarEvent.workCalendarEvent;
 		
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
@@ -51,12 +50,12 @@ public class ScheduleDTO {
 			//DateTimeExpression<LocalDateTime> monthEndDay = Expressions.asDateTime(param.with(TemporalAdjusters.lastDayOfMonth()));					
 			// LocalDateTime firstDay = param.with(TemporalAdjusters.firstDayOfMonth());																					
 			
-			builder.and(fromExpression.between(qSchedule.start, qSchedule.end)
-						.or(toExpression.between(qSchedule.start, qSchedule.end))
-						.or(qSchedule.start.between(fromExpression, toExpression))
-						.or(qSchedule.end.between(fromExpression, toExpression)));
+			builder.and(fromExpression.between(qWorkCalendarEvent.start, qWorkCalendarEvent.end)
+						.or(toExpression.between(qWorkCalendarEvent.start, qWorkCalendarEvent.end))
+						.or(qWorkCalendarEvent.start.between(fromExpression, toExpression))
+						.or(qWorkCalendarEvent.end.between(fromExpression, toExpression)));
 				
-			builder.and(inWorkgroupIds(this.changeIdType(this.fkWorkGroup)))
+			builder.and(inWorkgroupIds(this.changeIdType(this.fkWorkCalendar)))
 			       .and(likeTitle(this.title));
 											
 			return builder;
@@ -67,11 +66,11 @@ public class ScheduleDTO {
 				return null;
 			}
 			
-			return qSchedule.workGroup.id.in(ids);
+			return qWorkCalendarEvent.workCalendar.id.in(ids);
 		}
 		
 		private BooleanExpression likeTitle(String title) {
-			return hasText(title) ? qSchedule.title.like("%"+title+"%") : null;					
+			return hasText(title) ? qWorkCalendarEvent.title.like("%"+title+"%") : null;					
 		}
 		
 		/**
@@ -134,35 +133,35 @@ public class ScheduleDTO {
 			LocalDateTime end,			
 			Boolean allDay,			
 			@NotNull
-			Long workGroupId
+			Long workCalendarId
 			) {
 		
-		public Schedule newSchedule(WorkGroup workGroup) {
+		public WorkCalendarEvent newSchedule(WorkCalendar workCalendar) {
 			
-			Schedule entity = Schedule.builder()
+			WorkCalendarEvent entity = WorkCalendarEvent.builder()
 									  .title(this.text)
 									  .start(this.start)
 									  .end(this.end)
 									  .allDay(this.allDay)
-									  .workGroup(workGroup)
+									  .workCalendar(workCalendar)
 									  .build();
 			entity.setAppUrl(clientAppUrl);
 			return entity;
 		}
 		
-		public void modifySchedule(Schedule entity) {
+		public void modifySchedule(WorkCalendarEvent entity) {
 			entity.modifyEntity(text, start, end, allDay);
 			entity.setAppUrl(clientAppUrl);
 		}
 		
-		public static Form convertDTO(Schedule entity) {
+		public static Form convertDTO(WorkCalendarEvent entity) {
 			Form dto = Form.builder()
 						   .id(entity.getId())
 						   .text(entity.getTitle())
 						   .start(entity.getStart())
 						   .end(entity.getEnd())
 						   .allDay(entity.getAllDay())
-						   .workGroupId(entity.getWorkGroup().getId())
+						   .workCalendarId(entity.getWorkCalendar().getId())
 						   .build();
 															
 			return dto;
@@ -176,7 +175,7 @@ public class ScheduleDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			Long workGroupId,
+			Long workCalendarId,
 			Long id,
 			String text,
 			String color,
@@ -190,15 +189,15 @@ public class ScheduleDTO {
 			Boolean allDay
 			) {
 		
-		public static Response convert(Schedule entity) {
+		public static Response convert(WorkCalendarEvent entity) {
 			
-			WorkGroup workGroup = entity.getWorkGroup();
+			WorkCalendar workCalendar = entity.getWorkCalendar();
 			
 			Response dto = Response.builder()
-								   .workGroupId(workGroup.getId())
+								   .workCalendarId(workCalendar.getId())
 								   .id(entity.getId())
 								   .text(entity.getTitle())
-								   .color(workGroup.getColor())
+								   .color(workCalendar.getColor())
 								   .start(entity.getStart())
 								   .end(entity.getEnd())
 								   .allDay(entity.getAllDay())																							

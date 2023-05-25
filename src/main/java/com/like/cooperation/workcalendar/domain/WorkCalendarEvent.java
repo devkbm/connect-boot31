@@ -1,7 +1,6 @@
-package com.like.cooperation.workschedule.domain;
+package com.like.cooperation.workcalendar.domain;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,9 +29,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "GRWSCHEDULE")
+@Table(name = "GRWWORKCALENDAREVENT")
 @EntityListeners(AuditingEntityListener.class)
-public class Schedule extends AbstractAuditEntity {	
+public class WorkCalendarEvent extends AbstractAuditEntity {	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,20 +52,20 @@ public class Schedule extends AbstractAuditEntity {
 	
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FK_WORKGROUP", nullable=false, updatable=false)
-	WorkGroup workGroup;
+	@JoinColumn(name = "FK_WORKCALENDAR", nullable=false, updatable=false)
+	WorkCalendar workCalendar;
 
 	@Builder
-	public Schedule(String title 
-				   ,LocalDateTime start 
-				   ,LocalDateTime end 
-			       ,Boolean allDay 
-			       ,WorkGroup workGroup) {
+	public WorkCalendarEvent(String title 
+						    ,LocalDateTime start 
+						    ,LocalDateTime end 
+					        ,Boolean allDay 
+					        ,WorkCalendar workCalendar) {
 		this.title = title;
 		this.start = start;
 		this.end = end;
 		this.allDay = allDay;
-		this.workGroup = workGroup;		
+		this.workCalendar = workCalendar;		
 	}
 
 	public void modifyEntity(String title
