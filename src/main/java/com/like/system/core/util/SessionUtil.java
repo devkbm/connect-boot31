@@ -2,8 +2,8 @@ package com.like.system.core.util;
 
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 import com.like.system.login.domain.AuthenticationToken;
 
@@ -18,6 +18,10 @@ public class SessionUtil {
 	 */
 	public static String getUserId() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
+	}
+	
+	public static Authentication getAuthentication() {
+		return SecurityContextHolder.getContext().getAuthentication();
 	}
 	
 	public static AuthenticationToken getAuthenticationToken(HttpSession session) {

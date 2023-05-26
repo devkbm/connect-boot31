@@ -1,6 +1,5 @@
 package com.like.cooperation.todo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -23,11 +22,11 @@ public class TodoQueryService {
 	public List<TodoGroup> getTodoGroupList(String userId) {
 		QTodoGroup qTodoGroup = QTodoGroup.todoGroup;
 		
-		//Iterable<TodoGroup> result = repository.findAll(qTodoGroup.createdBy.createdBy.eq(userId)); 
-		List<TodoGroup> list = new ArrayList<>();
+		//Iterable<TodoGroup> result = repository.findAll(qTodoGroup.createdBy.eq(userId)); 
+		//List<TodoGroup> list = new ArrayList<>();
 		//result.forEach(e -> list.add(e));
 		
-		return list;
+		return repository.findAll(qTodoGroup.userId.eq(userId));
 	}
 		
 }

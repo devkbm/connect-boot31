@@ -13,6 +13,9 @@ import com.like.cooperation.todo.service.TodoQueryService;
 import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 public class TodoQueryController {
 
@@ -24,7 +27,9 @@ public class TodoQueryController {
 	
 	@GetMapping("/api/todo/group/mylist")
 	public ResponseEntity<?> getMyTodoGroupList() {
-										
+		
+		log.info(SessionUtil.getAuthentication().toString());
+		
 		List<TodoGroup> list = service.getTodoGroupList(SessionUtil.getUserId());			 					
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));

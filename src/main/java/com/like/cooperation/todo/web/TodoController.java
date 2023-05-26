@@ -20,6 +20,7 @@ import com.like.cooperation.todo.domain.Todo;
 import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.service.TodoCommandService;
 import com.like.system.core.message.MessageUtil;
+import com.like.system.core.util.SessionUtil;
 
 @RestController
 public class TodoController {	
@@ -33,7 +34,7 @@ public class TodoController {
 	@PostMapping("/api/todo/group/new")
 	public ResponseEntity<?> newTodoGroup() {
 										
-		TodoGroup taskGroup = taskCommandService.newDefaultTodoGroup();										
+		TodoGroup taskGroup = taskCommandService.newDefaultTodoGroup(SessionUtil.getUserId());										
 								 					
 		return toOne(taskGroup, "생성되었습니다.");
 	}

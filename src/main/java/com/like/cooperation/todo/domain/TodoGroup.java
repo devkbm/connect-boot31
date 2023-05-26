@@ -35,17 +35,24 @@ public class TodoGroup extends AbstractAuditEntity {
 	@Column(name="pk_todo_group")
 	Long pkTodoGroup;	
 	
-	@Column(name="task_group_name")
+	@Column(name="USER_ID")
+	String userId;
+	
+	@Column(name="todo_group_name")
 	String todoGroupName;		
 	
 	@OneToMany(mappedBy = "todoGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	List<Todo> todoList = new ArrayList<>();	
 	
-	public TodoGroup() {
+	public TodoGroup() {}
+	
+	public TodoGroup(String userId) {
+		this.userId = userId;
 		this.todoGroupName = DEFAULT_GROUP_NAME;
 	}
 	
-	public TodoGroup(String todoGroupName) {
+	public TodoGroup(String userId, String todoGroupName) {
+		this.userId = userId;
 		this.todoGroupName = todoGroupName;
 	}
 	

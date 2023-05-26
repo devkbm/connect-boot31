@@ -18,8 +18,8 @@ public class TodoCommandService {
 		this.repository = repository;		
 	}
 	
-	public TodoGroup newDefaultTodoGroup() {
-		TodoGroup taskGroup = new TodoGroup();
+	public TodoGroup newDefaultTodoGroup(String userId) {
+		TodoGroup taskGroup = new TodoGroup(userId);
 		repository.save(taskGroup);
 		
 		return taskGroup;
