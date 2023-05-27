@@ -17,11 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class TodoQueryController {
+public class TodoGroupQueryController {
 
 	private TodoQueryService service;
 	
-	public TodoQueryController(TodoQueryService service) {
+	public TodoGroupQueryController(TodoQueryService service) {
 		this.service = service;
 	}
 	

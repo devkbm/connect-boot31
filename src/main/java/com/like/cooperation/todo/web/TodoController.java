@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.cooperation.todo.boundary.TodoDTO;
 import com.like.cooperation.todo.domain.Todo;
-import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.cooperation.todo.service.TodoCommandService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.core.util.SessionUtil;
 
 @RestController
 public class TodoController {	
@@ -29,31 +27,7 @@ public class TodoController {
 
 	public TodoController(TodoCommandService taskCommandService) {		
 		this.taskCommandService = taskCommandService;
-	}		
-		
-	@PostMapping("/api/todo/group/new")
-	public ResponseEntity<?> newTodoGroup() {
-										
-		TodoGroup taskGroup = taskCommandService.newDefaultTodoGroup(SessionUtil.getUserId());										
-								 					
-		return toOne(taskGroup, "생성되었습니다.");
-	}
-		
-	@PostMapping("/api/todo/group")
-	public ResponseEntity<?> saveTodoGroup(@RequestBody @Valid TodoDTO.FormTodoGroup dto) {								
-			
-		taskCommandService.saveTodoGroup(dto);
-																				 			
-		return toList(null, MessageUtil.getSaveMessage(1));
-	}
-		
-	@DeleteMapping("/api/todo/group/{id}")
-	public ResponseEntity<?> deleteTodoGroup(@PathVariable Long id) {							
-			
-		taskCommandService.deleteTodoGroup(id);
-											 				
-		return toList(null, MessageUtil.getDeleteMessage(1));
-	}
+	}				
 		
 	@GetMapping("/api/todo/group/{id}/list")
 	public ResponseEntity<?> getTodoList(@PathVariable Long id) {				
