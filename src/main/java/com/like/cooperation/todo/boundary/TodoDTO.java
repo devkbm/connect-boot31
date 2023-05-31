@@ -62,6 +62,8 @@ public class TodoDTO {
 		
 	@Builder
 	public static record FormTodo(
+			String clientAppUrl,
+			String organizationCode,
 			Long pkTodoGroup,
 			Long pkTodo,
 			String todo,
@@ -71,16 +73,22 @@ public class TodoDTO {
 			) {
 		
 		public Todo newEntity(TodoGroup todoGroup) {
-			return Todo.builder()
-					   .todoGroup(todoGroup)
-					   .todo(todo)
-					   .dueDate(dueDate)
-					   .comments(comments)
-					   .build();	
+			Todo entity = Todo.builder()
+							  .todoGroup(todoGroup)
+							  .todo(todo)
+							  .dueDate(dueDate)
+							  .comments(comments)
+							  .build();
+			
+			entity.setAppUrl(clientAppUrl);
+			
+			return entity;	
 		}
 		
 		public void modifyEntity(Todo entity) {
 			entity.modify(todo, isCompleted, dueDate, comments);
+			
+			entity.setAppUrl(clientAppUrl);
 		}
 		
 		public static FormTodo convert(Todo entity) {
