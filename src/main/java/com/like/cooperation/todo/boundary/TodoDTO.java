@@ -1,6 +1,7 @@
 package com.like.cooperation.todo.boundary;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.util.StringUtils;
 
@@ -16,7 +17,9 @@ import lombok.Builder;
 
 public class TodoDTO {
 
-	public record FormTodoGroup(
+	public record FormTodoGroup(			
+			String clientAppUrl,
+			String organizationCode,
 			Long pkTodoGroup,
 			String todoGroupName
 			) {
