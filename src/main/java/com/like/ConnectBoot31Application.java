@@ -25,6 +25,7 @@ public class ConnectBoot31Application {
 	@Bean
 	public JPAQueryFactory queryFactory() {
 		return new JPAQueryFactory(em);
+		
 	}
 	
 	@PostConstruct
