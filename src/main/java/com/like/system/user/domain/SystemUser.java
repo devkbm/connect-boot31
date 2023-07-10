@@ -50,11 +50,16 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	@Column(name="USER_ID")
 	String id;
 	
+	@Embedded
+	SystemUserId systemUserId;
+	
+	/*
 	@Column(name="ORG_CD")
 	String organizationCode;
 	
 	@Column(name="STAFF_NO")
 	String staffNo;
+	*/
 	
 	@Column(name="USER_NAME")
 	String name;
@@ -106,8 +111,9 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 					 ,Set<Authority> authorities
 					 ,Set<MenuGroup> menuGroupList) {		
 		this.id = organizationCode + staffNo;
-		this.organizationCode = organizationCode;
-		this.staffNo = staffNo;
+		this.systemUserId = new SystemUserId(organizationCode, staffNo);
+		//this.organizationCode = organizationCode;
+		//this.staffNo = staffNo;
 		this.name = name;		
 		this.password = password;
 		this.dept = dept;
@@ -129,8 +135,9 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 							,Dept dept
 							,Set<Authority> authorities
 							,Set<MenuGroup> menuGroupList) {
-		this.organizationCode = organizationCode;
-		this.staffNo = staffNo;
+		this.systemUserId = new SystemUserId(organizationCode, staffNo);
+		//this.organizationCode = organizationCode;
+		//this.staffNo = staffNo;
 		this.name = name;						
 		this.mobileNum = mobileNum;
 		this.email = email;		
