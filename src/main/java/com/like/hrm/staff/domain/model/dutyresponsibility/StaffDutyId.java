@@ -22,16 +22,19 @@ public class StaffDutyId implements Serializable {
 	
 	private static final long serialVersionUID = -1176225352272330423L;
 	
-	@Comment("직원ID")
-	@Column(name="STAFF_ID")
-	String staff;
+	@Column(name="ORG_CD")
+	String organizationCode;
+		
+	@Column(name="STAFF_NO")
+	String staffNo;
 		
 	@Comment("등록순번")
 	@Column(name="SEQ")
 	Long seq;
 	
 	public StaffDutyId(Staff staff, Long seq) {
-		this.staff = staff.getId();
+		this.organizationCode = staff.getId().getOrganizationCode();
+		this.staffNo = staff.getId().getStaffNo();
 		this.seq = seq;
 	}
 }

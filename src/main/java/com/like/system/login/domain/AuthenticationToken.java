@@ -63,10 +63,10 @@ public class AuthenticationToken implements Serializable {
     	    	
     	return AuthenticationToken
 				.builder()
-				.organizationCode(user.getSystemUserId().getOrganizationCode())
+				.organizationCode(user.getStaffId().getOrganizationCode())
 				.userId(user.getUsername())
 				.userName(user.getName())				
-				.staffNo(user.getSystemUserId().getStaffNo())
+				.staffNo(user.getStaffId().getStaffNo())
 				.email(user.getEmail())
 				.imageUrl(user.getImage())
 				.ipAddress(ipAddress)

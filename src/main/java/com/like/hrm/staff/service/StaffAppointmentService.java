@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.staff.boundary.AppointmentRecordDTO;
 import com.like.hrm.staff.domain.model.Staff;
+import com.like.hrm.staff.domain.model.StaffId;
 import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
@@ -21,18 +22,18 @@ public class StaffAppointmentService {
 		this.repository = repository;		
 	}
 	
-	public AppointmentRecordList getAppointmentRecord(String staffId) {
-		return findStaff(staffId).getAppointmentRecordList();
+	public AppointmentRecordList getAppointmentRecord(String organizationCode, String staffNo) {
+		return findStaff(organizationCode, staffNo).getAppointmentRecordList();
 	}
 	
-	public AppointmentRecord getAppointmentRecord(String staffId, Long seq) {
-		Staff staff = findStaff(staffId);
+	public AppointmentRecord getAppointmentRecord(String organizationCode, String staffNo, Long seq) {
+		Staff staff = findStaff(organizationCode, staffNo);
 		
 		return staff.getAppointmentRecordList().get(staff, seq);	
 	}
 	
 	public void saveAppointmentRecord(AppointmentRecordDTO.FormStaffAppointmentRecord dto) {
-		Staff staff = findStaff(dto.staffId());		
+		Staff staff = findStaff(dto.organizationCode(), dto.staffNo());		
 		AppointmentRecord entity = staff.getAppointmentRecordList().get(staff, dto.seq());
 		
 		if (entity == null) {
@@ -47,16 +48,16 @@ public class StaffAppointmentService {
 		repository.save(staff);
 	}	
 	
-	public void applyAppointmentRecord(String staffId, Long seq) {
-		Staff staff = findStaff(staffId);
+	public void applyAppointmentRecord(String organizationCode, String staffId, Long seq) {
+		Staff staff = findStaff(organizationCode, staffId);
 		AppointmentRecord entity = staff.getAppointmentRecordList().get(staff, seq);
 		
 		staff.applyAppointmentRecord(entity);					
 	}
 	
-	private Staff findStaff(String staffId) {
-		return repository.findById(staffId)
-						 .orElseThrow(() -> new EntityNotFoundException(staffId + " 직원번호가 존재하지 않습니다."));
+	private Staff findStaff(String organizationCode, String staffNo) {
+		return repository.findById(new StaffId(organizationCode, staffNo))
+						 .orElseThrow(() -> new EntityNotFoundException(staffNo + " 직원번호가 존재하지 않습니다."));
 	}
 		
 }

@@ -13,8 +13,7 @@ public class StaffDutyResponsibilityDTO {
 	@Builder(access = AccessLevel.PRIVATE)
 	public static record Form(
 			String clientAppUrl,
-			String organizationCode,
-			String staffId,
+			String organizationCode,			
 			String staffNo,
 			String staffName,
 			Long seq,
@@ -57,8 +56,8 @@ public class StaffDutyResponsibilityDTO {
 			if (entity == null) return null;
 			
 			return Form.builder()
-					   .staffId(entity.getStaff().getId())
-					   .staffNo(entity.getStaff().getStaffNo())
+					   .organizationCode(entity.getStaff().getId().getOrganizationCode())
+					   .staffNo(entity.getStaff().getId().getStaffNo())
 					   .staffName(entity.getStaff().getName().getName())
 					   .seq(entity.getId().getSeq())
 					   .dutyResponsibilityCode(entity.getDutyResponsibilityCode())

@@ -51,7 +51,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	String id;
 	
 	@Embedded
-	SystemUserId systemUserId;
+	StaffId staffId;
 	
 	/*
 	@Column(name="ORG_CD")
@@ -111,7 +111,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 					 ,Set<Authority> authorities
 					 ,Set<MenuGroup> menuGroupList) {		
 		this.id = organizationCode + staffNo;
-		this.systemUserId = new SystemUserId(organizationCode, staffNo);
+		this.staffId = new StaffId(organizationCode, staffNo);
 		//this.organizationCode = organizationCode;
 		//this.staffNo = staffNo;
 		this.name = name;		
@@ -135,7 +135,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 							,Dept dept
 							,Set<Authority> authorities
 							,Set<MenuGroup> menuGroupList) {
-		this.systemUserId = new SystemUserId(organizationCode, staffNo);
+		this.staffId = new StaffId(organizationCode, staffNo);
 		//this.organizationCode = organizationCode;
 		//this.staffNo = staffNo;
 		this.name = name;						

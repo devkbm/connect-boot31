@@ -20,16 +20,19 @@ public class AppointmentRecordId implements Serializable {
 	
 	private static final long serialVersionUID = -9052607243196727987L;
 
-	@Comment("직원ID")
-	@Column(name="STAFF_ID")
-	String staffId;
+	@Column(name="ORG_CD")
+	String organizationCode;
+		
+	@Column(name="STAFF_NO")
+	String staffNo;
 	
 	@Comment("등록순번")
 	@Column(name="SEQ")
 	Long seq;
 	
 	public AppointmentRecordId(Staff staff, Long seq) {
-		this.staffId = staff.getId();
+		this.organizationCode = staff.getId().getOrganizationCode();
+		this.staffNo = staff.getId().getStaffNo();
 		this.seq = seq;
 	}
 }

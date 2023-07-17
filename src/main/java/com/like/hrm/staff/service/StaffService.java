@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.staff.boundary.StaffDTO;
 import com.like.hrm.staff.domain.model.Staff;
+import com.like.hrm.staff.domain.model.StaffId;
 import com.like.hrm.staff.domain.model.StaffName;
 import com.like.hrm.staff.domain.model.StaffNoCreateStrategy;
 import com.like.hrm.staff.domain.model.StaffRepository;
@@ -21,8 +22,8 @@ public class StaffService {
 		this.repository = repository;
 	}	
 	
-	public Staff getStaff(String id) {
-		return repository.findById(id).orElse(null);
+	public Staff getStaff(String organizationCode, String staffNo) {
+		return repository.findById(new StaffId(organizationCode, staffNo)).orElse(null);
 	}
 	
 	public void saveStaff(Staff staff) {				
@@ -30,7 +31,7 @@ public class StaffService {
 	}
 	
 	public void saveStaff(StaffDTO.FormStaff dto) {
-		Staff staff = this.getStaff(dto.staffId());
+		Staff staff = this.getStaff(dto.organizationCode(), dto.staffNo());
 		
 		dto.modifyEntity(staff);
 		
@@ -38,7 +39,7 @@ public class StaffService {
 	}
 	
 	public void newStaff(StaffDTO.NewStaff dto) {		
-		if (isExistStaff(dto.getStaffId())) throw new EntityExistsException("동일 직원번호가 존재합니다 : " + dto.getStaffId());
+		if (isExistStaff(dto.organizationCode(), dto.staffNo())) throw new EntityExistsException("동일 직원번호가 존재합니다 : " + dto.getStaffId());
 
 		StaffNoCreateStrategy strategy = () -> dto.staffNo();
 		
@@ -50,12 +51,12 @@ public class StaffService {
 		repository.save(staff);
 	}
 	
-	public void deleteStaff(String id) {		
-		repository.deleteById(id);
+	public void deleteStaff(String organizationCode, String staffNo) {		
+		repository.deleteById(new StaffId(organizationCode, staffNo));
 	}
 		
-	private boolean isExistStaff(String id) {
-		return repository.findById(id).isPresent();
+	private boolean isExistStaff(String organizationCode, String staffNo) {
+		return repository.findById(new StaffId(organizationCode, staffNo)).isPresent();
 	}
 		
 }

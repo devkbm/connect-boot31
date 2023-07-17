@@ -44,11 +44,11 @@ public class SystemUserDTO {
 		}
 		
 		private BooleanExpression eqOrganizationCode(String organizationCode) {
-			return qType.systemUserId.organizationCode.eq(organizationCode);
+			return qType.staffId.organizationCode.eq(organizationCode);
 		}
 				
 		private BooleanExpression likeStaffNo(String staffNo) {
-			return hasText(staffNo) ? qType.systemUserId.staffNo.like("%"+staffNo+"%") : null;					
+			return hasText(staffNo) ? qType.staffId.staffNo.like("%"+staffNo+"%") : null;					
 		}
 		
 		private BooleanExpression likeUserName(String name) {
@@ -128,9 +128,9 @@ public class SystemUserDTO {
 			Optional<Dept> dept = Optional.ofNullable(entity.getDept());			
 			
 			FormSystemUser dto = FormSystemUser.builder()								
-											   .organizationCode(entity.getSystemUserId().getOrganizationCode())
+											   .organizationCode(entity.getStaffId().getOrganizationCode())
 											   .userId(entity.getId())
-											   .staffNo(entity.getSystemUserId().getStaffNo())
+											   .staffNo(entity.getStaffId().getStaffNo())
 											   .name(entity.getName())												   
 											   .deptId(dept.map(Dept::getDeptId).orElse(""))
 											   //.deptName(""))

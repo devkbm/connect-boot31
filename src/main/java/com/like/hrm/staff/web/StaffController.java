@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.StaffDTO;
@@ -27,9 +28,9 @@ public class StaffController {
 	}		
 	
 	@GetMapping("/api/hrm/staff/{id}")
-	public ResponseEntity<?> getStaff(@PathVariable String id) {
+	public ResponseEntity<?> getStaff(@RequestParam String organizationCode, @PathVariable String id) {
 								
-		StaffDTO.ResponseStaff dto = StaffDTO.ResponseStaff.convert(staffService.getStaff(id)); 
+		StaffDTO.ResponseStaff dto = StaffDTO.ResponseStaff.convert(staffService.getStaff(organizationCode, id)); 
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
@@ -51,9 +52,9 @@ public class StaffController {
 	}
 	
 	@DeleteMapping("/api/hrm/staff/{id}")
-	public ResponseEntity<?> deleteStaff(@PathVariable String id) {
+	public ResponseEntity<?> deleteStaff(@RequestParam String organizationCode, @PathVariable String id) {
 								
-		staffService.deleteStaff(id); 
+		staffService.deleteStaff(organizationCode, id); 
 		
 		return toOne(null,"직원번호 : %s , 삭제되었습니다.".formatted(id));
 	}

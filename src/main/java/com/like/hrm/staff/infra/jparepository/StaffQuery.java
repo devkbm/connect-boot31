@@ -39,7 +39,7 @@ public class StaffQuery implements StaffQueryRepository {
 	}
 	
 	@Override
-	public List<ResponseStaffAppointmentRecord> getStaffAppointmentRecordList(String staffId) {		
+	public List<ResponseStaffAppointmentRecord> getStaffAppointmentRecordList(String organizationCode, String staffNo) {		
 		
 		QDept blngDeptCode = QDept.dept;
 		QDept workDeptCode = new QDept("workDeptCode");
@@ -67,10 +67,10 @@ public class StaffQuery implements StaffQueryRepository {
 						   .join(qAppointmentRecord)
 						   		.on(qStaff.id.eq(qAppointmentRecord.staff.id))
 						   .leftJoin(blngDeptCode)
-						   		.on(blngDeptCode.organizationCode.eq(qStaff.organizationCode)
+						   		.on(blngDeptCode.organizationCode.eq(qStaff.id.organizationCode)
 						   		.and(blngDeptCode.deptCode.eq(qAppointmentRecord.info.blngDeptCode)))
 					   	   .leftJoin(workDeptCode)
-					   			.on(workDeptCode.organizationCode.eq(qStaff.organizationCode)
+					   			.on(workDeptCode.organizationCode.eq(qStaff.id.organizationCode)
 					   			.and(workDeptCode.deptCode.eq(qAppointmentRecord.info.workDeptCode)))
 						   .leftJoin(jobGroupCode)
 						   		.on(jobGroupCode.id.typeId.eq("HR0001")
@@ -93,12 +93,13 @@ public class StaffQuery implements StaffQueryRepository {
 						   .leftJoin(dutyResponsibilityCode)
 						   		.on(dutyResponsibilityCode.id.typeId.eq("HR0007")
 						   		.and(qAppointmentRecord.info.dutyResponsibilityCode.eq(dutyResponsibilityCode.id.code)))
-						   .where(qStaff.id.eq(staffId))
+						   .where(qStaff.id.organizationCode.eq(organizationCode)
+							 .and(qStaff.id.staffNo.eq(staffNo)))
 						   .fetch();
 	}
 	
 	@Override
-	public ResponseStaffCurrentAppointment getStaffCurrentAppointment(String staffId) {
+	public ResponseStaffCurrentAppointment getStaffCurrentAppointment(String organizationCode, String staffNo) {
 
 		QDept blngDeptCode = QDept.dept;
 		QDept workDeptCode = new QDept("workDeptCode");
@@ -121,10 +122,10 @@ public class StaffQuery implements StaffQueryRepository {
 											 ,jobCode))
 					.from(qStaff)				
 					.leftJoin(blngDeptCode)
-						.on(blngDeptCode.organizationCode.eq(qStaff.organizationCode)
+						.on(blngDeptCode.organizationCode.eq(qStaff.id.organizationCode)
 			   			.and(blngDeptCode.deptCode.eq(qStaff.currentAppointment.blngDeptCode)))
 					.leftJoin(workDeptCode)
-			   			.on(workDeptCode.organizationCode.eq(qStaff.organizationCode)
+			   			.on(workDeptCode.organizationCode.eq(qStaff.id.organizationCode)
 			   			.and(workDeptCode.deptCode.eq(qStaff.currentAppointment.workDeptCode)))
 			   		.leftJoin(jobGroupCode)
 				   		.on(jobGroupCode.id.typeId.eq("HR0001")
@@ -144,12 +145,13 @@ public class StaffQuery implements StaffQueryRepository {
 				   	.leftJoin(jobCode)
 				   		.on(jobCode.id.typeId.eq("HR0006")
 				   		.and(qStaff.currentAppointment.jobCode.eq(jobCode.id.code)))				   
-				   	.where(qStaff.id.eq(staffId))
+				   	.where(qStaff.id.organizationCode.eq(organizationCode)
+					  .and(qStaff.id.staffNo.eq(staffNo)))
 				   	.fetchFirst();
 	}
 	
 	@Override
-	public List<ResponseStaffDutyResponsibility> getStaffDutyResponsibility(String staffId) {
+	public List<ResponseStaffDutyResponsibility> getStaffDutyResponsibility(String organizationCode, String staffNo) {
 		QHrmCode dutyResponsibilityCode = new QHrmCode("dutyResponsibilityCode");
 		
 		return queryFactory.select(pro(qStaff, qStaffDuty, dutyResponsibilityCode))
@@ -174,31 +176,32 @@ public class StaffQuery implements StaffQueryRepository {
 											, QHrmCode jobCode
 											, QHrmCode dutyResponsibilityCode) {
 		
-		return new QResponseStaffAppointmentRecord(QStaff.staff.id
-											   ,qRecord.id.seq
-											   ,qRecord.appointmentDate
-											   ,qRecord.appointmentEndDate
-											   ,qRecord.recordName
-											   ,qRecord.comment
-											   ,qRecord.isCompleted
-											   ,qRecord.info.blngDeptCode
-											   ,blngDeptCode.deptNameKorean
-											   ,qRecord.info.workDeptCode
-											   ,workDeptCode.deptNameKorean
-											   ,qRecord.info.jobGroupCode
-											   ,jobGroupCode.codeName
-											   ,qRecord.info.jobPositionCode
-											   ,jobPositionCode.codeName
-											   ,qRecord.info.occupationCode
-											   ,occupationCode.codeName
-											   ,qRecord.info.jobGradeCode
-											   ,jobGradeCode.codeName
-											   ,qRecord.info.payStepCode
-											   ,payStepCode.codeName
-											   ,qRecord.info.jobCode
-											   ,jobCode.codeName
-											   ,qRecord.info.dutyResponsibilityCode
-											   ,dutyResponsibilityCode.codeName);
+		return new QResponseStaffAppointmentRecord(qStaff.id.organizationCode
+											   	  ,qStaff.id.staffNo
+												  ,qRecord.id.seq
+												  ,qRecord.appointmentDate
+												  ,qRecord.appointmentEndDate
+												  ,qRecord.recordName
+												  ,qRecord.comment
+												  ,qRecord.isCompleted
+												  ,qRecord.info.blngDeptCode
+												  ,blngDeptCode.deptNameKorean
+												  ,qRecord.info.workDeptCode
+												  ,workDeptCode.deptNameKorean
+												  ,qRecord.info.jobGroupCode
+												  ,jobGroupCode.codeName
+												  ,qRecord.info.jobPositionCode
+												  ,jobPositionCode.codeName
+												  ,qRecord.info.occupationCode
+												  ,occupationCode.codeName
+												  ,qRecord.info.jobGradeCode
+												  ,jobGradeCode.codeName
+												  ,qRecord.info.payStepCode
+												  ,payStepCode.codeName
+												  ,qRecord.info.jobCode
+												  ,jobCode.codeName
+												  ,qRecord.info.dutyResponsibilityCode
+												  ,dutyResponsibilityCode.codeName);
 	}
 
 	
@@ -211,9 +214,8 @@ public class StaffQuery implements StaffQueryRepository {
 													   ,QHrmCode jobGradeCode
 													   ,QHrmCode payStepCode
 													   ,QHrmCode jobCode) {
-		return new QResponseStaffCurrentAppointment(qStaff.id
-												   ,qStaff.organizationCode
-												   ,qStaff.staffNo
+		return new QResponseStaffCurrentAppointment(qStaff.id.organizationCode
+												   ,qStaff.id.staffNo
 												   ,qStaff.currentAppointment.blngDeptCode
 												   ,blngDeptCode.deptNameKorean
 												   ,qStaff.currentAppointment.workDeptCode
@@ -245,8 +247,8 @@ public class StaffQuery implements StaffQueryRepository {
 	 */
 	
 	private QResponseStaffDutyResponsibility pro(QStaff qStaff, QStaffDuty qStaffDuty, QHrmCode dutyResponsibilityCode) {
-		return new QResponseStaffDutyResponsibility(qStaff.id
-												   ,qStaff.staffNo
+		return new QResponseStaffDutyResponsibility(qStaff.id.organizationCode
+												   ,qStaff.id.staffNo
 												   ,qStaff.name.name
 												   ,qStaffDuty.id.seq
 												   ,dutyResponsibilityCode.id.code

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.staff.boundary.LicenseDTO;
 import com.like.hrm.staff.domain.model.Staff;
+import com.like.hrm.staff.domain.model.StaffId;
 import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.license.StaffLicense;
 
@@ -22,21 +23,21 @@ public class StaffLicenseService {
 		this.repository = repository;	
 	}
 	
-	public List<StaffLicense> getLicenseList(String staffId) {
-		Staff staff = findStaff(staffId);
+	public List<StaffLicense> getLicenseList(String organizationCode, String staffNo) {
+		Staff staff = findStaff(organizationCode, staffNo);
 		
 		return staff.getLicenseList().getStream().toList();
 	}
 	
 	
-	public StaffLicense getLicense(String staffId, Long seq) {
-		Staff staff = findStaff(staffId);
+	public StaffLicense getLicense(String organizationCode, String staffNo, Long seq) {
+		Staff staff = findStaff(organizationCode, staffNo);
 						
 		return staff.getLicenseList().get(staff, seq);
 	}
 	
 	public void saveLicense(LicenseDTO.Form dto) {
-		Staff staff = findStaff(dto.staffId());		
+		Staff staff = findStaff(dto.organizationCode(), dto.staffNo());		
 		StaffLicense license = staff.getLicenseList().get(staff, dto.seq());
 		
 		if (license == null) {
@@ -50,14 +51,14 @@ public class StaffLicenseService {
 		repository.save(staff);
 	}
 	
-	public void deleteLicense(String staffId, Long seq) {
-		Staff staff = findStaff(staffId);
+	public void deleteLicense(String organizationCode, String staffNo, Long seq) {
+		Staff staff = findStaff(organizationCode, staffNo);
 		
 		staff.getLicenseList().remove(staff, seq);
 	}
 	
-	private Staff findStaff(String staffId) {
-		return repository.findById(staffId)
-				 .orElseThrow(() -> new EntityNotFoundException(staffId + " 직원번호가 존재하지 않습니다."));
+	private Staff findStaff(String organizationCode, String staffNo) {
+		return repository.findById(new StaffId(organizationCode, staffNo))
+				 .orElseThrow(() -> new EntityNotFoundException(staffNo + " 직원번호가 존재하지 않습니다."));
 	}
 }

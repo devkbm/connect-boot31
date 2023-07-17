@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.LicenseDTO;
@@ -30,9 +31,9 @@ public class StaffLicenseController {
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/license")
-	public ResponseEntity<?> getLicense(@PathVariable String staffId) {
+	public ResponseEntity<?> getLicense(@RequestParam String organizationCode, @PathVariable String staffId) {
 						
-		List<LicenseDTO.Form> list = service.getLicenseList(staffId)
+		List<LicenseDTO.Form> list = service.getLicenseList(organizationCode, staffId)
 										    .stream()
 										    .map(e -> LicenseDTO.Form.convert(e))
 										    .toList();
@@ -41,10 +42,11 @@ public class StaffLicenseController {
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/license/{id}")
-	public ResponseEntity<?> getLicense(@PathVariable String staffId,
-										@PathVariable Long id) {
+	public ResponseEntity<?> getLicense(@RequestParam String organizationCode
+									   ,@PathVariable String staffId
+									   ,@PathVariable Long id) {
 				
-		StaffLicense license = service.getLicense(staffId, id);
+		StaffLicense license = service.getLicense(organizationCode, staffId, id);
 		
 		LicenseDTO.Form dto = LicenseDTO.Form.convert(license); 
 		
@@ -60,10 +62,11 @@ public class StaffLicenseController {
 	}
 	
 	@DeleteMapping("/api/hrm/staff/{staffId}/license/{seq}")
-	public ResponseEntity<?> deleteFamily(@PathVariable String staffId
+	public ResponseEntity<?> deleteFamily(@RequestParam String organizationCode
+										 ,@PathVariable String staffId
 									     ,@PathVariable Long seq) {
 						
-		service.deleteLicense(staffId, seq);  									
+		service.deleteLicense(organizationCode, staffId, seq);  									
 		
 		return toOne(null, MessageUtil.getDeleteMessage(1));									
 	}

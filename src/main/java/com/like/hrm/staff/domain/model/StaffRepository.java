@@ -5,5 +5,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StaffRepository extends JpaRepository<Staff, String>, QuerydslPredicateExecutor<Staff> {			
+public interface StaffRepository extends JpaRepository<Staff, StaffId>, QuerydslPredicateExecutor<Staff> {			
 }

@@ -18,8 +18,7 @@ public class AppointmentRecordDTO {
 	public static record FormStaffAppointmentRecord(
 			String clientAppUrl,
 			String organizationCode,
-			@NotEmpty
-			String staffId,
+			@NotEmpty			
 			String staffNo,
 			String staffName,			
 			Long seq,
@@ -61,9 +60,8 @@ public class AppointmentRecordDTO {
 
 			Optional<AppointmentInformation> info = Optional.ofNullable(entity.getInfo());
 			
-			return FormStaffAppointmentRecord.builder()
-											 .staffId(entity.getStaff().getId())
-											 .staffNo(entity.getStaff().getStaffNo())
+			return FormStaffAppointmentRecord.builder()											 
+											 .staffNo(entity.getStaff().getId().getStaffNo())
 											 .staffName(entity.getStaff().getName().getName())
 											 .seq(entity.getId().getSeq())
 											 .appointmentDate(entity.getAppointmentDate())

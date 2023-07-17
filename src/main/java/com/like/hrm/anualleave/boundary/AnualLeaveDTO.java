@@ -10,8 +10,9 @@ import com.like.hrm.staff.domain.model.Staff;
 public class AnualLeaveDTO {
 
 	public record SaveAnualLeave(
-			Integer yyyy,
-			String staffId,
+			String organizationCode,
+			String staffNo,
+			Integer yyyy,			
 			LocalDate base,
 			LocalDate from,
 			LocalDate to,
@@ -23,17 +24,19 @@ public class AnualLeaveDTO {
 			String comment
 			) {
 		
-		public SaveAnualLeave {		
-			Objects.requireNonNull(yyyy);		        
-			Objects.requireNonNull(staffId);			
+		public SaveAnualLeave {
+			Objects.requireNonNull(organizationCode);
+			Objects.requireNonNull(staffNo);
+			Objects.requireNonNull(yyyy);		        						
 		}
 		
 		public static SaveAnualLeave convertDTO(AnualLeave e) {
 			if (e == null) return null;
 			
 			AnualLeaveId id = e.getId();			
-			return new SaveAnualLeave(id.getYyyy()
-									 ,id.getStaffId() 
+			return new SaveAnualLeave(id.getOrganizationCode()
+									 ,id.getStaffNo()
+									 ,id.getYyyy()									  
 									 ,e.getBase()
 									 ,e.getFrom()
 									 ,e.getTo()

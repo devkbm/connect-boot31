@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
@@ -39,6 +40,10 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 
 	private static final long serialVersionUID = -3164713918774455925L;
 	
+	@EmbeddedId
+	StaffId id;
+	
+	/*
 	@Id
 	@Comment("직원ID")
 	@Column(name="STAFF_ID")
@@ -49,6 +54,7 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 	
 	@Column(name="STAFF_NO")
 	String staffNo;
+	*/
 		
 	@Embedded
 	StaffName name;
@@ -97,9 +103,10 @@ public class Staff extends AbstractAuditEntity implements Serializable {
 	StaffLicenseList licenseList;			
 			
 	public Staff(String organizationCode, StaffNoCreateStrategy strategy, StaffName name, String residentRegistrationNumber) {
-		this.id 						= organizationCode + "_" + strategy.create();
-		this.organizationCode 			= organizationCode;
-		this.staffNo					= strategy.create();
+		this.id 						= new StaffId(organizationCode, strategy.create());
+		//this.id 						= organizationCode + "_" + strategy.create();
+		//this.organizationCode 			= organizationCode;
+		//this.staffNo					= strategy.create();
 		this.name 						= name; 
 		this.residentRegistrationNumber = ResidentRegistrationNumber.of(residentRegistrationNumber);
 		this.gender 					= this.residentRegistrationNumber.getGender();

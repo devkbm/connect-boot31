@@ -51,7 +51,7 @@ public class StaffDTO {
 		}
 		
 		private BooleanExpression likeId(String id) {
-			return hasText(id) ? qStaff.id.like("%"+id+"%") : null;					
+			return hasText(id) ? qStaff.id.staffNo.like("%"+id+"%") : null;					
 		}
 		
 		private BooleanExpression likeName(String name) {
@@ -78,8 +78,7 @@ public class StaffDTO {
 		
 	}
 		
-	public record ResponseStaff(
-			String staffId,
+	public record ResponseStaff(			
 			String organizationCode,
 			String staffNo,
 			String name,
@@ -97,9 +96,8 @@ public class StaffDTO {
 			
 			var name = entity.getName();
 			
-			return new ResponseStaff(entity.getId()
-									,entity.getOrganizationCode()
-									,entity.getStaffNo()
+			return new ResponseStaff(entity.getId().getOrganizationCode()
+									,entity.getId().getStaffNo()
 								   	,name.getName()
 								   	,name.getNameEng()
 								   	,name.getNameChi()
@@ -113,8 +111,9 @@ public class StaffDTO {
 			
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	public record FormStaff(
+			String organizationCode,
 			@NotEmpty(message = "직원번호는 필수 입력 값입니다.")
-			String staffId,
+			String staffNo,
 			String name,
 			String nameEng,
 			String nameChi,
@@ -131,9 +130,8 @@ public class StaffDTO {
 	@Builder(access = AccessLevel.PRIVATE)
 	public static record FormContact(
 			String clientAppUrl,
-			String organizationCode,			
-			@NotEmpty String staffId,
-			String staffNo,
+			String organizationCode,						
+			@NotEmpty String staffNo,
 			String staffName,
 			String homeAddressType,
 			String homePostNumber,
@@ -152,7 +150,8 @@ public class StaffDTO {
 			Optional<StaffContact> contact = Optional.ofNullable(entity.getContact());
 								
 			return FormContact.builder()
-					 		  .staffId(entity.getId())
+							  .organizationCode(entity.getId().getOrganizationCode())	
+					 		  .staffNo(entity.getId().getStaffNo())
 					 		  .homeAddressType(contact.map(StaffContact::getHome).map(Address::getAddress_type).orElse(null))
 					 		  .homePostNumber(contact.map(StaffContact::getHome).map(Address::getPost_number).orElse(null))
 					 		  .homeMainAddress(contact.map(StaffContact::getHome).map(Address::getMain_address).orElse(null))

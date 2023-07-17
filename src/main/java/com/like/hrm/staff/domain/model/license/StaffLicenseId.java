@@ -1,7 +1,6 @@
 package com.like.hrm.staff.domain.model.license;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -21,35 +20,20 @@ public class StaffLicenseId implements Serializable {
 	
 	private static final long serialVersionUID = -2126754308967909563L;
 
-	@Comment("직원ID")
-	@Column(name="STAFF_ID")
-	String staffId;
+	@Column(name="ORG_CD")
+	String organizationCode;
+		
+	@Column(name="STAFF_NO")
+	String staffNo;
 		
 	@Comment("등록순번")
 	@Column(name="SEQ")
 	Long seq;	
 	
 	public StaffLicenseId(Staff staff, Long seq) {
-		this.staffId = staff.getId();
+		this.organizationCode = staff.getId().getOrganizationCode();
+		this.staffNo = staff.getId().getStaffNo();
 		this.seq = seq;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(seq, staffId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		StaffLicenseId other = (StaffLicenseId) obj;
-		return Objects.equals(seq, other.seq) && Objects.equals(staffId, other.staffId);
-	}
-	
+	}	
 	
 }

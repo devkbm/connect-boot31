@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseStaffDutyResponsibility {
-
-	String staffId;
+	
+	String organizationCode;
 	String staffNo;
 	String staffName;
 	Long seq;
@@ -23,7 +23,7 @@ public class ResponseStaffDutyResponsibility {
 	Boolean isPayApply;
 		
 	@QueryProjection
-	public ResponseStaffDutyResponsibility(String staffId
+	public ResponseStaffDutyResponsibility(String organizationCode
 										  ,String staffNo
 										  ,String staffName
 										  ,Long seq
@@ -32,7 +32,7 @@ public class ResponseStaffDutyResponsibility {
 										  ,LocalDate fromDate
 										  ,LocalDate toDate
 										  ,Boolean isPayApply) {		
-		this.staffId = staffId;
+		this.organizationCode = organizationCode;
 		this.staffNo = staffNo;
 		this.staffName = staffName;
 		this.seq = seq;

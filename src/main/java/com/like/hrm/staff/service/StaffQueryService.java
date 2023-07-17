@@ -26,15 +26,15 @@ public class StaffQueryService {
 		return repository.getStaffList(dto);
 	}
 	
-	public List<ResponseStaffAppointmentRecord> getStaffAppointmentRecordList(String staffId) {
-		return repository.getStaffAppointmentRecordList(staffId);
+	public List<ResponseStaffAppointmentRecord> getStaffAppointmentRecordList(String organizationCode, String staffNo) {
+		return repository.getStaffAppointmentRecordList(organizationCode, staffNo);
 	}
 	
-	public ResponseStaffCurrentAppointment getStaffCurrentAppointment(String staffId) {
-		return repository.getStaffCurrentAppointment(staffId);
+	public ResponseStaffCurrentAppointment getStaffCurrentAppointment(String organizationCode, String staffNo) {
+		return repository.getStaffCurrentAppointment(organizationCode, staffNo);
 	}
 	
-	public List<ResponseStaffDutyResponsibility> getStaffDutyResponsibility(String staffId) {
-		return repository.getStaffDutyResponsibility(staffId);
+	public List<ResponseStaffDutyResponsibility> getStaffDutyResponsibility(String organizationCode, String staffNo) {
+		return repository.getStaffDutyResponsibility(organizationCode, staffNo);
 	}
 }

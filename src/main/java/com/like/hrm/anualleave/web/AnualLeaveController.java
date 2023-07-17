@@ -42,8 +42,8 @@ public class AnualLeaveController {
 	@GetMapping("/api/hrm/staff/{staffId}/anualleave/{yyyy}")
 	public ResponseEntity<?> getAnualLeave(@PathVariable String staffId
 									  	  ,@PathVariable Integer yyyy) {
-				
-		AnualLeave entity = anualLeaveService.getAnualLeave(staffId, yyyy);					
+						
+		AnualLeave entity = anualLeaveService.getAnualLeave("001", staffId, yyyy);					
 		
 		AnualLeaveDTO.SaveAnualLeave dto = AnualLeaveDTO.SaveAnualLeave.convertDTO(entity); 
 		
@@ -62,7 +62,7 @@ public class AnualLeaveController {
 	public ResponseEntity<?> deleteLedger(@PathVariable String staffId
 		  	  							 ,@PathVariable Integer yyyy) {				
 																		
-		anualLeaveService.deleteAnualLeave(staffId, yyyy);						
+		anualLeaveService.deleteAnualLeave("001", staffId, yyyy);						
 								 					
 		return toOne(null, MessageUtil.getDeleteMessage(1));
 	}

@@ -15,8 +15,7 @@ public class LicenseDTO {
 	public static record Form(
 			String clientAppUrl,
 			String organizationCode,			
-			@NotEmpty String staffId,
-			String staffNo,
+			@NotEmpty String staffNo,
 			String staffName,
 			Long seq,
 			@NotEmpty String licenseType,
@@ -56,8 +55,8 @@ public class LicenseDTO {
 			if (entity == null) return null; 
 			
 			return Form.builder()
-					   .staffId(entity.getStaff().getId())
-					   .staffNo(entity.getStaff().getStaffNo())
+					   .organizationCode(entity.getStaff().getId().getOrganizationCode())
+					   .staffNo(entity.getStaff().getId().getStaffNo())
 					   .staffName(entity.getStaff().getName().getName())
 					   .seq(entity.getId().getSeq())
 					   .licenseType(entity.getLicenseType())

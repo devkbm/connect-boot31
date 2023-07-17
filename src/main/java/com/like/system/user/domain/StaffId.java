@@ -6,7 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class SystemUserId implements Serializable {
+public class StaffId implements Serializable {
 	
 	private static final long serialVersionUID = -8848284684753048121L;
 
@@ -16,9 +16,9 @@ public class SystemUserId implements Serializable {
 	@Column(name="STAFF_NO")
 	private String staffNo;
 
-	protected SystemUserId() {}
+	protected StaffId() {}
 	
-	protected SystemUserId(String organizationCode, String staffNo) {
+	protected StaffId(String organizationCode, String staffNo) {
 		this.organizationCode = organizationCode;
 		this.staffNo = staffNo;
 	}

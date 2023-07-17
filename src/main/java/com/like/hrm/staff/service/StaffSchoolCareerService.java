@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.staff.boundary.SchoolCareerDTO;
 import com.like.hrm.staff.domain.model.Staff;
+import com.like.hrm.staff.domain.model.StaffId;
 import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.schoolcareer.StaffSchoolCareer;
 
@@ -23,18 +24,18 @@ public class StaffSchoolCareerService {
 		this.repository = repository;	
 	}
 	
-	public List<StaffSchoolCareer> getSchoolCareerList(String staffId) {		
-		return findStaff(staffId).getSchoolCareerList().getStream().toList(); 
+	public List<StaffSchoolCareer> getSchoolCareerList(String organizationCode, String staffNo) {		
+		return findStaff(organizationCode, staffNo).getSchoolCareerList().getStream().toList(); 
 	}
 	
-	public StaffSchoolCareer getSchoolCareer(String staffId, Long seq) {
-		Staff staff = findStaff(staffId);
+	public StaffSchoolCareer getSchoolCareer(String organizationCode, String staffNo, Long seq) {
+		Staff staff = findStaff(organizationCode, staffNo);
 		
 		return staff.getSchoolCareerList().get(staff, seq);
 	}
 	
 	public void saveSchoolCareer(SchoolCareerDTO.Form dto) {
-		Staff staff = findStaff(dto.staffId());	
+		Staff staff = findStaff(dto.organizationCode(), dto.staffNo());	
 		StaffSchoolCareer education = staff.getSchoolCareerList().get(staff, dto.seq());
 		
 		if (education == null) {
@@ -48,13 +49,13 @@ public class StaffSchoolCareerService {
 		repository.save(staff);
 	}
 	
-	public void deleteSchoolCareer(String staffId, Long seq) {
-		Staff staff = findStaff(staffId);
+	public void deleteSchoolCareer(String organizationCode, String staffNo, Long seq) {
+		Staff staff = findStaff(organizationCode, staffNo);
 		staff.getSchoolCareerList().remove(staff, seq);
 	}
 	
-	private Staff findStaff(String staffId) {
-		return repository.findById(staffId)
-				 .orElseThrow(() -> new EntityNotFoundException(staffId + " 직원번호가 존재하지 않습니다."));
+	private Staff findStaff(String organizationCode, String staffNo) {
+		return repository.findById(new StaffId(organizationCode, staffNo))
+				 .orElseThrow(() -> new EntityNotFoundException(staffNo + " 직원번호가 존재하지 않습니다."));
 	}
 }

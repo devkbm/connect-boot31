@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.AppointmentRecordDTO;
@@ -29,9 +30,9 @@ public class StaffAppointmentController {
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord")
-	public ResponseEntity<?> getAppointmentRecordList(@PathVariable String staffId) {
+	public ResponseEntity<?> getAppointmentRecordList(@RequestParam String organizationCode, @PathVariable String staffId) {
 										
-		List<AppointmentRecordDTO.FormStaffAppointmentRecord> list = service.getAppointmentRecord(staffId)
+		List<AppointmentRecordDTO.FormStaffAppointmentRecord> list = service.getAppointmentRecord(organizationCode, staffId)
 																			.getStream()
 																			.map(e -> AppointmentRecordDTO.FormStaffAppointmentRecord.convert(e))
 																			.toList(); 		
@@ -40,10 +41,11 @@ public class StaffAppointmentController {
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord/{id}")
-	public ResponseEntity<?> getAppointmentRecord(@PathVariable String staffId
+	public ResponseEntity<?> getAppointmentRecord(@RequestParam String organizationCode
+												 ,@PathVariable String staffId
 									  			 ,@PathVariable Long id) {
 				
-		AppointmentRecord entity = service.getAppointmentRecord(staffId, id);  									
+		AppointmentRecord entity = service.getAppointmentRecord(organizationCode, staffId, id);  									
 				
 		var dto = AppointmentRecordDTO.FormStaffAppointmentRecord.convert(entity) ;
 		
@@ -60,10 +62,11 @@ public class StaffAppointmentController {
 	
 	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord/{id}/apply")
 	//@RequestMapping(value={"/hrm/staff/{staffId}/appointmentrecord/{id}/apply"}, method={RequestMethod.POST})	
-	public ResponseEntity<?> applyAppointmentRecord(@PathVariable String staffId
+	public ResponseEntity<?> applyAppointmentRecord(@RequestParam String organizationCode
+												   ,@PathVariable String staffId
  			 									   ,@PathVariable Long id) {									
 						
-		service.applyAppointmentRecord(staffId, id);
+		service.applyAppointmentRecord(organizationCode, staffId, id);
 											 				
 		return toList(null, "발령처리되었습니다.");
 	}

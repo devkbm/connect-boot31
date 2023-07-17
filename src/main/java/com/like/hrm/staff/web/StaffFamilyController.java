@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.FamilyDTO;
@@ -31,9 +32,9 @@ public class StaffFamilyController {
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/family")
-	public ResponseEntity<?> getFamilyList(@PathVariable String staffId) {
+	public ResponseEntity<?> getFamilyList(@RequestParam String organizationCode, @PathVariable String staffId) {
 													
-		List<FamilyDTO.Form> list = service.getFamilyList(staffId)
+		List<FamilyDTO.Form> list = service.getFamilyList(organizationCode,staffId)
 												.stream()
 												.map(e -> FamilyDTO.Form.convert(e))
 												.toList();
@@ -43,10 +44,11 @@ public class StaffFamilyController {
 	
 	
 	@GetMapping("/api/hrm/staff/{staffId}/family/{seq}")
-	public ResponseEntity<?> getFamily(@PathVariable String staffId
+	public ResponseEntity<?> getFamily(@RequestParam String organizationCode
+									  ,@PathVariable String staffId
 									  ,@PathVariable Long seq) {
 						
-		StaffFamily entity = service.getFamily(staffId, seq);  									
+		StaffFamily entity = service.getFamily(organizationCode, staffId, seq);  									
 				
 		FamilyDTO.Form dto = FamilyDTO.Form.convert(entity) ;
 		
@@ -62,10 +64,11 @@ public class StaffFamilyController {
 	}
 	
 	@DeleteMapping("/api/hrm/staff/{staffId}/family/{seq}")
-	public ResponseEntity<?> deleteFamily(@PathVariable String staffId
+	public ResponseEntity<?> deleteFamily(@RequestParam String organizationCode
+										 ,@PathVariable String staffId
 									     ,@PathVariable Long seq) {
 						
-		service.deleteFamily(staffId, seq);  									
+		service.deleteFamily(organizationCode, staffId, seq);  									
 		
 		return toOne(null, MessageUtil.getDeleteMessage(1));									
 	}

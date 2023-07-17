@@ -14,8 +14,7 @@ public class FamilyDTO {
 	public static record Form(
 			String clientAppUrl,
 			String organizationCode,			
-			@NotEmpty String staffId,
-			String staffNo,
+			@NotEmpty String staffNo,
 			String staffName,
 			Long seq,
 			String familyName,
@@ -56,9 +55,9 @@ public class FamilyDTO {
 		public static Form convert(StaffFamily entity) {
 			if (entity == null) return null;
 			
-			return Form.builder()
-					   .staffId(entity.getStaff().getId())
-					   .staffNo(entity.getStaff().getStaffNo())
+			return Form.builder()		
+					   .organizationCode(entity.getStaff().getId().getOrganizationCode())
+					   .staffNo(entity.getStaff().getId().getStaffNo())
 					   .staffName(entity.getStaff().getName().getName())
 					   .seq(entity.getId().getSeq())
 					   .familyName(entity.getName())

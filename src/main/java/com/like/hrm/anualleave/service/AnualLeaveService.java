@@ -10,6 +10,7 @@ import com.like.hrm.anualleave.domain.model.AnualLeave;
 import com.like.hrm.anualleave.domain.model.AnualLeaveId;
 import com.like.hrm.anualleave.domain.model.AnualLeaveRepository;
 import com.like.hrm.staff.domain.model.Staff;
+import com.like.hrm.staff.domain.model.StaffId;
 import com.like.hrm.staff.domain.model.StaffRepository;
 
 @Service
@@ -25,14 +26,14 @@ public class AnualLeaveService {
 		this.staffRepository = staffRepository;
 	}
 	
-	public AnualLeave getAnualLeave(String staffId, Integer yyyy) {
-		Staff staff = findStaff(staffId);
+	public AnualLeave getAnualLeave(String organizationCode, String staffNo, Integer yyyy) {
+		Staff staff = findStaff(organizationCode, staffNo);
 		return this.repository.findById(new AnualLeaveId(staff, yyyy)).orElse(null);		
 	}
 	
 	public void saveAnualLeave(AnualLeaveDTO.SaveAnualLeave dto) {
-		Staff staff = findStaff(dto.staffId());
-		AnualLeave entity = this.getAnualLeave(dto.staffId(), dto.yyyy());
+		Staff staff = findStaff(dto.organizationCode(), dto.staffNo());
+		AnualLeave entity = this.getAnualLeave(dto.organizationCode(), dto.staffNo(), dto.yyyy());
 		
 		if (entity == null) {
 			entity = dto.newAnualLeave(staff);
@@ -43,16 +44,16 @@ public class AnualLeaveService {
 		this.repository.save(entity);
 	}
 	
-	public void deleteAnualLeave(String staffId, Integer yyyy) {
-		AnualLeave entity = this.getAnualLeave(staffId, yyyy);
+	public void deleteAnualLeave(String organizationCode, String staffId, Integer yyyy) {
+		AnualLeave entity = this.getAnualLeave(organizationCode, staffId, yyyy);
 		
 		this.repository.delete(entity);
 	}
 	
 	
-	private Staff findStaff(String staffId) {
-		return staffRepository.findById(staffId)
-				 .orElseThrow(() -> new EntityNotFoundException(staffId + " 직원번호가 존재하지 않습니다."));
+	private Staff findStaff(String organizationCode, String staffNo) {
+		return staffRepository.findById(new StaffId(organizationCode, staffNo))
+				 .orElseThrow(() -> new EntityNotFoundException(staffNo + " 직원번호가 존재하지 않습니다."));
 	}
 	
 }

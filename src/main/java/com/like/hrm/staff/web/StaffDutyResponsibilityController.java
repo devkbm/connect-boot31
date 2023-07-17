@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.ResponseStaffDutyResponsibility;
@@ -34,18 +35,19 @@ public class StaffDutyResponsibilityController {
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/dutyresponsibility")
-	public ResponseEntity<?> getList(@PathVariable String staffId) {
+	public ResponseEntity<?> getList(@RequestParam String organizationCode, @PathVariable String staffId) {
 				
-		List<ResponseStaffDutyResponsibility> list = this.queryService.getStaffDutyResponsibility(staffId);
+		List<ResponseStaffDutyResponsibility> list = this.queryService.getStaffDutyResponsibility(organizationCode, staffId);
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/dutyresponsibility/{seq}")
-	public ResponseEntity<?> get(@PathVariable String staffId
+	public ResponseEntity<?> get(@RequestParam String organizationCode
+								,@PathVariable String staffId
 								,@PathVariable Long seq) {
 				
-		StaffDuty entity = service.get(staffId, seq);  									
+		StaffDuty entity = service.get(organizationCode, staffId, seq);  									
 				
 		var dto = StaffDutyResponsibilityDTO.Form.convert(entity) ;
 		

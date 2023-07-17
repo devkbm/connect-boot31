@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.boundary.SchoolCareerDTO;
@@ -30,8 +31,8 @@ public class StaffSchoolCareerController {
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/schoolcareer")
-	public ResponseEntity<?> getSchoolCareer(@PathVariable String staffId) {			
-		List<SchoolCareerDTO.Form> list = service.getSchoolCareerList(staffId)
+	public ResponseEntity<?> getSchoolCareer(@RequestParam String organizationCode, @PathVariable String staffId) {			
+		List<SchoolCareerDTO.Form> list = service.getSchoolCareerList(organizationCode, staffId)
 													  .stream()
 													  .map(e -> SchoolCareerDTO.Form.convert(e))
 													  .toList();
@@ -40,9 +41,10 @@ public class StaffSchoolCareerController {
 	}
 	
 	@GetMapping("/api/hrm/staff/{staffId}/schoolcareer/{seq}")
-	public ResponseEntity<?> getSchoolCareer(@PathVariable String staffId
+	public ResponseEntity<?> getSchoolCareer(@RequestParam String organizationCode
+											,@PathVariable String staffId
 											,@PathVariable Long seq) {			
-		StaffSchoolCareer schoolCareer = service.getSchoolCareer(staffId, seq);  									
+		StaffSchoolCareer schoolCareer = service.getSchoolCareer(organizationCode, staffId, seq);  									
 		
 		SchoolCareerDTO.Form dto = SchoolCareerDTO.Form.convert(schoolCareer);
 		
@@ -57,9 +59,10 @@ public class StaffSchoolCareerController {
 	}
 	
 	@DeleteMapping("/api/hrm/staff/{staffId}/schoolcareer/{seq}")
-	public ResponseEntity<?> deleteSchoolCareer(@PathVariable String staffId
+	public ResponseEntity<?> deleteSchoolCareer(@RequestParam String organizationCode
+											   ,@PathVariable String staffId
 											   ,@PathVariable Long seq) {
-		service.deleteSchoolCareer(staffId, seq);
+		service.deleteSchoolCareer(organizationCode, staffId, seq);
 											 				
 		return toOne(null, MessageUtil.getDeleteMessage(1));
 	}

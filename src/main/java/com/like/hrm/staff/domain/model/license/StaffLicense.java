@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -48,7 +49,10 @@ public class StaffLicense extends AbstractAuditEntity implements Serializable {
 	
 	// 취득일자, 자격면허, 자격면허인가번호, 발행기관, 필수면허번호여부, 이미지		
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STAFF_ID", nullable=false, updatable=false, insertable = false)
+	@JoinColumns({
+		@JoinColumn(name = "ORG_CD", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name = "STAFF_NO", nullable=false, insertable=false, updatable=false)
+	})
 	Staff staff;
 	
 	@EmbeddedId

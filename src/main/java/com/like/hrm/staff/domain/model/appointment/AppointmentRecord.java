@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -40,7 +41,10 @@ public class AppointmentRecord extends AbstractAuditEntity implements Serializab
 	private static final long serialVersionUID = 3842729148497015523L;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "STAFF_ID", nullable=false, insertable=false, updatable=false)
+	@JoinColumns({
+		@JoinColumn(name = "ORG_CD", nullable=false, insertable=false, updatable=false),
+		@JoinColumn(name = "STAFF_NO", nullable=false, insertable=false, updatable=false)
+	})
 	private Staff staff;
 	
 	@EmbeddedId

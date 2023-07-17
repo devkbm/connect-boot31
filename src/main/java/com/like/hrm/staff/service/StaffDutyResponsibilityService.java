@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.staff.boundary.StaffDutyResponsibilityDTO;
 import com.like.hrm.staff.domain.model.Staff;
+import com.like.hrm.staff.domain.model.StaffId;
 import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.dutyresponsibility.StaffDuty;
 
@@ -20,21 +21,21 @@ public class StaffDutyResponsibilityService {
 		this.repository = repository;
 	}
 	
-	public List<StaffDuty> getList(String staffId) {
-		Staff staff = this.repository.findById(staffId).orElse(null);
+	public List<StaffDuty> getList(String organizationCode, String staffNo) {
+		Staff staff = this.repository.findById(new StaffId(organizationCode, staffNo)).orElse(null);
 		
 		return staff.getStaffDutyResponsibilityList().stream().toList();
 	}
 	
-	public StaffDuty get(String staffId, Long seq) {
-		Staff staff = this.repository.findById(staffId).orElse(null);		
+	public StaffDuty get(String organizationCode, String staffNo, Long seq) {
+		Staff staff = this.repository.findById(new StaffId(organizationCode, staffNo)).orElse(null);		
 		StaffDuty entity = staff.getStaffDutyResponsibilityList().get(staff, seq);
 		
 		return entity;
 	}
 	
 	public void save(StaffDutyResponsibilityDTO.Form dto) {
-		Staff staff = this.repository.findById(dto.staffId()).orElse(null);		
+		Staff staff = this.repository.findById(new StaffId(dto.organizationCode(), dto.staffNo())).orElse(null);		
 		StaffDuty entity = staff.getStaffDutyResponsibilityList().get(staff, dto.seq());
 		
 		if (entity == null) {
