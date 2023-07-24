@@ -7,11 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,32 +23,23 @@ import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
-//@EnableWebSecurity
 @Profile("localtest")
 public class WebSecurityConfigLocalTest<S extends Session> {
 
 	@Autowired
 	private FindByIndexNameSessionRepository<S> sessionRepository;
-	
+		
 	@Bean
-	public AuthenticationManager authManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService) throws Exception {
-		return http.getSharedObject(AuthenticationManagerBuilder.class)
-			       .userDetailsService(userDetailService)
-			       .passwordEncoder(bCryptPasswordEncoder)
-			       .and()
-			       .build();
-	}
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-		//.cors().configurationSource(corsConfigurationSource()).and()
-			.headers(headers -> headers.frameOptions(frame -> frame.disable()))
-		//.headers().frameOptions().disable().and()	// h2-console 테스트를 위한 설정
-		//.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
-			.sessionManagement((s) -> s.maximumSessions(1).sessionRegistry(sessionRegistry()))/*.sessionCreationPolicy(SessionCreationPolicy.NEVER).and()*/
-	    //.authorizeHttpRequests()
+			.headers(headers -> headers.frameOptions(frame -> frame.disable()))	// h2-console 테스트를 위한 설정
+			.sessionManagement((s) -> s.maximumSessions(1).sessionRegistry(sessionRegistry()))
 			.authorizeHttpRequests(authorize -> 
 				authorize.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 						.requestMatchers(new AntPathRequestMatcher("/api/system/user/login")).permitAll()			// 로그인 api
@@ -63,33 +52,7 @@ public class WebSecurityConfigLocalTest<S extends Session> {
 									.invalidateHttpSession(true)
 									.deleteCookies("JSESSIONID")
 									.permitAll());
-		//.authorizeRequests()
-		/*
-		.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-			.requestMatchers("/api/system/user/login").permitAll()			// 로그인 api
-			.requestMatchers("/h2-console/**").permitAll()
-			.requestMatchers("/oauth/user").permitAll()								
-			.requestMatchers("/oauth2/authorization/**").permitAll()				
-			.requestMatchers("/ex").permitAll()
 			
-			//.antMatchers("/common/menuhierarchy/**").permitAll()
-			//.antMatchers("/grw/**").permitAll()//hasRole("USER")							
-			.anyRequest().authenticated().and()		// 인증된 요청만 허용
-			//.anyRequest().permitAll().and()				// 모든 요청 허용(테스트용도)
-		*/			
-		// 모든 연결을 HTTPS로 강제 전환
-		//.requiresChannel().anyRequest().requiresSecure().and()
-		/*
-		.logout()
-			.logoutUrl("/common/user/logout")
-			//.logoutSuccessHandler(this::logoutSuccessHandler)
-			.invalidateHttpSession(true)
-			.deleteCookies("JSESSIONID")
-			.permitAll();
-			*/		
-		//http.portMapper().http(8080).mapsTo(8443);
-	//http.addFilterBefore(myAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-	
 		return http.build();
 	}
 	

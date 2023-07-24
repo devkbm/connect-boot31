@@ -2,6 +2,7 @@ package com.like.cooperation.board.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Lob;
 
 import org.hibernate.annotations.Comment;
 
@@ -19,7 +20,8 @@ public class ArticleContents {
 	String title;
         
 	@Comment("내용")
-	@Column(name="CONTENTS", length = 4000)
+	@Column(name="CONTENTS")
+	@Lob
     String contents;
 	
 	public ArticleContents(String title
