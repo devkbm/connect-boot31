@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
@@ -41,14 +42,29 @@ public class WebSecurityConfigLocalTest<S extends Session> {
 	}
 	
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable()							
-		.cors().configurationSource(corsConfigurationSource()).and()
-		.headers().frameOptions().disable().and()	// h2-console 테스트를 위한 설정
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(csrf -> csrf.disable())
+			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+		//.cors().configurationSource(corsConfigurationSource()).and()
+			.headers(headers -> headers.frameOptions(frame -> frame.disable()))
+		//.headers().frameOptions().disable().and()	// h2-console 테스트를 위한 설정
 		//.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
-		.sessionManagement((s) -> s.maximumSessions(1).sessionRegistry(sessionRegistry()))/*.sessionCreationPolicy(SessionCreationPolicy.NEVER).and()*/
-	    .authorizeHttpRequests()
-		//.authorizeRequests()			
+			.sessionManagement((s) -> s.maximumSessions(1).sessionRegistry(sessionRegistry()))/*.sessionCreationPolicy(SessionCreationPolicy.NEVER).and()*/
+	    //.authorizeHttpRequests()
+			.authorizeHttpRequests(authorize -> 
+				authorize.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+						.requestMatchers(new AntPathRequestMatcher("/api/system/user/login")).permitAll()			// 로그인 api
+						.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+						.requestMatchers(new AntPathRequestMatcher("/oauth/user")).permitAll()								
+						.requestMatchers(new AntPathRequestMatcher("/oauth2/authorization/**")).permitAll()				
+						.requestMatchers(new AntPathRequestMatcher("/ex")).permitAll()
+						.anyRequest().authenticated())
+			.logout(logout -> logout.logoutUrl("/common/user/logout")
+									.invalidateHttpSession(true)
+									.deleteCookies("JSESSIONID")
+									.permitAll());
+		//.authorizeRequests()
+		/*
 		.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 			.requestMatchers("/api/system/user/login").permitAll()			// 로그인 api
 			.requestMatchers("/h2-console/**").permitAll()
@@ -60,14 +76,17 @@ public class WebSecurityConfigLocalTest<S extends Session> {
 			//.antMatchers("/grw/**").permitAll()//hasRole("USER")							
 			.anyRequest().authenticated().and()		// 인증된 요청만 허용
 			//.anyRequest().permitAll().and()				// 모든 요청 허용(테스트용도)
+		*/			
 		// 모든 연결을 HTTPS로 강제 전환
-		//.requiresChannel().anyRequest().requiresSecure().and()			
+		//.requiresChannel().anyRequest().requiresSecure().and()
+		/*
 		.logout()
 			.logoutUrl("/common/user/logout")
 			//.logoutSuccessHandler(this::logoutSuccessHandler)
 			.invalidateHttpSession(true)
 			.deleteCookies("JSESSIONID")
-			.permitAll();		
+			.permitAll();
+			*/		
 		//http.portMapper().http(8080).mapsTo(8443);
 	//http.addFilterBefore(myAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	
@@ -116,6 +135,6 @@ public class WebSecurityConfigLocalTest<S extends Session> {
 	
 	@Bean                                                        
 	public WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().requestMatchers("/static/**");
+		return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/static/**"));
 	}
 }
