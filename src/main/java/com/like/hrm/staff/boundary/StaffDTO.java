@@ -146,6 +146,7 @@ public class StaffDTO {
 		}
 					
 		public static FormContact convert(Staff entity) {			
+			if (entity == null) return null;
 			
 			Optional<StaffContact> contact = Optional.ofNullable(entity.getContact());
 								
