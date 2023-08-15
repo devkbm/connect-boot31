@@ -37,8 +37,8 @@ public class StaffImageController {
 
 	@PostMapping("/api/hrm/staff/changeimage")
 	public ResponseEntity<?> changeEmployeeImage(@RequestPart MultipartFile file
-												,@RequestParam String organizationCode
-												,String staffId) throws Exception {				
+												,String organizationCode
+												,String staffNo) throws Exception {				
 		
 		Map<String, Object> response = new HashMap<>();
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -47,7 +47,7 @@ public class StaffImageController {
 		String uuid = UUID.randomUUID().toString();
 		String path = fileService.fileTransefer(file, uuid, FileUploadLocation.STATIC_PATH);
 		
-		Staff staff = service.getStaff(organizationCode, staffId);
+		Staff staff = service.getStaff(organizationCode, staffNo);
 				
 		staff.changeImagePath(uuid);
 		

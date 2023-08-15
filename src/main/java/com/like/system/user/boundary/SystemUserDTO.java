@@ -133,7 +133,7 @@ public class SystemUserDTO {
 											   .staffNo(entity.getStaffId().getStaffNo())
 											   .name(entity.getName())												   
 											   .deptId(dept.map(Dept::getDeptId).orElse(""))
-											   //.deptName(""))
+											   .deptName(dept.map(Dept::getDeptNameKorean).orElse(""))
 											   .mobileNum(entity.getMobileNum())
 											   .email(entity.getEmail())
 											   .imageBase64(entity.getImage())
