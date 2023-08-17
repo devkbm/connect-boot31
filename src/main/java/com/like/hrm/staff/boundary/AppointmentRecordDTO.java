@@ -22,6 +22,7 @@ public class AppointmentRecordDTO {
 			String staffNo,
 			String staffName,			
 			Long seq,
+			String appointmentTypeCode,
 			LocalDate appointmentDate,
 			LocalDate appointmentEndDate,			
 			String recordName,
