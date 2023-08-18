@@ -35,7 +35,7 @@ public class WorkCalendarQueryJpaRepository implements WorkCalendarQueryReposito
 		return queryFactory
 				.selectFrom(qWorkCalendar)
 				.join(qWorkCalendar.memberList, qWorkCalendarMember)
-				.where(qWorkCalendarMember.user.id.eq(userId))
+				.where(qWorkCalendarMember.id.userId.eq(userId))
 				.fetch();
 	}
 	

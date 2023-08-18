@@ -22,7 +22,8 @@ public class UserIdExistsValidator implements ConstraintValidator<UserIdExists, 
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		return !userService.CheckDuplicationUser(value);
+		return true;
+		//return !userService.CheckDuplicationUser(value);
 	}
 
 	

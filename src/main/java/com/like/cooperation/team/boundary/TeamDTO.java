@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.like.cooperation.team.domain.QTeam;
 import com.like.cooperation.team.domain.Team;
+import com.like.system.user.domain.SystemUserId;
 import com.like.system.user.service.SystemUserSearchService;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -55,11 +56,12 @@ public class TeamDTO {
 		
 		public Team newEntity(SystemUserSearchService service) {						
 			Team entity = null;
-			
+						
 			if (memberList == null || memberList.isEmpty()) {
 				entity = new Team(teamName);
 			} else {
-				entity = new Team(teamName, service.findUsers(memberList));
+				List<SystemUserId> list = this.memberList.stream().map(r -> new SystemUserId(organizationCode, r)).toList();
+				entity = new Team(teamName, service.findUsers(list));
 			}										
 			
 			entity.setAppUrl(clientAppUrl);
@@ -70,7 +72,8 @@ public class TeamDTO {
 		public Team modify(Team entity, SystemUserSearchService service) {
 			entity.modify(teamName);
 								
-			entity.updateMembers(service.findUsers(memberList));
+			List<SystemUserId> list = this.memberList.stream().map(r -> new SystemUserId(organizationCode, r)).toList();
+			entity.updateMembers(service.findUsers(list));
 			
 			entity.setAppUrl(clientAppUrl);
 			

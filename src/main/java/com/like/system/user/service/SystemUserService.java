@@ -18,6 +18,7 @@ import com.like.system.user.domain.Authority;
 import com.like.system.user.domain.AuthorityRepository;
 import com.like.system.user.domain.ProfilePictureRepository;
 import com.like.system.user.domain.SystemUser;
+import com.like.system.user.domain.SystemUserId;
 import com.like.system.user.domain.SystemUserRepository;
 
 @Transactional
@@ -49,12 +50,12 @@ public class SystemUserService {
 	 * @param userId	사용자아이디
 	 * @return 사용자 도메인
 	 */
-	public SystemUser getUser(String userId) {								
-		return repository.findById(userId).orElse(null);
+	public SystemUser getUser(String organiztionCode, String userId) {								
+		return repository.findById(new SystemUserId(organiztionCode, userId)).orElse(null);
 	}
 		
-	public SystemUser getFullUser(String userId) {
-		SystemUser user = repository.findById(userId).orElse(null);
+	public SystemUser getFullUser(String organiztionCode, String userId) {
+		SystemUser user = repository.findById(new SystemUserId(organiztionCode, userId)).orElse(null);
 							
 		return user;				
 	}
@@ -67,7 +68,7 @@ public class SystemUserService {
 		SystemUser user = null;
 		
 		if (dto.userId() != null) {
-			user = repository.findById(dto.userId()).orElse(null); 
+			user = repository.findById(new SystemUserId(dto.organizationCode(), dto.userId())).orElse(null); 
 		}
 		
 		Dept dept = dto.deptId() == null ? null : deptRepository.findById(dto.deptId()).orElse(null); 
@@ -101,12 +102,12 @@ public class SystemUserService {
 	 * 사용자 정보를 삭제한다.
 	 * @param userId	사용자 아이디
 	 */
-	public void deleteUser(String userId) {
-		repository.deleteById(userId);         
+	public void deleteUser(String organiztionCode, String userId) {
+		repository.deleteById(new SystemUserId(organiztionCode, userId));         
 	}	
 	
-	public String changeUserImage(String userId, MultipartFile file) {
-		SystemUser user = repository.findById(userId).orElseThrow();
+	public String changeUserImage(String organiztionCode, String userId, MultipartFile file) {
+		SystemUser user = repository.findById(new SystemUserId(organiztionCode, userId)).orElseThrow();
 		
 		if (user == null) return null;
 						
@@ -123,8 +124,8 @@ public class SystemUserService {
 	 * @param beforePassword	변경전 비밀번호
 	 * @param afterPassword		변경후 비밀번호
 	 */
-	public void changePassword(String userId, String beforePassword, String afterPassword) {
-		SystemUser user = repository.findById(userId).orElseThrow();			
+	public void changePassword(String organiztionCode, String userId, String beforePassword, String afterPassword) {
+		SystemUser user = repository.findById(new SystemUserId(organiztionCode, userId)).orElseThrow();			
 		
 		if ( user.isVaild(beforePassword) ) {
 			user.changePassword(afterPassword);
@@ -135,8 +136,8 @@ public class SystemUserService {
 	 * 사용자의 비밀번호를 초기화한다.
 	 * @param userId	사용자 아이디
 	 */
-	public void initPassword(String userId) {
-		SystemUser user = repository.findById(userId).orElseThrow();
+	public void initPassword(String organiztionCode, String userId) {
+		SystemUser user = repository.findById(new SystemUserId(organiztionCode, userId)).orElseThrow();
 				
 		user.initPassword();		
 	}			
@@ -146,8 +147,8 @@ public class SystemUserService {
 	 * @param userId	사용자아이디
 	 * @return 사용자 권한 리스트
 	 */
-	public Set<Authority> getUserAuthorities(String userId) {        									
-        return repository.findById(userId).orElse(null).getAuthoritiesList();
+	public Set<Authority> getUserAuthorities(String organiztionCode, String userId) {        									
+        return repository.findById(new SystemUserId(organiztionCode, userId)).orElse(null).getAuthoritiesList();
 	}
 					
 	
@@ -156,8 +157,8 @@ public class SystemUserService {
 	 * @param userId
 	 * @return 기존 아이디가 있으면 true, 아니면 false 리턴
 	 */
-	public boolean CheckDuplicationUser(String userId) {						
-		return repository.existsById(userId); 
+	public boolean CheckDuplicationUser(String organiztionCode, String userId) {						
+		return repository.existsById(new SystemUserId(organiztionCode, userId)); 
 	}	
 	
 	public PasswordEncoder passwordEncoder(){

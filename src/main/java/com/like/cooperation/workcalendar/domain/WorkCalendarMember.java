@@ -1,11 +1,13 @@
 package com.like.cooperation.workcalendar.domain;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -21,10 +23,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@IdClass(WorkCalendarMemberId.class)
+//@IdClass(WorkCalendarMemberId.class)
 @Table(name = "GRWWORKCALENDARUSER")
 public class WorkCalendarMember extends AbstractAuditEntity {
-	
+	/*
 	@JsonBackReference
 	@Id	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -36,19 +38,28 @@ public class WorkCalendarMember extends AbstractAuditEntity {
 	@ManyToOne
 	@JoinColumn(name="USER_ID")
 	SystemUser user;
+	*/
+	@EmbeddedId
+	WorkCalendarMemberId id;
+	
+	@JsonBackReference
+	@MapsId("workCalendar")
+	@ManyToOne
+	@JoinColumn(name="ID", referencedColumnName = "ID")
+	WorkCalendar workCalendar;
 	
 	public WorkCalendarMember(WorkCalendar workCalendar, SystemUser user) {
+		this.id = new WorkCalendarMemberId(workCalendar.getId(), user.getId().getUserId()) ;
 		this.workCalendar = workCalendar;
-		this.user = user;
 	}
 	
 	public String getUserId() {
-		return this.user.getId();
+		return this.getId().getUserId();
 	}
 
 	@Override
 	public String toString() {
-		return "WorkCalendarMember [workCalendar=" + workCalendar.id + ", user=" + user.getId() + "]";
+		return "WorkCalendarMember [workCalendar=" + workCalendar.id + ", user=" + this.getId().getUserId() + "]";
 	}
 	
 	public void setWorkGroup(WorkCalendar workCalendar) {

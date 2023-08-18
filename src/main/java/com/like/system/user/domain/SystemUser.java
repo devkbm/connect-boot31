@@ -7,9 +7,9 @@ import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -42,24 +42,12 @@ import lombok.ToString;
 public class SystemUser extends AbstractAuditEntity implements UserDetails {	
 	
 	private static final long serialVersionUID = -4328973281359262612L;
-
-	/**
-	 * 조직코드 + 직원번호
-	 */
-	@Id
-	@Column(name="USER_ID")
-	String id;
+	
+	@EmbeddedId
+	SystemUserId id;
 	
 	@Embedded
-	StaffId staffId;
-	
-	/*
-	@Column(name="ORG_CD")
-	String organizationCode;
-	
-	@Column(name="STAFF_NO")
-	String staffNo;
-	*/
+	StaffId staffId;	
 	
 	@Column(name="USER_NAME")
 	String name;
@@ -76,8 +64,6 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	@Column(name="EMAIL")
 	String email;
 				
-	//@Column(name="FK_FILE")
-	//String image;
 	@Embedded
 	SystemUserProfilePicture image;
 	
@@ -88,14 +74,16 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	@Setter
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="COMUSERAUTHORITY",
-    		joinColumns= @JoinColumn(name="USER_ID"),
+    		joinColumns= {@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
+					      @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID")},
     		inverseJoinColumns=@JoinColumn(name="AUTH_ID"))	
 	Set<Authority> authorities = new LinkedHashSet<>();
 			
 	@Setter
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="COMUSERMENUGROUP",
-    		joinColumns= @JoinColumn(name="USER_ID"),
+    		joinColumns= {@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
+    					  @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID")},
     		inverseJoinColumns=@JoinColumn(name="MENU_GROUP_ID"))	
 	Set<MenuGroup> menuGroupList = new LinkedHashSet<>();		
 		
@@ -110,11 +98,9 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 					 ,AccountSpec accountSpec
 					 ,Set<Authority> authorities
 					 ,Set<MenuGroup> menuGroupList) {		
-		this.id = organizationCode + staffNo;
-		this.staffId = new StaffId(organizationCode, staffNo);
-		//this.organizationCode = organizationCode;
-		//this.staffNo = staffNo;
-		this.name = name;		
+		this.id = new SystemUserId(organizationCode, staffNo);
+		this.staffId = new StaffId(organizationCode, staffNo);		
+		this.name = name;
 		this.password = password;
 		this.dept = dept;
 		this.mobileNum = mobileNum;
@@ -136,8 +122,6 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 							,Set<Authority> authorities
 							,Set<MenuGroup> menuGroupList) {
 		this.staffId = new StaffId(organizationCode, staffNo);
-		//this.organizationCode = organizationCode;
-		//this.staffNo = staffNo;
 		this.name = name;						
 		this.mobileNum = mobileNum;
 		this.email = email;		
@@ -157,7 +141,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 			
 	@Override	
 	public String getUsername() {		
-		return id;
+		return id.getUserId();
 	}
 
 	@Override		

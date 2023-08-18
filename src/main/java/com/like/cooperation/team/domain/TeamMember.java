@@ -42,7 +42,7 @@ public class TeamMember extends AbstractAuditEntity {
 	String authority;	
 	
 	public TeamMember(Team team, SystemUser user) {
-		this.id = new TeamMemberId(team.getTeamId(), user.getId());
+		this.id = new TeamMemberId(team.getTeamId(), user.getId().getUserId());
 		this.team = team;
 		//this.user = user;
 	}

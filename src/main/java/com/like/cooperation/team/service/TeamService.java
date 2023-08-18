@@ -51,7 +51,7 @@ public class TeamService {
 	 */
 	public void joinTeam(Long teamId, String userId) {
 		Team team = teamRepository.findById(teamId).orElse(null);
-		SystemUser member = userService.findUser(userId);			
+		SystemUser member = userService.findUser("001", userId);			
 		
 		team.addMember(member);			
 	}	

@@ -10,7 +10,7 @@ public class StaffId implements Serializable {
 	
 	private static final long serialVersionUID = -8848284684753048121L;
 
-	@Column(name="ORG_CD")
+	@Column(name="ORG_CD", insertable = false, updatable = false)
 	private String organizationCode;
 	
 	@Column(name="STAFF_NO")

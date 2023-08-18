@@ -40,7 +40,7 @@ public class LoginController {
 	
 	@GetMapping("/api/system/user/auth")
 	public AuthenticationToken get(HttpServletRequest request) {
-		return service.getAuthenticationToken(SessionUtil.getUserId(), request);
+		return service.getAuthenticationToken("001", SessionUtil.getUserId(), request);
 	}			     
     
 	@Transactional

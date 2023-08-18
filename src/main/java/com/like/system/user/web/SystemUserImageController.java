@@ -34,14 +34,15 @@ public class SystemUserImageController {
 	}
 	
 	@GetMapping("/api/system/user/image")
-	public HttpServletResponse downloadUserImage(HttpServletResponse response,
-											     @RequestParam String userId) throws Exception {
+	public HttpServletResponse downloadUserImage(HttpServletResponse response
+												,@RequestParam String organizationCode
+											    ,@RequestParam String userId) throws Exception {
 				
-		SystemUser user = userService.getUser(userId);			
+		SystemUser user = userService.getUser(organizationCode, userId);			
 		
 		File file = fileService.getStaticPathFile(user.getImage());
 				
-		response = this.setDownloadResponseHeader(response, user.getId(), file.length());
+		response = this.setDownloadResponseHeader(response, user.getId().getUserId(), file.length());
 		
 		fileService.downloadFile(file, response);
 			
@@ -49,10 +50,11 @@ public class SystemUserImageController {
 	}
 	
 	@PostMapping("/api/system/user/image")
-	public ResponseEntity<?> changeUserImage(@RequestPart MultipartFile file,
-											 String userId) throws Exception {				
+	public ResponseEntity<?> changeUserImage(@RequestPart MultipartFile file
+											,@RequestParam String organizationCode	
+											,String userId) throws Exception {				
 												
-		String fileName = userService.changeUserImage(userId, file);			
+		String fileName = userService.changeUserImage(organizationCode, userId, file);			
 							
 		return new ResponseEntity<Map<String,Object>>(setUploadResponseBody(fileName), setUploadResponseHeader(), HttpStatus.OK);
 	}

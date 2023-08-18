@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.system.login.boundary.LoginRequestDTO;
 import com.like.system.login.domain.AuthenticationToken;
 import com.like.system.user.domain.SystemUser;
+import com.like.system.user.domain.SystemUserId;
 import com.like.system.user.domain.SystemUserRepository;
 
 @Transactional
@@ -36,23 +37,25 @@ public class LoginService {
 		String username = dto.getUsername();
 		String password = dto.password();
 		
-		SystemUser user = userRepository.findById(username).orElseThrow(EntityNotFoundException::new);
+		SystemUser user = userRepository.findById(new SystemUserId(dto.organizationCode(), dto.staffNo())).orElseThrow(EntityNotFoundException::new);
 		
-		authentication(username, password, user.getAuthorities(), request);
-		
-		return AuthenticationToken.of(user, request);
-	}
-	
-	public AuthenticationToken getAuthenticationToken(String userId, HttpServletRequest request) {
-		SystemUser user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+		authentication(dto.organizationCode(), dto.staffNo(), password, user.getAuthorities(), request);
 		
 		return AuthenticationToken.of(user, request);
 	}
 	
-	private void authentication(String username, String password, Collection<? extends GrantedAuthority> collection, HttpServletRequest request) {
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, collection);
+	public AuthenticationToken getAuthenticationToken(String organizationCode, String userId, HttpServletRequest request) {
+		SystemUser user = userRepository.findById(new SystemUserId(organizationCode, userId)).orElseThrow(EntityNotFoundException::new);
 		
-		token.setDetails(this.getAuthenticationToken(username, request));			
+		return AuthenticationToken.of(user, request);
+	}
+	
+	private void authentication(String organizationCode, String username, String password, Collection<? extends GrantedAuthority> collection, HttpServletRequest request) {
+		// 로그인 요청정보 SpringSecurityUserService에서 사용하기 위해 THREAD_LOCAL에 저장
+		LoginRequestContext.setLoginRequest(new LoginRequestDTO(organizationCode, username, password));
+		
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, collection);		
+		token.setDetails(this.getAuthenticationToken(organizationCode, username, request));			
 		
 		Authentication authentication = authenticationManager.authenticate(token); 
 							
@@ -60,7 +63,7 @@ public class LoginService {
 		
 		request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
 		
-		// log.info(SecurityContextHolder.getContext().getAuthentication().getName() + " 로그인 되었습니다.");
-		// log.info(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+		// 로그인 요청정보 THREAD_LOCAL에서 제거
+		LoginRequestContext.remove();		
 	}
 }

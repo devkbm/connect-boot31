@@ -71,7 +71,7 @@ public class WorkCalendarDTO {
 										   .workCalendarName(entity.getName())
 										   .color(entity.getColor())
 										   .memberList(entity.getMemberList().stream()
-											  	 						     .map(r -> r.getUser().getId())
+											  	 						     .map(r -> r.getId().getUserId())
 		 										 						     .toList())
 										   .build();
 

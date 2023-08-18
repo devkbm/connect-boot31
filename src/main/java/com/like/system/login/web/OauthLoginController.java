@@ -79,7 +79,7 @@ public class OauthLoginController {
         log.info(client.getAccessToken().getTokenValue());        
     	log.info(client.getRefreshToken() != null ? client.getRefreshToken().getTokenValue() : "null");
     	
-    	SystemUser user = userService.getUser("1");
+    	SystemUser user = userService.getUser("001","1");
 		    	
 		//List<GrantedAuthority> authorities = (List<GrantedAuthority>)user.getAuthorities();           						
         //authentication("1", "1234", authorities, session);         		 							       

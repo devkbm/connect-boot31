@@ -36,7 +36,7 @@ public class SystemUserController {
 	@GetMapping("/api/system/user/my-profile")
 	public ResponseEntity<?> getUserProfile(@RequestParam String organizationCode) throws FileNotFoundException, IOException {
 														
-		SystemUser user = userService.getUser(SessionUtil.getUserId());				
+		SystemUser user = userService.getUser(organizationCode, SessionUtil.getUserId());				
 		
 		SystemUserDTO.FormSystemUser dto = SystemUserDTO.FormSystemUser.convertDTO(user);					
 		
@@ -44,9 +44,9 @@ public class SystemUserController {
 	}
 	
 	@GetMapping("/api/system/user/{userId}")
-	public ResponseEntity<?> getUser(@PathVariable String userId) throws FileNotFoundException, IOException {
+	public ResponseEntity<?> getUser(@RequestParam String organizationCode, @PathVariable String userId) throws FileNotFoundException, IOException {
 						
-		SystemUser user = userService.getUser(userId);				
+		SystemUser user = userService.getUser(organizationCode, userId);				
 		
 		SystemUserDTO.FormSystemUser dto = SystemUserDTO.FormSystemUser.convertDTO(user);					
 		
@@ -62,25 +62,25 @@ public class SystemUserController {
 	}	
 	
 	@DeleteMapping("/api/system/user/{userId}")
-	public ResponseEntity<?> deleteUser(@PathVariable String userId) {
+	public ResponseEntity<?> deleteUser(@RequestParam String organizationCode, @PathVariable String userId) {
 										
-		userService.deleteUser(userId);															
+		userService.deleteUser(organizationCode, userId);															
 								 					
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 		
 	@PostMapping("/api/system/user/{id}/changepassword")
-	public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequestDTO dto) {				
+	public ResponseEntity<?> changePassword(@RequestParam String organizationCode,@RequestBody PasswordChangeRequestDTO dto) {				
 						
-		userService.changePassword(dto.userId(), dto.beforePassword(), dto.afterPassword());													
+		userService.changePassword(organizationCode, dto.userId(), dto.beforePassword(), dto.afterPassword());													
 								 					
 		return toList(null, "비밀번호가 변경되었습니다.");
 	}
 			
 	@PostMapping("/api/system/user/{userId}/initpassword")
-	public ResponseEntity<?> initializePassword(@PathVariable String userId) {			
+	public ResponseEntity<?> initializePassword(@RequestParam String organizationCode, @PathVariable String userId) {			
 				
-		userService.initPassword(userId);														
+		userService.initPassword(organizationCode, userId);														
 								 					
 		return toList(null, "비밀번호가 초기화되었습니다.");
 	}	

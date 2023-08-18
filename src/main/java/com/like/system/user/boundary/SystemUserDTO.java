@@ -129,7 +129,7 @@ public class SystemUserDTO {
 			
 			FormSystemUser dto = FormSystemUser.builder()								
 											   .organizationCode(entity.getStaffId().getOrganizationCode())
-											   .userId(entity.getId())
+											   .userId(entity.getId().getUserId())
 											   .staffNo(entity.getStaffId().getStaffNo())
 											   .name(entity.getName())												   
 											   .deptId(dept.map(Dept::getDeptId).orElse(""))

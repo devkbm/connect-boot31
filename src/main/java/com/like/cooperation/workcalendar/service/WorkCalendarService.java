@@ -13,6 +13,7 @@ import com.like.cooperation.workcalendar.domain.WorkCalendarMemberId;
 import com.like.cooperation.workcalendar.domain.WorkCalendarMemberRepository;
 import com.like.cooperation.workcalendar.domain.WorkCalendarRepository;
 import com.like.system.user.domain.SystemUser;
+import com.like.system.user.domain.SystemUserId;
 import com.like.system.user.domain.SystemUserRepository;
 
 @Service
@@ -53,10 +54,13 @@ public class WorkCalendarService {
 			dto.modifyWorkGroup(entity);
 		}
 		
-		List<String> dtoMemberList = dto.memberList();
+		//List<SystemUserId> dtoMemberList = dto.memberList();
+		List<SystemUserId> dtoMemberList = dto.memberList().stream()
+														   .map(r -> new SystemUserId(dto.organizationCode(), r))
+														   .toList();
 		entity.clearWorkGroupMember();
 		
-		if (dtoMemberList != null) {
+		if (dtoMemberList != null) {			
 			List<SystemUser> userList = userRepository.findAllById(dtoMemberList);
 			
 			for ( SystemUser user: userList ) {
