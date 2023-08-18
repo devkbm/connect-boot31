@@ -3,6 +3,7 @@ package com.like.system.core.p6spylog;
 import jakarta.annotation.PostConstruct;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import com.p6spy.engine.spy.P6SpyOptions;
 
