@@ -3,14 +3,14 @@ package com.like.hrm.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import com.udojava.evalex.Expression;
+import com.ezylang.evalex.Expression;
 
 public class EvalExTest {
 
 	// https://github.com/uklimaschewski/EvalEx
 	public static void main(String[] args) {
 		BigDecimal result=null;
-
+		/*
 	    // Simple usage with an expression without variables.
 	    Expression expression=new Expression("1+1/3");
 	    result=expression.eval(); // 1.333333
@@ -51,5 +51,6 @@ public class EvalExTest {
 
 	    // Calling a pre-defined function.
 	    result=new Expression("log10(100)").eval(); // 2
+	    */
 	}
 }
