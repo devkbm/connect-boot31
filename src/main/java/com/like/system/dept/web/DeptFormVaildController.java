@@ -5,6 +5,7 @@ import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.dept.service.DeptService;
@@ -19,9 +20,9 @@ public class DeptFormVaildController {
 	}
 	
 	@GetMapping("/api/system/dept/{id}/valid")
-	public ResponseEntity<?> getValidateDeptDuplication(@PathVariable String id) {
+	public ResponseEntity<?> getValidateDeptDuplication(@PathVariable String id, @RequestParam String organizationCode) {
 							
-		Boolean exist = deptService.isDept(id);  	
+		Boolean exist = deptService.isDept(organizationCode, id);  	
 						
 		return toOne(exist, exist ? "중복된 부서 코드가 있습니다." : "사용가능한 부서 코드입니다.");
 	}

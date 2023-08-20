@@ -65,7 +65,7 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 		return queryFactory
 				.select(this.getDeptHierarchy(qDept))				
 				.from(qDept)
-				.where(qDept.organizationCode.eq(organizationCode), qDept.isRootNode())
+				.where(qDept.id.organizationCode.eq(organizationCode), qDept.isRootNode())
 				.orderBy(qDept.seq.asc())				
 				.fetch();
 	}
@@ -74,16 +74,15 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 		return queryFactory
 				.select(this.getDeptHierarchy(qDept))
 				.from(qDept)
-				.where(qDept.organizationCode.eq(organizationCode), qDept.parentDept.deptCode.eq(parentDeptCode))
+				.where(qDept.id.organizationCode.eq(organizationCode), qDept.parentDept.id.deptCode.eq(parentDeptCode))
 				.orderBy(qDept.seq.asc())
 				.fetch();
 	}
 	
 	private QResponseDeptHierarchy getDeptHierarchy(QDept qDept) {
-		return new QResponseDeptHierarchy(qDept.parentDept.deptId
-										 ,qDept.organizationCode
-										 ,qDept.deptId
-										 ,qDept.deptCode
+		return new QResponseDeptHierarchy(qDept.parentDept.id.deptCode
+										 ,qDept.id.organizationCode										 
+										 ,qDept.id.deptCode
 										 ,qDept.deptNameKorean
 										 ,qDept.deptAbbreviationKorean
 										 ,qDept.deptNameEnglish

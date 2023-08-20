@@ -19,11 +19,11 @@ import lombok.Singular;
 @Builder
 public class ResponseDeptHierarchy {
 	
-	String parentDeptId;
+	String parentDeptCode;
 	
 	String organizationCode;
 	
-	String deptId;
+	//String deptId;
 	
 	String deptCode;		
 			
@@ -57,12 +57,11 @@ public class ResponseDeptHierarchy {
 	boolean isLeaf;
 
 	@QueryProjection
-	public ResponseDeptHierarchy(String parentDeptId, String organizationCode, String deptId, String deptCode, String deptNameKorean, String deptAbbreviationKorean,
+	public ResponseDeptHierarchy(String parentDeptCode, String organizationCode, String deptCode, String deptNameKorean, String deptAbbreviationKorean,
 			String deptNameEnglish, String deptAbbreviationEnglish, LocalDatePeriod period,
 			Integer seq, String comment) {				
-		this.parentDeptId = parentDeptId;
-		this.organizationCode = organizationCode;
-		this.deptId = deptId;
+		this.parentDeptCode = parentDeptCode;
+		this.organizationCode = organizationCode;		
 		this.deptCode = deptCode;
 		this.deptNameKorean = deptNameKorean;
 		this.deptAbbreviationKorean = deptAbbreviationKorean;
@@ -74,7 +73,7 @@ public class ResponseDeptHierarchy {
 		this.comment = comment;
 		
 		this.title 	= this.deptNameKorean;
-		this.key 	= this.deptId;			
+		this.key 	= this.deptCode;			
 	}
 
 	public void setChildren(List<ResponseDeptHierarchy> children) {

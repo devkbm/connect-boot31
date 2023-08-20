@@ -7,11 +7,11 @@ public class DeptExpression {
 
 	@QueryDelegate(Dept.class)
 	public static BooleanExpression isRootNode(QDept dept) {
-		return dept.parentDept.isNull();
+		return dept.parentDeptCode.isNull();
 	}
 	
 	@QueryDelegate(Dept.class)
 	public static BooleanExpression isChildNode(QDept dept) {
-		return dept.parentDept.isNotNull();
+		return dept.parentDeptCode.isNotNull();
 	}
 }

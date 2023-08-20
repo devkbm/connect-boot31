@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.dept.domain.Dept;
+import com.like.system.dept.domain.DeptId;
 import com.like.system.dept.domain.DeptRepository;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupRepository;
@@ -71,7 +72,7 @@ public class SystemUserService {
 			user = repository.findById(new SystemUserId(dto.organizationCode(), dto.userId())).orElse(null); 
 		}
 		
-		Dept dept = dto.deptId() == null ? null : deptRepository.findById(dto.deptId()).orElse(null); 
+		Dept dept = dto.deptCode() == null ? null : deptRepository.findById(new DeptId(dto.organizationCode(), dto.deptCode())).orElse(null); 
 		
 		Set<Authority> authorityList = new LinkedHashSet<>(authorityRepository.findAllById(dto.authorityList()));		
 		Set<MenuGroup> menuGroupList = new LinkedHashSet<>(menuRepository.findAllById(dto.menuGroupList()));		 

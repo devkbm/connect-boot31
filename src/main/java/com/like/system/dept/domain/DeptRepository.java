@@ -5,7 +5,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DeptRepository extends JpaRepository<Dept, String>, QuerydslPredicateExecutor<Dept> {
+public interface DeptRepository extends JpaRepository<Dept, DeptId>, QuerydslPredicateExecutor<Dept> {
 				
-	Dept findByDeptCode(String deptCode);
+	//Dept findByDeptCode(String deptCode);
 }

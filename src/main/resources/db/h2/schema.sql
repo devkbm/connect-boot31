@@ -47,28 +47,27 @@ CREATE TABLE COMCODE (
 );
 
 CREATE TABLE COMDEPT (
-	CREATED_DT			  	DATETIME		  	NULL		,
+	CREATED_DT			  	DATETIME		  	  NULL		,
 	CREATED_USER_ID			VARCHAR(50)		  	NULL		,
 	CREATED_HOST_IP			VARCHAR(50)		  	NULL		,
 	CREATED_APP_URL			VARCHAR(500)	  	NULL		,
-	MODIFIED_DT			  	DATETIME		  	NULL		,
+	MODIFIED_DT			  	DATETIME		  	  NULL		,
 	MODIFIED_USER_ID		VARCHAR(50)		  	NULL		,
 	MODIFIED_HOST_IP		VARCHAR(50)		  	NULL		,
-	MODIFIED_APP_URL		VARCHAR(500)	  	NULL		,
-	DEPT_ID				    VARCHAR(10) 	  	NOT NULL 	,
-	ORG_CD				    VARCHAR(50)		  	NULL		,
-  DEPT_CD				    VARCHAR(10) 	  	NOT NULL 	,
-  P_DEPT_ID			    VARCHAR(255)	  	NULL 		,
-  DEPT_NM_KOR			  	VARCHAR(255) 	  	NOT NULL 	,
+	MODIFIED_APP_URL		VARCHAR(500)	  	NULL		,	
+	ORG_CD				      VARCHAR(50)		  	NOT NULL,
+  DEPT_CD				      VARCHAR(10) 	  	NOT NULL,
+  P_DEPT_CD			      VARCHAR(255)	  	NULL 		,
+  DEPT_NM_KOR			  	VARCHAR(255) 	  	NOT NULL,
   DEPT_ABBR_KOR		  	VARCHAR(255) 	  	NULL 		,
   DEPT_NM_ENG			  	VARCHAR(255) 	  	NULL 		,
   DEPT_ABBR_ENG		  	VARCHAR(255) 	  	NULL 		,
-	FROM_DT				    DATE			  	NULL		,
-	TO_DT				    DATE			  	NULL		,
-	PRT_SEQ				    INT				  	NULL		,
-	CMT					    VARCHAR(2000) 	 	NULL 		,
-	constraint pk_comdept 		primary key(DEPT_ID),
-	constraint fk_comdept1	 	foreign key(P_DEPT_ID) references COMDEPT(DEPT_ID)
+	FROM_DT				      DATE			  	    NULL		,
+	TO_DT				        DATE			  	    NULL		,
+	PRT_SEQ				      INT				  	    NULL		,
+	CMT					        VARCHAR(2000) 	 	NULL 		,
+	constraint pk_comdept 		primary key(ORG_CD, DEPT_CD)
+	/*constraint fk_comdept1	 	foreign key(P_DEPT_CD) references COMDEPT(DEPT_CD)*/
 ); 
 
 CREATE TABLE COMFILEINFO (

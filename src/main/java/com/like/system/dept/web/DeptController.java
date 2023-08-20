@@ -32,7 +32,7 @@ public class DeptController {
 	@GetMapping("/api/system/dept/{deptCode}")
 	public ResponseEntity<?> getDept(@PathVariable String deptCode, @RequestParam String organizationCode) {
 							
-		Dept dept = deptService.getDept(organizationCode + deptCode);  	
+		Dept dept = deptService.getDept(organizationCode, deptCode);  	
 		
 		FormDept dto = DeptDTO.FormDept.convertDTO(dept);
 		
@@ -48,9 +48,9 @@ public class DeptController {
 	}		
 	
 	@DeleteMapping("/api/system/dept/{deptCode}")
-	public ResponseEntity<?> deleteDept(@PathVariable String deptCode) {				
+	public ResponseEntity<?> deleteDept(@PathVariable String deptCode, @RequestParam String organizationCode) {				
 												
-		deptService.deleteDept(deptCode);							
+		deptService.deleteDept(organizationCode, deptCode);							
 		
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}

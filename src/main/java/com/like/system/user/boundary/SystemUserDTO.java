@@ -56,7 +56,7 @@ public class SystemUserDTO {
 		}
 		
 		private BooleanExpression equalDeptCode(String deptCode) {
-			return hasText(deptCode) ? qType.dept.deptCode.eq(deptCode) : null;					
+			return hasText(deptCode) ? qType.dept.id.deptCode.eq(deptCode) : null;					
 		}
 	}		
 	
@@ -73,7 +73,7 @@ public class SystemUserDTO {
 			@NotBlank(message="직원번호를 입력해 주세요.")
 			String staffNo,
 			String name,
-			String deptId,
+			String deptCode,
 			String deptName,
 			String mobileNum,
 			String email,
@@ -132,7 +132,7 @@ public class SystemUserDTO {
 											   .userId(entity.getId().getUserId())
 											   .staffNo(entity.getStaffId().getStaffNo())
 											   .name(entity.getName())												   
-											   .deptId(dept.map(Dept::getDeptId).orElse(""))
+											   .deptCode(dept.map(r -> r.getId().getDeptCode()).orElse(""))
 											   .deptName(dept.map(Dept::getDeptNameKorean).orElse(""))
 											   .mobileNum(entity.getMobileNum())
 											   .email(entity.getEmail())

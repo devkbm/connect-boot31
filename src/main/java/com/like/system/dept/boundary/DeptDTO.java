@@ -45,11 +45,11 @@ public class DeptDTO {
 		}
 		
 		private BooleanExpression eqOrganizationCode(String organizationCode) {
-			return hasText(organizationCode) ? qType.organizationCode.eq(organizationCode) : null;										
+			return hasText(organizationCode) ? qType.id.organizationCode.eq(organizationCode) : null;										
 		}
 				
 		private BooleanExpression likeDeptCode(String deptCode) {
-			return hasText(deptCode) ? qType.deptCode.like("%"+deptCode+"%") : null;					
+			return hasText(deptCode) ? qType.id.deptCode.like("%"+deptCode+"%") : null;					
 		}
 		
 		private BooleanExpression likeDeptName(String deptName) {			
@@ -64,8 +64,7 @@ public class DeptDTO {
 			LocalDateTime modifiedDt,
 			String modifiedBy,
 			String clientAppUrl,
-			String parentDeptId,
-			String deptId,			
+			String parentDeptCode,					
 			String organizationCode,
 			@NotEmpty(message="부서코드는 필수 입력 사항입니다.")
 			String deptCode,
@@ -92,11 +91,10 @@ public class DeptDTO {
 								   .createdDt(entity.getCreatedDt())
 								   .createdBy(entity.getCreatedBy().getLoggedUser())
 								   .modifiedDt(entity.getModifiedDt())
-								   .modifiedBy(entity.getModifiedBy().getLoggedUser())
-								   .deptId(entity.getDeptId())
-								   .organizationCode(entity.getOrganizationCode())
-								   .deptCode(entity.getDeptCode())
-								   .parentDeptId(parent.map(Dept::getDeptId).orElse(null))
+								   .modifiedBy(entity.getModifiedBy().getLoggedUser())								  
+								   .organizationCode(entity.getId().getOrganizationCode())
+								   .deptCode(entity.getId().getDeptCode())
+								   .parentDeptCode(parent.map(r -> r.getId().getDeptCode()).orElse(null))
 								   .deptNameKorean(entity.getDeptNameKorean())
 								   .deptAbbreviationKorean(entity.getDeptAbbreviationKorean())
 								   .deptNameEnglish(entity.getDeptNameEnglish())
@@ -113,9 +111,7 @@ public class DeptDTO {
 			if (this.organizationCode == null) new IllegalArgumentException("조직코드가 없습니다.");
 			if (this.deptCode == null) new IllegalArgumentException("부서코드가 없습니다.");
 			
-			Dept entity = Dept.builder(this.organizationCode,this.deptCode)		
-							   .organizationCode(this.organizationCode)
-							   .deptCode(this.deptCode)					   
+			Dept entity = Dept.builder(this.organizationCode,this.deptCode)									   					  
 							   .deptNameKorean(this.deptNameKorean)
 							   .deptAbbreviationKorean(this.deptAbbreviationKorean)
 							   .deptNameEnglish(this.deptNameEnglish)

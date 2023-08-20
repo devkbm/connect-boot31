@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.dept.boundary.DeptDTO;
 import com.like.system.dept.domain.Dept;
+import com.like.system.dept.domain.DeptId;
 import com.like.system.dept.domain.DeptRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,12 +21,12 @@ public class DeptService {
 		this.deptRepository = deptRepository;
 	}
 
-	public boolean isDept(String deptID) {
-		return deptRepository.existsById(deptID);
+	public boolean isDept(String organizationCode, String deptCode) {
+		return deptRepository.existsById(new DeptId(organizationCode, deptCode));
 	}
 	
-	public Dept getDept(String deptID) {
-		return deptRepository.findById(deptID).orElse(null);
+	public Dept getDept(String organizationCode, String deptCode) {
+		return deptRepository.findById(new DeptId(organizationCode, deptCode)).orElse(null);
 	}	
 	
 	public void createDept(Dept dept) {
@@ -37,8 +38,8 @@ public class DeptService {
 	}
 	
 	public void saveDept(DeptDTO.FormDept dto) {
-		Dept dept = dto.deptId() == null ? null : deptRepository.findById(dto.deptId()).orElse(null);
-		Dept parentDept = dto.parentDeptId() == null ? null : deptRepository.findById(dto.parentDeptId()).orElse(null); 			
+		Dept dept = dto.deptCode() == null ? null : deptRepository.findById(new DeptId(dto.organizationCode(), dto.deptCode())).orElse(null);
+		Dept parentDept = dto.parentDeptCode() == null ? null : deptRepository.findById(new DeptId(dto.organizationCode(), dto.parentDeptCode())).orElse(null); 			
 		
 		if (dept == null) {
 			dept = dto.newDept(parentDept);
@@ -50,7 +51,7 @@ public class DeptService {
 		deptRepository.save(dept);
 	}
 	
-	public void deleteDept(String deptID) {
-		deptRepository.deleteById(deptID);
+	public void deleteDept(String organizationCode, String deptCode) {
+		deptRepository.deleteById(new DeptId(organizationCode, deptCode));
 	}
 }

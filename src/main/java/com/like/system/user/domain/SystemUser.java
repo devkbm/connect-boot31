@@ -11,6 +11,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
@@ -67,8 +68,14 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	@Embedded
 	SystemUserProfilePicture image;
 	
+	@Column(name="DEPT_CD")
+	String deptCode;
+	
 	@OneToOne(optional = true)
-	@JoinColumn(name = "DEPT_CD", nullable = true)
+	@JoinColumns({
+		@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD", insertable=false, updatable=false),
+		@JoinColumn(name = "DEPT_CD", referencedColumnName = "DEPT_CD", insertable=false, updatable=false)
+	})	
 	Dept dept;
 		
 	@Setter
@@ -103,6 +110,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		this.name = name;
 		this.password = password;
 		this.dept = dept;
+		this.deptCode = dept.getId().getDeptCode();
 		this.mobileNum = mobileNum;
 		this.email = email;
 		this.accountSpec = accountSpec;		
@@ -126,6 +134,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		this.mobileNum = mobileNum;
 		this.email = email;		
 		this.dept = dept;
+		this.deptCode = dept.getId().getDeptCode();
 		this.authorities = authorities;
 		this.menuGroupList = menuGroupList;
 	}
