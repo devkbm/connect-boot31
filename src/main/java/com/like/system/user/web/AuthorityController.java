@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
@@ -26,9 +27,9 @@ public class AuthorityController {
 	}		
 	
 	@GetMapping("/api/system/authority/{authorityId}")
-	public ResponseEntity<?> getAuthority(@PathVariable String authorityId) {			
+	public ResponseEntity<?> getAuthority(@RequestParam String organizationCode, @PathVariable String authorityId) {			
 		
-		Authority authority = service.getAuthority(authorityId);										
+		Authority authority = service.getAuthority(organizationCode, authorityId);										
 		
 		return toOne(authority, MessageUtil.getQueryMessage(authority == null ? 0 : 1));
 	}
@@ -42,9 +43,9 @@ public class AuthorityController {
 	}	
 	
 	@DeleteMapping("/api/system/authority/{authorityId}")
-	public ResponseEntity<?> deleteAuthority(@PathVariable String authorityId) {
+	public ResponseEntity<?> deleteAuthority(@RequestParam String organizationCode, @PathVariable String authorityId) {
 		
-		service.deleteAuthority(authorityId);					
+		service.deleteAuthority(organizationCode, authorityId);					
 			
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}

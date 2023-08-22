@@ -33,9 +33,9 @@ public class SystemUserFormValidController {
 	}
 		
 	@GetMapping("/api/system/authority/{authorityName}/check")
-	public ResponseEntity<?> getAuthorityDupCheck(@PathVariable String authorityName) {			
+	public ResponseEntity<?> getAuthorityDupCheck(@RequestParam String organizationCode,@PathVariable String authorityName) {			
 					
-		Authority authority = authorityService.getAuthority(authorityName);										
+		Authority authority = authorityService.getAuthority(organizationCode, authorityName);										
 		
 		boolean rtn = authority == null ? true : false;
 						

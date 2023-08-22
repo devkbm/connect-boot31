@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.user.boundary.AuthorityDTO;
 import com.like.system.user.domain.Authority;
+import com.like.system.user.domain.AuthorityId;
 import com.like.system.user.domain.AuthorityRepository;
 
 @Transactional
@@ -22,8 +23,8 @@ public class AuthorityService {
 	 * @param id	권한명
 	 * @return	권한 도메인
 	 */
-	public Authority getAuthority(String id) {
-		return repository.findById(id).orElse(null);
+	public Authority getAuthority(String organizationCode, String authorityCode) {
+		return repository.findById(new AuthorityId(organizationCode, authorityCode)).orElse(null);
 	}
 	
 	/**
@@ -34,7 +35,7 @@ public class AuthorityService {
 		Authority authority = null;
 		
 		if (dto.id() != null) {
-			authority = repository.findById(dto.id()).orElse(null);
+			authority = repository.findById(new AuthorityId(dto.organizationCode(), dto.authorityCode())).orElse(null);
 		} 
 		
 		if (authority == null) {
@@ -50,7 +51,7 @@ public class AuthorityService {
 	 * 권한 도메인을 삭제한다.
 	 * @param id
 	 */
-	public void deleteAuthority(String id) {
-		repository.deleteById(id);
+	public void deleteAuthority(String organizationCode, String authorityCode) {
+		repository.deleteById(new AuthorityId(organizationCode, authorityCode));
 	}
 }

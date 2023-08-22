@@ -25,24 +25,24 @@ public class AuthorityDTO {
 			
 			builder.and(eqOrganizationCode(this.organizationCode))
 				   .and(likeAuthorityCode(this.authorityCode))
-			       .and(eqAuthorityId(this.authorityId))
+			       //.and(eqAuthorityId(this.authorityId))
 				   .and(likeDescription(this.description));					
 			
 			return builder;
 		}
 		
 		private BooleanExpression eqOrganizationCode(String organizationCode) {
-			return qType.organizationCode.eq(organizationCode);
+			return qType.id.organizationCode.eq(organizationCode);
 		}
 		
 		private BooleanExpression likeAuthorityCode(String authorityCode) {
-			return hasText(authorityCode) ? qType.authorityCode.like("%"+authorityCode+"%") : null;					
+			return hasText(authorityCode) ? qType.id.authorityCode.like("%"+authorityCode+"%") : null;					
 		}
-		
+		/*
 		private BooleanExpression eqAuthorityId(String authorityId) {
 			return hasText(authorityId) ? qType.id.eq(authorityId) : null;					
 		}
-		
+		*/
 		private BooleanExpression likeDescription(String description) {
 			return hasText(description) ? qType.description.like("%"+description+"%") : null;					
 		}
@@ -58,8 +58,7 @@ public class AuthorityDTO {
 		
 		public Authority newEntity() {
 			Authority entity = new Authority(this.organizationCode, this.authorityCode, this.description);
-			entity.setAppUrl(clientAppUrl);
-			System.out.println(entity.toString());
+			entity.setAppUrl(clientAppUrl);			
 			
 			return entity;
 		}

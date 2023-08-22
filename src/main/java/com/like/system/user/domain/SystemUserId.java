@@ -11,10 +11,10 @@ public class SystemUserId implements Serializable {
 	private static final long serialVersionUID = -8544637739358675046L;
 
 	@Column(name="ORG_CD")
-	private String organizationCode;
+	String organizationCode;
 	
 	@Column(name="USER_ID")
-	private String userId;
+	String userId;
 	
 	protected SystemUserId() {}
 	

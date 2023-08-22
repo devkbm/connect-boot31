@@ -6,10 +6,12 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.JoinTable;
@@ -80,10 +82,11 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		
 	@Setter
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name="COMUSERAUTHORITY",
+    @JoinTable(name="COMUSERAUTHORITY", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
     		joinColumns= {@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
-					      @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID")},
-    		inverseJoinColumns=@JoinColumn(name="AUTH_ID"))	
+					      @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID") },
+    		inverseJoinColumns={@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD", insertable=false, updatable=false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT)),
+    							@JoinColumn(name="AUTH_CD", referencedColumnName = "AUTH_CD", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))})	
 	Set<Authority> authorities = new LinkedHashSet<>();
 			
 	@Setter
@@ -134,7 +137,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		this.mobileNum = mobileNum;
 		this.email = email;		
 		this.dept = dept;
-		this.deptCode = dept.getId().getDeptCode();
+		this.deptCode = dept == null ? null : dept.getId().getDeptCode();
 		this.authorities = authorities;
 		this.menuGroupList = menuGroupList;
 	}

@@ -125,12 +125,11 @@ CREATE TABLE COMAUTHORITY (
 	MODIFIED_DT			  	DATETIME			NULL		,
 	MODIFIED_USER_ID		VARCHAR(50)			NULL		,
 	MODIFIED_HOST_IP		VARCHAR(50)			NULL		,
-	MODIFIED_APP_URL		VARCHAR(500)		NULL		,
-	AUTH_ID				    VARCHAR(50)			NOT NULL	,
+	MODIFIED_APP_URL		VARCHAR(500)		NULL		,	
 	ORG_CD				    VARCHAR(50)			NOT NULL	,
 	AUTH_CD				    VARCHAR(50)			NOT NULL	,
   DESCRIPTION			  	VARCHAR(500)		NULL		,
-	constraint pk_comauthority primary key(AUTH_ID)
+	constraint pk_comauthority primary key(ORG_CD, AUTH_CD)
 );
 
 CREATE TABLE COMUSERAUTHORITY (
@@ -142,11 +141,12 @@ CREATE TABLE COMUSERAUTHORITY (
 	MODIFIED_USER_ID		VARCHAR(50)			NULL		,
 	MODIFIED_HOST_IP		VARCHAR(50)			NULL		,
 	MODIFIED_APP_URL		VARCHAR(500)		NULL		,
+  ORG_CD				    VARCHAR(50)			NOT NULL	,
   USER_ID				    VARCHAR(50)			NOT NULL	,
-  AUTH_ID				    VARCHAR(50)			NOT NULL	,
-	constraint pk_comuserauthority 	primary key(USER_ID, AUTH_ID),
-	constraint fk_comuserauthority1	foreign key(USER_ID) references COMUSER(USER_ID),
-	constraint fk_comuserauthority2	foreign key(AUTH_ID) references COMAUTHORITY(AUTH_ID)
+  AUTH_CD				    VARCHAR(50)			NOT NULL	,
+	constraint pk_comuserauthority 	primary key(ORG_CD, USER_ID, AUTH_CD)
+	/*constraint fk_comuserauthority1	foreign key(USER_ID) references COMUSER(USER_ID)*/
+	/*constraint fk_comuserauthority2	foreign key(AUTH_CD) references COMAUTHORITY(AUTH_CD)*/
 ); 
 COMMENT ON TABLE COMUSERAUTHORITY IS '사용자권한매핑관리';
 

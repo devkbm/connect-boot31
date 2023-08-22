@@ -18,7 +18,7 @@ public class StaffId implements Serializable {
 
 	protected StaffId() {}
 	
-	protected StaffId(String organizationCode, String staffNo) {
+	public StaffId(String organizationCode, String staffNo) {
 		this.organizationCode = organizationCode;
 		this.staffNo = staffNo;
 	}

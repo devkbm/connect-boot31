@@ -16,6 +16,7 @@ import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupRepository;
 import com.like.system.user.boundary.SystemUserDTO;
 import com.like.system.user.domain.Authority;
+import com.like.system.user.domain.AuthorityId;
 import com.like.system.user.domain.AuthorityRepository;
 import com.like.system.user.domain.ProfilePictureRepository;
 import com.like.system.user.domain.SystemUser;
@@ -74,7 +75,10 @@ public class SystemUserService {
 		
 		Dept dept = dto.deptCode() == null ? null : deptRepository.findById(new DeptId(dto.organizationCode(), dto.deptCode())).orElse(null); 
 		
-		Set<Authority> authorityList = new LinkedHashSet<>(authorityRepository.findAllById(dto.authorityList()));		
+		Set<Authority> authorityList = new LinkedHashSet<>(authorityRepository.findAllById(dto.authorityList()
+																							  .stream()
+																							  .map(r -> new AuthorityId(dto.organizationCode(), r))
+																							  .toList()));		
 		Set<MenuGroup> menuGroupList = new LinkedHashSet<>(menuRepository.findAllById(dto.menuGroupList()));		 
 							
 		if (user == null) {
@@ -173,7 +177,7 @@ public class SystemUserService {
 	private void initAuthority(SystemUser user) {							
 		Set<Authority> authorities = new LinkedHashSet<Authority>();
 		
-		authorities.add(authorityRepository.findById("ROLE_USER").orElse(null));
+		authorities.add(authorityRepository.findById(new AuthorityId("001", "ROLE_USER")).orElse(null));
 		
 		user.setAuthorities(authorities);
 	}

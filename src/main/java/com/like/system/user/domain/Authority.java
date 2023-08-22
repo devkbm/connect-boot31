@@ -1,6 +1,7 @@
 package com.like.system.user.domain;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -21,6 +22,7 @@ public class Authority extends AbstractAuditEntity implements GrantedAuthority {
 
 	private static final long serialVersionUID = 5255280527856714047L;
 	
+	/*
 	@Id
 	@Column(name="AUTH_ID")
 	String id;
@@ -30,14 +32,17 @@ public class Authority extends AbstractAuditEntity implements GrantedAuthority {
 
 	@Column(name="AUTH_CD")
 	String authorityCode;
+	*/
+	@EmbeddedId
+	AuthorityId id;
 	
 	@Column(name="description")
 	String description;	
 	
 	public Authority(String organizationCode, String authorityCode, String description) {		
-		this.id = organizationCode + authorityCode;
-		this.organizationCode = organizationCode;
-		this.authorityCode = authorityCode;
+		this.id = new AuthorityId(organizationCode, authorityCode);
+		//this.organizationCode = organizationCode;
+		//this.authorityCode = authorityCode;
 		this.description = description;
 	}	
 	
@@ -47,19 +52,21 @@ public class Authority extends AbstractAuditEntity implements GrantedAuthority {
 	
 	@Override
 	public String getAuthority() {
-		return this.id;
+		return this.getAuthorityCode();
 	}
 
+	/*
 	public String getId() {
 		return id;
 	}
+	*/
 	
 	public String getOrganizationCode() {
-		return organizationCode;
+		return this.id.getOrganizationCode();
 	}
 
 	public String getAuthorityCode() {
-		return authorityCode;
+		return this.id.getAuthorityCode();
 	}
 	
 	public String getDescription() {
