@@ -1,6 +1,5 @@
 package com.like.system.user.service;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +25,9 @@ import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserAuthority;
 import com.like.system.user.domain.SystemUserAuthorityRepository;
 import com.like.system.user.domain.SystemUserId;
+import com.like.system.user.domain.SystemUserMenuGroup;
+import com.like.system.user.domain.SystemUserMenuGroupId;
+import com.like.system.user.domain.SystemUserMenuGroupRepository;
 import com.like.system.user.domain.SystemUserRepository;
 
 @Transactional
@@ -38,10 +40,12 @@ public class SystemUserService {
 	private AuthorityRepository authorityRepository;			
 	private ProfilePictureRepository profilePictureRepository;
 	private SystemUserAuthorityRepository systemUserAuthorityRepository;
+	private SystemUserMenuGroupRepository systemUserMenuGroupRepository;
 	
 	public SystemUserService(SystemUserRepository repository
 					  		,AuthorityRepository authorityRepository
 					  		,SystemUserAuthorityRepository systemUserAuthorityRepository
+					  		,SystemUserMenuGroupRepository systemUserMenuGroupRepository
 					  		,MenuGroupRepository menuRepository
 					  		,DeptRepository deptRepository
 					  		,ProfilePictureRepository profilePictureRepository) {
@@ -50,6 +54,7 @@ public class SystemUserService {
 		this.deptRepository = deptRepository;
 		this.authorityRepository = authorityRepository;	
 		this.systemUserAuthorityRepository = systemUserAuthorityRepository;
+		this.systemUserMenuGroupRepository = systemUserMenuGroupRepository;
 		this.profilePictureRepository = profilePictureRepository;
 	}
 	
@@ -82,18 +87,11 @@ public class SystemUserService {
 		}
 		
 		Dept dept = StringUtils.hasText(dto.deptCode()) ? deptRepository.findById(new DeptId(dto.organizationCode(), dto.deptCode())).orElse(null) : null; 
-							
-		Set<MenuGroup> menuGroupList = new LinkedHashSet<>(menuRepository.findAllById(dto.menuGroupList()
-																						 .stream()
-																						 .map(r -> new MenuGroupId(dto.organizationCode(), r))
-																						 .toList()));
-																					
-			
-		
+																															
 		if (user == null) {
-			user = dto.newUser(dept, menuGroupList);
+			user = dto.newUser(dept);
 		} else {
-			dto.modifyUser(user, dept, menuGroupList);			
+			dto.modifyUser(user, dept);			
 		}
 		
 		if (user.getUsername() == null) {
@@ -109,6 +107,7 @@ public class SystemUserService {
 		repository.save(user);
 
 		saveSystemUserAuhority(dto);
+		saveMenuGroupList(dto);
 	}
 		
 	public void saveUser(SystemUser user) {
@@ -194,6 +193,19 @@ public class SystemUserService {
 		return authorityRepository.findAllById(authorities.stream()
 														  .map(r -> new AuthorityId(organizationCode, r))
 														  .toList());
+	}
+	
+	private List<MenuGroup> getMenuGroupList(String organizationCode, List<String> menuGroupList) {
+		return menuRepository.findAllById(menuGroupList.stream()
+													   .map(r -> new MenuGroupId(organizationCode, r))
+													   .toList());
+	}
+	
+	private void saveMenuGroupList(SystemUserDTO.FormSystemUser dto) {
+		SystemUser user = repository.findById(new SystemUserId(dto.organizationCode(), dto.userId())).orElse(null);
+		List<MenuGroup> menuGroupList = this.getMenuGroupList(dto.organizationCode(), dto.menuGroupList());
+		this.systemUserMenuGroupRepository.saveAll(menuGroupList.stream().map(r -> new SystemUserMenuGroup(user, r)).toList());
+		
 	}
 	
 	private void saveSystemUserAuhority(SystemUserDTO.FormSystemUser dto) {

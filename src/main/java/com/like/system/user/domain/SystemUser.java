@@ -3,20 +3,15 @@ package com.like.system.user.domain;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -28,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.like.system.authority.domain.Authority;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.dept.domain.Dept;
-import com.like.system.menu.domain.MenuGroup;
 import com.like.system.user.domain.vo.AccountSpec;
 import com.like.system.user.domain.vo.SystemUserProfilePicture;
 import com.like.system.user.domain.vo.UserPassword;
@@ -96,14 +90,17 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	@OneToMany(mappedBy = "systemUser")
 	Set<SystemUserAuthority> authorities = new LinkedHashSet<>();
 			
+	/*
 	@Setter
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="COMUSERMENUGROUP",
     		joinColumns= {@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
     					  @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID")},
     		inverseJoinColumns={@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD", insertable = false, updatable = false),
-					  			@JoinColumn(name="MENU_GROUP_CD", referencedColumnName = "MENU_GROUP_CD")})	
-	Set<MenuGroup> menuGroupList = new LinkedHashSet<>();		
+					  			@JoinColumn(name="MENU_GROUP_CD", referencedColumnName = "MENU_GROUP_CD")})
+	 */
+	@OneToMany(mappedBy = "systemUser")
+	Set<SystemUserMenuGroup> menuGroupList = new LinkedHashSet<>();		
 		
 	@Builder
 	public SystemUser(String organizationCode
@@ -113,8 +110,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 					 ,Dept dept
 					 ,String mobileNum
 					 ,String email
-					 ,AccountSpec accountSpec					 
-					 ,Set<MenuGroup> menuGroupList) {		
+					 ,AccountSpec accountSpec) {		
 		this.id = new SystemUserId(organizationCode, staffNo);
 		this.staffId = new StaffId(organizationCode, staffNo);		
 		this.name = name;
@@ -123,8 +119,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		this.deptCode = dept == null ? null : dept.getId().getDeptCode();
 		this.mobileNum = mobileNum;
 		this.email = email;
-		this.accountSpec = accountSpec;				
-		this.menuGroupList = menuGroupList;
+		this.accountSpec = accountSpec;						
 		
 		this.initPassword();
 	}	
@@ -135,15 +130,13 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 			 				,String name					 				
 							,String mobileNum
 							,String email							 
-							,Dept dept							
-							,Set<MenuGroup> menuGroupList) {
+							,Dept dept					) {
 		this.staffId = new StaffId(organizationCode, staffNo);
 		this.name = name;						
 		this.mobileNum = mobileNum;
 		this.email = email;		
 		this.dept = dept;
-		this.deptCode = dept == null ? null : dept.getId().getDeptCode();		
-		this.menuGroupList = menuGroupList;
+		this.deptCode = dept == null ? null : dept.getId().getDeptCode();				
 	}
 	
 	@Override	

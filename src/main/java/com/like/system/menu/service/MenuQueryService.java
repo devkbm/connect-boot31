@@ -34,8 +34,8 @@ public class MenuQueryService {
 		return menuJpaRepository.getMenuList(condition);
 	}
 	
-	public List<ResponseMenuHierarchy> getMenuHierachy(String organizationCode, String menuGroupId) {
-		List<ResponseMenuHierarchy> rootList = menuJpaRepository.getMenuRootList(organizationCode, menuGroupId);
+	public List<ResponseMenuHierarchy> getMenuHierachy(String organizationCode, String menuGroupCode) {
+		List<ResponseMenuHierarchy> rootList = menuJpaRepository.getMenuRootList(organizationCode, menuGroupCode);
 		
 		return menuJpaRepository.getMenuHierarchyDTO(organizationCode, rootList);
 	}	

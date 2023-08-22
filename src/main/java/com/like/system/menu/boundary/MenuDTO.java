@@ -19,22 +19,23 @@ import lombok.Builder;
 public class MenuDTO {	
 	
 	public record Search(
+			String organizationCode,
 			@NotEmpty(message = "필수 입력 값입니다.")
-			String menuGroupId,
-			String menuId,
+			String menuGroupCode,
+			String menuCode,
 			String menuName
 			) {
 		private static final QMenu qType = QMenu.menu;
 		
 		public BooleanBuilder getBooleanBuilder() {																
 			return new BooleanBuilder()
-					.and(equalMenuGroupCode(this.menuGroupId))
+					.and(equalMenuGroupCode(this.menuGroupCode))
 		//			.and(likeMenuId(this.menuId))
 					.and(likeMenuName(this.menuName));
 		}
 		
-		private BooleanExpression equalMenuGroupCode(String menuGroupId) {					
-			return QMenuGroup.menuGroup.id.menuGroupCode.eq(menuGroupId);
+		private BooleanExpression equalMenuGroupCode(String menuGroupCode) {					
+			return QMenuGroup.menuGroup.id.organizationCode.eq(menuGroupCode);
 		}
 		/*
 		private BooleanExpression likeMenuId(String menuId) {

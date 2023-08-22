@@ -19,7 +19,7 @@ public class ResponseMenuHierarchy {
 	
 	private String title;
 	
-	private String parentMenuId;
+	private String parentMenuCode;
 		
 	private String menuType;
 	
@@ -38,12 +38,12 @@ public class ResponseMenuHierarchy {
 	private List<ResponseMenuHierarchy> children;
 
 	@QueryProjection
-	public ResponseMenuHierarchy(String menuGroupCode, String key, String title, String parentMenuId,
+	public ResponseMenuHierarchy(String menuGroupCode, String key, String title, String parentMenuCode,
 			MenuType menuType, Long sequence, Long level, String url) {		
 		this.menuGroupCode = menuGroupCode;
 		this.key = key;
 		this.title = title;
-		this.parentMenuId = parentMenuId;
+		this.parentMenuCode = parentMenuCode;
 		this.menuType = menuType.toString();
 		this.sequence = sequence;
 		this.level = level;

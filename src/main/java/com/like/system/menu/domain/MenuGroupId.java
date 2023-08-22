@@ -1,12 +1,11 @@
 package com.like.system.menu.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode
 @Embeddable
 public class MenuGroupId implements Serializable {
 
@@ -31,6 +30,24 @@ public class MenuGroupId implements Serializable {
 
 	public String getMenuGroupCode() {
 		return menuGroupCode;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(organizationCode, menuGroupCode);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MenuGroupId other = (MenuGroupId) obj;
+		return Objects.equals(organizationCode, other.organizationCode)
+			&& Objects.equals(menuGroupCode, other.menuGroupCode);
 	}
 	
 	

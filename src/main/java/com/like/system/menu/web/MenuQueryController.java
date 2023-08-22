@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuType;
 import com.like.system.menu.service.MenuQueryService;
 
+@Slf4j
 @RestController
 public class MenuQueryController {
 
@@ -41,10 +43,12 @@ public class MenuQueryController {
 		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
 	}
 	
-	@GetMapping("/api/system/menuhierarchy/{menuGroupId}")
-	public ResponseEntity<?> getMenuGroupHierachy(@RequestParam String organizationCode, @PathVariable String menuGroupId) {				
+	@GetMapping("/api/system/menuhierarchy/{menuGroupCode}")
+	public ResponseEntity<?> getMenuGroupHierachy(@RequestParam String organizationCode, @PathVariable String menuGroupCode) {				
 		
-		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(organizationCode, menuGroupId); 										
+		log.info("organizationCode : "+ organizationCode);
+		log.info("menuGroupCode : "+ menuGroupCode);
+		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(organizationCode, menuGroupCode); 										
 		
 		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
 	}

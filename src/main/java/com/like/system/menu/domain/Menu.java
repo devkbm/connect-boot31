@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -38,21 +39,7 @@ import lombok.ToString;
 public class Menu extends AbstractAuditEntity implements Serializable {			
 	
 	private static final long serialVersionUID = -8469789281288988098L;
-
-	/*
-	@Id
-	@Comment("메뉴ID")
-	@Column(name = "MENU_ID")
-	String id;
 	
-	@Comment("조직코드")
-	@Column(name="ORG_CD")
-	String organizationCode;
-	
-	@Comment("메뉴코드")
-	@Column(name="MENU_CODE")
-	String code;
-	*/
 	@EmbeddedId
 	MenuId id;
 	
@@ -80,22 +67,23 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	
 	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumns({
-		@JoinColumn(name = "ORG_CD", insertable = false, updatable=false),
-		@JoinColumn(name = "MENU_GROUP_CD", insertable = false, updatable=false),
-		@JoinColumn(name = "P_MENU_CD", insertable = false, updatable=false )
+		@JoinColumn(name = "ORG_CD", referencedColumnName = "ORG_CD", insertable = false, updatable=false),
+		@JoinColumn(name = "MENU_GROUP_CD", referencedColumnName = "MENU_GROUP_CD", insertable = false, updatable=false),
+		@JoinColumn(name = "P_MENU_CD", referencedColumnName = "P_MENU_CD", insertable = false, updatable=false )
 	})
 	Menu parent;
 	
 	@Column(name="P_MENU_CD")
 	String parentMenuCode;
-	
+			
 	@JsonIgnore	
+	@MapsId("menuGroupId") 
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name = "ORG_CD", nullable=false, updatable=false),
-		@JoinColumn(name = "MENU_GROUP_CD", nullable=false, updatable=false)
+		@JoinColumn(name="ORG_CD"),
+        @JoinColumn(name="MENU_GROUP_CD")		
 	})	
-	MenuGroup menuGroup = new MenuGroup();	
+	MenuGroup menuGroup;	
 		
 	@Builder
 	public Menu(@NonNull MenuGroup menuGroup,

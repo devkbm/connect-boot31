@@ -87,7 +87,7 @@ public class SystemUserDTO {
 			List<String> menuGroupList
 			) {
 		
-		public SystemUser newUser(Dept dept, Set<MenuGroup> menuGroupList) {
+		public SystemUser newUser(Dept dept) {
 			SystemUser entity = SystemUser.builder()										  
 										  .name(this.name)		
 										  .organizationCode(this.organizationCode)
@@ -95,8 +95,7 @@ public class SystemUserDTO {
 										  .dept(dept)				
 										  .mobileNum(this.mobileNum)
 										  .email(this.email)					  
-										  .accountSpec(new AccountSpec(true, true, true, true))										  
-										  .menuGroupList(menuGroupList)					  
+										  .accountSpec(new AccountSpec(true, true, true, true))										  										  			 
 										  .build();
 			
 			entity.setAppUrl(clientAppUrl);
@@ -105,7 +104,7 @@ public class SystemUserDTO {
 			
 		}
 					
-		public void modifyUser(SystemUser user, Dept dept, Set<MenuGroup> menuGroupList) {
+		public void modifyUser(SystemUser user, Dept dept) {
 						
 			user.modifyBuilder()			
 				.organizationCode(organizationCode)
@@ -113,8 +112,7 @@ public class SystemUserDTO {
 				.name(name)
 				.mobileNum(mobileNum)
 				.email(email)
-				.dept(dept)				
-				.menuGroupList(menuGroupList)
+				.dept(dept)								
 				.modify();
 			
 			user.setAppUrl(clientAppUrl);
@@ -146,7 +144,7 @@ public class SystemUserDTO {
 																	.toList())
 											   .menuGroupList(entity.getMenuGroupList()
 																	.stream()
-																	.map(menuGroup -> menuGroup.getId().getMenuGroupCode())
+																	.map(menuGroup -> menuGroup.getMenuGroupCode())
 																	.toList())
 											   .build();
 			
