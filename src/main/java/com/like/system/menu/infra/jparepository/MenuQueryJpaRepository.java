@@ -53,18 +53,19 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 				.fetch();
 	}
 	
-	public List<ResponseMenuHierarchy> getMenuRootList(String menuGroupId) {			
+	public List<ResponseMenuHierarchy> getMenuRootList(String organizationCode, String menuGroupId) {			
 						
 		JPAQuery<ResponseMenuHierarchy> query = queryFactory
 				.select(projections(qMenu))
 				.from(qMenu)								
-				.where(qMenu.menuGroup.id.eq(menuGroupId)
-					.and(qMenu.parent.id.isNull()));													
+				.where(qMenu.menuGroup.id.organizationCode.eq(organizationCode)
+				  .and(qMenu.menuGroup.id.menuGroupCode.eq(menuGroupId))		 
+				  .and(qMenu.parent.id.isNull()));													
 				
 		return query.fetch();
 	}
 			
-	public List<ResponseMenuHierarchy> getMenuChildrenList(String menuGroupId, String parentMenuId) {					
+	public List<ResponseMenuHierarchy> getMenuChildrenList(String organizationCode, String menuGroupId, String parentMenuId) {					
 		/*
 		Expression<Boolean> isLeaf = new CaseBuilder()										
 											.when(qMenu.parent.menuCode.isNotNull()).then(true)
@@ -77,20 +78,21 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 											, qMenu.parent.menuCode, qMenu.menuType, qMenu.sequence, qMenu.level, qWebResource.url, isLeaf))*/
 				.select(projections(qMenu))
 				.from(qMenu)									
-				.where(qMenu.menuGroup.id.eq(menuGroupId)
-					.and(qMenu.parent.id.eq(parentMenuId)));
+				.where(qMenu.menuGroup.id.organizationCode.eq(organizationCode)
+				  .and(qMenu.menuGroup.id.menuGroupCode.eq(menuGroupId))
+				  .and(qMenu.parent.id.menuCode.eq(parentMenuId)));
 																		
 		return query.fetch();
 	}
 	
 
 	// TODO 계층 쿼리 테스트해보아야함 1 루트 노드 검색 : getMenuChildrenList 2. 하위노드 검색 : getMenuHierarchyDTO
-	public List<ResponseMenuHierarchy> getMenuHierarchyDTO(List<ResponseMenuHierarchy> list) {
+	public List<ResponseMenuHierarchy> getMenuHierarchyDTO(String organizationCode, List<ResponseMenuHierarchy> list) {
 		List<ResponseMenuHierarchy> children = null;
 		
 		for ( ResponseMenuHierarchy dto : list ) {			
 			
-			children = getMenuChildrenList(dto.getMenuGroupId(), dto.getKey());
+			children = getMenuChildrenList(organizationCode, dto.getMenuGroupCode(), dto.getKey());
 			
 			if (children.isEmpty()) {
 				dto.setIsLeaf(true);
@@ -100,7 +102,7 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 				dto.setIsLeaf(false);
 				
 				// 재귀호출
-				getMenuHierarchyDTO(children);
+				getMenuHierarchyDTO(organizationCode, children);
 			}
 						
 		}
@@ -110,10 +112,10 @@ public class MenuQueryJpaRepository implements MenuQueryRepository {
 	
 	private QResponseMenuHierarchy projections(QMenu qMenu) {		
 		
-		return new QResponseMenuHierarchy(qMenu.menuGroup.id
-										 ,qMenu.id
+		return new QResponseMenuHierarchy(qMenu.menuGroup.id.menuGroupCode
+										 ,qMenu.id.menuCode
 										 ,qMenu.name
-										 ,qMenu.parent.id
+										 ,qMenu.parent.id.menuCode
 										 ,qMenu.type
 										 ,qMenu.sequence
 										 ,qMenu.level

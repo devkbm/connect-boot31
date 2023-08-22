@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(of = {"organizationCode","userId"})
 @Embeddable
 public class SystemUserId implements Serializable {
 

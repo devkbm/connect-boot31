@@ -35,11 +35,11 @@ public class MenuGroupDTO {
 		}
 		
 		private BooleanExpression eqOrganizationCode(String organizationCode) {
-			return qType.organizationCode.eq(organizationCode);
+			return qType.id.organizationCode.eq(organizationCode);
 		}
 		
 		private BooleanExpression likeMenGroupId(String menuGroupId) {
-			return hasText(menuGroupId) ? qType.id.like("%"+menuGroupId+"%") : null;					
+			return hasText(menuGroupId) ? qType.id.menuGroupCode.like("%"+menuGroupId+"%") : null;					
 		}
 		
 		private BooleanExpression likeMenGroupName(String menuGroupName) {
@@ -53,8 +53,7 @@ public class MenuGroupDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,	
-			String clientAppUrl,
-			String menuGroupId,
+			String clientAppUrl,			
 			String organizationCode,
 			String menuGroupCode,		
 			String menuGroupName,
@@ -88,9 +87,9 @@ public class MenuGroupDTO {
 								.createdBy(entity.getCreatedBy() == null ? null : entity.getCreatedBy().getLoggedUser())
 								.modifiedDt(entity.getModifiedDt())
 								.modifiedBy(entity.getModifiedBy() == null ? null : entity.getModifiedBy().getLoggedUser())								
-								.organizationCode(entity.getOrganizationCode())
-								.menuGroupId(entity.getId())
-								.menuGroupCode(entity.getCode())
+								.organizationCode(entity.getId().getOrganizationCode())
+								//.menuGroupId(entity.getId())
+								.menuGroupCode(entity.getId().getMenuGroupCode())
 								.menuGroupName(entity.getName())
 								.description(entity.getDescription())
 								.build();

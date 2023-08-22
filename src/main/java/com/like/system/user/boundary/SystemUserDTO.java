@@ -9,11 +9,12 @@ import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
 
+import com.like.system.authority.domain.Authority;
 import com.like.system.dept.domain.Dept;
 import com.like.system.menu.domain.MenuGroup;
-import com.like.system.user.domain.Authority;
 import com.like.system.user.domain.QSystemUser;
 import com.like.system.user.domain.SystemUser;
+import com.like.system.user.domain.SystemUserAuthority;
 import com.like.system.user.domain.vo.AccountSpec;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -86,7 +87,7 @@ public class SystemUserDTO {
 			List<String> menuGroupList
 			) {
 		
-		public SystemUser newUser(Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
+		public SystemUser newUser(Dept dept, Set<MenuGroup> menuGroupList) {
 			SystemUser entity = SystemUser.builder()										  
 										  .name(this.name)		
 										  .organizationCode(this.organizationCode)
@@ -94,8 +95,7 @@ public class SystemUserDTO {
 										  .dept(dept)				
 										  .mobileNum(this.mobileNum)
 										  .email(this.email)					  
-										  .accountSpec(new AccountSpec(true, true, true, true))
-										  .authorities(authorityList)
+										  .accountSpec(new AccountSpec(true, true, true, true))										  
 										  .menuGroupList(menuGroupList)					  
 										  .build();
 			
@@ -105,7 +105,7 @@ public class SystemUserDTO {
 			
 		}
 					
-		public void modifyUser(SystemUser user, Dept dept, Set<Authority> authorityList, Set<MenuGroup> menuGroupList) {
+		public void modifyUser(SystemUser user, Dept dept, Set<MenuGroup> menuGroupList) {
 						
 			user.modifyBuilder()			
 				.organizationCode(organizationCode)
@@ -113,8 +113,7 @@ public class SystemUserDTO {
 				.name(name)
 				.mobileNum(mobileNum)
 				.email(email)
-				.dept(dept)
-				.authorities(authorityList)
+				.dept(dept)				
 				.menuGroupList(menuGroupList)
 				.modify();
 			
@@ -147,7 +146,7 @@ public class SystemUserDTO {
 																	.toList())
 											   .menuGroupList(entity.getMenuGroupList()
 																	.stream()
-																	.map(menuGroup -> menuGroup.getId())
+																	.map(menuGroup -> menuGroup.getId().getMenuGroupCode())
 																	.toList())
 											   .build();
 			

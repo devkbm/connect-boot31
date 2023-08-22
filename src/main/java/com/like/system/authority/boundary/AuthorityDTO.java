@@ -1,10 +1,11 @@
-package com.like.system.user.boundary;
+package com.like.system.authority.boundary;
 
 import static org.springframework.util.StringUtils.hasText;
 
 import jakarta.validation.constraints.NotBlank;
-import com.like.system.user.domain.Authority;
-import com.like.system.user.domain.QAuthority;
+
+import com.like.system.authority.domain.Authority;
+import com.like.system.authority.domain.QAuthority;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 

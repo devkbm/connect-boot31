@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseMenuHierarchy {
 
-	private String menuGroupId;
+	private String menuGroupCode;
 	
 	private String key;
 	
@@ -38,9 +38,9 @@ public class ResponseMenuHierarchy {
 	private List<ResponseMenuHierarchy> children;
 
 	@QueryProjection
-	public ResponseMenuHierarchy(String menuGroupId, String key, String title, String parentMenuId,
+	public ResponseMenuHierarchy(String menuGroupCode, String key, String title, String parentMenuId,
 			MenuType menuType, Long sequence, Long level, String url) {		
-		this.menuGroupId = menuGroupId;
+		this.menuGroupCode = menuGroupCode;
 		this.key = key;
 		this.title = title;
 		this.parentMenuId = parentMenuId;

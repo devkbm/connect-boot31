@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlSelectOptionRecord;
@@ -33,17 +34,17 @@ public class MenuQueryController {
 	}
 	
 	@GetMapping("/api/system/menutest/{menuGroupId}")
-	public ResponseEntity<?> getMenuGroupHierachyTest(@PathVariable String menuGroupId) {				
+	public ResponseEntity<?> getMenuGroupHierachyTest(@RequestParam String organizationCode, @PathVariable String menuGroupId) {				
 		
-		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 							
+		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(organizationCode, menuGroupId); 							
 		
 		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
 	}
 	
 	@GetMapping("/api/system/menuhierarchy/{menuGroupId}")
-	public ResponseEntity<?> getMenuGroupHierachy(@PathVariable String menuGroupId) {				
+	public ResponseEntity<?> getMenuGroupHierachy(@RequestParam String organizationCode, @PathVariable String menuGroupId) {				
 		
-		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(menuGroupId); 										
+		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(organizationCode, menuGroupId); 										
 		
 		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
 	}

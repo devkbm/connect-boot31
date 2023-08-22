@@ -4,12 +4,13 @@ import java.io.Serializable;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -38,6 +39,7 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	
 	private static final long serialVersionUID = -8469789281288988098L;
 
+	/*
 	@Id
 	@Comment("메뉴ID")
 	@Column(name = "MENU_ID")
@@ -50,9 +52,12 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	@Comment("메뉴코드")
 	@Column(name="MENU_CODE")
 	String code;
+	*/
+	@EmbeddedId
+	MenuId id;
 	
 	@Comment("메뉴명")
-	@Column(name="MENU_NAME")
+	@Column(name="MENU_NM")
 	String name; 		
 				
 	@Enumerated(EnumType.STRING)
@@ -74,12 +79,22 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	long level;
 	
 	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="P_MENU_ID", nullable = true )
+	@JoinColumns({
+		@JoinColumn(name = "ORG_CD", insertable = false, updatable=false),
+		@JoinColumn(name = "MENU_GROUP_CD", insertable = false, updatable=false),
+		@JoinColumn(name = "P_MENU_CD", insertable = false, updatable=false )
+	})
 	Menu parent;
+	
+	@Column(name="P_MENU_CD")
+	String parentMenuCode;
 	
 	@JsonIgnore	
 	@ManyToOne
-	@JoinColumn(name = "MENU_GROUP_ID", nullable=false, updatable=false)
+	@JoinColumns({
+		@JoinColumn(name = "ORG_CD", nullable=false, updatable=false),
+		@JoinColumn(name = "MENU_GROUP_CD", nullable=false, updatable=false)
+	})	
 	MenuGroup menuGroup = new MenuGroup();	
 		
 	@Builder
@@ -92,9 +107,11 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 				long sequence,
 				long level) {
 		
-		this.id = menuGroup.getId() + menuCode;
-		this.organizationCode = organizationCode;
-		this.code = menuCode;
+		//this.id = menuGroup.getId() + menuCode;
+		//this.organizationCode = organizationCode;
+		//this.code = menuCode;
+		this.id = new MenuId(organizationCode, menuGroup.getId().getMenuGroupCode(), menuCode);
+		
 		this.name = menuName;			
 		this.type = menuType;
 		this.sequence = sequence;
@@ -116,6 +133,7 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 		this.sequence = sequence;
 		this.level = level;
 		this.parent = parent;
+		this.parentMenuCode = parent.getId().getMenuCode();
 		this.menuGroup = menuGroup;
 		this.appUrl = appUrl;
 	}

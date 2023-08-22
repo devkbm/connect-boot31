@@ -1,12 +1,10 @@
-package com.like.system.user.domain;
+package com.like.system.authority.domain;
 
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Setter;
 
-@Setter
 @Embeddable
 public class AuthorityId implements Serializable {
 		

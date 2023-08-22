@@ -177,13 +177,12 @@ CREATE TABLE COMMENUGROUP (
 	MODIFIED_DT			  	DATETIME			NULL		,
 	MODIFIED_USER_ID		VARCHAR(50)			NULL		,
 	MODIFIED_HOST_IP		VARCHAR(50)			NULL		,
-	MODIFIED_APP_URL		VARCHAR(500)		NULL		,
-	MENU_GROUP_ID		  	VARCHAR(50)			NOT NULL	,
-	ORG_CD				    VARCHAR(10)			NULL		,
-	MENU_GROUP_CODE			VARCHAR(10)			NOT NULL	,
-  	MENU_GROUP_NAME			VARCHAR(50)			NOT NULL	,
-  	DESCRIPTION			  	VARCHAR(500)		NULL		,
-	constraint pk_commenugroup	primary key(MENU_GROUP_ID)
+	MODIFIED_APP_URL		VARCHAR(500)		NULL		,	
+	ORG_CD				      VARCHAR(10)			NULL		,
+	MENU_GROUP_CD			  VARCHAR(10)			NOT NULL	,
+  MENU_GROUP_NM			  VARCHAR(50)			NOT NULL	,
+  DESCRIPTION			  	VARCHAR(500)		NULL		,
+	constraint pk_commenugroup	primary key(ORG_CD, MENU_GROUP_CD)
 );
 COMMENT ON TABLE COMMENUGROUP IS '메뉴그룹관리';
 
@@ -192,23 +191,20 @@ CREATE TABLE COMMENU (
 	CREATED_USER_ID			VARCHAR(50)			NULL		,
 	CREATED_HOST_IP			VARCHAR(50)			NULL		,
 	CREATED_APP_URL			VARCHAR(500)		NULL		,
-	MODIFIED_DT				DATETIME			NULL		,
+	MODIFIED_DT				  DATETIME			NULL		,
 	MODIFIED_USER_ID		VARCHAR(50)			NULL		,
 	MODIFIED_HOST_IP		VARCHAR(50)			NULL		,
-	MODIFIED_APP_URL		VARCHAR(500)		NULL		,
-	MENU_ID				    VARCHAR(50)			NOT NULL	,
-	ORG_CD				    VARCHAR(10)			NOT NULL	,
-	MENU_CODE			    VARCHAR(10)			NOT NULL	,
-	MENU_NAME			    VARCHAR(50)			NOT NULL	,
-  MENU_TYPE			    VARCHAR(10)			NOT NULL	,
-	P_MENU_ID			    VARCHAR(50)			NULL		,
-	MENU_GROUP_ID		  	VARCHAR(50)			NOT NULL	,
-  APP_URL				    VARCHAR(50)			NULL		,
-  SEQ					    INT				  	NULL		,
-  LVL					    INT				  	NULL		,
-	constraint pk_commenu		primary key(MENU_ID),
-	constraint fk_commenu1	 	foreign key(P_MENU_ID) references COMMENU(MENU_ID),
-	constraint fk_commenu2	 	foreign key(MENU_GROUP_ID) references COMMENUGROUP(MENU_GROUP_ID)
+	MODIFIED_APP_URL		VARCHAR(500)		NULL		,	
+	ORG_CD				      VARCHAR(10)			NOT NULL	,
+	MENU_GROUP_CD		  	VARCHAR(50)			NOT NULL	,
+  MENU_CD			        VARCHAR(10)			NOT NULL	,
+	MENU_NM			        VARCHAR(50)			NOT NULL	,
+  MENU_TYPE			      VARCHAR(10)			NOT NULL	,
+	P_MENU_CD			      VARCHAR(50)			NULL		,	
+  APP_URL				      VARCHAR(50)			NULL		,
+  SEQ					        INT				  	NULL		,
+  LVL					        INT				  	NULL		,
+	constraint pk_commenu		primary key(ORG_CD, MENU_GROUP_CD, MENU_CD)
 );
 COMMENT ON TABLE COMMENU IS '메뉴관리';
 
@@ -224,10 +220,10 @@ CREATE TABLE COMUSERMENUGROUP (
 	MODIFIED_APP_URL		VARCHAR(500)		NULL		,
   ORG_CD				      VARCHAR(10)			NOT NULL	,
 	USER_ID				      VARCHAR(50)			NOT NULL	,
-  MENU_GROUP_ID		  	VARCHAR(10)			NOT NULL	,
-	constraint pk_comusermenugroup 		primary key(ORG_CD, USER_ID, MENU_GROUP_ID),
+  MENU_GROUP_CD		  	VARCHAR(10)			NOT NULL	,
+	constraint pk_comusermenugroup 		primary key(ORG_CD, USER_ID, MENU_GROUP_CD)
 	--constraint fk_comusermenugroup1 	foreign key(ORG_CD, USER_ID) references COMUSER(ORG_CD, USER_ID),
-	constraint fk_comusermenugroup2 	foreign key(MENU_GROUP_ID) references COMMENUGROUP(MENU_GROUP_ID)
+	--constraint fk_comusermenugroup2 	foreign key(MENU_GROUP_ID) references COMMENUGROUP(MENU_GROUP_ID)
 ); 
 COMMENT ON TABLE COMUSERMENUGROUP IS '사용자메뉴그룹매핑관리';
 

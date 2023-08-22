@@ -1,12 +1,11 @@
-package com.like.system.user.domain;
+package com.like.system.authority.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
+import java.io.Serializable;
 
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
@@ -18,21 +17,10 @@ import lombok.ToString;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Entity
 @Table(name = "comauthority")
-public class Authority extends AbstractAuditEntity implements GrantedAuthority {
+public class Authority extends AbstractAuditEntity implements Serializable {
 
 	private static final long serialVersionUID = 5255280527856714047L;
 	
-	/*
-	@Id
-	@Column(name="AUTH_ID")
-	String id;
-	
-	@Column(name="ORG_CD")
-	String organizationCode;
-
-	@Column(name="AUTH_CD")
-	String authorityCode;
-	*/
 	@EmbeddedId
 	AuthorityId id;
 	
@@ -48,18 +36,7 @@ public class Authority extends AbstractAuditEntity implements GrantedAuthority {
 	
 	public void modifyEntity(String description) {
 		this.description = description;
-	}
-	
-	@Override
-	public String getAuthority() {
-		return this.getAuthorityCode();
-	}
-
-	/*
-	public String getId() {
-		return id;
-	}
-	*/
+	}		
 	
 	public String getOrganizationCode() {
 		return this.id.getOrganizationCode();

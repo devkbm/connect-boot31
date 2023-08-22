@@ -1,4 +1,4 @@
-package com.like.system.user.web;
+package com.like.system.authority.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 
@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.authority.boundary.AuthorityDTO;
+import com.like.system.authority.domain.Authority;
+import com.like.system.authority.service.AuthorityQueryService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.user.boundary.AuthorityDTO;
-import com.like.system.user.domain.Authority;
-import com.like.system.user.service.AuthorityQueryService;
 
 @RestController
 public class AuthorityQueryController {

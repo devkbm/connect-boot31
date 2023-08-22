@@ -1,8 +1,8 @@
-package com.like.system.user.domain;
+package com.like.system.authority.domain;
 
 import java.util.List;
 
-import com.like.system.user.boundary.AuthorityDTO;
+import com.like.system.authority.boundary.AuthorityDTO;
 
 public interface AuthorityQueryRepository {
 

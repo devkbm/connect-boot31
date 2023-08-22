@@ -7,7 +7,9 @@ import com.like.system.menu.boundary.MenuDTO;
 import com.like.system.menu.boundary.MenuGroupDTO;
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
+import com.like.system.menu.domain.MenuGroupId;
 import com.like.system.menu.domain.MenuGroupRepository;
+import com.like.system.menu.domain.MenuId;
 import com.like.system.menu.domain.MenuRepository;
 
 @Service
@@ -23,8 +25,8 @@ public class MenuCommandService {
 		this.menuRepository = menuRepository;		
 	}
 
-	public MenuGroup getMenuGroup(String menuGroupId) {
-		return menuGroupRepository.findById(menuGroupId).orElse(null);
+	public MenuGroup getMenuGroup(String organizationCode, String menuGroupCode) {
+		return menuGroupRepository.findById(new MenuGroupId(organizationCode, menuGroupCode)).orElse(null);
 	}
 	
 	public void saveMenuGroup(MenuGroup codeGroup) {
@@ -32,7 +34,7 @@ public class MenuCommandService {
 	}
 	
 	public void saveMenuGroup(MenuGroupDTO.FormMenuGroup dto) {
-		MenuGroup menuGroup = dto.menuGroupId() != null ? menuGroupRepository.findById(dto.menuGroupId()).orElse(null) : null; 			
+		MenuGroup menuGroup = dto.menuGroupCode() != null ? menuGroupRepository.findById(new MenuGroupId(dto.organizationCode(), dto.menuGroupCode())).orElse(null) : null; 			
 		
 		if (menuGroup == null) {
 			menuGroup = dto.newMenuGroup();
@@ -43,12 +45,12 @@ public class MenuCommandService {
 		menuGroupRepository.save(menuGroup);	
 	}
 	
-	public void deleteMenuGroup(String menuGroupId) {
-		menuGroupRepository.deleteById(menuGroupId);
+	public void deleteMenuGroup(String organizationCode, String menuGroupCode) {
+		menuGroupRepository.deleteById(new MenuGroupId(organizationCode, menuGroupCode));
 	}
 	
-	public Menu getMenu(String menuId) {
-		return menuRepository.findById(menuId).orElse(null);
+	public Menu getMenu(String organizationCode, String menuGroupCode, String menuCode) {
+		return menuRepository.findById(new MenuId(organizationCode, menuGroupCode, menuCode)).orElse(null);
 	}
 	
 	public void saveMenu(Menu menu) throws Exception {			
@@ -56,9 +58,9 @@ public class MenuCommandService {
 	}
 	
 	public void saveMenu(MenuDTO.FormMenu dto) {
-		MenuGroup menuGroup = menuGroupRepository.findById(dto.menuGroupId()).orElse(null);
-		Menu menu = menuRepository.findById(dto.menuId()).orElse(null);
-		Menu parent = dto.parentMenuId() != null ? menuRepository.findById(dto.parentMenuId()).orElse(null) : null; 						
+		MenuGroup menuGroup = menuGroupRepository.findById(new MenuGroupId(dto.organizationCode(), dto.menuGroupCode())).orElse(null);
+		Menu menu = menuRepository.findById(new MenuId(dto.organizationCode(), dto.menuGroupCode(), dto.menuCode())).orElse(null);
+		Menu parent = dto.parentMenuCode() != null ? menuRepository.findById(new MenuId(dto.organizationCode(), dto.menuGroupCode(), dto.parentMenuCode())).orElse(null) : null; 						
 					
 		if (menu == null) {
 			menu = dto.newMenu(menuGroup);
@@ -69,8 +71,8 @@ public class MenuCommandService {
 		menuRepository.save(menu);	
 	}
 	
-	public void deleteMenu(String menuId) {		
-		menuRepository.deleteById(menuId);
+	public void deleteMenu(String organizationCode, String menuGroupCode, String menuCode) {		
+		menuRepository.deleteById(new MenuId(organizationCode, menuGroupCode, menuCode));
 	}		
 	
 }

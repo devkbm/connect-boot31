@@ -3,9 +3,9 @@ package com.like.system.menu.domain;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -28,6 +28,7 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 	
 	private static final long serialVersionUID = -638113137072530575L;
 
+	/*
 	@Id
 	@Column(name="MENU_GROUP_ID")
 	String id;
@@ -37,8 +38,12 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 		
 	@Column(name="MENU_GROUP_CODE")
 	String code;
+	*/
 	
-	@Column(name="MENU_GROUP_NAME")
+	@EmbeddedId
+	MenuGroupId id;
+	
+	@Column(name="MENU_GROUP_NM")
 	String name; 
 		
 	@Column(name="DESCRIPTION")
@@ -46,9 +51,9 @@ public class MenuGroup extends AbstractAuditEntity implements Serializable {
 			
 	@Builder
 	public MenuGroup(String organizationCode, String code, String name, String description) {	
-		this.id = organizationCode + code;
-		this.organizationCode = organizationCode;
-		this.code = code;
+		this.id = new MenuGroupId(organizationCode, code);
+		//this.organizationCode = organizationCode;
+		//this.code = code;
 		this.name = name;
 		this.description = description;
 	}	

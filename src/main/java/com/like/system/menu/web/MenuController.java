@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
@@ -30,10 +31,10 @@ public class MenuController {
 		this.menuCommandService = menuCommandService;		
 	}
 			
-	@GetMapping("/api/system/menugroup/{menuGroupId}")
-	public ResponseEntity<?> getMenuGroup(@PathVariable String menuGroupId) {				
+	@GetMapping("/api/system/menugroup/{menuGroupCode}")
+	public ResponseEntity<?> getMenuGroup(@RequestParam String organizationCode, @PathVariable String menuGroupCode) {				
 		
-		MenuGroup menuGroup = menuCommandService.getMenuGroup(menuGroupId);
+		MenuGroup menuGroup = menuCommandService.getMenuGroup(organizationCode, menuGroupCode);
 		
 		MenuGroupDTO.FormMenuGroup dto = FormMenuGroup.convert(menuGroup);
 								
@@ -48,19 +49,19 @@ public class MenuController {
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 		
-	@DeleteMapping("/api/system/menugroup/{menuGroupId}")
-	public ResponseEntity<?> delCodeGroup(@PathVariable String menuGroupId) {				
+	@DeleteMapping("/api/system/menugroup/{menuGroupCode}")
+	public ResponseEntity<?> delCodeGroup(@RequestParam String organizationCode, @PathVariable String menuGroupCode) {				
 												
-		menuCommandService.deleteMenuGroup(menuGroupId);							
+		menuCommandService.deleteMenuGroup(organizationCode, menuGroupCode);							
 		
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}
 	
 	
-	@GetMapping("/api/system/menu/{menuId}")
-	public ResponseEntity<?> getMenu(@PathVariable String menuId) {				
+	@GetMapping("/api/system/menugroup/{menuGroupCode}/menu/{menuCode}")
+	public ResponseEntity<?> getMenu(@RequestParam String organizationCode, @PathVariable String menuGroupCode, @PathVariable String menuCode) {				
 		
-		Menu menu = menuCommandService.getMenu(menuId); 		
+		Menu menu = menuCommandService.getMenu(organizationCode, menuGroupCode, menuCode); 		
 		
 		MenuDTO.FormMenu dto = MenuDTO.FormMenu.convert(menu);			
 		
@@ -69,7 +70,7 @@ public class MenuController {
 	
 	
 		
-	@PostMapping("/api/system/menu/{menuId}")
+	@PostMapping("/api/system/menugroup/{menuGroupCode}/menu/{menuCode}")
 	public ResponseEntity<?> saveMenu(@RequestBody @Valid MenuDTO.FormMenu dto) throws Exception {												
 									
 		menuCommandService.saveMenu(dto);																			
@@ -77,10 +78,10 @@ public class MenuController {
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}
 	
-	@DeleteMapping("/api/system/menu/{menuId}")
-	public ResponseEntity<?> delMenu(@PathVariable String menuId) {				
+	@DeleteMapping("/api/system/menugroup/{menuGroupCode}menu/{menuCode}")
+	public ResponseEntity<?> delMenu(@RequestParam String organizationCode, @PathVariable String menuGroupCode, @PathVariable String menuCode) {				
 												
-		menuCommandService.deleteMenu(menuId);							
+		menuCommandService.deleteMenu(organizationCode, menuGroupCode, menuCode);							
 		
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}	

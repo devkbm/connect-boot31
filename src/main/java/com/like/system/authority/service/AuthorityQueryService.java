@@ -1,13 +1,13 @@
-package com.like.system.user.service;
+package com.like.system.authority.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.user.boundary.AuthorityDTO;
-import com.like.system.user.domain.Authority;
-import com.like.system.user.domain.AuthorityQueryRepository;
+import com.like.system.authority.boundary.AuthorityDTO;
+import com.like.system.authority.domain.Authority;
+import com.like.system.authority.domain.AuthorityQueryRepository;
 
 @Transactional(readOnly = true)
 @Service

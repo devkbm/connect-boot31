@@ -1,13 +1,13 @@
-package com.like.system.user.infra.jparepository;
+package com.like.system.authority.infra.japrepository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.user.boundary.AuthorityDTO.SearchAuthority;
-import com.like.system.user.domain.Authority;
-import com.like.system.user.domain.AuthorityQueryRepository;
-import com.like.system.user.domain.QAuthority;
+import com.like.system.authority.boundary.AuthorityDTO.SearchAuthority;
+import com.like.system.authority.domain.Authority;
+import com.like.system.authority.domain.AuthorityQueryRepository;
+import com.like.system.authority.domain.QAuthority;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository

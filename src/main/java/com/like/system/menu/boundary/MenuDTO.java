@@ -29,18 +29,18 @@ public class MenuDTO {
 		public BooleanBuilder getBooleanBuilder() {																
 			return new BooleanBuilder()
 					.and(equalMenuGroupCode(this.menuGroupId))
-					.and(likeMenuId(this.menuId))
+		//			.and(likeMenuId(this.menuId))
 					.and(likeMenuName(this.menuName));
 		}
 		
 		private BooleanExpression equalMenuGroupCode(String menuGroupId) {					
-			return QMenuGroup.menuGroup.id.eq(menuGroupId);
+			return QMenuGroup.menuGroup.id.menuGroupCode.eq(menuGroupId);
 		}
-		
+		/*
 		private BooleanExpression likeMenuId(String menuId) {
 			return hasText(menuId) ? qType.id.like("%"+menuId+"%") : null;					
 		}
-		
+		*/
 		private BooleanExpression likeMenuName(String menuName) {
 			return hasText(menuName) ? qType.name.like("%"+menuName+"%") : null;					
 		}
@@ -52,16 +52,15 @@ public class MenuDTO {
 			String createdBy,
 			LocalDateTime modifiedDt,
 			String modifiedBy,
-			String clientAppUrl,
-			@NotEmpty
-			String menuGroupId,
-			String menuId,
+			String clientAppUrl,						
 			String organizationCode,
+			@NotEmpty
+			String menuGroupCode,
 			String menuCode,			
 			@NotEmpty
 			String menuName,
 			String appUrl,
-			String parentMenuId,
+			String parentMenuCode,
 			String menuType,
 			long sequence,
 			long level
@@ -103,16 +102,15 @@ public class MenuDTO {
 					   	   .createdBy(menu.getCreatedBy().getLoggedUser())
 					   	   .modifiedDt(menu.getModifiedDt())
 					   	   .modifiedBy(menu.getModifiedBy().getLoggedUser())					   	   
-					   	   .menuGroupId(menu.getMenuGroup().getId())
-					   	   .menuId(menu.getId())
-					   	   .organizationCode(menu.getOrganizationCode())
-					   	   .menuCode(menu.getCode())
+					   	   .organizationCode(menu.getMenuGroup().getId().getOrganizationCode())
+					   	   .menuGroupCode(menu.getMenuGroup().getId().getMenuGroupCode())					   	   					   	   
+					   	   .menuCode(menu.getId().getMenuCode())
 					   	   .menuName(menu.getName())
 					   	   .menuType(menu.getType().toString())
 					   	   .appUrl(menu.getAppUrl())
 					   	   .sequence(menu.getSequence())
 					   	   .level(menu.getLevel())
-					   	   .parentMenuId(menu.getParent() == null ? null : menu.getParent().getId())					   	   
+					   	   .parentMenuCode(menu.getParent() == null ? null : menu.getParent().getId().getMenuCode())					   	   
 					   	   .build();
 		}
 	}	

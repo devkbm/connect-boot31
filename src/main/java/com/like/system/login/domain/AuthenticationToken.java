@@ -72,7 +72,7 @@ public class AuthenticationToken implements Serializable {
 				.ipAddress(ipAddress)
 				.token(request.getSession().getId())
 				.authorityList(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
-				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlSelectOptionRecord(e.getName(), e.getId())).toList())
+				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlSelectOptionRecord(e.getName(), e.getId().getMenuGroupCode())).toList())
 				.build();
     }
        

@@ -1,12 +1,12 @@
-package com.like.system.user.service;
+package com.like.system.authority.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.user.boundary.AuthorityDTO;
-import com.like.system.user.domain.Authority;
-import com.like.system.user.domain.AuthorityId;
-import com.like.system.user.domain.AuthorityRepository;
+import com.like.system.authority.boundary.AuthorityDTO;
+import com.like.system.authority.domain.Authority;
+import com.like.system.authority.domain.AuthorityId;
+import com.like.system.authority.domain.AuthorityRepository;
 
 @Transactional
 @Service

@@ -3,6 +3,7 @@ package com.like.system.user.domain;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -23,6 +25,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.like.system.authority.domain.Authority;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.dept.domain.Dept;
 import com.like.system.menu.domain.MenuGroup;
@@ -75,26 +78,31 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	
 	@OneToOne(optional = true)
 	@JoinColumns({
-		@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD", insertable=false, updatable=false),
-		@JoinColumn(name = "DEPT_CD", referencedColumnName = "DEPT_CD", insertable=false, updatable=false)
+		@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD", insertable=false, updatable=false, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT)),
+		@JoinColumn(name = "DEPT_CD", referencedColumnName = "DEPT_CD", insertable=false, updatable=false, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
 	})	
 	Dept dept;
 		
-	@Setter
+	/*
+	@Setter	
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name="COMUSERAUTHORITY", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
+    @JoinTable(name="COMUSERAUTHORITY",
     		joinColumns= {@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
 					      @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID") },
-    		inverseJoinColumns={@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD", insertable=false, updatable=false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT)),
-    							@JoinColumn(name="AUTH_CD", referencedColumnName = "AUTH_CD", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))})	
+    		inverseJoinColumns={@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
+    							@JoinColumn(name="AUTH_CD", referencedColumnName = "AUTH_CD")})    
 	Set<Authority> authorities = new LinkedHashSet<>();
+	*/
+	@OneToMany(mappedBy = "systemUser")
+	Set<SystemUserAuthority> authorities = new LinkedHashSet<>();
 			
 	@Setter
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="COMUSERMENUGROUP",
     		joinColumns= {@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
     					  @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID")},
-    		inverseJoinColumns=@JoinColumn(name="MENU_GROUP_ID"))	
+    		inverseJoinColumns={@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD", insertable = false, updatable = false),
+					  			@JoinColumn(name="MENU_GROUP_CD", referencedColumnName = "MENU_GROUP_CD")})	
 	Set<MenuGroup> menuGroupList = new LinkedHashSet<>();		
 		
 	@Builder
@@ -105,19 +113,17 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 					 ,Dept dept
 					 ,String mobileNum
 					 ,String email
-					 ,AccountSpec accountSpec
-					 ,Set<Authority> authorities
+					 ,AccountSpec accountSpec					 
 					 ,Set<MenuGroup> menuGroupList) {		
 		this.id = new SystemUserId(organizationCode, staffNo);
 		this.staffId = new StaffId(organizationCode, staffNo);		
 		this.name = name;
 		this.password = password;
 		this.dept = dept;
-		this.deptCode = dept.getId().getDeptCode();
+		this.deptCode = dept == null ? null : dept.getId().getDeptCode();
 		this.mobileNum = mobileNum;
 		this.email = email;
-		this.accountSpec = accountSpec;		
-		this.authorities = authorities;
+		this.accountSpec = accountSpec;				
 		this.menuGroupList = menuGroupList;
 		
 		this.initPassword();
@@ -129,28 +135,26 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 			 				,String name					 				
 							,String mobileNum
 							,String email							 
-							,Dept dept
-							,Set<Authority> authorities
+							,Dept dept							
 							,Set<MenuGroup> menuGroupList) {
 		this.staffId = new StaffId(organizationCode, staffNo);
 		this.name = name;						
 		this.mobileNum = mobileNum;
 		this.email = email;		
 		this.dept = dept;
-		this.deptCode = dept == null ? null : dept.getId().getDeptCode();
-		this.authorities = authorities;
+		this.deptCode = dept == null ? null : dept.getId().getDeptCode();		
 		this.menuGroupList = menuGroupList;
 	}
 	
 	@Override	
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities;
+		return authorities; //.stream().map(r -> r.getAuthority()).toList();
 	}
 	
-	public Set<Authority> getAuthoritiesList() {
-		return this.authorities;
+	public Set<SystemUserAuthority> getAuthoritiesList() {
+		return this.authorities;		
 	}
-			
+		
 	@Override	
 	public String getUsername() {		
 		return id.getUserId();
@@ -194,7 +198,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 			this.authorities = new LinkedHashSet<>();
 		}
 		
-		this.authorities.add(authority);
+		this.authorities.add(new SystemUserAuthority(this, authority));
 	}								
 	
 	public void changePassword(String password) {
@@ -223,6 +227,6 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		if (this.image == null) this.image = new SystemUserProfilePicture(localFileRepository);		
 		
 		return this.image.changeImage(localFileRepository, sourceFile);
-	}	
+	}
 	
 }

@@ -1,25 +1,30 @@
 package com.like.system.user.service;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.like.system.authority.domain.Authority;
+import com.like.system.authority.domain.AuthorityId;
+import com.like.system.authority.domain.AuthorityRepository;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptId;
 import com.like.system.dept.domain.DeptRepository;
 import com.like.system.menu.domain.MenuGroup;
+import com.like.system.menu.domain.MenuGroupId;
 import com.like.system.menu.domain.MenuGroupRepository;
 import com.like.system.user.boundary.SystemUserDTO;
-import com.like.system.user.domain.Authority;
-import com.like.system.user.domain.AuthorityId;
-import com.like.system.user.domain.AuthorityRepository;
 import com.like.system.user.domain.ProfilePictureRepository;
 import com.like.system.user.domain.SystemUser;
+import com.like.system.user.domain.SystemUserAuthority;
+import com.like.system.user.domain.SystemUserAuthorityRepository;
 import com.like.system.user.domain.SystemUserId;
 import com.like.system.user.domain.SystemUserRepository;
 
@@ -32,9 +37,11 @@ public class SystemUserService {
 	private DeptRepository deptRepository;		
 	private AuthorityRepository authorityRepository;			
 	private ProfilePictureRepository profilePictureRepository;
+	private SystemUserAuthorityRepository systemUserAuthorityRepository;
 	
 	public SystemUserService(SystemUserRepository repository
 					  		,AuthorityRepository authorityRepository
+					  		,SystemUserAuthorityRepository systemUserAuthorityRepository
 					  		,MenuGroupRepository menuRepository
 					  		,DeptRepository deptRepository
 					  		,ProfilePictureRepository profilePictureRepository) {
@@ -42,6 +49,7 @@ public class SystemUserService {
 		this.menuRepository = menuRepository;
 		this.deptRepository = deptRepository;
 		this.authorityRepository = authorityRepository;	
+		this.systemUserAuthorityRepository = systemUserAuthorityRepository;
 		this.profilePictureRepository = profilePictureRepository;
 	}
 	
@@ -73,30 +81,34 @@ public class SystemUserService {
 			user = repository.findById(new SystemUserId(dto.organizationCode(), dto.userId())).orElse(null); 
 		}
 		
-		Dept dept = dto.deptCode() == null ? null : deptRepository.findById(new DeptId(dto.organizationCode(), dto.deptCode())).orElse(null); 
-		
-		Set<Authority> authorityList = new LinkedHashSet<>(authorityRepository.findAllById(dto.authorityList()
-																							  .stream()
-																							  .map(r -> new AuthorityId(dto.organizationCode(), r))
-																							  .toList()));		
-		Set<MenuGroup> menuGroupList = new LinkedHashSet<>(menuRepository.findAllById(dto.menuGroupList()));		 
+		Dept dept = StringUtils.hasText(dto.deptCode()) ? deptRepository.findById(new DeptId(dto.organizationCode(), dto.deptCode())).orElse(null) : null; 
 							
+		Set<MenuGroup> menuGroupList = new LinkedHashSet<>(menuRepository.findAllById(dto.menuGroupList()
+																						 .stream()
+																						 .map(r -> new MenuGroupId(dto.organizationCode(), r))
+																						 .toList()));
+																					
+			
+		
 		if (user == null) {
-			user = dto.newUser(dept, authorityList, menuGroupList);
+			user = dto.newUser(dept, menuGroupList);
 		} else {
-			dto.modifyUser(user, dept, authorityList, menuGroupList);			
+			dto.modifyUser(user, dept, menuGroupList);			
 		}
 		
 		if (user.getUsername() == null) {
 			new IllegalArgumentException("유저 아이디가 존재하지 않습니다.");
 		}
 		
+		/*
 		if ( user.getAuthoritiesList().isEmpty() ) {
 			initAuthority(user);
 		}			
-		
+		*/
+				
 		repository.save(user);
-								
+
+		saveSystemUserAuhority(dto);
 	}
 		
 	public void saveUser(SystemUser user) {
@@ -152,7 +164,7 @@ public class SystemUserService {
 	 * @param userId	사용자아이디
 	 * @return 사용자 권한 리스트
 	 */
-	public Set<Authority> getUserAuthorities(String organiztionCode, String userId) {        									
+	public Set<SystemUserAuthority> getUserAuthorities(String organiztionCode, String userId) {        									
         return repository.findById(new SystemUserId(organiztionCode, userId)).orElse(null).getAuthoritiesList();
 	}
 					
@@ -175,10 +187,18 @@ public class SystemUserService {
 	 * @param user	사용자 도메인
 	 */
 	private void initAuthority(SystemUser user) {							
-		Set<Authority> authorities = new LinkedHashSet<Authority>();
-		
-		authorities.add(authorityRepository.findById(new AuthorityId("001", "ROLE_USER")).orElse(null));
-		
-		user.setAuthorities(authorities);
+		user.addAuthoritiy(authorityRepository.findById(new AuthorityId("001", "ROLE_USER")).orElse(null));
+	}
+	
+	private List<Authority> getAuthorities(String organizationCode, List<String> authorities) {
+		return authorityRepository.findAllById(authorities.stream()
+														  .map(r -> new AuthorityId(organizationCode, r))
+														  .toList());
+	}
+	
+	private void saveSystemUserAuhority(SystemUserDTO.FormSystemUser dto) {
+		SystemUser user = repository.findById(new SystemUserId(dto.organizationCode(), dto.userId())).orElse(null);
+		List<Authority> authorityList = this.getAuthorities(dto.organizationCode(), dto.authorityList());		
+		this.systemUserAuthorityRepository.saveAll(authorityList.stream().map(r -> new SystemUserAuthority(user, r)).toList());
 	}
 }

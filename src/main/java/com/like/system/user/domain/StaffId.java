@@ -2,9 +2,13 @@ package com.like.system.user.domain;
 
 import java.io.Serializable;
 
+import com.like.system.menu.domain.MenuGroupId;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 @Embeddable
 public class StaffId implements Serializable {
 	
