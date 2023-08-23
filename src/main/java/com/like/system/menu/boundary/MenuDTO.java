@@ -29,13 +29,18 @@ public class MenuDTO {
 		
 		public BooleanBuilder getBooleanBuilder() {																
 			return new BooleanBuilder()
+					.and(equalOrganizationCode(this.organizationCode))
 					.and(equalMenuGroupCode(this.menuGroupCode))
 		//			.and(likeMenuId(this.menuId))
 					.and(likeMenuName(this.menuName));
 		}
+
+		private BooleanExpression equalOrganizationCode(String organizationCode) {					
+			return QMenuGroup.menuGroup.id.organizationCode.eq(organizationCode);
+		}
 		
 		private BooleanExpression equalMenuGroupCode(String menuGroupCode) {					
-			return QMenuGroup.menuGroup.id.organizationCode.eq(menuGroupCode);
+			return QMenuGroup.menuGroup.id.menuGroupCode.eq(menuGroupCode);
 		}
 		/*
 		private BooleanExpression likeMenuId(String menuId) {
@@ -111,7 +116,7 @@ public class MenuDTO {
 					   	   .appUrl(menu.getAppUrl())
 					   	   .sequence(menu.getSequence())
 					   	   .level(menu.getLevel())
-					   	   .parentMenuCode(menu.getParent() == null ? null : menu.getParent().getId().getMenuCode())					   	   
+					   	   .parentMenuCode(menu.getParentMenuCode())					   	   
 					   	   .build();
 		}
 	}	

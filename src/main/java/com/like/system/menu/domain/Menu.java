@@ -20,7 +20,7 @@ import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
@@ -32,6 +32,7 @@ import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper=true, includeFieldNames=true, exclude = {"menuGroup"})
+@JsonIgnoreProperties(value = { "menuGroup" })
 @Entity
 @Getter
 @Table(name = "commenu")
@@ -66,7 +67,7 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	long level;
 	
 	
-	@OneToOne(optional = true, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(optional = true)
 	@JoinColumns({
 		@JoinColumn(name = "ORG_CD", insertable = false, updatable=false),
 		@JoinColumn(name = "MENU_GROUP_CD", insertable = false, updatable=false),
@@ -76,7 +77,7 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	
 	@Column(name="P_MENU_CD")
 	String parentMenuCode;
-				
+					
 	@ManyToOne
 	@MapsId("menuGroupId") 	
 	@JoinColumns({
