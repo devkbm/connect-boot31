@@ -65,23 +65,23 @@ public class Menu extends AbstractAuditEntity implements Serializable {
 	@Column(name="LVL")
 	long level;
 	
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	
+	@OneToOne(optional = true, cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumns({
-		@JoinColumn(name = "ORG_CD", referencedColumnName = "ORG_CD", insertable = false, updatable=false),
-		@JoinColumn(name = "MENU_GROUP_CD", referencedColumnName = "MENU_GROUP_CD", insertable = false, updatable=false),
-		@JoinColumn(name = "P_MENU_CD", referencedColumnName = "P_MENU_CD", insertable = false, updatable=false )
-	})
+		@JoinColumn(name = "ORG_CD", insertable = false, updatable=false),
+		@JoinColumn(name = "MENU_GROUP_CD", insertable = false, updatable=false),
+		@JoinColumn(name = "P_MENU_CD", insertable = false, updatable=false )
+	})	
 	Menu parent;
 	
 	@Column(name="P_MENU_CD")
 	String parentMenuCode;
-			
-	@JsonIgnore	
-	@MapsId("menuGroupId") 
+				
 	@ManyToOne
+	@MapsId("menuGroupId") 	
 	@JoinColumns({
-		@JoinColumn(name="ORG_CD"),
-        @JoinColumn(name="MENU_GROUP_CD")		
+		@JoinColumn(name="org_cd", referencedColumnName = "ORG_CD"),
+        @JoinColumn(name="menu_group_cd", referencedColumnName = "MENU_GROUP_CD")		
 	})	
 	MenuGroup menuGroup;	
 		
