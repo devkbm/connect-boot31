@@ -29,8 +29,6 @@ public class Authority extends AbstractAuditEntity implements Serializable {
 	
 	public Authority(String organizationCode, String authorityCode, String description) {		
 		this.id = new AuthorityId(organizationCode, authorityCode);
-		//this.organizationCode = organizationCode;
-		//this.authorityCode = authorityCode;
 		this.description = description;
 	}	
 	

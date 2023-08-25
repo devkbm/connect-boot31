@@ -1,17 +1,18 @@
-package com.like.system.authority.service;
+package com.like.system.authority.application.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.authority.boundary.AuthorityDTO;
+import com.like.system.authority.adapter.in.web.AuthorityDTO;
+import com.like.system.authority.application.port.in.AuthorityQueryPort;
+import com.like.system.authority.application.port.out.AuthorityQueryRepository;
 import com.like.system.authority.domain.Authority;
-import com.like.system.authority.domain.AuthorityQueryRepository;
 
 @Transactional(readOnly = true)
 @Service
-public class AuthorityQueryService {
+public class AuthorityQueryService implements AuthorityQueryPort {
 
 	private AuthorityQueryRepository repository;
 	

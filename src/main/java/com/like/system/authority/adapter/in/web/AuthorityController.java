@@ -1,4 +1,4 @@
-package com.like.system.authority.web;
+package com.like.system.authority.adapter.in.web;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,17 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 
-import com.like.system.authority.boundary.AuthorityDTO;
+import com.like.system.authority.application.port.in.AuthorityPort;
 import com.like.system.authority.domain.Authority;
-import com.like.system.authority.service.AuthorityService;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
 public class AuthorityController {
 
-	private AuthorityService service;
+	private AuthorityPort service;
 	
-	public AuthorityController(AuthorityService service) {
+	public AuthorityController(AuthorityPort service) {
 		this.service = service;
 	}		
 	

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.authority.application.service.AuthorityService;
 import com.like.system.authority.domain.Authority;
-import com.like.system.authority.service.AuthorityService;
 import com.like.system.user.service.SystemUserService;
 
 @RestController

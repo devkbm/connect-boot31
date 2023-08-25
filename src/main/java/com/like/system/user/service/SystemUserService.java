@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.like.system.authority.application.port.out.AuthorityRepository;
 import com.like.system.authority.domain.Authority;
 import com.like.system.authority.domain.AuthorityId;
-import com.like.system.authority.domain.AuthorityRepository;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptId;
 import com.like.system.dept.domain.DeptRepository;
@@ -26,7 +26,6 @@ import com.like.system.user.domain.SystemUserAuthority;
 import com.like.system.user.domain.SystemUserAuthorityRepository;
 import com.like.system.user.domain.SystemUserId;
 import com.like.system.user.domain.SystemUserMenuGroup;
-import com.like.system.user.domain.SystemUserMenuGroupId;
 import com.like.system.user.domain.SystemUserMenuGroupRepository;
 import com.like.system.user.domain.SystemUserRepository;
 

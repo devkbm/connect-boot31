@@ -1,4 +1,4 @@
-package com.like.system.authority.boundary;
+package com.like.system.authority.adapter.in.web;
 
 import static org.springframework.util.StringUtils.hasText;
 
