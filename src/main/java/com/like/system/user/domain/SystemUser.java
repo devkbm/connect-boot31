@@ -20,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.like.system.authority.adapter.out.persistence.JpaAuthority;
 import com.like.system.authority.domain.Authority;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.dept.domain.Dept;
@@ -186,7 +187,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		return this.password.matchPassword(password);
 	}		
 		
-	public void addAuthoritiy(Authority authority) {
+	public void addAuthoritiy(JpaAuthority authority) {
 		if (this.authorities == null) {
 			this.authorities = new LinkedHashSet<>();
 		}

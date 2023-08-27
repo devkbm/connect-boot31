@@ -5,26 +5,24 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.authority.adapter.in.web.AuthorityDTO;
-import com.like.system.authority.application.port.in.AuthorityQueryPort;
-import com.like.system.authority.application.port.out.AuthorityQueryRepository;
-import com.like.system.authority.domain.Authority;
+import com.like.system.authority.adapter.out.persistence.JpaAuthority;
+import com.like.system.authority.application.port.in.AuthorityQueryUseCase;
+import com.like.system.authority.application.port.in.dto.AuthorityQueryRequestDTO;
+import com.like.system.authority.application.port.out.AuthorityQueryPort;
 
 @Transactional(readOnly = true)
 @Service
-public class AuthorityQueryService implements AuthorityQueryPort {
+public class AuthorityQueryService implements AuthorityQueryUseCase {
 
-	private AuthorityQueryRepository repository;
+	private AuthorityQueryPort port;
 	
-	public AuthorityQueryService(AuthorityQueryRepository repository) {
-		this.repository = repository;
+	public AuthorityQueryService(AuthorityQueryPort port) {
+		this.port = port;
 	}
-	
-	/**
-	 * 전체 권한 도메인 리스트를 조회한다.
-	 * @return	권한 도메인 리스트
-	 */
-	public List<Authority> getAuthorityList(AuthorityDTO.SearchAuthority condition) {        									
-        return repository.getAuthorityList(condition);
+		
+	@Override
+	public List<JpaAuthority> getAuthorityList(AuthorityQueryRequestDTO condition) {
+		return port.getAuthorityList(condition);
 	}
+
 }

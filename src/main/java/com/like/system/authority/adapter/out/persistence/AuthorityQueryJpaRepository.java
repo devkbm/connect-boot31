@@ -4,28 +4,27 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.authority.adapter.in.web.AuthorityDTO.SearchAuthority;
-import com.like.system.authority.application.port.out.AuthorityQueryRepository;
-import com.like.system.authority.domain.Authority;
-import com.like.system.authority.domain.QAuthority;
+import com.like.system.authority.application.port.in.dto.AuthorityQueryRequestDTO;
+import com.like.system.authority.application.port.out.AuthorityQueryPort;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
-public class AuthorityQueryJpaRepository implements AuthorityQueryRepository {
+public class AuthorityQueryJpaRepository implements AuthorityQueryPort {
 
 	private JPAQueryFactory queryFactory;
-	private final QAuthority qAuthority = QAuthority.authority;	
+	private final QJpaAuthority qAuthority = QJpaAuthority.jpaAuthority;	
 	
 	public AuthorityQueryJpaRepository(JPAQueryFactory queryFactory) {
 		this.queryFactory = queryFactory;		
 	}
 	
 	@Override
-	public List<Authority> getAuthorityList(SearchAuthority condition) {
+	public List<JpaAuthority> getAuthorityList(AuthorityQueryRequestDTO dto) {		
 		return queryFactory
 				.selectFrom(qAuthority)
-				.where(condition.getBooleanBuilder())
+				.where(AuthorityMapper.toPredicate(dto))
 				.fetch();
+		
 	}
 
 }

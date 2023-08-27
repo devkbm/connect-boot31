@@ -10,9 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.like.system.authority.application.port.out.AuthorityRepository;
+import com.like.system.authority.adapter.out.persistence.AuthorityJpaRepository;
+import com.like.system.authority.adapter.out.persistence.JpaAuthority;
+import com.like.system.authority.adapter.out.persistence.JpaAuthorityId;
 import com.like.system.authority.domain.Authority;
-import com.like.system.authority.domain.AuthorityId;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptId;
 import com.like.system.dept.domain.DeptRepository;
@@ -36,13 +37,13 @@ public class SystemUserService {
 	private SystemUserRepository repository;					
 	private MenuGroupRepository menuRepository;	
 	private DeptRepository deptRepository;		
-	private AuthorityRepository authorityRepository;			
+	private AuthorityJpaRepository authorityRepository;			
 	private ProfilePictureRepository profilePictureRepository;
 	private SystemUserAuthorityRepository systemUserAuthorityRepository;
 	private SystemUserMenuGroupRepository systemUserMenuGroupRepository;
 	
 	public SystemUserService(SystemUserRepository repository
-					  		,AuthorityRepository authorityRepository
+					  		,AuthorityJpaRepository authorityRepository
 					  		,SystemUserAuthorityRepository systemUserAuthorityRepository
 					  		,SystemUserMenuGroupRepository systemUserMenuGroupRepository
 					  		,MenuGroupRepository menuRepository
@@ -185,12 +186,12 @@ public class SystemUserService {
 	 * @param user	사용자 도메인
 	 */
 	private void initAuthority(SystemUser user) {							
-		user.addAuthoritiy(authorityRepository.findById(new AuthorityId("001", "ROLE_USER")).orElse(null));
+		user.addAuthoritiy(authorityRepository.findById(new JpaAuthorityId("001", "ROLE_USER")).orElse(null));
 	}
 	
-	private List<Authority> getAuthorities(String organizationCode, List<String> authorities) {
+	private List<JpaAuthority> getAuthorities(String organizationCode, List<String> authorities) {
 		return authorityRepository.findAllById(authorities.stream()
-														  .map(r -> new AuthorityId(organizationCode, r))
+														  .map(r -> new JpaAuthorityId(organizationCode, r))
 														  .toList());
 	}
 	
@@ -209,7 +210,7 @@ public class SystemUserService {
 	
 	private void saveSystemUserAuhority(SystemUserDTO.FormSystemUser dto) {
 		SystemUser user = repository.findById(new SystemUserId(dto.organizationCode(), dto.userId())).orElse(null);
-		List<Authority> authorityList = this.getAuthorities(dto.organizationCode(), dto.authorityList());		
+		List<JpaAuthority> authorityList = this.getAuthorities(dto.organizationCode(), dto.authorityList());		
 		this.systemUserAuthorityRepository.saveAll(authorityList.stream().map(r -> new SystemUserAuthority(user, r)).toList());
 	}
 }

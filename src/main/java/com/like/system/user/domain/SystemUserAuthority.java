@@ -2,6 +2,7 @@ package com.like.system.user.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.like.system.authority.adapter.out.persistence.JpaAuthority;
 import com.like.system.authority.domain.Authority;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
@@ -44,7 +45,7 @@ public class SystemUserAuthority extends AbstractAuditEntity implements GrantedA
 	})
 	Authority authority;
 	*/
-	public SystemUserAuthority(SystemUser systemUser, Authority authority) {
+	public SystemUserAuthority(SystemUser systemUser, JpaAuthority authority) {
 		
 		this.id = new SystemUserAuthorityId(systemUser.getId().getOrganizationCode()
 										   ,systemUser.getId().getUserId()
