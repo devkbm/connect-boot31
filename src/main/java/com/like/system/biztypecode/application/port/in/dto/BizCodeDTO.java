@@ -1,7 +1,7 @@
-package com.like.system.biztypecode.boundary;
+package com.like.system.biztypecode.application.port.in.dto;
 
-import com.like.system.biztypecode.domain.BizCode;
-import com.like.system.biztypecode.domain.BizCodeType;
+import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCode;
+import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCodeType;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class BizCodeDTO {
 			String comment
 			) {
 		
-		public static Form convert(BizCode entity) {			
+		public static Form convert(JpaBizCode entity) {			
 			if (entity == null) return null;
 			
 			return Form.builder()
@@ -33,16 +33,16 @@ public class BizCodeDTO {
 					   .build();			
 		}
 		
-		public BizCode newEntity(BizCodeType bizType) {			
+		public JpaBizCode newEntity(JpaBizCodeType bizType) {			
 			
-			BizCode entity = new BizCode(bizType, code, codeName, useYn, sequence, comment); 
+			JpaBizCode entity = new JpaBizCode(bizType, code, codeName, useYn, sequence, comment); 
 			
 			entity.setAppUrl(clientAppUrl);
 			
 			return entity;
 		}
 		
-		public BizCode modify(BizCode entity) {
+		public JpaBizCode modify(JpaBizCode entity) {
 			
 			entity.modify(codeName
 						 ,useYn

@@ -1,10 +1,7 @@
 package com.like.system.biztypecode.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.like.system.core.dto.HtmlSelectOptionable;
+public enum BizTypeEnum {
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum BizTypeEnum implements HtmlSelectOptionable {
 	HRM("인사관리"),
 	GROUPWARE("그룹웨어"),
 	SYSTEM("시스템")
@@ -16,14 +13,7 @@ public enum BizTypeEnum implements HtmlSelectOptionable {
 		this.name = name;
 	}
 	
-	@Override
-	public String getLabel() {
-		return name;
-	}
-
-	@Override
-	public String getValue() {
-		return this.toString();
+	public String getName() {
+		return this.name;
 	}
 }
-

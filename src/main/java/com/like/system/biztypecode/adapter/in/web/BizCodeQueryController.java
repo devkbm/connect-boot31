@@ -1,4 +1,4 @@
-package com.like.system.biztypecode.web;
+package com.like.system.biztypecode.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.biztypecode.boundary.BizCodeDTO;
-import com.like.system.biztypecode.service.BizCodeQueryService;
+import com.like.system.biztypecode.application.port.in.dto.BizCodeDTO;
+import com.like.system.biztypecode.application.service.BizCodeQueryService;
 import com.like.system.core.message.MessageUtil;
 
 @RestController

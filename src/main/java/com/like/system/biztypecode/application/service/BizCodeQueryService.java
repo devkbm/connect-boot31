@@ -1,12 +1,12 @@
-package com.like.system.biztypecode.service;
+package com.like.system.biztypecode.application.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.biztypecode.domain.BizCode;
-import com.like.system.biztypecode.domain.BizCodeQueryRepository;
+import com.like.system.biztypecode.adapter.out.persistence.BizCodeQueryRepository;
+import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCode;
 
 @Service
 @Transactional(readOnly = true)
@@ -18,7 +18,7 @@ public class BizCodeQueryService {
 		this.repository = repository;
 	}
 	
-	public List<BizCode> getBizCodeAllList(String organizationCode, String typeId) {
+	public List<JpaBizCode> getBizCodeAllList(String organizationCode, String typeId) {
 		return this.repository.getBizCodeList(organizationCode, typeId);
 	}
 }

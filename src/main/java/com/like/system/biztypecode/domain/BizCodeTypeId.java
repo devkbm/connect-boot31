@@ -1,28 +1,21 @@
 package com.like.system.biztypecode.domain;
 
-import java.io.Serializable;
+import org.springframework.util.StringUtils;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Embeddable
-public class BizCodeTypeId implements Serializable {
-	
-	private static final long serialVersionUID = 6644923358649112843L;
+public class BizCodeTypeId {
 
-	@Column(name="ORG_CD")
 	String organizationCode;
-		
-	@Column(name="TYPE_ID")
+	
 	String typeId;
+	
+	public BizCodeTypeId(String organizationCode, String typeId) {
+		if (!StringUtils.hasText(organizationCode)) throw new IllegalArgumentException("ID는 필수 입력 값입니다.");
+		if (!StringUtils.hasText(typeId)) throw new IllegalArgumentException("ID는 필수 입력 값입니다.");
+		
+		this.organizationCode = organizationCode;
+		this.typeId = typeId;
+	}
 }

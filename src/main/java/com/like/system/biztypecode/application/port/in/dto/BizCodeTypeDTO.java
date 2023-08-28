@@ -1,12 +1,12 @@
-package com.like.system.biztypecode.boundary;
+package com.like.system.biztypecode.application.port.in.dto;
 
 import static org.springframework.util.StringUtils.hasText;
 
 import jakarta.validation.constraints.NotBlank;
 
-import com.like.system.biztypecode.domain.BizCodeType;
-import com.like.system.biztypecode.domain.BizTypeEnum;
-import com.like.system.biztypecode.domain.QBizCodeType;
+import com.like.system.biztypecode.adapter.out.persistence.jpaentity.BizTypeEnum;
+import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCodeType;
+import com.like.system.biztypecode.adapter.out.persistence.jpaentity.QJpaBizCodeType;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
@@ -23,7 +23,7 @@ public class BizCodeTypeDTO {
 			String bizType
 			) {
 		
-		private static final QBizCodeType qType = QBizCodeType.bizCodeType;
+		private static final QJpaBizCodeType qType = QJpaBizCodeType.jpaBizCodeType;
 		
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
@@ -66,7 +66,7 @@ public class BizCodeTypeDTO {
 			String comment
 			) {
 				
-		public static Form convert(BizCodeType entity) {			
+		public static Form convert(JpaBizCodeType entity) {			
 			if (entity == null) return null;
 			
 			return Form.builder()
@@ -80,14 +80,14 @@ public class BizCodeTypeDTO {
 						
 		}
 
-		public BizCodeType newEntity() {						
-			BizCodeType entity = new BizCodeType(organizationCode, typeId, typeName, BizTypeEnum.valueOf(bizType), comment);
+		public JpaBizCodeType newEntity() {						
+			JpaBizCodeType entity = new JpaBizCodeType(organizationCode, typeId, typeName, BizTypeEnum.valueOf(bizType), comment);
 			entity.setAppUrl(clientAppUrl);
 			
 			return entity;
 		}
 		
-		public BizCodeType modify(BizCodeType entity) {			
+		public JpaBizCodeType modify(JpaBizCodeType entity) {			
 			entity.modify(typeName
 						 ,sequence
 						 ,null
