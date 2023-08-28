@@ -4,9 +4,9 @@ import static org.springframework.util.StringUtils.hasText;
 
 import jakarta.validation.constraints.NotBlank;
 
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.BizTypeEnum;
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCodeType;
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.QJpaBizCodeType;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.JpaBizCodeType;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.JpaBizTypeEnum;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.QJpaBizCodeType;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
@@ -51,7 +51,7 @@ public class BizCodeTypeDTO {
 		}		
 		
 		private BooleanExpression eqBizType(String bizType) {
-			return hasText(bizType) ? qType.bizType.eq(BizTypeEnum.valueOf(bizType)) : null;
+			return hasText(bizType) ? qType.bizType.eq(JpaBizTypeEnum.valueOf(bizType)) : null;
 		}
 	}	
 	
@@ -81,7 +81,7 @@ public class BizCodeTypeDTO {
 		}
 
 		public JpaBizCodeType newEntity() {						
-			JpaBizCodeType entity = new JpaBizCodeType(organizationCode, typeId, typeName, BizTypeEnum.valueOf(bizType), comment);
+			JpaBizCodeType entity = new JpaBizCodeType(organizationCode, typeId, typeName, JpaBizTypeEnum.valueOf(bizType), comment);
 			entity.setAppUrl(clientAppUrl);
 			
 			return entity;

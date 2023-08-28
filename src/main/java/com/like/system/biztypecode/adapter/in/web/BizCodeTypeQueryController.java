@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.BizTypeEnum;
-import com.like.system.biztypecode.application.port.in.dto.BizCodeTypeDTO;
-import com.like.system.biztypecode.application.service.BizCodeTypeService;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.JpaBizTypeEnum;
+import com.like.system.biztypecode.application.port.in.BizCodeTypeSelectAllUseCase;
+import com.like.system.biztypecode.application.port.in.dto.BizCodeTypeSaveDTO;
 import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.core.dto.HtmlSelectOptionable;
 import com.like.system.core.message.MessageUtil;
@@ -18,27 +18,23 @@ import com.like.system.core.message.MessageUtil;
 @RestController
 public class BizCodeTypeQueryController {
 
-	private BizCodeTypeService service;
+	private BizCodeTypeSelectAllUseCase service;
 	
-	public BizCodeTypeQueryController(BizCodeTypeService service) {
+	public BizCodeTypeQueryController(BizCodeTypeSelectAllUseCase service) {
 		this.service = service;
 	}
 	
 	@GetMapping("/api/system/bizcodetype/system")
 	public ResponseEntity<?> getSystemList() {				
 		
-		List<HtmlSelectOptionRecord> list = HtmlSelectOptionable.fromEnum(BizTypeEnum.class);			
+		List<HtmlSelectOptionRecord> list = HtmlSelectOptionable.fromEnum(JpaBizTypeEnum.class);			
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
 	
 	@GetMapping("/api/system/bizcodetype")
-	public ResponseEntity<?> getBizCodeTypeList() {
-		
-		List<BizCodeTypeDTO.Form> list = service.getBizCodeTypeAllList()
-											   .stream()
-											   .map(e -> BizCodeTypeDTO.Form.convert(e))
-											   .toList();											   
+	public ResponseEntity<?> getBizCodeTypeList() {			
+		List<BizCodeTypeSaveDTO> list = service.select("001");											   
 					
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}

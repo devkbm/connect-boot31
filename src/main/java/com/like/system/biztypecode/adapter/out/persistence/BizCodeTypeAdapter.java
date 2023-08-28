@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCodeType;
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCodeTypeId;
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCodeTypeMapper;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.JpaBizCodeType;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.JpaBizCodeTypeId;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.JpaBizCodeTypeMapper;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.repository.BizCodeTypeJpaRepository;
 import com.like.system.biztypecode.application.port.in.dto.BizCodeTypeSaveDTO;
 import com.like.system.biztypecode.application.port.out.BizCodeTypeDeletePort;
 import com.like.system.biztypecode.application.port.out.BizCodeTypeSavePort;
@@ -26,9 +27,22 @@ public class BizCodeTypeAdapter implements BizCodeTypeSelectPort, BizCodeTypeSav
 	}
 	
 	@Override
-	public BizCodeTypeSaveDTO select(String organizationCode, String typeId) {
-		JpaBizCodeType entity = this.repository.findById(new JpaBizCodeTypeId(organizationCode, typeId)).orElse(null);
-		return JpaBizCodeTypeMapper.toDTO(entity);
+	public BizCodeType select(String organizationCode, String typeId) {
+		JpaBizCodeType jpaEntity = this.repository.findById(new JpaBizCodeTypeId(organizationCode, typeId)).orElse(null);
+		
+		return JpaBizCodeTypeMapper.toDomainEntity(jpaEntity);
+	}
+	
+	@Override
+	public List<BizCodeTypeSaveDTO> select(String organizationCode) {
+		List<JpaBizCodeType> list = this.repository.findAll();
+		return list.stream().map(e -> JpaBizCodeTypeMapper.toDTO(e)).toList();
+	}
+	
+	@Override
+	public BizCodeTypeSaveDTO selectDTO(String organizationCode, String typeId) {
+		JpaBizCodeType jpaEntity = this.repository.findById(new JpaBizCodeTypeId(organizationCode, typeId)).orElse(null);
+		return JpaBizCodeTypeMapper.toDTO(jpaEntity);
 	}
 	
 	@Override
@@ -39,12 +53,6 @@ public class BizCodeTypeAdapter implements BizCodeTypeSelectPort, BizCodeTypeSav
 	@Override
 	public void delete(String organizationCode, String typeId) {
 		this.repository.deleteById(new JpaBizCodeTypeId(organizationCode, typeId));		
-	}
-
-	@Override
-	public List<BizCodeTypeSaveDTO> select(String organizationCode) {
-		List<JpaBizCodeType> list = this.repository.findAll();
-		return list.stream().map(e -> JpaBizCodeTypeMapper.toDTO(e)).toList();
 	}
 	
 }

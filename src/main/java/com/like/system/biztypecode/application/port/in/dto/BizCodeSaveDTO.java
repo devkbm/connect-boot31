@@ -1,5 +1,8 @@
 package com.like.system.biztypecode.application.port.in.dto;
 
+import lombok.Builder;
+
+@Builder
 public record BizCodeSaveDTO(
 		String clientAppUrl,
 		String organizationCode,

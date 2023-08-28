@@ -1,7 +1,7 @@
 package com.like.system.biztypecode.application.port.in.dto;
 
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCode;
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCodeType;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.JpaBizCode;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.JpaBizCodeType;
 
 import lombok.AccessLevel;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.like.system.biztypecode.adapter.out.persistence.jpaentity;
+package com.like.system.biztypecode.adapter.out.persistence.jpa.entity;
 
 import java.io.Serializable;
 

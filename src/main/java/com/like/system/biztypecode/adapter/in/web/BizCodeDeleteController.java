@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.biztypecode.application.service.BizCodeService;
+import com.like.system.biztypecode.application.port.in.BizCodeDeleteUseCase;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
 public class BizCodeDeleteController {
 
-	private BizCodeService service;
+	private BizCodeDeleteUseCase service;
 	
-	public BizCodeDeleteController(BizCodeService service) {
+	public BizCodeDeleteController(BizCodeDeleteUseCase service) {
 		this.service = service;
 	}		
 		
@@ -25,7 +25,7 @@ public class BizCodeDeleteController {
 										  ,@PathVariable String typeId
 			 							  ,@PathVariable String code) {				
 																		
-		service.deleteBizCode(organizationCode, typeId, code);						
+		service.delete(organizationCode, typeId, code);						
 								 					
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}

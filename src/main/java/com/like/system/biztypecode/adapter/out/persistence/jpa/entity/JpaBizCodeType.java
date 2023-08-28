@@ -1,4 +1,4 @@
-package com.like.system.biztypecode.adapter.out.persistence.jpaentity;
+package com.like.system.biztypecode.adapter.out.persistence.jpa.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -33,7 +34,7 @@ public class JpaBizCodeType extends AbstractAuditEntity {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="BIZ_TYPE")
-	BizTypeEnum bizType;
+	JpaBizTypeEnum bizType;
 		
 	@Embedded
 	JpaBizRuleComments ruleComments;
@@ -41,7 +42,8 @@ public class JpaBizCodeType extends AbstractAuditEntity {
 	@Column(name="CMT")
 	String comment;	
 		
-	public JpaBizCodeType(String organizationCode, String typeId, String name, BizTypeEnum bizType, String comment) {
+	@Builder
+	public JpaBizCodeType(String organizationCode, String typeId, String name, JpaBizTypeEnum bizType, String comment) {
 		if (!StringUtils.hasText(organizationCode)) throw new IllegalArgumentException("ID는 필수 입력 값입니다.");
 		if (!StringUtils.hasText(typeId)) throw new IllegalArgumentException("ID는 필수 입력 값입니다."); 
 		

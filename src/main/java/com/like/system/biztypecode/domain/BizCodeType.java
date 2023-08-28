@@ -1,5 +1,6 @@
 package com.like.system.biztypecode.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -17,6 +18,7 @@ public class BizCodeType {
 	
 	String comment;
 
+	@Builder
 	public BizCodeType(String organizationCode, String typeId, String name, BizTypeEnum bizTypeEnum, String comment) {		
 		this.id = new BizCodeTypeId(organizationCode, typeId);
 		this.name = name;

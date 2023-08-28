@@ -1,5 +1,9 @@
 package com.like.system.biztypecode.domain;
 
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
 public class BizCode {
 
 	BizCodeId id;
@@ -14,11 +18,21 @@ public class BizCode {
 	
 	BizCodeType bizCodeType;
 	
+	@Builder
 	public BizCode(BizCodeType bizCodeType
 				  ,String code
-	              ,String name            
+				  ,Boolean useYn
+	              ,String name
+	              ,Integer sequence
 			      ,String comment) {
 		this.bizCodeType = bizCodeType;
-				
+		this.id = new BizCodeId(bizCodeType.getId().getOrganizationCode()
+							   ,bizCodeType.getId().getTypeId()
+							   ,code);		
+		this.codeName = name;
+		this.useYn = useYn;
+		this.sequence = sequence;
+		this.comment = comment;				
 	}
+		
 }

@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.biztypecode.application.port.in.dto.BizCodeDTO;
-import com.like.system.biztypecode.application.service.BizCodeService;
+import com.like.system.biztypecode.application.port.in.BizCodeSelectUseCase;
+import com.like.system.biztypecode.application.port.in.dto.BizCodeSaveDTO;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
 public class BizCodeSelectController {
 
-	private BizCodeService service;
+	private BizCodeSelectUseCase service;
 	
-	public BizCodeSelectController(BizCodeService service) {
+	public BizCodeSelectController(BizCodeSelectUseCase service) {
 		this.service = service;
 	}
 		
@@ -26,7 +26,7 @@ public class BizCodeSelectController {
 									   ,@PathVariable String typeId
 									   ,@PathVariable String code) {
 		
-		BizCodeDTO.Form dto = BizCodeDTO.Form.convert(service.getBizCode(organizationCode, typeId, code));
+		BizCodeSaveDTO dto = service.select(organizationCode, typeId, code);
 					
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}			

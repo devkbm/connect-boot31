@@ -1,11 +1,11 @@
-package com.like.system.biztypecode.adapter.out.persistence;
+package com.like.system.biztypecode.adapter.out.persistence.jpa.repository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.JpaBizCode;
-import com.like.system.biztypecode.adapter.out.persistence.jpaentity.QJpaBizCode;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.JpaBizCode;
+import com.like.system.biztypecode.adapter.out.persistence.jpa.entity.QJpaBizCode;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository

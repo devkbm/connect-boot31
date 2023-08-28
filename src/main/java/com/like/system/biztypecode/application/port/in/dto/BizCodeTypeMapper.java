@@ -7,10 +7,10 @@ public class BizCodeTypeMapper {
 
 	public static BizCodeType toEntity(BizCodeTypeSaveDTO dto) {
 		return new BizCodeType(dto.organizationCode()
-								 ,dto.typeId()
-								 ,dto.typeName()
-								 ,BizTypeEnum.valueOf(dto.bizType())
-								 ,dto.comment());		
+							  ,dto.typeId()
+							  ,dto.typeName()
+							  ,BizTypeEnum.valueOf(dto.bizType())
+							  ,dto.comment());		
 	}
 	
 	

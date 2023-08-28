@@ -1,4 +1,4 @@
-package com.like.system.biztypecode.adapter.out.persistence.jpaentity;
+package com.like.system.biztypecode.adapter.out.persistence.jpa.entity;
 
 import java.util.Objects;
 
@@ -49,10 +49,11 @@ public class JpaBizCode extends AbstractAuditEntity {
     })
 	JpaBizCodeType bizCodeType;
 
+	/*
 	public JpaBizCode(JpaBizCodeType bizType
-		          ,String code
-		          ,String name            
-				  ,String comment) {
+			         ,String code
+			         ,String name            
+					 ,String comment) {
 		Objects.requireNonNull(bizType, "업무 구분은 필수 입력 값입니다.");
 		if (!StringUtils.hasText(code)) throw new IllegalArgumentException("CODE는 필수 입력 값입니다.");
 		
@@ -63,7 +64,9 @@ public class JpaBizCode extends AbstractAuditEntity {
 		this.sequence = 0;
 		this.comment = comment;
 	}
+	*/
 	
+	@Builder
 	public JpaBizCode(JpaBizCodeType bizType
 			      ,String code
 			      ,String name

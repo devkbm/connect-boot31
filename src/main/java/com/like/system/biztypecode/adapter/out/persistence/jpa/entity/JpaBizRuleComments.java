@@ -1,4 +1,4 @@
-package com.like.system.biztypecode.adapter.out.persistence.jpaentity;
+package com.like.system.biztypecode.adapter.out.persistence.jpa.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

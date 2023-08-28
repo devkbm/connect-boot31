@@ -12,8 +12,8 @@ public class BizCodeTypeId {
 	String typeId;
 	
 	public BizCodeTypeId(String organizationCode, String typeId) {
-		if (!StringUtils.hasText(organizationCode)) throw new IllegalArgumentException("ID는 필수 입력 값입니다.");
-		if (!StringUtils.hasText(typeId)) throw new IllegalArgumentException("ID는 필수 입력 값입니다.");
+		if (!StringUtils.hasText(organizationCode)) throw new IllegalArgumentException("organizationCode는 필수 입력 값입니다.");
+		if (!StringUtils.hasText(typeId)) throw new IllegalArgumentException("typeId는 필수 입력 값입니다.");
 		
 		this.organizationCode = organizationCode;
 		this.typeId = typeId;
