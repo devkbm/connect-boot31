@@ -1,12 +1,12 @@
-package com.like.system.hierarchycode.infra.jparepository;
+package com.like.system.hierarchycode.adapter.out.persistence.jpa;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.hierarchycode.boundary.CodeComboDTO;
-import com.like.system.hierarchycode.boundary.CodeDTO.Search;
-import com.like.system.hierarchycode.boundary.CodeHierarchy;
+import com.like.system.hierarchycode.application.port.in.dto.CodeComboDTO;
+import com.like.system.hierarchycode.application.port.in.dto.CodeHierarchy;
+import com.like.system.hierarchycode.application.port.in.dto.CodeDTO.Search;
 import com.like.system.hierarchycode.domain.Code;
 import com.like.system.hierarchycode.domain.CommonCodeQueryRepository;
 import com.like.system.hierarchycode.domain.QCode;

@@ -1,9 +1,9 @@
-package com.like.system.hierarchycode.service;
+package com.like.system.hierarchycode.application.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.hierarchycode.boundary.CodeDTO;
+import com.like.system.hierarchycode.application.port.in.dto.CodeDTO;
 import com.like.system.hierarchycode.domain.Code;
 import com.like.system.hierarchycode.domain.CodeId;
 import com.like.system.hierarchycode.domain.CommonCodeRepository;

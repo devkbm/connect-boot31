@@ -1,4 +1,4 @@
-package com.like.system.hierarchycode.boundary;
+package com.like.system.hierarchycode.application.port.in.dto;
 
 import static org.springframework.util.StringUtils.hasText;
 

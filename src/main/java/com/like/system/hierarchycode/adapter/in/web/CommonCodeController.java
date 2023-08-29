@@ -1,4 +1,4 @@
-package com.like.system.hierarchycode.web;
+package com.like.system.hierarchycode.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.hierarchycode.boundary.CodeDTO;
+import com.like.system.hierarchycode.application.port.in.dto.CodeDTO;
+import com.like.system.hierarchycode.application.service.CommonCodeCommandService;
 import com.like.system.hierarchycode.domain.Code;
-import com.like.system.hierarchycode.service.CommonCodeCommandService;
 
 @RestController
 public class CommonCodeController {
