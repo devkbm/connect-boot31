@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.like.system.file.service.FileService;
+import com.like.system.file.application.service.FileService;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.service.SystemUserService;
 

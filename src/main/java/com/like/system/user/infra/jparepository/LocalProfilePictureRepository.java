@@ -7,9 +7,9 @@ import java.util.UUID;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.like.system.file.adapter.out.file.LocalFileRepository;
+import com.like.system.file.adapter.out.file.LocalFileRepository.FileUploadLocation;
 import com.like.system.user.domain.ProfilePictureRepository;
-import com.like.system.file.infra.file.LocalFileRepository;
-import com.like.system.file.infra.file.LocalFileRepository.FileUploadLocation;
 
 @Repository
 public class LocalProfilePictureRepository implements ProfilePictureRepository {

@@ -99,27 +99,7 @@ public class Dept extends AbstractAuditEntity implements Serializable {
 		
 		return internalBuilder().id(new DeptId(organizationCode, deptCode));
 	}	
-	
-	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
-	public void modifyEntity(String deptNameKorean
-							,String deptAbbreviationKorean
-							,String deptNameEnglish
-							,String deptAbbreviationEnglish
-							,LocalDatePeriod period
-							,int seq
-							,String comment
-							,Dept parentDept) {
-		this.deptNameKorean = deptNameKorean;
-		this.deptAbbreviationKorean = deptAbbreviationKorean;
-		this.deptNameEnglish = deptNameEnglish;
-		this.deptAbbreviationEnglish = deptAbbreviationEnglish;
-		this.period = period;
-		this.seq = seq;
-		this.comment = comment;		
-		this.parentDept = parentDept;
-		this.parentDeptCode = parentDept.getId().getDeptCode();
-	}	
-	
+		
 	public Dept getParentDept() {
 		return parentDept;
 	}

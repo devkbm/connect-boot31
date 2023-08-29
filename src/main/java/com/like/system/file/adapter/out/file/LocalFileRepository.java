@@ -1,4 +1,4 @@
-package com.like.system.file.infra.file;
+package com.like.system.file.adapter.out.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;

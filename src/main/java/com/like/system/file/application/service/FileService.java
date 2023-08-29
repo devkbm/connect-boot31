@@ -1,4 +1,4 @@
-package com.like.system.file.service;
+package com.like.system.file.application.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.like.system.file.adapter.out.file.LocalFileRepository;
+import com.like.system.file.adapter.out.file.LocalFileRepository.FileUploadLocation;
+import com.like.system.file.adapter.out.persistence.jpa.repository.FileInfoRepository;
 import com.like.system.file.domain.FileInfo;
-import com.like.system.file.domain.FileInfoRepository;
-import com.like.system.file.infra.file.LocalFileRepository;
-import com.like.system.file.infra.file.LocalFileRepository.FileUploadLocation;
 import com.like.system.file.util.FileConverterUtil;
 
 @Service

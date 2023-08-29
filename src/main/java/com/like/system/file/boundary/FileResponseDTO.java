@@ -1,7 +1,7 @@
 package com.like.system.file.boundary;
 
+import com.like.system.file.adapter.out.file.LocalFileRepository;
 import com.like.system.file.domain.FileInfo;
-import com.like.system.file.infra.file.LocalFileRepository;
 
 public record FileResponseDTO(
 		String uid,

@@ -20,8 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.service.StaffService;
-import com.like.system.file.infra.file.LocalFileRepository.FileUploadLocation;
-import com.like.system.file.service.FileService;
+import com.like.system.file.adapter.out.file.LocalFileRepository.FileUploadLocation;
+import com.like.system.file.application.service.FileService;
 
 @Controller
 public class StaffImageController {
