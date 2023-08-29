@@ -2,7 +2,7 @@ package com.like.system.authority.application.port.out;
 
 import java.util.List;
 
-import com.like.system.authority.adapter.out.persistence.JpaAuthority;
+import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
 import com.like.system.authority.application.port.in.dto.AuthorityQueryRequestDTO;
 
 public interface AuthorityQueryPort {

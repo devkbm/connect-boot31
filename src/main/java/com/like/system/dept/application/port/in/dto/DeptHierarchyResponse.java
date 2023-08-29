@@ -1,4 +1,4 @@
-package com.like.system.dept.boundary;
+package com.like.system.dept.application.port.in.dto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +17,7 @@ import lombok.Singular;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ResponseDeptHierarchy {
+public class DeptHierarchyResponse {
 	
 	String parentDeptCode;
 	
@@ -44,7 +44,7 @@ public class ResponseDeptHierarchy {
 	String comment;
 	
 	@Singular
-	List<ResponseDeptHierarchy> children;
+	List<DeptHierarchyResponse> children;
 	
 	/**
 	 * NzTreeNode property 
@@ -57,7 +57,7 @@ public class ResponseDeptHierarchy {
 	boolean isLeaf;
 
 	@QueryProjection
-	public ResponseDeptHierarchy(String parentDeptCode, String organizationCode, String deptCode, String deptNameKorean, String deptAbbreviationKorean,
+	public DeptHierarchyResponse(String parentDeptCode, String organizationCode, String deptCode, String deptNameKorean, String deptAbbreviationKorean,
 			String deptNameEnglish, String deptAbbreviationEnglish, LocalDatePeriod period,
 			Integer seq, String comment) {				
 		this.parentDeptCode = parentDeptCode;
@@ -76,7 +76,7 @@ public class ResponseDeptHierarchy {
 		this.key 	= this.deptCode;			
 	}
 
-	public void setChildren(List<ResponseDeptHierarchy> children) {
+	public void setChildren(List<DeptHierarchyResponse> children) {
 		this.children = children;
 	}
 

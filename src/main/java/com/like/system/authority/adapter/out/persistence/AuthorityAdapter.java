@@ -3,6 +3,10 @@ package com.like.system.authority.adapter.out.persistence;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.like.system.authority.adapter.out.persistence.jpa.entity.AuthorityMapper;
+import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
+import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthorityId;
+import com.like.system.authority.adapter.out.persistence.jpa.repository.AuthorityJpaRepository;
 import com.like.system.authority.application.port.out.AuthorityDeletePort;
 import com.like.system.authority.application.port.out.AuthoritySavePort;
 import com.like.system.authority.application.port.out.AuthoritySelectPort;

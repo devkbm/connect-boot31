@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.like.system.authority.adapter.out.persistence.AuthorityJpaRepository;
-import com.like.system.authority.adapter.out.persistence.JpaAuthority;
-import com.like.system.authority.adapter.out.persistence.JpaAuthorityId;
+import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
+import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthorityId;
+import com.like.system.authority.adapter.out.persistence.jpa.repository.AuthorityJpaRepository;
 import com.like.system.authority.domain.Authority;
+import com.like.system.dept.adapter.out.persistence.jpa.repository.DeptJpaRepository;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptId;
-import com.like.system.dept.domain.DeptRepository;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupId;
 import com.like.system.menu.domain.MenuGroupRepository;
@@ -36,7 +36,7 @@ public class SystemUserService {
 	
 	private SystemUserRepository repository;					
 	private MenuGroupRepository menuRepository;	
-	private DeptRepository deptRepository;		
+	private DeptJpaRepository deptRepository;		
 	private AuthorityJpaRepository authorityRepository;			
 	private ProfilePictureRepository profilePictureRepository;
 	private SystemUserAuthorityRepository systemUserAuthorityRepository;
@@ -47,7 +47,7 @@ public class SystemUserService {
 					  		,SystemUserAuthorityRepository systemUserAuthorityRepository
 					  		,SystemUserMenuGroupRepository systemUserMenuGroupRepository
 					  		,MenuGroupRepository menuRepository
-					  		,DeptRepository deptRepository
+					  		,DeptJpaRepository deptRepository
 					  		,ProfilePictureRepository profilePictureRepository) {
 		this.repository = repository;
 		this.menuRepository = menuRepository;

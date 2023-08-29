@@ -2,7 +2,7 @@ package com.like.system.user.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.like.system.authority.adapter.out.persistence.JpaAuthority;
+import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
 import com.like.system.authority.domain.Authority;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.authority.adapter.out.persistence.JpaAuthority;
+import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
 import com.like.system.authority.application.port.in.AuthorityQueryUseCase;
 import com.like.system.authority.application.port.in.dto.AuthorityQueryRequestDTO;
 import com.like.system.core.message.MessageUtil;

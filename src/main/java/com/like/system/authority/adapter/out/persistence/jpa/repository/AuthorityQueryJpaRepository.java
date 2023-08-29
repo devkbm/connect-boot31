@@ -1,9 +1,12 @@
-package com.like.system.authority.adapter.out.persistence;
+package com.like.system.authority.adapter.out.persistence.jpa.repository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.like.system.authority.adapter.out.persistence.jpa.entity.AuthorityMapper;
+import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
+import com.like.system.authority.adapter.out.persistence.jpa.entity.QJpaAuthority;
 import com.like.system.authority.application.port.in.dto.AuthorityQueryRequestDTO;
 import com.like.system.authority.application.port.out.AuthorityQueryPort;
 import com.querydsl.jpa.impl.JPAQueryFactory;

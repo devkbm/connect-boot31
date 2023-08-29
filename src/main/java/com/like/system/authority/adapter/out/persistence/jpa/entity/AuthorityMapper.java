@@ -1,4 +1,4 @@
-package com.like.system.authority.adapter.out.persistence;
+package com.like.system.authority.adapter.out.persistence.jpa.entity;
 
 import static org.springframework.util.StringUtils.hasText;
 

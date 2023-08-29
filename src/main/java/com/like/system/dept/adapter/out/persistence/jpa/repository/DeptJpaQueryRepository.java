@@ -1,19 +1,16 @@
-package com.like.system.dept.infra.jparepository;
+package com.like.system.dept.adapter.out.persistence.jpa.repository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.dept.boundary.DeptDTO.Search;
-import com.like.system.dept.boundary.QResponseDeptHierarchy;
-import com.like.system.dept.boundary.ResponseDeptHierarchy;
-import com.like.system.dept.domain.Dept;
-import com.like.system.dept.domain.DeptQueryRepository;
+import com.like.system.dept.application.port.in.dto.DeptHierarchyResponse;
+import com.like.system.dept.application.port.in.dto.QDeptHierarchyResponse;
 import com.like.system.dept.domain.QDept;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
-public class DeptJpaQueryRepository implements DeptQueryRepository {
+public class DeptJpaQueryRepository {
 
 	private JPAQueryFactory  queryFactory;
 	private static final QDept qDept = QDept.dept;		
@@ -22,27 +19,19 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 		this.queryFactory = queryFactory;		
 	}
 	
-	@Override
-	public List<Dept> getDeptList(Search searchCondition) {
-		return queryFactory				
-				.selectFrom(qDept)
-				.where(searchCondition.getCondition())
-				.fetch();
-	}
-
-	@Override
-	public List<ResponseDeptHierarchy> getDeptHierarchy(String organizationCode) {
-		List<ResponseDeptHierarchy> rootNodeList = this.getDeptRootNodeList(organizationCode);
+	
+	public List<DeptHierarchyResponse> getDeptHierarchy(String organizationCode) {
+		List<DeptHierarchyResponse> rootNodeList = this.getDeptRootNodeList(organizationCode);
 		
-		List<ResponseDeptHierarchy> result = this.addDeptChildNodeList(organizationCode, rootNodeList);
+		List<DeptHierarchyResponse> result = this.addDeptChildNodeList(organizationCode, rootNodeList);
 		
 		return result;
 	}
 	
-	private List<ResponseDeptHierarchy> addDeptChildNodeList(String organizationCode, List<ResponseDeptHierarchy> list) {
-		List<ResponseDeptHierarchy> children = null;
+	private List<DeptHierarchyResponse> addDeptChildNodeList(String organizationCode, List<DeptHierarchyResponse> list) {
+		List<DeptHierarchyResponse> children = null;
 		
-		for ( ResponseDeptHierarchy node : list) {
+		for ( DeptHierarchyResponse node : list) {
 			
 			children = getDeptChildNodeList(organizationCode, node.getDeptCode());
 			
@@ -61,7 +50,7 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 		return list;
 	}
 
-	private List<ResponseDeptHierarchy> getDeptRootNodeList(String organizationCode) {
+	private List<DeptHierarchyResponse> getDeptRootNodeList(String organizationCode) {
 		return queryFactory
 				.select(this.getDeptHierarchy(qDept))				
 				.from(qDept)
@@ -70,7 +59,7 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 				.fetch();
 	}
 	
-	private List<ResponseDeptHierarchy> getDeptChildNodeList(String organizationCode, String parentDeptCode) {
+	private List<DeptHierarchyResponse> getDeptChildNodeList(String organizationCode, String parentDeptCode) {
 		return queryFactory
 				.select(this.getDeptHierarchy(qDept))
 				.from(qDept)
@@ -79,8 +68,8 @@ public class DeptJpaQueryRepository implements DeptQueryRepository {
 				.fetch();
 	}
 	
-	private QResponseDeptHierarchy getDeptHierarchy(QDept qDept) {
-		return new QResponseDeptHierarchy(qDept.parentDept.id.deptCode
+	private QDeptHierarchyResponse getDeptHierarchy(QDept qDept) {
+		return new QDeptHierarchyResponse(qDept.parentDept.id.deptCode
 										 ,qDept.id.organizationCode										 
 										 ,qDept.id.deptCode
 										 ,qDept.deptNameKorean
