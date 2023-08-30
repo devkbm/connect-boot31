@@ -20,7 +20,7 @@ import com.like.hrm.duty.domain.model.DutyApplication;
 import com.like.hrm.duty.service.DutyApplicationCommandService;
 import com.like.hrm.duty.service.DutyApplicationQueryService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.holiday.service.DateInfoService;
+import com.like.system.holiday.application.port.in.DateInfoSelectUseCase;
 
 @RestController
 public class DutyApplicationController {
@@ -29,11 +29,11 @@ public class DutyApplicationController {
 	
 	private DutyApplicationQueryService dutyApplicationQueryService;		
 	
-	private DateInfoService holidayUtilService;
+	private DateInfoSelectUseCase holidayUtilService;
 	
 	public DutyApplicationController(DutyApplicationCommandService dutyApplicationCommandService
 									,DutyApplicationQueryService dutyApplicationQueryService									
-									,DateInfoService holidayUtilService) {
+									,DateInfoSelectUseCase holidayUtilService) {
 		this.dutyApplicationCommandService = dutyApplicationCommandService;
 		this.dutyApplicationQueryService = dutyApplicationQueryService;		
 		this.holidayUtilService = holidayUtilService;
@@ -65,7 +65,7 @@ public class DutyApplicationController {
 													 ,@PathVariable @DateTimeFormat(pattern="yyyyMMdd")LocalDate to
 													 ,@PathVariable String organizationCode ) {
 						
-		List<DutyApplicationDTO.DutyDate> list = DutyApplicationDTO.DutyDate.convertInitDutyDateList(holidayUtilService.getDateInfoList(organizationCode, from, to));			
+		List<DutyApplicationDTO.DutyDate> list = DutyApplicationDTO.DutyDate.convertInitDutyDateList(holidayUtilService.select(organizationCode, from, to));			
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}

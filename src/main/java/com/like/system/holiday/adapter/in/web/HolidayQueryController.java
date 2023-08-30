@@ -1,4 +1,4 @@
-package com.like.system.holiday.web;
+package com.like.system.holiday.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 
@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.holiday.domain.service.DateInfo;
-import com.like.system.holiday.service.DateInfoService;
+import com.like.system.holiday.application.port.in.DateInfoSelectUseCase;
+import com.like.system.holiday.domain.DateInfo;
 
 @RestController
 public class HolidayQueryController {
 
-	private DateInfoService holidayUtilService;
+	private DateInfoSelectUseCase useCase;
 	
-	public HolidayQueryController(DateInfoService holidayUtilService) {
-		this.holidayUtilService = holidayUtilService;
+	public HolidayQueryController(DateInfoSelectUseCase useCase) {
+		this.useCase = useCase;
 	}
 		
 	@GetMapping("/api/system/holiday")
@@ -29,7 +29,7 @@ public class HolidayQueryController {
 			                               ,@RequestParam @DateTimeFormat(pattern="yyyyMMdd") LocalDate fromDate
 										   ,@RequestParam @DateTimeFormat(pattern="yyyyMMdd") LocalDate toDate) {
 		
-		List<DateInfo> list = holidayUtilService.getDateInfoList(organizationCode, fromDate, toDate).getDates();			
+		List<DateInfo> list = useCase.select(organizationCode, fromDate, toDate).getDates();			
 					
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}

@@ -1,11 +1,9 @@
-package com.like.system.holiday.domain.service;
+package com.like.system.holiday.domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
-
-import com.like.system.holiday.domain.Holiday;
 
 import lombok.ToString;
 

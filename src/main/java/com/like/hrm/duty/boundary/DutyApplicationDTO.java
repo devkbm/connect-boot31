@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.like.hrm.duty.domain.model.DutyApplication;
 import com.like.hrm.duty.domain.model.QDutyApplication;
 import com.like.system.core.jpa.vo.LocalDatePeriod;
-import com.like.system.holiday.domain.service.DateInfo;
-import com.like.system.holiday.domain.service.DateInfoList;
-import com.like.system.holiday.service.DateInfoService;
+import com.like.system.holiday.application.port.in.DateInfoSelectUseCase;
+import com.like.system.holiday.domain.DateInfo;
+import com.like.system.holiday.domain.DateInfoCollection;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
@@ -56,8 +56,8 @@ public class DutyApplicationDTO {
 			List<DutyDate> selectedDate,
 			BigDecimal dutyTime) {
 		
-		public static Form convert(DutyApplication e, DateInfoService service) {								
-			DateInfoList dateInfoList = service.getDateInfoList("001", e.getPeriod().getFrom(), e.getPeriod().getTo());
+		public static Form convert(DutyApplication e, DateInfoSelectUseCase service) {								
+			DateInfoCollection dateInfoList = service.select("001", e.getPeriod().getFrom(), e.getPeriod().getTo());
 
 			
 			return Form.builder()
@@ -101,7 +101,7 @@ public class DutyApplicationDTO {
 			return selectedDate.stream().map(e -> e.date()).toList();
 		}
 		
-		private static List<DutyDate> convertDutyDate(DutyApplication entity, DateInfoList dateInfoList) {
+		private static List<DutyDate> convertDutyDate(DutyApplication entity, DateInfoCollection dateInfoList) {
 			List<DutyDate> dutyDatelist = new ArrayList<>(dateInfoList.size());
 			List<LocalDate> selectedDate = entity.getSelectedDate();					
 			
@@ -127,7 +127,7 @@ public class DutyApplicationDTO {
 			@JsonProperty("isSunday")boolean isSunday
 			) {
 		
-		public static List<DutyDate> convertInitDutyDateList(DateInfoList dateInfoList) {
+		public static List<DutyDate> convertInitDutyDateList(DateInfoCollection dateInfoList) {
 			List<DutyDate> dutyDatelist = new ArrayList<>(dateInfoList.size());
 			
 			for (DateInfo date : dateInfoList.getDates()) {								

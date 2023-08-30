@@ -1,4 +1,4 @@
-package com.like.system.holiday.boundary;
+package com.like.system.holiday.application.port.in.dto;
 
 import java.time.LocalDate;
 
