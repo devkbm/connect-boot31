@@ -1,4 +1,4 @@
-package com.like.system.login.boundary;
+package com.like.system.login.application.port.in.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

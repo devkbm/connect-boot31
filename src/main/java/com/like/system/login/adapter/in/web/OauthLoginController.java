@@ -1,4 +1,4 @@
-package com.like.system.login.web;
+package com.like.system.login.adapter.in.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -86,7 +86,7 @@ public class OauthLoginController {
         
         //userService.saveLogInOutHistory(new LogInOutHistory("1", "LOGIN", this.getClientIp(request), true));
 				
-		token = AuthenticationToken.of(user, request);
+		//token = AuthenticationToken.of(user, request);
 		
 		session.setAttribute("user", token);
 					

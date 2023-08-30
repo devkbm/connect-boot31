@@ -1,4 +1,4 @@
-package com.like.system.login.web;
+package com.like.system.login.adapter.in.web;
 
 import java.util.Date;
 
@@ -10,12 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.util.SessionUtil;
-import com.like.system.login.boundary.LoginRequestDTO;
+import com.like.system.login.application.port.in.dto.LoginRequestDTO;
+import com.like.system.login.application.service.LoginService;
 import com.like.system.login.domain.AuthenticationToken;
-import com.like.system.login.service.LoginService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +29,7 @@ public class LoginController {
 	public LoginController(LoginService service) {		
 		this.service = service;
 	}
-		 
+	/*	 
 	@PostMapping("/api/system/user/login")
 	public AuthenticationToken login(@RequestBody @Valid LoginRequestDTO dto, HttpServletRequest request) {			
 						         		 							                   
@@ -37,10 +38,10 @@ public class LoginController {
 		
 		return service.login(dto, request);
 	}	
-	
+	*/
 	@GetMapping("/api/system/user/auth")
-	public AuthenticationToken get(HttpServletRequest request) {
-		return service.getAuthenticationToken("001", SessionUtil.getUserId(), request);
+	public AuthenticationToken get(HttpServletRequest request, @RequestParam String organizationCode) {
+		return service.getAuthenticationToken(organizationCode, SessionUtil.getUserId(), request);
 	}			     
     
 	@Transactional

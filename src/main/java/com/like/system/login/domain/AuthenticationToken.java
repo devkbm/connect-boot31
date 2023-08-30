@@ -58,8 +58,7 @@ public class AuthenticationToken implements Serializable {
         this.menuGroupList = menuGroupList;        
     }     
     
-    public static AuthenticationToken of(SystemUser user, HttpServletRequest request) {
-    	String ipAddress = request == null ? "TEST" : WebRequestUtil.getIpAddress(request);
+    public static AuthenticationToken of(SystemUser user, String ipAddress, String sessionId) {    	
     	    	
     	return AuthenticationToken
 				.builder()
@@ -70,7 +69,7 @@ public class AuthenticationToken implements Serializable {
 				.email(user.getEmail())
 				.imageUrl(user.getImage())
 				.ipAddress(ipAddress)
-				.token(request.getSession().getId())
+				.token(sessionId)
 				.authorityList(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
 				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlSelectOptionRecord(e.getMenuGroupCode(), e.getMenuGroupCode())).toList())
 				.build();

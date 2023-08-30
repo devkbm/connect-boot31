@@ -1,10 +1,10 @@
-package com.like.system.login.service;
+package com.like.system.login.application.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.like.system.login.adapter.out.persistence.jpa.repository.LogInOutHistoryRepository;
 import com.like.system.login.domain.LogInOutHistory;
-import com.like.system.login.domain.LogInOutHistoryRepository;
 
 @Transactional
 @Service

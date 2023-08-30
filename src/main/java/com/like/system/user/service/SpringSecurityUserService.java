@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.login.boundary.LoginRequestDTO;
-import com.like.system.login.service.LoginRequestContext;
+import com.like.system.login.application.port.in.dto.LoginRequestDTO;
+import com.like.system.login.application.service.LoginRequestContext;
 import com.like.system.user.domain.SystemUserId;
 import com.like.system.user.domain.SystemUserRepository;
 
