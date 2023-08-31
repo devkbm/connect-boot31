@@ -1,4 +1,4 @@
-package com.like.system.user.web;
+package com.like.system.user.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 

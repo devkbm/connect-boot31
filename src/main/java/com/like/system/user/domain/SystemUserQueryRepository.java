@@ -2,7 +2,7 @@ package com.like.system.user.domain;
 
 import java.util.List;
 
-import com.like.system.user.boundary.SystemUserDTO;
+import com.like.system.user.application.port.in.dto.SystemUserDTO;
 
 public interface SystemUserQueryRepository {
 

@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import org.springframework.stereotype.Component;
 
-import com.like.system.user.service.SystemUserService;
+import com.like.system.user.application.service.SystemUserService;
 
 @Component
 public class UserIdExistsValidator implements ConstraintValidator<UserIdExists, String> {

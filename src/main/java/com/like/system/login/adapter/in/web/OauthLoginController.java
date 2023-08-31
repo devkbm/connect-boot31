@@ -14,8 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.like.system.login.domain.AuthenticationToken;
+import com.like.system.user.application.service.SystemUserService;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.SystemUserService;
 
 import lombok.extern.slf4j.Slf4j;
 

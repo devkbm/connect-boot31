@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import com.like.cooperation.team.boundary.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamRepository;
+import com.like.system.user.application.service.SystemUserSearchService;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.SystemUserSearchService;
 
 @Service
 @Transactional

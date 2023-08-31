@@ -1,4 +1,4 @@
-package com.like.system.user.service;
+package com.like.system.user.application.service;
 
 import java.util.List;
 

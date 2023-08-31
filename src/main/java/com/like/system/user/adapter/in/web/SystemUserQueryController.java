@@ -1,4 +1,4 @@
-package com.like.system.user.web;
+package com.like.system.user.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.user.boundary.SystemUserDTO;
+import com.like.system.user.application.port.in.dto.SystemUserDTO;
+import com.like.system.user.application.service.SystemUserQueryService;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.SystemUserQueryService;
 
 @RestController
 public class SystemUserQueryController {

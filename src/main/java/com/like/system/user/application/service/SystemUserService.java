@@ -1,4 +1,4 @@
-package com.like.system.user.service;
+package com.like.system.user.application.service;
 
 import java.util.List;
 import java.util.Set;
@@ -20,7 +20,7 @@ import com.like.system.dept.domain.DeptId;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupId;
 import com.like.system.menu.domain.MenuGroupRepository;
-import com.like.system.user.boundary.SystemUserDTO;
+import com.like.system.user.application.port.in.dto.SystemUserDTO;
 import com.like.system.user.domain.ProfilePictureRepository;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserAuthority;

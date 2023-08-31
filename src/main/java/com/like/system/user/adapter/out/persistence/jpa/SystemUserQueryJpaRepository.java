@@ -1,10 +1,10 @@
-package com.like.system.user.infra.jparepository;
+package com.like.system.user.adapter.out.persistence.jpa;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.user.boundary.SystemUserDTO.Search;
+import com.like.system.user.application.port.in.dto.SystemUserDTO.Search;
 import com.like.system.user.domain.QSystemUser;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserQueryRepository;

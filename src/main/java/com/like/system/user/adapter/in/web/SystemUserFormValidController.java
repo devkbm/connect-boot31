@@ -1,4 +1,4 @@
-package com.like.system.user.web;
+package com.like.system.user.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.user.service.SystemUserService;
+import com.like.system.user.application.service.SystemUserService;
 
 @RestController
 public class SystemUserFormValidController {

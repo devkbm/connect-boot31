@@ -1,4 +1,4 @@
-package com.like.system.user.infra.jparepository;
+package com.like.system.user.adapter.out.persistence.file;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

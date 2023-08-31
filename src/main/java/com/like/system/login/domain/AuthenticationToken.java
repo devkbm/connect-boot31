@@ -26,7 +26,7 @@ public class AuthenticationToken implements Serializable {
 	private String email;
 	private String imageUrl;
 	private String ipAddress;
-	private String token;
+	private String sessionId;
 	private String oAuthAccessToken;
 	private List<String> authorityList;
     private List<HtmlSelectOptionRecord> menuGroupList;
@@ -40,7 +40,7 @@ public class AuthenticationToken implements Serializable {
     						  ,String email
     						  ,String imageUrl
     						  ,String ipAddress
-    						  ,String token
+    						  ,String sessionId
     						  ,String oAuthAccessToken
     						  ,List<String> authorityList
     						  ,List<HtmlSelectOptionRecord> menuGroupList) {
@@ -52,7 +52,7 @@ public class AuthenticationToken implements Serializable {
     	this.email = email;
     	this.imageUrl = imageUrl;
     	this.ipAddress = ipAddress;
-        this.token = token;
+        this.sessionId = sessionId;
         this.oAuthAccessToken = oAuthAccessToken;
         this.authorityList = authorityList;
         this.menuGroupList = menuGroupList;        
@@ -69,7 +69,7 @@ public class AuthenticationToken implements Serializable {
 				.email(user.getEmail())
 				.imageUrl(user.getImage())
 				.ipAddress(ipAddress)
-				.token(sessionId)
+				.sessionId(sessionId)
 				.authorityList(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
 				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlSelectOptionRecord(e.getMenuGroupCode(), e.getMenuGroupCode())).toList())
 				.build();

@@ -1,11 +1,11 @@
-package com.like.system.user.service;
+package com.like.system.user.application.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.user.boundary.SystemUserDTO;
+import com.like.system.user.application.port.in.dto.SystemUserDTO;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserQueryRepository;
 

@@ -1,4 +1,4 @@
-package com.like.system.user.boundary;
+package com.like.system.user.application.port.in.dto;
 
 import static org.springframework.util.StringUtils.hasText;
 

@@ -1,4 +1,4 @@
-package com.like.system.user.web;
+package com.like.system.user.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
-import com.like.system.user.boundary.PasswordChangeRequestDTO;
-import com.like.system.user.boundary.SystemUserDTO;
+import com.like.system.user.application.port.in.dto.PasswordChangeRequestDTO;
+import com.like.system.user.application.port.in.dto.SystemUserDTO;
+import com.like.system.user.application.service.SystemUserService;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.SystemUserService;
 
 @RestController
 public class SystemUserController {		

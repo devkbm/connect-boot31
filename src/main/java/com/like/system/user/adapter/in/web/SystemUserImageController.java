@@ -1,4 +1,4 @@
-package com.like.system.user.web;
+package com.like.system.user.adapter.in.web;
 
 import java.io.File;
 import java.util.HashMap;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.application.service.FileService;
+import com.like.system.user.application.service.SystemUserService;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.SystemUserService;
 
 @Controller
 public class SystemUserImageController {

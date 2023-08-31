@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.like.cooperation.team.domain.QTeam;
 import com.like.cooperation.team.domain.Team;
+import com.like.system.user.application.service.SystemUserSearchService;
 import com.like.system.user.domain.SystemUserId;
-import com.like.system.user.service.SystemUserSearchService;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 

@@ -9,9 +9,9 @@ import com.like.cooperation.team.boundary.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamMember;
 import com.like.cooperation.team.domain.TeamQueryRepository;
-import com.like.system.user.boundary.SystemUserDTO;
+import com.like.system.user.application.port.in.dto.SystemUserDTO;
+import com.like.system.user.application.service.SystemUserQueryService;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.service.SystemUserQueryService;
 
 @Service
 @Transactional(readOnly=true)
