@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserRepository;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserId;
-import com.like.system.user.domain.SystemUserRepository;
 
 @Service
 @Transactional(readOnly = true)

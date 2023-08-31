@@ -3,16 +3,16 @@ package com.like.system.login.adapter.out.persistence.jpa.repository;
 import org.springframework.stereotype.Repository;
 
 import com.like.system.login.application.port.out.SystemUserSelectPort;
+import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserRepository;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserId;
-import com.like.system.user.domain.SystemUserRepository;
 
 @Repository
-public class SystemUserSelectAdapter implements SystemUserSelectPort {
+public class LoginSystemUserSelectAdapter implements SystemUserSelectPort {
 
 	SystemUserRepository repository;
 	
-	public SystemUserSelectAdapter(SystemUserRepository repository) {
+	public LoginSystemUserSelectAdapter(SystemUserRepository repository) {
 		this.repository = repository;
 	}
 	

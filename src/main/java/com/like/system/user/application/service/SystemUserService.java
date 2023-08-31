@@ -20,15 +20,15 @@ import com.like.system.dept.domain.DeptId;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupId;
 import com.like.system.menu.domain.MenuGroupRepository;
+import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserAuthorityRepository;
+import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserMenuGroupRepository;
+import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserRepository;
 import com.like.system.user.application.port.in.dto.SystemUserDTO;
 import com.like.system.user.domain.ProfilePictureRepository;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserAuthority;
-import com.like.system.user.domain.SystemUserAuthorityRepository;
 import com.like.system.user.domain.SystemUserId;
 import com.like.system.user.domain.SystemUserMenuGroup;
-import com.like.system.user.domain.SystemUserMenuGroupRepository;
-import com.like.system.user.domain.SystemUserRepository;
 
 @Transactional
 @Service

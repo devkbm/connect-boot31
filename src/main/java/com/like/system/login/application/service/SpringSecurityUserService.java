@@ -1,4 +1,4 @@
-package com.like.system.user.application.service;
+package com.like.system.login.application.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.login.application.port.in.dto.LoginRequestDTO;
-import com.like.system.login.application.service.LoginRequestContext;
+import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserRepository;
 import com.like.system.user.domain.SystemUserId;
-import com.like.system.user.domain.SystemUserRepository;
 
 @Transactional
 @Service

@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.system.core.web.util.WebRequestUtil;
 import com.like.system.login.application.port.in.dto.LoginRequestDTO;
 import com.like.system.login.domain.AuthenticationToken;
+import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserRepository;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserId;
-import com.like.system.user.domain.SystemUserRepository;
 
 @Transactional
 @Service

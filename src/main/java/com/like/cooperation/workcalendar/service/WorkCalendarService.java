@@ -12,9 +12,9 @@ import com.like.cooperation.workcalendar.domain.WorkCalendarMember;
 import com.like.cooperation.workcalendar.domain.WorkCalendarMemberId;
 import com.like.cooperation.workcalendar.domain.WorkCalendarMemberRepository;
 import com.like.cooperation.workcalendar.domain.WorkCalendarRepository;
+import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserRepository;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserId;
-import com.like.system.user.domain.SystemUserRepository;
 
 @Service
 @Transactional
