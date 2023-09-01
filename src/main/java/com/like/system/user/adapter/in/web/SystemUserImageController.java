@@ -1,6 +1,5 @@
 package com.like.system.user.adapter.in.web;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,36 +16,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.like.system.file.application.service.FileService;
-import com.like.system.user.application.service.SystemUserService;
-import com.like.system.user.domain.SystemUser;
+import com.like.system.user.application.port.in.SystemUserImageChangeUseCase;
+import com.like.system.user.application.port.in.SystemUserImageFileUseCase;
 
 @Controller
 public class SystemUserImageController {
-	
-	private FileService fileService;
+			
+	SystemUserImageFileUseCase imageSelectUseCase;
+	SystemUserImageChangeUseCase imageChangeUseCase;	
 		
-	private SystemUserService userService;
-		
-	public SystemUserImageController(FileService fileService, SystemUserService userService) {
-		this.fileService = fileService;
-		this.userService = userService;
+	public SystemUserImageController(SystemUserImageFileUseCase imageSelectUseCase
+									,SystemUserImageChangeUseCase imageChangeUseCase) {
+		this.imageSelectUseCase = imageSelectUseCase;
+		this.imageChangeUseCase = imageChangeUseCase;		
 	}
 	
 	@GetMapping("/api/system/user/image")
 	public HttpServletResponse downloadUserImage(HttpServletResponse response
 												,@RequestParam String organizationCode
-											    ,@RequestParam String userId) throws Exception {
-				
-		SystemUser user = userService.getUser(organizationCode, userId);			
+											    ,@RequestParam String userId) throws Exception {									
 		
-		File file = fileService.getStaticPathFile(user.getImage());
-				
-		response = this.setDownloadResponseHeader(response, user.getId().getUserId(), file.length());
-		
-		fileService.downloadFile(file, response);
-			
-		return response;
+		return imageSelectUseCase.downloadImageFile(organizationCode, userId, response);
 	}
 	
 	@PostMapping("/api/system/user/image")
@@ -54,34 +44,10 @@ public class SystemUserImageController {
 											,@RequestParam String organizationCode	
 											,String userId) throws Exception {				
 												
-		String fileName = userService.changeUserImage(organizationCode, userId, file);			
+		String fileName = imageChangeUseCase.changeImage(organizationCode, userId, file);			
 							
 		return new ResponseEntity<Map<String,Object>>(setUploadResponseBody(fileName), setUploadResponseHeader(), HttpStatus.OK);
-	}
-	
-	private HttpServletResponse setDownloadResponseHeader(HttpServletResponse response, String fileName, long fileSize) throws Exception {
-		
-		// get MIME type of the file
-		String mimeType= null;
-		if (mimeType == null) {
-			// set to binary type if MIME mapping not found
-			mimeType = "application/octet-stream";	         
-		}
-		
-		// set content attributes for the response
-		response.setContentType(mimeType);
-		response.setContentLengthLong(fileSize);
-		response.setCharacterEncoding("UTF-8");
-		
-		// set headers for the response
-		String headerKey = "Content-Disposition";
-		String headerValue = String.format("attachment;filename=\"%s\"", new String(fileName.getBytes("UTF-8"), "8859_1"));
-		
-		response.setHeader(headerKey, headerValue);
-		response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");	
-		
-		return response;
-	}
+	}	
 	
 	private Map<String, Object> setUploadResponseBody(String fileName) {		
 		Map<String, Object> response = new HashMap<>();

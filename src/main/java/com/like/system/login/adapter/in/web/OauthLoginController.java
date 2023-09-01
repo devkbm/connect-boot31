@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.like.system.login.domain.AuthenticationToken;
-import com.like.system.user.application.service.SystemUserService;
+import com.like.system.user.application.service.SystemUserSelectService;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +23,13 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class OauthLoginController {
 	
-	private SystemUserService userService;
+	private SystemUserSelectService userService;
 	 
 	private OAuth2AuthorizedClientService authorizedClientService;
 	
     private RestTemplateBuilder restTemplateBuilder;
     
-    public OauthLoginController(SystemUserService userService
+    public OauthLoginController(SystemUserSelectService userService
     						   ,OAuth2AuthorizedClientService authorizedClientService
     						   ,RestTemplateBuilder restTemplateBuilder) {
     	this.userService = userService;
@@ -79,7 +79,7 @@ public class OauthLoginController {
         log.info(client.getAccessToken().getTokenValue());        
     	log.info(client.getRefreshToken() != null ? client.getRefreshToken().getTokenValue() : "null");
     	
-    	SystemUser user = userService.getUser("001","1");
+    	SystemUser user = null; //userService.selectDTO("001","1");
 		    	
 		//List<GrantedAuthority> authorities = (List<GrantedAuthority>)user.getAuthorities();           						
         //authentication("1", "1234", authorities, session);         		 							       

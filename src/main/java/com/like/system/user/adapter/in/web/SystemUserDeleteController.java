@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.user.application.service.SystemUserService;
+import com.like.system.user.application.port.in.SystemUserDeleteUseCase;
 
 @RestController
 public class SystemUserDeleteController {		
 				
-	private SystemUserService userService;
+	private SystemUserDeleteUseCase useCase;
 		
-	public SystemUserDeleteController(SystemUserService userService) {
-		this.userService = userService;
+	public SystemUserDeleteController(SystemUserDeleteUseCase useCase) {
+		this.useCase = useCase;
 	}
 	
 	@DeleteMapping("/api/system/user/{userId}")
 	public ResponseEntity<?> deleteUser(@RequestParam String organizationCode, @PathVariable String userId) {
 										
-		userService.deleteUser(organizationCode, userId);															
+		useCase.delete(organizationCode, userId);															
 								 					
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}		

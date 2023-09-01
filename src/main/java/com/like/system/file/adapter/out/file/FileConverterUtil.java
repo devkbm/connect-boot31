@@ -1,4 +1,4 @@
-package com.like.system.file.util;
+package com.like.system.file.adapter.out.file;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

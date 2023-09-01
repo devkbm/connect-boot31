@@ -19,8 +19,8 @@ public class SystemUserSelectService implements SystemUserSelectUseCase {
 	}
 	
 	@Override
-	public SystemUserSaveDTO select(String organizationCode, String userId) {
-		return this.select(organizationCode, userId);
+	public SystemUserSaveDTO selectDTO(String organizationCode, String userId) {
+		return this.port.selectDTO(organizationCode, userId);
 	}
 
 	@Override

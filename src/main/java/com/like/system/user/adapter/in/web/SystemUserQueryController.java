@@ -11,35 +11,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.user.application.port.in.dto.SystemUserDTO;
-import com.like.system.user.application.service.SystemUserQueryService;
-import com.like.system.user.domain.SystemUser;
+import com.like.system.user.application.port.in.SystemUserSelectUseCase;
+import com.like.system.user.application.port.in.dto.SystemUserQueryConditionDTO;
+import com.like.system.user.application.port.in.dto.SystemUserSaveDTO;
 
 @RestController
 public class SystemUserQueryController {
 
-	private SystemUserQueryService service;
+	private SystemUserSelectUseCase useCase;
 	
-	public SystemUserQueryController(SystemUserQueryService service) {
-		this.service = service;
+	public SystemUserQueryController(SystemUserSelectUseCase useCase) {
+		this.useCase = useCase;
 	}
 		
 	@GetMapping("/api/system/user")
-	public ResponseEntity<?> getUserList(SystemUserDTO.Search condition) throws FileNotFoundException, IOException {
-				
-		List<SystemUser> userList = service.getUserList(condition);						
-		
-		List<SystemUserDTO.FormSystemUser> dtoList = userList.stream()
-													   		 .map(user -> SystemUserDTO.FormSystemUser.convertDTO(user))
-													   		 .toList();
-		
-		/*
-		List<UserDTO.FormSystemUser> dtoList = new ArrayList<>();
-		
-		for (SystemUser user : userList) {
-			dtoList.add(UserDTO.convertDTO(user));
-		}
-		*/
+	public ResponseEntity<?> getUserList(SystemUserQueryConditionDTO dto) throws FileNotFoundException, IOException {
+												
+		List<SystemUserSaveDTO> dtoList = useCase.selectList(dto);			
 		
 		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}

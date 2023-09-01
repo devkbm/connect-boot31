@@ -6,7 +6,7 @@ import com.like.system.user.application.port.in.dto.SystemUserQueryConditionDTO;
 import com.like.system.user.application.port.in.dto.SystemUserSaveDTO;
 
 public interface SystemUserSelectUseCase {
-	SystemUserSaveDTO select(String organizationCode, String userId);
+	SystemUserSaveDTO selectDTO(String organizationCode, String userId);
 	
 	List<SystemUserSaveDTO> selectList(SystemUserQueryConditionDTO dto);
 }

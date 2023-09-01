@@ -21,7 +21,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
-import com.like.system.authority.domain.Authority;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.dept.domain.Dept;
 import com.like.system.user.domain.vo.AccountSpec;
@@ -32,7 +31,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @ToString(callSuper=true, includeFieldNames=true)

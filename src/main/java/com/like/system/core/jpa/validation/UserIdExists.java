@@ -14,7 +14,7 @@ import jakarta.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy=UserIdExistsValidator.class)
 public @interface UserIdExists {
-	String message() default "";
+	String message() default "SystemUser is not Exsists";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }

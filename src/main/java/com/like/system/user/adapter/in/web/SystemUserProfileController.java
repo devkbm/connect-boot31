@@ -12,25 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
-import com.like.system.user.application.port.in.dto.SystemUserDTO;
-import com.like.system.user.application.service.SystemUserService;
-import com.like.system.user.domain.SystemUser;
+import com.like.system.user.application.port.in.SystemUserSelectUseCase;
+import com.like.system.user.application.port.in.dto.SystemUserSaveDTO;
 
 @RestController
 public class SystemUserProfileController {		
 				
-	private SystemUserService userService;
+	private SystemUserSelectUseCase useCase;
 		
-	public SystemUserProfileController(SystemUserService userService) {
-		this.userService = userService;
+	public SystemUserProfileController(SystemUserSelectUseCase useCase) {
+		this.useCase = useCase;
 	}
 
 	@GetMapping("/api/system/user/my-profile")
-	public ResponseEntity<?> getUserProfile(@RequestParam String organizationCode) throws FileNotFoundException, IOException {
-														
-		SystemUser user = userService.getUser(organizationCode, SessionUtil.getUserId());				
+	public ResponseEntity<?> getUserProfile(@RequestParam String organizationCode) throws FileNotFoundException, IOException {																		
 		
-		SystemUserDTO.FormSystemUser dto = SystemUserDTO.FormSystemUser.convertDTO(user);					
+		SystemUserSaveDTO dto = useCase.selectDTO(organizationCode, SessionUtil.getUserId());					
 		
 		return toOne(dto, MessageUtil.getQueryMessage(1));
 	}			
