@@ -1,4 +1,4 @@
-package com.like.system.menu.web;
+package com.like.system.menu.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.menu.application.service.MenuCommandService;
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
-import com.like.system.menu.service.MenuCommandService;
 
 @RestController
 public class MenuFormValidController {

@@ -2,8 +2,8 @@ package com.like.system.menu.domain;
 
 import java.util.List;
 
-import com.like.system.menu.boundary.MenuDTO;
-import com.like.system.menu.boundary.MenuGroupDTO;
+import com.like.system.menu.application.port.in.dto.MenuDTO;
+import com.like.system.menu.application.port.in.dto.MenuGroupDTO;
 
 public interface MenuQueryRepository {
 

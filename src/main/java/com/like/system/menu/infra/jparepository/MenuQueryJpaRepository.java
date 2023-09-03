@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.menu.boundary.ResponseMenuHierarchy;
-import com.like.system.menu.boundary.MenuDTO;
-import com.like.system.menu.boundary.MenuGroupDTO;
-import com.like.system.menu.boundary.QResponseMenuHierarchy;
+import com.like.system.menu.application.port.in.dto.MenuDTO;
+import com.like.system.menu.application.port.in.dto.MenuGroupDTO;
+import com.like.system.menu.application.port.in.dto.QResponseMenuHierarchy;
+import com.like.system.menu.application.port.in.dto.ResponseMenuHierarchy;
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuQueryRepository;

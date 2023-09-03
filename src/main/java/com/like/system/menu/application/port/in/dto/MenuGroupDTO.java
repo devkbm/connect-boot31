@@ -1,4 +1,4 @@
-package com.like.system.menu.boundary;
+package com.like.system.menu.application.port.in.dto;
 
 import static org.springframework.util.StringUtils.hasText;
 

@@ -1,10 +1,10 @@
-package com.like.system.menu.service;
+package com.like.system.menu.application.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.menu.boundary.MenuDTO;
-import com.like.system.menu.boundary.MenuGroupDTO;
+import com.like.system.menu.application.port.in.dto.MenuDTO;
+import com.like.system.menu.application.port.in.dto.MenuGroupDTO;
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupId;

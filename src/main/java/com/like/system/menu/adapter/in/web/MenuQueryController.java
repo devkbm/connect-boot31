@@ -1,4 +1,4 @@
-package com.like.system.menu.web;
+package com.like.system.menu.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 
@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.menu.boundary.MenuDTO;
-import com.like.system.menu.boundary.MenuGroupDTO;
-import com.like.system.menu.boundary.MenuGroupDTO.FormMenuGroup;
-import com.like.system.menu.boundary.ResponseMenuHierarchy;
+import com.like.system.menu.application.port.in.dto.MenuDTO;
+import com.like.system.menu.application.port.in.dto.MenuGroupDTO;
+import com.like.system.menu.application.port.in.dto.ResponseMenuHierarchy;
+import com.like.system.menu.application.port.in.dto.MenuGroupDTO.FormMenuGroup;
+import com.like.system.menu.application.service.MenuQueryService;
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuType;
-import com.like.system.menu.service.MenuQueryService;
 
 @Slf4j
 @RestController
