@@ -4,14 +4,14 @@ import org.springframework.stereotype.Service;
 
 import com.like.system.user.application.port.in.SystemUserSaveUseCase;
 import com.like.system.user.application.port.in.dto.SystemUserSaveDTO;
-import com.like.system.user.application.port.out.SystemUserSavePort;
+import com.like.system.user.application.port.out.SystemUserDbSavePort;
 
 @Service
 public class SystemUserSaveService implements SystemUserSaveUseCase {
 
-	SystemUserSavePort port;
+	SystemUserDbSavePort port;
 	
-	SystemUserSaveService(SystemUserSavePort port) {
+	SystemUserSaveService(SystemUserDbSavePort port) {
 		this.port = port;
 	}
 	

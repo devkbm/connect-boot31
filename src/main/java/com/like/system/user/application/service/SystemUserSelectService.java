@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import com.like.system.user.application.port.in.SystemUserSelectUseCase;
 import com.like.system.user.application.port.in.dto.SystemUserQueryConditionDTO;
 import com.like.system.user.application.port.in.dto.SystemUserSaveDTO;
-import com.like.system.user.application.port.out.SystemUserSelectPort;
+import com.like.system.user.application.port.out.SystemUserDbSelectPort;
 
 @Service
 public class SystemUserSelectService implements SystemUserSelectUseCase {
 
-	SystemUserSelectPort port;
+	SystemUserDbSelectPort port;
 	
-	SystemUserSelectService(SystemUserSelectPort port) {
+	SystemUserSelectService(SystemUserDbSelectPort port) {
 		this.port = port;
 	}
 	

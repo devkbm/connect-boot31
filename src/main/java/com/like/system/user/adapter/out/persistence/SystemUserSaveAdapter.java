@@ -19,7 +19,7 @@ import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserAut
 import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserMenuGroupRepository;
 import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserRepository;
 import com.like.system.user.application.port.in.dto.SystemUserSaveDTO;
-import com.like.system.user.application.port.out.SystemUserSavePort;
+import com.like.system.user.application.port.out.SystemUserDbSavePort;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserAuthority;
 import com.like.system.user.domain.SystemUserId;
@@ -28,7 +28,7 @@ import com.like.system.user.domain.SystemUserMenuGroup;
 
 @Repository
 @Transactional
-public class SystemUserSaveAdapter implements SystemUserSavePort {
+public class SystemUserSaveAdapter implements SystemUserDbSavePort {
 
 	SystemUserRepository repository;
 	DeptJpaRepository deptRepository;	

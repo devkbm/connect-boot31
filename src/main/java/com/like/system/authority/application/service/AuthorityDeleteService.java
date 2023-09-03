@@ -3,14 +3,14 @@ package com.like.system.authority.application.service;
 import org.springframework.stereotype.Service;
 
 import com.like.system.authority.application.port.in.AuthorityDeleteUseCase;
-import com.like.system.authority.application.port.out.AuthorityDeletePort;
+import com.like.system.authority.application.port.out.AuthorityDbDeletePort;
 
 @Service
 public class AuthorityDeleteService implements AuthorityDeleteUseCase {
 
-	AuthorityDeletePort port;
+	AuthorityDbDeletePort port;
 
-	public AuthorityDeleteService(AuthorityDeletePort port) {
+	public AuthorityDeleteService(AuthorityDbDeletePort port) {
 		this.port = port;
 	}
 	

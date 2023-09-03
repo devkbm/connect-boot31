@@ -8,15 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
 import com.like.system.authority.application.port.in.AuthorityQueryUseCase;
 import com.like.system.authority.application.port.in.dto.AuthorityQueryRequestDTO;
-import com.like.system.authority.application.port.out.AuthorityQueryPort;
+import com.like.system.authority.application.port.out.AuthorityDbQueryPort;
 
 @Transactional(readOnly = true)
 @Service
 public class AuthorityQueryService implements AuthorityQueryUseCase {
 
-	private AuthorityQueryPort port;
+	private AuthorityDbQueryPort port;
 	
-	public AuthorityQueryService(AuthorityQueryPort port) {
+	public AuthorityQueryService(AuthorityDbQueryPort port) {
 		this.port = port;
 	}
 		

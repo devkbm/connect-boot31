@@ -8,8 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.like.system.file.application.service.FileService;
 import com.like.system.user.application.port.in.SystemUserImageChangeUseCase;
 import com.like.system.user.application.port.in.SystemUserImageFileUseCase;
-import com.like.system.user.application.port.out.SystemUserSavePort;
-import com.like.system.user.application.port.out.SystemUserSelectPort;
+import com.like.system.user.application.port.out.SystemUserDbSavePort;
+import com.like.system.user.application.port.out.SystemUserDbSelectPort;
 import com.like.system.user.domain.ProfilePictureRepository;
 import com.like.system.user.domain.SystemUser;
 
@@ -18,14 +18,14 @@ import jakarta.servlet.http.HttpServletResponse;
 @Service
 public class SystemUserImageService implements SystemUserImageFileUseCase, SystemUserImageChangeUseCase {
 
-	SystemUserSelectPort port;
-	SystemUserSavePort savePort;
+	SystemUserDbSelectPort port;
+	SystemUserDbSavePort savePort;
 	ProfilePictureRepository profilePictureRepository;
 	FileService fileService;
 	
 	
-	SystemUserImageService(SystemUserSelectPort port
-						  ,SystemUserSavePort savePort
+	SystemUserImageService(SystemUserDbSelectPort port
+						  ,SystemUserDbSavePort savePort
 						  ,ProfilePictureRepository profilePictureRepository
 						  ,FileService fileService) {
 		this.port = port;

@@ -4,17 +4,17 @@ import org.springframework.stereotype.Service;
 
 import com.like.system.authority.application.port.in.AuthoritySaveUseCase;
 import com.like.system.authority.application.port.in.dto.AuthoritySaveDTO;
-import com.like.system.authority.application.port.out.AuthoritySavePort;
-import com.like.system.authority.application.port.out.AuthoritySelectPort;
+import com.like.system.authority.application.port.out.AuthorityDbSavePort;
+import com.like.system.authority.application.port.out.AuthorityDbSelectPort;
 import com.like.system.authority.domain.Authority;
 
 @Service
 public class AuthoritySaveService implements AuthoritySaveUseCase {
 
-	AuthoritySelectPort selectPort;
-	AuthoritySavePort savePort;
+	AuthorityDbSelectPort selectPort;
+	AuthorityDbSavePort savePort;
 	
-	public AuthoritySaveService(AuthoritySelectPort selectPort, AuthoritySavePort savePort) {
+	public AuthoritySaveService(AuthorityDbSelectPort selectPort, AuthorityDbSavePort savePort) {
 		this.selectPort = selectPort;
 		this.savePort = savePort;
 	}

@@ -8,11 +8,11 @@ import com.like.system.authority.adapter.out.persistence.jpa.entity.AuthorityMap
 import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
 import com.like.system.authority.adapter.out.persistence.jpa.entity.QJpaAuthority;
 import com.like.system.authority.application.port.in.dto.AuthorityQueryRequestDTO;
-import com.like.system.authority.application.port.out.AuthorityQueryPort;
+import com.like.system.authority.application.port.out.AuthorityDbQueryPort;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
-public class AuthorityQueryJpaRepository implements AuthorityQueryPort {
+public class AuthorityQueryJpaRepository implements AuthorityDbQueryPort {
 
 	private JPAQueryFactory queryFactory;
 	private final QJpaAuthority qAuthority = QJpaAuthority.jpaAuthority;	
