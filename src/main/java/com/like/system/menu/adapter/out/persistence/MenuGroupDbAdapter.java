@@ -1,8 +1,11 @@
 package com.like.system.menu.adapter.out.persistence;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuGroupJpaRepository;
+import com.like.system.menu.application.port.in.dto.MenuGroupQueryConditionDTO;
 import com.like.system.menu.application.port.in.dto.MenuGroupSaveDTO;
 import com.like.system.menu.application.port.out.MenuGroupDeleteDbPort;
 import com.like.system.menu.application.port.out.MenuGroupSaveDbPort;
@@ -27,6 +30,15 @@ public class MenuGroupDbAdapter implements MenuGroupSelectDbPort, MenuGroupSaveD
 	}
 
 	@Override
+	public List<MenuGroupSaveDTO> selectList(MenuGroupQueryConditionDTO dto) {
+		
+		return this.repository.findAll(dto.getBooleanBuilder())
+							  .stream()
+							  .map(e -> MenuGroupSaveDTO.toDTO(e))
+							  .toList();
+	}
+	
+	@Override
 	public void save(MenuGroupSaveDTO dto) {
 		this.repository.save(dto.newMenuGroup());		
 	}
@@ -35,4 +47,5 @@ public class MenuGroupDbAdapter implements MenuGroupSelectDbPort, MenuGroupSaveD
 	public void delete(String organizationCode, String menuGroupCode) {
 		this.repository.deleteById(new MenuGroupId(organizationCode, menuGroupCode));		
 	}
+	
 }

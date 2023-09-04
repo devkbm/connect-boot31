@@ -1,6 +1,9 @@
 package com.like.system.menu.adapter.in.web;
 
+import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
+
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.system.core.message.MessageUtil;
 import com.like.system.menu.application.port.in.MenuGroupSelectUseCase;
 import com.like.system.menu.application.port.in.dto.MenuGroupSaveDTO;
+import com.like.system.menu.application.port.in.dto.MenuGroupQueryConditionDTO;
 
 @RestController
 public class MenuGroupSelectController {
@@ -28,5 +32,13 @@ public class MenuGroupSelectController {
 								
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}				
+	
+	@GetMapping("/api/system/menugroup")
+	public ResponseEntity<?> getMenuGroupList(MenuGroupQueryConditionDTO dto) {				
+		
+		List<MenuGroupSaveDTO> dtoList = useCase.selectList(dto); 																								 
+		
+		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
+	}
 	
 }

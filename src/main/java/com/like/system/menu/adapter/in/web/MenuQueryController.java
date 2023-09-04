@@ -51,19 +51,7 @@ public class MenuQueryController {
 		List<ResponseMenuHierarchy> menuGroup = menuQueryService.getMenuHierachy(organizationCode, menuGroupCode); 										
 		
 		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
-	}
-	
-	@GetMapping("/api/system/menugroup")
-	public ResponseEntity<?> getMenuGroupList(MenuGroupDTO.Search dto) {				
-		
-		List<MenuGroup> list = menuQueryService.getMenuGroupList(dto); 							
-		
-		List<MenuGroupDTO.FormMenuGroup> dtoList = list.stream()
-													   .map(e -> FormMenuGroup.convert(e))
-													   .toList();													   
-		
-		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
-	}
+	}	
 	
 	@GetMapping("/api/system/menu")
 	public ResponseEntity<?> getMenuList(@Valid MenuDTO.Search dto) {				
