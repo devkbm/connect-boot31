@@ -12,9 +12,9 @@ import com.like.system.authority.adapter.out.persistence.jpa.repository.Authorit
 import com.like.system.dept.adapter.out.persistence.jpa.repository.DeptJpaRepository;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptId;
+import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuGroupJpaRepository;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupId;
-import com.like.system.menu.domain.MenuGroupRepository;
 import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserAuthorityRepository;
 import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserMenuGroupRepository;
 import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserRepository;
@@ -33,14 +33,14 @@ public class SystemUserSaveAdapter implements SystemUserDbSavePort {
 	SystemUserRepository repository;
 	DeptJpaRepository deptRepository;	
 	AuthorityJpaRepository authorityRepository;
-	MenuGroupRepository menuRepository;
+	MenuGroupJpaRepository menuRepository;
 	SystemUserAuthorityRepository systemUserAuthorityRepository;
 	SystemUserMenuGroupRepository systemUserMenuGroupRepository;
 	
 	SystemUserSaveAdapter(SystemUserRepository repository
 						 ,DeptJpaRepository deptRepository
 						 ,AuthorityJpaRepository authorityRepository
-						 ,MenuGroupRepository menuRepository
+						 ,MenuGroupJpaRepository menuRepository
 						 ,SystemUserAuthorityRepository systemUserAuthorityRepository
 						 ,SystemUserMenuGroupRepository systemUserMenuGroupRepository) {
 		this.repository = repository;

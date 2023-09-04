@@ -10,22 +10,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.menu.application.port.in.dto.MenuDTO;
-import com.like.system.menu.application.service.MenuCommandService;
+import com.like.system.menu.application.port.in.MenuSaveUseCase;
+import com.like.system.menu.application.port.in.dto.MenuSaveDTO;
 
 @RestController
 public class MenuSaveController {
 	
-	private MenuCommandService menuCommandService;		
+	private MenuSaveUseCase useCase;		
 			
-	public MenuSaveController(MenuCommandService menuCommandService) {
-		this.menuCommandService = menuCommandService;		
+	public MenuSaveController(MenuSaveUseCase useCase) {
+		this.useCase = useCase;		
 	}						
 		
 	@PostMapping("/api/system/menugroup/{menuGroupCode}/menu/{menuCode}")
-	public ResponseEntity<?> saveMenu(@RequestBody @Valid MenuDTO.FormMenu dto) throws Exception {												
+	public ResponseEntity<?> saveMenu(@RequestBody @Valid MenuSaveDTO dto) throws Exception {												
 									
-		menuCommandService.saveMenu(dto);																			
+		useCase.save(dto);																			
 														 				
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}		

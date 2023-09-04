@@ -8,25 +8,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.system.core.message.MessageUtil;
 import com.like.system.menu.application.port.in.MenuGroupSelectUseCase;
 import com.like.system.menu.application.port.in.dto.MenuGroupSaveDTO;
 
 @RestController
-public class MenuGroupSelectController {
+public class MenuGroupFormValidController {
+
+	private MenuGroupSelectUseCase useCase;
 	
-	private MenuGroupSelectUseCase useCase;		
-			
-	public MenuGroupSelectController(MenuGroupSelectUseCase useCase) {
+	public MenuGroupFormValidController(MenuGroupSelectUseCase useCase) {
 		this.useCase = useCase;		
 	}
-			
-	@GetMapping("/api/system/menugroup/{menuGroupCode}")
-	public ResponseEntity<?> getMenuGroup(@RequestParam String organizationCode, @PathVariable String menuGroupCode) {				
-		
-		MenuGroupSaveDTO dto = useCase.select(organizationCode, menuGroupCode);				
+
+	@GetMapping("/api/system/menugroup/{menuGroupId}/check")
+	public ResponseEntity<?> getMenuGroupValid(@RequestParam String organizationCode, @PathVariable String menuGroupId) {							
+		MenuGroupSaveDTO menuGroup = useCase.select(organizationCode, menuGroupId);
+		Boolean isValid = menuGroup == null ? true : false;				
 								
-		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
-	}				
+		return toOne(isValid, String.format("%d 건 조회되었습니다.", menuGroup != null ? 1 : 0));
+	}	
 	
 }

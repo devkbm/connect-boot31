@@ -9,21 +9,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.menu.application.service.MenuCommandService;
+import com.like.system.menu.application.port.in.MenuDeleteUseCase;
 
 @RestController
 public class MenuDeleteController {
 	
-	private MenuCommandService menuCommandService;		
+	private MenuDeleteUseCase useCase;		
 			
-	public MenuDeleteController(MenuCommandService menuCommandService) {
-		this.menuCommandService = menuCommandService;		
+	public MenuDeleteController(MenuDeleteUseCase useCase) {
+		this.useCase = useCase;		
 	}					
 	
 	@DeleteMapping("/api/system/menugroup/{menuGroupCode}menu/{menuCode}")
-	public ResponseEntity<?> delMenu(@RequestParam String organizationCode, @PathVariable String menuGroupCode, @PathVariable String menuCode) {				
+	public ResponseEntity<?> delMenu(@RequestParam String organizationCode
+									,@PathVariable String menuGroupCode
+									,@PathVariable String menuCode) {				
 												
-		menuCommandService.deleteMenu(organizationCode, menuGroupCode, menuCode);							
+		useCase.delete(organizationCode, menuGroupCode, menuCode);							
 		
 		return toList(null, MessageUtil.getDeleteMessage(1));
 	}	

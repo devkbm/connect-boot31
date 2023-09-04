@@ -3,24 +3,24 @@ package com.like.system.menu.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuGroupJpaRepository;
+import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuJpaRepository;
 import com.like.system.menu.application.port.in.dto.MenuDTO;
 import com.like.system.menu.application.port.in.dto.MenuGroupDTO;
 import com.like.system.menu.domain.Menu;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupId;
-import com.like.system.menu.domain.MenuGroupRepository;
 import com.like.system.menu.domain.MenuId;
-import com.like.system.menu.domain.MenuRepository;
 
 @Service
 @Transactional
 public class MenuCommandService {
 
-	private MenuGroupRepository menuGroupRepository;
-	private MenuRepository menuRepository;	
+	private MenuGroupJpaRepository menuGroupRepository;
+	private MenuJpaRepository menuRepository;	
 			
-	public MenuCommandService(MenuGroupRepository menuGroupRepository
-							 ,MenuRepository menuRepository) {
+	public MenuCommandService(MenuGroupJpaRepository menuGroupRepository
+							 ,MenuJpaRepository menuRepository) {
 		this.menuGroupRepository = menuGroupRepository;
 		this.menuRepository = menuRepository;		
 	}
