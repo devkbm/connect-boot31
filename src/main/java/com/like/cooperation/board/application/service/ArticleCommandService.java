@@ -1,4 +1,4 @@
-package com.like.cooperation.board.service;
+package com.like.cooperation.board.application.service;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.board.boundary.ArticleDTO;
+import com.like.cooperation.board.application.port.in.dto.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleRead;
 import com.like.cooperation.board.domain.ArticleReadId;

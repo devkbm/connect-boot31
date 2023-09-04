@@ -1,4 +1,4 @@
-package com.like.cooperation.board.web;
+package com.like.cooperation.board.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 
@@ -11,9 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.like.cooperation.board.boundary.ArticleDTO;
-import com.like.cooperation.board.boundary.ResponseArticle;
-import com.like.cooperation.board.service.ArticleQueryService;
+import com.like.cooperation.board.application.port.in.dto.ArticleDTO;
+import com.like.cooperation.board.application.port.in.dto.ResponseArticle;
+import com.like.cooperation.board.application.service.ArticleQueryService;
 import com.like.system.core.message.MessageUtil;
 
 @Controller

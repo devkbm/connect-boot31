@@ -1,11 +1,11 @@
-package com.like.cooperation.board.infra.mapper;
+package com.like.cooperation.board.adapter.out.persistence.mybatis;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.like.cooperation.board.boundary.ResponseArticle;
+import com.like.cooperation.board.application.port.in.dto.ResponseArticle;
 
 @Mapper
 public interface BoardMapper {

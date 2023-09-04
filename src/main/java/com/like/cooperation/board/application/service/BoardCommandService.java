@@ -1,11 +1,11 @@
-package com.like.cooperation.board.service;
+package com.like.cooperation.board.application.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.board.boundary.BoardDTO;
+import com.like.cooperation.board.application.port.in.dto.BoardDTO;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardBookmark;
 import com.like.cooperation.board.domain.BoardBookmarkRepository;

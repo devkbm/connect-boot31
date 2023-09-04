@@ -1,4 +1,4 @@
-package com.like.cooperation.board.boundary;
+package com.like.cooperation.board.application.port.in.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;

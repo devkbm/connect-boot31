@@ -1,4 +1,4 @@
-package com.like.cooperation.board.infra.jparepository;
+package com.like.cooperation.board.adapter.out.persistence.jpa.repository;
 
 import java.util.List;
 

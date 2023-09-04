@@ -2,7 +2,7 @@ package com.like.cooperation.board.domain;
 
 import java.util.List;
 
-import com.like.cooperation.board.boundary.BoardHierarchy;
+import com.like.cooperation.board.application.port.in.dto.BoardHierarchy;
 import com.querydsl.core.types.Predicate;
 
 public interface BoardQueryRepository {

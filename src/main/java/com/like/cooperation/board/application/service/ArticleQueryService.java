@@ -1,4 +1,4 @@
-package com.like.cooperation.board.service;
+package com.like.cooperation.board.application.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,12 +10,12 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.board.boundary.ArticleDTO;
-import com.like.cooperation.board.boundary.ResponseArticle;
+import com.like.cooperation.board.adapter.out.persistence.mybatis.BoardMapper;
+import com.like.cooperation.board.application.port.in.dto.ArticleDTO;
+import com.like.cooperation.board.application.port.in.dto.ResponseArticle;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleQueryRepository;
 import com.like.cooperation.board.domain.ArticleRepository;
-import com.like.cooperation.board.infra.mapper.BoardMapper;
 
 @Service
 @Transactional(readOnly=true)
