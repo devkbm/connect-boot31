@@ -1,4 +1,4 @@
-package com.like.system.file.boundary;
+package com.like.system.file.application.port.dto;
 
 import com.like.system.file.adapter.out.file.LocalFileRepository;
 import com.like.system.file.domain.FileInfo;

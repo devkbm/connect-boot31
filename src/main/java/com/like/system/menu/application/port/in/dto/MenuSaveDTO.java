@@ -57,22 +57,22 @@ public record MenuSaveDTO(
 		menu.setAppUrl(clientAppUrl);			
 	}
 	
-	public static MenuSaveDTO toDTO(Menu menu) {
+	public static MenuSaveDTO toDTO(Menu entity) {
 		
 		return MenuSaveDTO.builder()
-				   	   .createdDt(menu.getCreatedDt())
-				   	   .createdBy(menu.getCreatedBy().getLoggedUser())
-				   	   .modifiedDt(menu.getModifiedDt())
-				   	   .modifiedBy(menu.getModifiedBy().getLoggedUser())					   	   
-				   	   .organizationCode(menu.getMenuGroup().getId().getOrganizationCode())
-				   	   .menuGroupCode(menu.getMenuGroup().getId().getMenuGroupCode())					   	   					   	   
-				   	   .menuCode(menu.getId().getMenuCode())
-				   	   .menuName(menu.getName())
-				   	   .menuType(menu.getType().toString())
-				   	   .appUrl(menu.getAppUrl())
-				   	   .sequence(menu.getSequence())
-				   	   .level(menu.getLevel())
-				   	   .parentMenuCode(menu.getParentMenuCode())					   	   
+				   	   .createdDt(entity.getCreatedDt())
+				   	   .createdBy(entity.getCreatedBy() == null ? null : entity.getCreatedBy().getLoggedUser())
+				   	   .modifiedDt(entity.getModifiedDt())
+				   	   .modifiedBy(entity.getModifiedBy() == null ? null : entity.getModifiedBy().getLoggedUser())					   	   
+				   	   .organizationCode(entity.getMenuGroup().getId().getOrganizationCode())
+				   	   .menuGroupCode(entity.getMenuGroup().getId().getMenuGroupCode())					   	   					   	   
+				   	   .menuCode(entity.getId().getMenuCode())
+				   	   .menuName(entity.getName())
+				   	   .menuType(entity.getType().toString())
+				   	   .appUrl(entity.getAppUrl())
+				   	   .sequence(entity.getSequence())
+				   	   .level(entity.getLevel())
+				   	   .parentMenuCode(entity.getParentMenuCode())					   	   
 				   	   .build();
 	}
 }

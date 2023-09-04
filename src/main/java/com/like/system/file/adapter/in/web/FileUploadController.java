@@ -18,8 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.like.system.file.adapter.out.file.LocalFileRepository;
+import com.like.system.file.application.port.dto.FileResponseDTO;
 import com.like.system.file.application.service.FileService;
-import com.like.system.file.boundary.FileResponseDTO;
 import com.like.system.file.domain.FileInfo;
 
 @Controller

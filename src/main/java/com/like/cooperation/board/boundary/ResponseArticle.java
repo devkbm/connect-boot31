@@ -7,7 +7,7 @@ import java.util.List;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleRepository;
 import com.like.system.core.util.SessionUtil;
-import com.like.system.file.boundary.FileResponseDTO;
+import com.like.system.file.application.port.dto.FileResponseDTO;
 import com.like.system.file.domain.FileInfo;
 
 import lombok.AllArgsConstructor;
