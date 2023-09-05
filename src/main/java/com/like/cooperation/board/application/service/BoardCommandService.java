@@ -5,21 +5,21 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.board.application.port.in.dto.BoardDTO;
+import com.like.cooperation.board.adapter.out.persistence.jpa.repository.BoardJpaRepository;
+import com.like.cooperation.board.application.dto.BoardDTO;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardBookmark;
 import com.like.cooperation.board.domain.BoardBookmarkRepository;
-import com.like.cooperation.board.domain.BoardRepository;
 
 
 @Service
 @Transactional
 public class BoardCommandService {
 	
-	private BoardRepository boardRepository;
+	private BoardJpaRepository boardRepository;
 	private BoardBookmarkRepository bookmarkRepository;		
 	     
-	public BoardCommandService(BoardRepository boardRepository
+	public BoardCommandService(BoardJpaRepository boardRepository
 							  ,BoardBookmarkRepository bookmarkRepository) {
 		this.boardRepository = boardRepository;
 		this.bookmarkRepository = bookmarkRepository;		

@@ -8,16 +8,16 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.board.application.port.in.dto.ArticleDTO;
+import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleJpaRepository;
+import com.like.cooperation.board.adapter.out.persistence.jpa.repository.BoardJpaRepository;
+import com.like.cooperation.board.application.dto.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleRead;
 import com.like.cooperation.board.domain.ArticleReadId;
 import com.like.cooperation.board.domain.ArticleReadRepository;
-import com.like.cooperation.board.domain.ArticleRepository;
 import com.like.cooperation.board.domain.ArticleAttachedFile;
 import com.like.cooperation.board.domain.AttachedFileConverter;
 import com.like.cooperation.board.domain.Board;
-import com.like.cooperation.board.domain.BoardRepository;
 import com.like.system.core.util.SessionUtil;
 import com.like.system.file.application.service.FileService;
 import com.like.system.file.domain.FileInfo;
@@ -26,14 +26,14 @@ import com.like.system.file.domain.FileInfo;
 @Transactional
 public class ArticleCommandService {
 	
-	private BoardRepository boardRepository;	
+	private BoardJpaRepository boardRepository;	
 	private FileService fileService;	
-	private ArticleRepository repository;
+	private ArticleJpaRepository repository;
 	private ArticleReadRepository articleCheckRepository;
 		
-	public ArticleCommandService(BoardRepository boardRepository
+	public ArticleCommandService(BoardJpaRepository boardRepository
 								,FileService fileService
-								,ArticleRepository repository
+								,ArticleJpaRepository repository
 								,ArticleReadRepository articleCheckRepository) {
 		this.boardRepository = boardRepository;
 		this.fileService = fileService;

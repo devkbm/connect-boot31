@@ -1,4 +1,4 @@
-package com.like.cooperation.board.application.port.in.dto;
+package com.like.cooperation.board.application.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;

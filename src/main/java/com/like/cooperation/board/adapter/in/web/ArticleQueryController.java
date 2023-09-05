@@ -11,8 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.like.cooperation.board.application.port.in.dto.ArticleDTO;
-import com.like.cooperation.board.application.port.in.dto.ResponseArticle;
+import com.like.cooperation.board.application.dto.ArticleDTO;
+import com.like.cooperation.board.application.dto.ResponseArticle;
 import com.like.cooperation.board.application.service.ArticleQueryService;
 import com.like.system.core.message.MessageUtil;
 

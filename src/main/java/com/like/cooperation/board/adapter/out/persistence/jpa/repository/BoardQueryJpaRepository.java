@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.cooperation.board.application.port.in.dto.BoardHierarchy;
-import com.like.cooperation.board.application.port.in.dto.QBoardHierarchy;
+import com.like.cooperation.board.application.dto.BoardHierarchy;
+import com.like.cooperation.board.application.dto.QBoardHierarchy;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardQueryRepository;
 import com.like.cooperation.board.domain.QBoard;

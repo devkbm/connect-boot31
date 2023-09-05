@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.like.cooperation.board.application.port.in.dto.ArticleDTO;
+import com.like.cooperation.board.application.dto.ArticleDTO;
 import com.like.cooperation.board.application.service.ArticleCommandService;
 import com.like.cooperation.board.domain.Article;
 import com.like.system.core.message.MessageUtil;

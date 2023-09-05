@@ -1,11 +1,11 @@
-package com.like.cooperation.board.application.port.in.dto;
+package com.like.cooperation.board.application.dto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleJpaRepository;
 import com.like.cooperation.board.domain.Article;
-import com.like.cooperation.board.domain.ArticleRepository;
 import com.like.system.core.util.SessionUtil;
 import com.like.system.file.application.port.dto.FileResponseDTO;
 import com.like.system.file.domain.FileInfo;
@@ -65,7 +65,7 @@ public class ResponseArticle {
 				 .build();
 	}
 	
-	public void addFileResponseDTO(ArticleRepository repository) {
+	public void addFileResponseDTO(ArticleJpaRepository repository) {
 		
 		Article entity = repository.findById(this.articleId).orElse(null);
 		

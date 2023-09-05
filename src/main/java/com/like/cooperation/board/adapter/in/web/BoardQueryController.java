@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.board.application.port.in.dto.BoardDTO;
+import com.like.cooperation.board.application.dto.BoardDTO;
 import com.like.cooperation.board.application.service.BoardQueryService;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardType;

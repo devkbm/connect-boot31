@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.board.application.port.in.dto.BoardDTO;
+import com.like.cooperation.board.application.dto.BoardDTO;
 import com.like.cooperation.board.application.service.BoardCommandService;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardBookmark;

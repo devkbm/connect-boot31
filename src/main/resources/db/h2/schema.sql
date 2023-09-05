@@ -567,3 +567,64 @@ CREATE TABLE HRMSTAFFSCHOOLCAREER (
 	constraint pk_hrmstaffschoolcareer primary key(ORG_CD, STAFF_NO, SEQ)
 );
 COMMENT ON TABLE HRMSTAFFSCHOOLCAREER IS '직원가족정보';
+
+CREATE TABLE GRWBOARD (
+	CREATED_DT			  	DATETIME			  NULL		,
+	CREATED_USER_ID			VARCHAR(50)			NULL		,
+	CREATED_HOST_IP			VARCHAR(50)			NULL		,
+	CREATED_APP_URL			VARCHAR(500)		NULL		,
+	MODIFIED_DT			  	DATETIME			  NULL		,
+	MODIFIED_USER_ID		VARCHAR(50)			NULL		,
+	MODIFIED_HOST_IP		VARCHAR(50)			NULL		,
+	MODIFIED_APP_URL		VARCHAR(500)		NULL		,
+  BOARD_ID            INT             NOT NULL  AUTO_INCREMENT,
+  BOARD_P_ID          INT             NULL    ,
+  BOARD_TYPE          VARCHAR(10)     NOT NULL,
+  BOARD_NAME          VARCHAR(500)		NULL    ,
+  BOARD_DESC          TEXT			      NULL    ,
+  USE_YN              BOOLEAN         NULL    ,
+  SEQ                 INT             NULL    ,
+  constraint pk_grwboard primary key(BOARD_ID)
+);
+COMMENT ON TABLE GRWBOARD IS '게시판';
+
+
+CREATE TABLE GRWARTICLE (
+	CREATED_DT			  	DATETIME			  NULL		,
+	CREATED_USER_ID			VARCHAR(50)			NULL		,
+	CREATED_HOST_IP			VARCHAR(50)			NULL		,
+	CREATED_APP_URL			VARCHAR(500)		NULL		,
+	MODIFIED_DT			  	DATETIME			  NULL		,
+	MODIFIED_USER_ID		VARCHAR(50)			NULL		,
+	MODIFIED_HOST_IP		VARCHAR(50)			NULL		,
+	MODIFIED_APP_URL		VARCHAR(500)		NULL		,
+  ARTICLE_ID          INT             NOT NULL  AUTO_INCREMENT,
+  ARTICLE_P_ID        INT             NULL    ,
+  BOARD_ID            INT             NOT NULL,
+  TITLE               VARCHAR(500)		NULL    ,
+  CONTENTS            TEXT			      NULL    ,
+  SEQ                 INT             NULL    ,
+  HIT_CNT             INT             NULL    ,
+  HIER_DEPTH          INT             NULL    ,
+  PWD                 VARCHAR(500)		NULL    ,
+  constraint pk_grwarticle primary key(ARTICLE_ID),  
+  constraint fk_grwarticle1 	foreign key(BOARD_ID) references GRWBOARD(BOARD_ID)
+);
+COMMENT ON TABLE GRWARTICLE IS '게시글';
+
+CREATE TABLE GRWARTICLEFILE (
+	CREATED_DT			  	DATETIME			  NULL		,
+	CREATED_USER_ID			VARCHAR(50)			NULL		,
+	CREATED_HOST_IP			VARCHAR(50)			NULL		,
+	CREATED_APP_URL			VARCHAR(500)		NULL		,
+	MODIFIED_DT			  	DATETIME			  NULL		,
+	MODIFIED_USER_ID		VARCHAR(50)			NULL		,
+	MODIFIED_HOST_IP		VARCHAR(50)			NULL		,
+	MODIFIED_APP_URL		VARCHAR(500)		NULL		,
+  ARTICLE_FILE_ID     INT             NOT NULL  AUTO_INCREMENT,
+  ARTICLE_ID          INT             NOT NULL,
+  FILE_ID             BINARY(16)      NOT NULL,  
+  constraint pk_grwarticlefile primary key(ARTICLE_FILE_ID),  
+  constraint fk_grwarticlefile1 foreign key(ARTICLE_ID) references GRWARTICLE(ARTICLE_ID)
+);
+COMMENT ON TABLE GRWARTICLEFILE IS '게시글첨부파일';

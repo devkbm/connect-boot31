@@ -1,7 +1,7 @@
-package com.like.cooperation.board.application.port.in;
+package com.like.cooperation.board.application.port.out;
 
 import com.like.cooperation.board.application.dto.BoardSaveDTO;
 
-public interface BoardSelectUseCase {
+public interface BoardSelectDbPort {
 	BoardSaveDTO select(Long boardId);
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.board.application.port.in.dto.BoardDTO;
+import com.like.cooperation.board.application.dto.BoardDTO;
 import com.like.cooperation.board.domain.Board;
 import com.like.cooperation.board.domain.BoardQueryRepository;
 

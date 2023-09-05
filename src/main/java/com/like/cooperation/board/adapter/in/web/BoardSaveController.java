@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.board.application.port.in.dto.BoardDTO;
+import com.like.cooperation.board.application.dto.BoardDTO;
 import com.like.cooperation.board.application.service.BoardCommandService;
 import com.like.system.core.message.MessageUtil;
 

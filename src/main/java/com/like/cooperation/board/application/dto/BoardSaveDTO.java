@@ -1,4 +1,4 @@
-package com.like.cooperation.board.application.port.in.dto;
+package com.like.cooperation.board.application.dto;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -44,7 +44,7 @@ public record BoardSaveDTO(
 		board.setAppUrl(clientAppUrl);
 	}
 	
-	public static BoardSaveDTO convertDTO(Board entity) {					
+	public static BoardSaveDTO toDTO(Board entity) {							
 		
 		if (entity == null)
 			return null;

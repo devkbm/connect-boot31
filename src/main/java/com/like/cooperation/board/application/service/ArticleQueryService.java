@@ -10,23 +10,23 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleJpaRepository;
 import com.like.cooperation.board.adapter.out.persistence.mybatis.BoardMapper;
-import com.like.cooperation.board.application.port.in.dto.ArticleDTO;
-import com.like.cooperation.board.application.port.in.dto.ResponseArticle;
+import com.like.cooperation.board.application.dto.ArticleDTO;
+import com.like.cooperation.board.application.dto.ResponseArticle;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleQueryRepository;
-import com.like.cooperation.board.domain.ArticleRepository;
 
 @Service
 @Transactional(readOnly=true)
 public class ArticleQueryService {
 
 	private ArticleQueryRepository articleRepository;
-	private ArticleRepository repository;
+	private ArticleJpaRepository repository;
     private BoardMapper boardMapper;
     
     public ArticleQueryService(ArticleQueryRepository articleRepository
-    					      ,ArticleRepository repository		
+    					      ,ArticleJpaRepository repository		
     						  ,BoardMapper boardMapper) {
     	this.articleRepository = articleRepository;
     	this.repository = repository;    	
