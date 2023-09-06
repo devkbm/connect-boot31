@@ -1,5 +1,7 @@
 package com.like.cooperation.board.adapter.out.persistence;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Repository;
 
 import com.like.cooperation.board.adapter.out.persistence.jpa.repository.BoardJpaRepository;
@@ -26,9 +28,9 @@ public class BoardDbAdapter implements BoardSelectDbPort, BoardSaveDbPort, Board
 
 	@Override
 	public void save(BoardSaveDTO dto) {
-		Board parentBoard = this.repository.findById(dto.boardParentId()).orElse(null);
+		Board parentBoard = dto.boardParentId() == null ? null : this.repository.findById(dto.boardParentId()).orElse(null);
 		
-		this.repository.save(dto.newBoard(parentBoard));		
+		this.repository.save(dto.toEntity(parentBoard));		
 	}
 
 	@Override

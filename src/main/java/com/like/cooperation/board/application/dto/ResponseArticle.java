@@ -51,9 +51,9 @@ public class ResponseArticle {
 		return ResponseArticle
 				 .builder()
 				 .createdDt(entity.getCreatedDt())
-				 .createdBy(entity.getCreatedBy().getLoggedUser())
+				 .createdBy(entity.getCreatedBy() == null ? null : entity.getCreatedBy().getLoggedUser())
 				 .modifiedDt(entity.getModifiedDt())
-				 .modifiedBy(entity.getModifiedBy().getLoggedUser())
+				 .modifiedBy(entity.getModifiedBy() == null ? null : entity.getModifiedBy().getLoggedUser())
 				 .articleId(entity.getArticleId())
 				 .articleParentId(entity.getArticleParentId())							 
 				 .userName(entity.getUserName())

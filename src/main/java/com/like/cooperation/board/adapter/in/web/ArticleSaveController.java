@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.like.cooperation.board.application.dto.ArticleDTO;
+import com.like.cooperation.board.application.dto.ArticleSaveDTO;
+import com.like.cooperation.board.application.port.in.ArticleSaveUseCase;
 import com.like.cooperation.board.application.service.ArticleCommandService;
 import com.like.cooperation.board.domain.Article;
 import com.like.system.core.message.MessageUtil;
@@ -22,9 +24,11 @@ import com.like.system.core.message.MessageUtil;
 public class ArticleSaveController {	
 		
 	private ArticleCommandService service;			
-		
-	public ArticleSaveController(ArticleCommandService service) {
+	ArticleSaveUseCase useCase;	
+	
+	public ArticleSaveController(ArticleCommandService service, ArticleSaveUseCase useCase) {		
 		this.service = service;		
+		this.useCase = useCase;
 	}	
 			
 	@PostMapping("/api/grw/board/articletemp")
@@ -35,7 +39,7 @@ public class ArticleSaveController {
 		
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}
-		
+	/*
 	@PostMapping("/api/grw/board/article")
 	@ResponseBody
 	public ResponseEntity<?> saveArticleJson(@RequestBody @Valid ArticleDTO.FormArticleByJson dto) throws Exception {															
@@ -44,7 +48,18 @@ public class ArticleSaveController {
 		
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}
-			
+	*/
+	
+	@PostMapping("/api/grw/board/article")
+	@ResponseBody
+	public ResponseEntity<?> saveArticleJson(@RequestBody @Valid ArticleSaveDTO dto) throws Exception {															
+										
+		useCase.save(dto);											
+		
+		return toList(null, MessageUtil.getSaveMessage(1));
+	}
+	
+	
 	@GetMapping("/api/grw/board/article/hitcnt")
 	public ResponseEntity<?> updateArticleHitCnt(@RequestParam Long id,
 												 @RequestParam String userId) {								

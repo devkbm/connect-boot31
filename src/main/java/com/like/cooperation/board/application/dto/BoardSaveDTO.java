@@ -26,8 +26,16 @@ public record BoardSaveDTO(
 		Boolean useYn,			
 		long sequence
 		) {
-	public Board newBoard(Board parentBoard) {	
-		Board entity = new Board(parentBoard, BoardType.valueOf(this.boardType), this.boardName, this.boardDescription);
+	public Board toEntity(Board parentBoard) {	
+		Board entity = Board.builder()
+							.parent(parentBoard)
+							.boardId(boardId)
+							.boardType(BoardType.valueOf(boardType))
+							.boardName(boardName)
+							.description(boardDescription)
+							.useYn(useYn)							
+							.build();	
+		
 		entity.setAppUrl(clientAppUrl);
 		
 		return entity;					
@@ -53,9 +61,9 @@ public record BoardSaveDTO(
 		
 		return BoardSaveDTO.builder()
 					    .createdDt(entity.getCreatedDt())
-					    .createdBy(entity.getCreatedBy().getLoggedUser())
+					    .createdBy(entity.getCreatedBy() == null ? null : entity.getCreatedBy().getLoggedUser())
 					    .modifiedDt(entity.getModifiedDt())
-					    .modifiedBy(entity.getModifiedBy().getLoggedUser())
+					    .modifiedBy(entity.getModifiedBy() == null ? null : entity.getModifiedBy().getLoggedUser())
 					    .boardId(entity.getBoardId())	
 					    .boardParentId(parent.map(Board::getBoardId).orElse(null))
 					    .boardType(entity.getBoardType().toString())

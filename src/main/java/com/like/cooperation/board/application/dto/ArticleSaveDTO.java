@@ -32,6 +32,7 @@ public record ArticleSaveDTO(
 	public Article newArticle(Board board) {				    				    	
 		Article entity = Article.builder()	
 							    .board(board)
+							    .articleId(articleId)
 							    .content(new ArticleContents(title, contents))						  						  
 							    .password(new ArticlePassword(this.pwd))
 							    .build();

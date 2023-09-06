@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +27,10 @@ import com.like.system.file.domain.FileInfo;
  *   1. <br>
  */
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "GRWARTICLE")
 @EntityListeners(AuditingEntityListener.class)
@@ -78,8 +81,7 @@ public class Article extends AbstractAuditEntity {
 			
 	@Transient
 	Boolean editable;
-	
-	@Builder
+		
 	public Article(Board board
 			      ,ArticleContents content
 			      ,ArticlePassword password
@@ -129,7 +131,7 @@ public class Article extends AbstractAuditEntity {
 	}
 	
 	public Boolean getEditable(String userId) {			
-		return this.getCreatedBy().getLoggedUser().equals(userId);
+		return this.getCreatedBy() == null ? false : this.getCreatedBy().getLoggedUser().equals(userId);
 	}	
 			
 }
