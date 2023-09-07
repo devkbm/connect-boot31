@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
-public class ArticleReadId implements Serializable {
+public class ArticleUserHitCountId implements Serializable {
 
 	private static final long serialVersionUID = -5781395006298446423L;
 

@@ -11,31 +11,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.like.cooperation.board.application.dto.ResponseArticle;
 import com.like.cooperation.board.application.port.in.ArticleSelectUseCase;
-import com.like.cooperation.board.application.service.ArticleCommandService;
-import com.like.cooperation.board.domain.Article;
 import com.like.system.core.message.MessageUtil;
 
 @Controller
 public class ArticleSelectController {	
-		
-	private ArticleCommandService service;			
+			
 	ArticleSelectUseCase useCase;
 	
-	public ArticleSelectController(ArticleCommandService service, ArticleSelectUseCase useCase) {
-		this.service = service;		
+	public ArticleSelectController(ArticleSelectUseCase useCase) {		
 		this.useCase = useCase;
-	}	
-	/*
-	@GetMapping("/api/grw/board/article/{id}")
-	public ResponseEntity<?> getArticle(@PathVariable Long id, HttpSession session) {						
-		
-		Article article = service.getArticle(id);		
-	
-		ResponseArticle response = ResponseArticle.converDTO(article);				
-		
-		return toOne(response, MessageUtil.getQueryMessage(response == null ? 0 : 1));
-	}
-	*/
+	}		
 	
 	@GetMapping("/api/grw/board/article/{id}")
 	public ResponseEntity<?> getArticle(@PathVariable Long id, HttpSession session) {						

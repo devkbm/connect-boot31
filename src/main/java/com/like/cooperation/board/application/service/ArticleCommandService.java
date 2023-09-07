@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleJpaRepository;
+import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleUserHitCountRepository;
 import com.like.cooperation.board.adapter.out.persistence.jpa.repository.BoardJpaRepository;
 import com.like.cooperation.board.application.dto.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
-import com.like.cooperation.board.domain.ArticleRead;
-import com.like.cooperation.board.domain.ArticleReadId;
-import com.like.cooperation.board.domain.ArticleReadRepository;
+import com.like.cooperation.board.domain.ArticleUserHitCount;
+import com.like.cooperation.board.domain.ArticleUserHitCountId;
 import com.like.cooperation.board.domain.ArticleAttachedFile;
 import com.like.cooperation.board.domain.AttachedFileConverter;
 import com.like.cooperation.board.domain.Board;
@@ -29,12 +29,12 @@ public class ArticleCommandService {
 	private BoardJpaRepository boardRepository;	
 	private FileService fileService;	
 	private ArticleJpaRepository repository;
-	private ArticleReadRepository articleCheckRepository;
+	private ArticleUserHitCountRepository articleCheckRepository;
 		
 	public ArticleCommandService(BoardJpaRepository boardRepository
 								,FileService fileService
 								,ArticleJpaRepository repository
-								,ArticleReadRepository articleCheckRepository) {
+								,ArticleUserHitCountRepository articleCheckRepository) {
 		this.boardRepository = boardRepository;
 		this.fileService = fileService;
 		this.repository = repository;
@@ -111,8 +111,8 @@ public class ArticleCommandService {
 		
 		repository.save(article);
 				
-		ArticleRead isRead = this.articleCheckRepository.findById(new ArticleReadId(article, userId))
-														.orElse(new ArticleRead(article, userId));
+		ArticleUserHitCount isRead = this.articleCheckRepository.findById(new ArticleUserHitCountId(article, userId))
+														.orElse(new ArticleUserHitCount(article, userId));
 		
 		isRead.updateHitCnt();
 						

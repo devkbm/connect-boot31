@@ -17,7 +17,7 @@ public class ArticleSelectService implements ArticleSelectUseCase {
 	
 	@Override
 	public ResponseArticle select(Long articleId) {
-		return this.port.select(articleId);
+		return this.port.selectDTO(articleId);
 	}
 
 }

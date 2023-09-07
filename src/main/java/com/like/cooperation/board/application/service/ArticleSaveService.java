@@ -3,6 +3,7 @@ package com.like.cooperation.board.application.service;
 import org.springframework.stereotype.Service;
 
 import com.like.cooperation.board.application.dto.ArticleSaveDTO;
+import com.like.cooperation.board.application.dto.ArticleSaveMultipartDTO;
 import com.like.cooperation.board.application.port.in.ArticleSaveUseCase;
 import com.like.cooperation.board.application.port.out.ArticleSaveDbPort;
 
@@ -17,6 +18,11 @@ public class ArticleSaveService implements ArticleSaveUseCase {
 	
 	@Override
 	public void save(ArticleSaveDTO dto) {
+		this.port.save(dto);		
+	}
+
+	@Override
+	public void save(ArticleSaveMultipartDTO dto) {
 		this.port.save(dto);		
 	}
 

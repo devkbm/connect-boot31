@@ -1,7 +1,5 @@
 package com.like.cooperation.board.adapter.out.persistence;
 
-import java.util.Objects;
-
 import org.springframework.stereotype.Repository;
 
 import com.like.cooperation.board.adapter.out.persistence.jpa.repository.BoardJpaRepository;

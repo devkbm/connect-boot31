@@ -21,7 +21,7 @@ public record ArticleSaveMultipartDTO(
 		String clientAppUrl,
 		String organizationCode,
 		Long boardId,
-		String articleId,
+		Long articleId,
 		Long articleParentId,
 		@NotEmpty(message="제목은 필수 입력 사항입니다.")
 		String title,
@@ -34,10 +34,12 @@ public record ArticleSaveMultipartDTO(
 		) {
 	public Article newArticle(Board board) {									    			
 		Article entity = Article.builder()	
-								.board(board)						  
-								.content(new ArticleContents(title, contents))						  						  					 
-								.password(new ArticlePassword(this.pwd))
-								.build();
+					    .board(board)
+					    .articleId(articleId)
+					    .content(new ArticleContents(title, contents))						  						  
+					    .password(new ArticlePassword(this.pwd))
+					    .build();
+		
 		entity.setAppUrl(clientAppUrl);
 		
 		return entity;

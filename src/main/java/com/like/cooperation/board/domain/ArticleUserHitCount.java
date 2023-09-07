@@ -25,12 +25,12 @@ import com.like.system.core.jpa.domain.AbstractAuditEntity;
 @Entity
 @Table(name = "GRWARTICLECHECK")
 @EntityListeners(AuditingEntityListener.class)
-public class ArticleRead extends AbstractAuditEntity implements Serializable {
+public class ArticleUserHitCount extends AbstractAuditEntity implements Serializable {
 	
 	private static final long serialVersionUID = 6322358555393677284L;
 	
 	@EmbeddedId
-	ArticleReadId id;	
+	ArticleUserHitCountId id;	
 		
 	@Comment("조회수")
 	@Column(name="hit_cnt")
@@ -46,10 +46,10 @@ public class ArticleRead extends AbstractAuditEntity implements Serializable {
 	Article article;
 	*/
 	
-    protected ArticleRead() {}
+    protected ArticleUserHitCount() {}
     
-	public ArticleRead(Article article, String userId) {		
-		this.id = new ArticleReadId(article, userId);
+	public ArticleUserHitCount(Article article, String userId) {		
+		this.id = new ArticleUserHitCountId(article, userId);
 		this.hitCount = 0;
 	}
 			
