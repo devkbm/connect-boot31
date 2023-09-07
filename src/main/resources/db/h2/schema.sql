@@ -622,8 +622,7 @@ CREATE TABLE GRWARTICLEFILE (
 	MODIFIED_HOST_IP		VARCHAR(50)			NULL		,
 	MODIFIED_APP_URL		VARCHAR(500)		NULL		,
   ARTICLE_FILE_ID     INT             NOT NULL  AUTO_INCREMENT,
-  ARTICLE_ID          INT             NOT NULL,
-  CREATED_USER_ID			VARCHAR(50)			NULL		,
+  ARTICLE_ID          INT             NOT NULL,  
   FILE_ID             BINARY(16)      NOT NULL,  
   constraint pk_grwarticlefile primary key(ARTICLE_FILE_ID),  
   constraint fk_grwarticlefile1 foreign key(ARTICLE_ID) references GRWARTICLE(ARTICLE_ID)
@@ -643,6 +642,7 @@ CREATE TABLE GRWARTICLECHECK (
   ARTICLE_ID          INT             NOT NULL,
   USER_ID             VARCHAR(50)     NOT NULL,
   HIT_CNT             INT             NULL,  
-  constraint pk_grwarticlecheck primary key(ARTICLE_ID, USER_ID)  
+  constraint pk_grwarticlecheck primary key(ARTICLE_ID, USER_ID),
+  constraint fk_grwarticlecheck1 foreign key(ARTICLE_ID) references GRWARTICLE(ARTICLE_ID)
 );
 COMMENT ON TABLE GRWARTICLECHECK IS '게시글사용자조회수';
