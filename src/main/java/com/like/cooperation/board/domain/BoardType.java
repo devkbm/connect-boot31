@@ -1,10 +1,6 @@
 package com.like.cooperation.board.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.like.system.core.dto.HtmlSelectOptionable;
-
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum BoardType implements HtmlSelectOptionable {
+public enum BoardType {
 	/**
 	 * 관리자만 등록가능 
 	 */
@@ -27,15 +23,5 @@ public enum BoardType implements HtmlSelectOptionable {
     public String getName() {
         return name;
     }
-
-	@Override
-	public String getLabel() {
-		return name;
-		
-	}
-
-	@Override
-	public String getValue() {
-		return code;
-	}
+	
 }

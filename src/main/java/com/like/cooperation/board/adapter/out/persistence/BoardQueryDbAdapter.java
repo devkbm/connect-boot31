@@ -1,45 +1,59 @@
-package com.like.cooperation.board.adapter.out.persistence.jpa.repository;
+package com.like.cooperation.board.adapter.out.persistence;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.like.cooperation.board.application.dto.BoardHierarchy;
+import com.like.cooperation.board.application.dto.BoardQueryConditionDTO;
+import com.like.cooperation.board.application.dto.BoardSaveDTO;
 import com.like.cooperation.board.application.dto.QBoardHierarchy;
+import com.like.cooperation.board.application.port.out.BoardQueryDbPort;
 import com.like.cooperation.board.domain.Board;
-import com.like.cooperation.board.domain.BoardQueryRepository;
 import com.like.cooperation.board.domain.QBoard;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
-public class BoardQueryJpaRepository implements BoardQueryRepository {
+public class BoardQueryDbAdapter implements BoardQueryDbPort {
 
 	private JPAQueryFactory queryFactory;
 	private final QBoard qBoard = QBoard.board;
 	
-	public BoardQueryJpaRepository(JPAQueryFactory queryFactory) {
+	public BoardQueryDbAdapter(JPAQueryFactory queryFactory) {
 		this.queryFactory = queryFactory;
 	}
 	
+
 	@Override
-	public List<Board> getBoardList(Predicate condition) {
-		return queryFactory
-				.selectFrom(qBoard)
-				.where(condition)
-				.fetch(); 	
+	public BoardSaveDTO select(Long boardId) {
+		Board entity = queryFactory.selectFrom(qBoard)
+								   .where(qBoard.boardId.eq(boardId))
+								   .fetchFirst();
+		return BoardSaveDTO.toDTO(entity);
+	}
+	
+	@Override
+	public List<BoardSaveDTO> selectList(BoardQueryConditionDTO dto) {
+		List<Board> list = queryFactory.selectFrom(qBoard)
+									   .where(dto.getBooleanBuilder())
+									   .fetch(); 
+		
+		return list.stream()
+					.map(e -> BoardSaveDTO.toDTO(e))
+					.toList();
+				
 	}
 
 	@Override
-	public List<BoardHierarchy> getBoardHierarchy() {
+	public List<BoardHierarchy> selectHierarchy() {
 		List<BoardHierarchy> rootList = getBoardHierarchyRootList();
 		
 		List<BoardHierarchy> rtn =  setLinkBoardHierarchy(rootList);
 		
 		return rtn;
 	}
-	
+
 	private List<BoardHierarchy> setLinkBoardHierarchy(List<BoardHierarchy> list) {
 		List<BoardHierarchy> children = null;
 		

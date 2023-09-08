@@ -2,7 +2,7 @@ package com.like.cooperation.board.adapter.out.persistence;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleUserHitCountRepository;
+import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleUserHitCountJpaRepository;
 import com.like.cooperation.board.application.port.out.ArticleUserHitCountDbPort;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleUserHitCount;
@@ -11,9 +11,9 @@ import com.like.cooperation.board.domain.ArticleUserHitCountId;
 @Repository
 public class ArticleUserHitCountDbAdapter implements ArticleUserHitCountDbPort {
 
-	ArticleUserHitCountRepository repository;
+	ArticleUserHitCountJpaRepository repository;
 	
-	ArticleUserHitCountDbAdapter(ArticleUserHitCountRepository repository) {
+	ArticleUserHitCountDbAdapter(ArticleUserHitCountJpaRepository repository) {
 		this.repository = repository;
 	}
 	

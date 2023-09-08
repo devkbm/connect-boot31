@@ -1,35 +1,36 @@
 package com.like.cooperation.board.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
+import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.board.application.dto.BoardDTO;
-import com.like.cooperation.board.application.service.BoardQueryService;
-import com.like.cooperation.board.domain.Board;
-import com.like.cooperation.board.domain.BoardType;
+import com.like.cooperation.board.application.dto.BoardQueryConditionDTO;
+import com.like.cooperation.board.application.dto.BoardSaveDTO;
+import com.like.cooperation.board.application.dto.BoardTypeDTO;
+import com.like.cooperation.board.application.port.in.BoardQueryUseCase;
 import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.core.dto.HtmlSelectOptionable;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
 public class BoardQueryController {
-
-	private BoardQueryService boardQueryService;
 	
-	public BoardQueryController(BoardQueryService boardQueryService) {
-		this.boardQueryService = boardQueryService;
+	BoardQueryUseCase useCase;
+	
+	public BoardQueryController(BoardQueryUseCase useCase) {		
+		this.useCase = useCase;
 	}
 	
 	@GetMapping("/api/grw/board/boardType")
 	public ResponseEntity<?> getMenuTypeList() {				
 		
-		List<HtmlSelectOptionRecord> list = HtmlSelectOptionable.fromEnum(BoardType.class);			
+		List<HtmlSelectOptionRecord> list = HtmlSelectOptionable.fromEnum(BoardTypeDTO.class);			
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
@@ -37,19 +38,25 @@ public class BoardQueryController {
 	@GetMapping("/api/grw/boardHierarchy")
 	public ResponseEntity<?> getBoardHierarchyList() {
 											
-		List<?> list = boardQueryService.getBoardHierarchy();				 			
+		List<?> list = useCase.selectHierarchy();				 			
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
-
+	
+	@GetMapping("/api/grw/board/{id}")
+	public ResponseEntity<?> getBoard(@PathVariable Long id) {				
+								
+		BoardSaveDTO dto = this.useCase.select(id);				
+							
+		return toOne(dto, MessageUtil.getQueryMessage(dto != null ? 1 : 0));
+	}		
+	
 	@GetMapping("/api/grw/board")
-	public ResponseEntity<?> getBoardList(BoardDTO.Search dto) {						
-		
-		List<Board> list = boardQueryService.getBoardList(dto); 										
-		List<BoardDTO.FormBoard> dtoList = list.stream()
-											   .map(e -> BoardDTO.FormBoard.convertDTO(e))
-											   .collect(Collectors.toList());
+	public ResponseEntity<?> getBoardList(BoardQueryConditionDTO dto) {
+		List<BoardSaveDTO> dtoList = useCase.selectList(dto); 												
 				
 		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
-	}
+	}	
+	
+
 }

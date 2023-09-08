@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleJpaRepository;
-import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleUserHitCountRepository;
+import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleUserHitCountJpaRepository;
 import com.like.cooperation.board.adapter.out.persistence.jpa.repository.BoardJpaRepository;
 import com.like.cooperation.board.application.dto.ArticleDTO;
 import com.like.cooperation.board.domain.Article;
@@ -29,12 +29,12 @@ public class ArticleCommandService {
 	private BoardJpaRepository boardRepository;	
 	private FileService fileService;	
 	private ArticleJpaRepository repository;
-	private ArticleUserHitCountRepository articleCheckRepository;
+	private ArticleUserHitCountJpaRepository articleCheckRepository;
 		
 	public ArticleCommandService(BoardJpaRepository boardRepository
 								,FileService fileService
 								,ArticleJpaRepository repository
-								,ArticleUserHitCountRepository articleCheckRepository) {
+								,ArticleUserHitCountJpaRepository articleCheckRepository) {
 		this.boardRepository = boardRepository;
 		this.fileService = fileService;
 		this.repository = repository;
