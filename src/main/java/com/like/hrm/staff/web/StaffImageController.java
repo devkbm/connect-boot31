@@ -45,7 +45,7 @@ public class StaffImageController {
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);				
 		
 		String uuid = UUID.randomUUID().toString();
-		String path = fileService.fileTransefer(file, uuid, FileUploadLocation.STATIC_PATH);
+		String path = fileService.fileTransefer(file, uuid, FileUploadLocation.WEB_SERVER_STATIC_PATH);
 		
 		Staff staff = service.getStaff(organizationCode, staffNo);
 				

@@ -13,7 +13,7 @@ import com.like.system.file.config.ServerFileProperties;
 public class LocalFileRepository {
 	
 	public enum FileUploadLocation {
-		STATIC_PATH, LOCAL_PATH
+		WEB_SERVER_STATIC_PATH, FILE_SERVER_PATH
 	}	
 	private ServerFileProperties properties;
 		
@@ -36,7 +36,7 @@ public class LocalFileRepository {
 	public String fileTransfer(MultipartFile sourceFile, String fileName, FileUploadLocation location) throws FileNotFoundException, IOException {
 		String path = null;		
 					
-		if ( location == FileUploadLocation.LOCAL_PATH) {
+		if ( location == FileUploadLocation.FILE_SERVER_PATH) {
 			path = this.getLocalUploadPath();
 		} else {
 			path = this.getStaticUploadPath();

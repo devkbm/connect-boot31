@@ -24,7 +24,7 @@ public class LocalProfilePictureRepository implements ProfilePictureRepository {
 	public String upload(MultipartFile sourceFile) {
 		String fileName = UUID.randomUUID().toString();
 		try {
-			localFileRepository.fileTransfer(sourceFile, fileName, FileUploadLocation.STATIC_PATH);
+			localFileRepository.fileTransfer(sourceFile, fileName, FileUploadLocation.WEB_SERVER_STATIC_PATH);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

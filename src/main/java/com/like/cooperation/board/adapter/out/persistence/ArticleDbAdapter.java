@@ -45,7 +45,7 @@ public class ArticleDbAdapter implements ArticleSelectDbPort, ArticleSaveDbPort,
 	@Override
 	public ResponseArticle selectDTO(Long articleId) {		
 		Article entity = this.repository.findById(articleId).orElse(null); 
-		return ResponseArticle.converDTO(entity);
+		return ResponseArticle.toDTO(entity);
 	}
 
 	@Override

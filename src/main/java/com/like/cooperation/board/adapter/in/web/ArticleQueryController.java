@@ -12,19 +12,39 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.like.cooperation.board.application.dto.ArticleDTO;
+import com.like.cooperation.board.application.dto.ArticleQueryConditionDTO;
 import com.like.cooperation.board.application.dto.ResponseArticle;
 import com.like.cooperation.board.application.service.ArticleQueryService;
+import com.like.cooperation.board.application.service.ArticleQueryService2;
 import com.like.system.core.message.MessageUtil;
 
 @Controller
 public class ArticleQueryController {
 
-	private ArticleQueryService service;
+	private ArticleQueryService2 service;
 	
-	public ArticleQueryController(ArticleQueryService service) {
+	public ArticleQueryController(ArticleQueryService2 service) {
 		this.service = service;		
 	}
 	
+	@GetMapping("/api/grw/board/article")
+	public ResponseEntity<?> getArticleList(ArticleQueryConditionDTO dto) {
+																			  						
+		List<ResponseArticle> list = service.getList(dto);		
+		
+		return toList(list, MessageUtil.getQueryMessage(list.size()));
+	}
+	
+	
+	@GetMapping("/api/grw/board/article_slice")
+	public ResponseEntity<?> getArticleSlice(ArticleQueryConditionDTO dto, Pageable pageable) {
+																			  											
+		Slice<ResponseArticle> list = service.getAritlceSlice(dto, pageable);		//
+		
+		return new ResponseEntity<Slice<ResponseArticle>>(list, HttpStatus.OK);		
+	}
+	
+	/*
 	@GetMapping("/api/grw/board/article")
 	public ResponseEntity<?> getArticleList(ArticleDTO.Search condition) {
 																			  						
@@ -49,8 +69,9 @@ public class ArticleQueryController {
 	@GetMapping("/api/grw/board/article2")
 	public ResponseEntity<?> getArticleList2(ArticleDTO.Search condition) {
 																			  						
-		List<?> list = service.getArticleList2(condition);		
+		List<?> list = service.getArticleListByMapper(condition);		
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
+	*/
 }

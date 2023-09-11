@@ -17,16 +17,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.like.system.file.adapter.out.file.FileConverterUtil;
 import com.like.system.file.adapter.out.file.LocalFileRepository;
 import com.like.system.file.adapter.out.file.LocalFileRepository.FileUploadLocation;
-import com.like.system.file.adapter.out.persistence.jpa.repository.FileInfoRepository;
+import com.like.system.file.adapter.out.persistence.jpa.repository.FileInfoJpaRepository;
 import com.like.system.file.domain.FileInfo;
 
 @Service
 public class FileService {
 			
-	private FileInfoRepository fileInfoRepository;			
+	private FileInfoJpaRepository fileInfoRepository;			
 	private LocalFileRepository localFileRepository;	
 	
-	public FileService(FileInfoRepository fileInfoRepository
+	public FileService(FileInfoJpaRepository fileInfoRepository
 			          ,LocalFileRepository localFileRepository) {
 		this.fileInfoRepository = fileInfoRepository;
 		this.localFileRepository = localFileRepository;
@@ -37,7 +37,7 @@ public class FileService {
 									
 		String uuid = UUID.randomUUID().toString();
 		
-		fileTransefer(sourceFile, uuid, FileUploadLocation.LOCAL_PATH);
+		fileTransefer(sourceFile, uuid, FileUploadLocation.FILE_SERVER_PATH);
 		
 		FileInfo file = createFileInfo(sourceFile, uuid, userId, pgmId);		
 												
@@ -53,7 +53,7 @@ public class FileService {
 										
 			String uuid = UUID.randomUUID().toString();
 			
-			fileTransefer(multipartFile, uuid, FileUploadLocation.LOCAL_PATH);
+			fileTransefer(multipartFile, uuid, FileUploadLocation.FILE_SERVER_PATH);
 			
 			FileInfo file = createFileInfo(multipartFile, uuid, userId, pgmId);	
 			

@@ -37,7 +37,7 @@ public class ArticleQueryService {
 		return articleRepository.getArticleList(condition.getBooleanBuilder());
 	}
 	
-	public List<ResponseArticle> getArticleList2(ArticleDTO.Search condition) {
+	public List<ResponseArticle> getArticleListByMapper(ArticleDTO.Search condition) {
 		Map<String, Object> params = new HashMap<>();
 		
 		params.put("data", condition);

@@ -41,7 +41,7 @@ public class ResponseArticle {
 	List<FileResponseDTO> fileList;
 	
 	
-	public static ResponseArticle converDTO(Article entity) {
+	public static ResponseArticle toDTO(Article entity) {
 		
     	if (entity == null) return null;
     	
