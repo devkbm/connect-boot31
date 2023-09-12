@@ -7,16 +7,16 @@ import java.util.UUID;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.like.system.file.adapter.out.file.LocalFileRepository;
-import com.like.system.file.adapter.out.file.LocalFileRepository.FileUploadLocation;
+import com.like.system.file.adapter.out.file.FileServerRepository;
+import com.like.system.file.adapter.out.file.FileServerRepository.FileUploadLocation;
 import com.like.system.user.domain.ProfilePictureRepository;
 
 @Repository
 public class LocalProfilePictureRepository implements ProfilePictureRepository {
 
-	private LocalFileRepository localFileRepository;
+	private FileServerRepository localFileRepository;
 	
-	public LocalProfilePictureRepository(LocalFileRepository localFileRepository) {
+	public LocalProfilePictureRepository(FileServerRepository localFileRepository) {
 		this.localFileRepository = localFileRepository;
 	}
 	

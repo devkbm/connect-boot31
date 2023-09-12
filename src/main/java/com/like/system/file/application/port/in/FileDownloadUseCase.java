@@ -1,9 +1,7 @@
 package com.like.system.file.application.port.in;
 
-import java.io.OutputStream;
-
-import com.like.system.file.domain.FileInfo;
+import jakarta.servlet.http.HttpServletResponse;
 
 public interface FileDownloadUseCase {
-	void downloadFile(FileInfo fileInfo, OutputStream os);
+	void downloadFile(String fileInfoId, HttpServletResponse response);
 }

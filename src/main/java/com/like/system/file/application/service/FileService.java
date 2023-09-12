@@ -15,21 +15,25 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.adapter.out.file.FileConverterUtil;
-import com.like.system.file.adapter.out.file.LocalFileRepository;
-import com.like.system.file.adapter.out.file.LocalFileRepository.FileUploadLocation;
+import com.like.system.file.adapter.out.file.FileServerRepository;
+import com.like.system.file.adapter.out.file.FileServerRepository.FileUploadLocation;
 import com.like.system.file.adapter.out.persistence.jpa.repository.FileInfoJpaRepository;
+import com.like.system.file.application.port.out.FileInfoCommandDbPort;
 import com.like.system.file.domain.FileInfo;
 
 @Service
 public class FileService {
 			
 	private FileInfoJpaRepository fileInfoRepository;			
-	private LocalFileRepository localFileRepository;	
+	private FileServerRepository localFileRepository;
+	FileInfoCommandDbPort port;
 	
 	public FileService(FileInfoJpaRepository fileInfoRepository
-			          ,LocalFileRepository localFileRepository) {
+			          ,FileServerRepository localFileRepository
+			          ,FileInfoCommandDbPort port) {
 		this.fileInfoRepository = fileInfoRepository;
 		this.localFileRepository = localFileRepository;
+		this.port = port;
 	}
 	
 	@Transactional
@@ -39,9 +43,9 @@ public class FileService {
 		
 		fileTransefer(sourceFile, uuid, FileUploadLocation.FILE_SERVER_PATH);
 		
-		FileInfo file = createFileInfo(sourceFile, uuid, userId, pgmId);		
+		FileInfo entity = FileInfo.create(sourceFile, localFileRepository.getFileServerUploadPath(), uuid, userId, pgmId);		
 												
-		return fileInfoRepository.save(file);		
+		return this.port.save(entity);		
 	}
 	
 	@Transactional
@@ -55,45 +59,21 @@ public class FileService {
 			
 			fileTransefer(multipartFile, uuid, FileUploadLocation.FILE_SERVER_PATH);
 			
-			FileInfo file = createFileInfo(multipartFile, uuid, userId, pgmId);	
+			FileInfo file = FileInfo.create(multipartFile, localFileRepository.getFileServerUploadPath(), uuid, userId, pgmId);	
 			
 			rtn.add(fileInfoRepository.save(file));
 		}
 												
 		return rtn; 		
 	}
-		
-	
-	public void downloadFile(File file, HttpServletResponse response) throws FileNotFoundException, IOException {				
-		FileConverterUtil.fileToStream(file, response.getOutputStream());			
-	}
-	
-	public FileInfo downloadFile(HttpServletResponse response, String pk) throws FileNotFoundException, IOException {		
-		FileInfo file = getFileInfo(pk);
-		
-		FileConverterUtil.fileToStream(new File(file.getPath(), file.getUuid()), response.getOutputStream());
-		
-		return file;
-	}
-	
-	@Transactional	
-	public void downloadFile(FileInfo fileInfo, OutputStream os) throws FileNotFoundException, IOException {		
-		File file = new File(fileInfo.getPath(), fileInfo.getUuid());
-		
-		FileConverterUtil.fileToStream(file, os);
-		
-		// 다운로드 카운트 + 1
-		fileInfo.plusDownloadCount();
-		
-		fileInfoRepository.save(fileInfo);
-	}		
-	
+			
 	@Transactional
 	public void deleteFile(FileInfo fileInfo) throws FileNotFoundException {
 		
 		localFileRepository.deleteFile(new File(fileInfo.getPath(), fileInfo.getUuid()));
 		
-		fileInfoRepository.delete(fileInfo);											
+		//fileInfoRepository.delete(fileInfo);
+		this.port.delete(fileInfo.getId().toString());
 	}
 	
 	public void deleteStaticFile(String fileName) throws FileNotFoundException {
@@ -125,18 +105,6 @@ public class FileService {
 	public File getStaticPathFile(String fileName) {
 		return localFileRepository.getStaticPathFile(fileName);
 	}
-	
-	private FileInfo createFileInfo(MultipartFile sourceFile, String uuid, String userId, String appUrl) {
-						
-		return FileInfo.builder()
-					   .uuid(uuid)
-				       .path(localFileRepository.getLocalUploadPath())
-				       .fileName(sourceFile.getOriginalFilename())
-				       .size(sourceFile.getSize())
-				       .contentType(sourceFile.getContentType())
-				       .userId(userId)
-				       .appUrl(appUrl)
-				       .build();
-	}
+		
 	
 }

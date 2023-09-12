@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.like.system.file.config.ServerFileProperties;
 
 @Repository
-public class LocalFileRepository {
+public class FileServerRepository {
 	
 	public enum FileUploadLocation {
 		WEB_SERVER_STATIC_PATH, FILE_SERVER_PATH
@@ -19,17 +19,17 @@ public class LocalFileRepository {
 		
 	public static String fileDownLoadUrl;		
 	
-	public LocalFileRepository(ServerFileProperties properties) {
+	public FileServerRepository(ServerFileProperties properties) {
 		this.properties = properties;
-		LocalFileRepository.fileDownLoadUrl = properties.getClientDownloadUrl(); 
+		FileServerRepository.fileDownLoadUrl = properties.getClientDownloadUrl(); 
 	}	
 	
-	public String getLocalUploadPath() {	
-		return this.properties.getLocalLocation();
+	public String getFileServerUploadPath() {	
+		return this.properties.getLocation();
 	}
 	
-	public String getStaticUploadPath() {
-		return this.properties.getStaticLocation();
+	public String getWebStaticUploadPath() {
+		return this.properties.getWebStaticLocation();
 	}
 			
 		
@@ -37,9 +37,9 @@ public class LocalFileRepository {
 		String path = null;		
 					
 		if ( location == FileUploadLocation.FILE_SERVER_PATH) {
-			path = this.getLocalUploadPath();
+			path = this.getFileServerUploadPath();
 		} else {
-			path = this.getStaticUploadPath();
+			path = this.getWebStaticUploadPath();
 		}
 		
 		File file = FileConverterUtil.convertAndCopy(sourceFile, path, fileName);
@@ -62,7 +62,7 @@ public class LocalFileRepository {
 	}	
 	
 	public File getStaticPathFile(String fileName) {
-		return new File(this.getStaticUploadPath(), fileName);
+		return new File(this.getWebStaticUploadPath(), fileName);
 	}
 	
 	public boolean deleteStaticFile(String fileName) throws FileNotFoundException {

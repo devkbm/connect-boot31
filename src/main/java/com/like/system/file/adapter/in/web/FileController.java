@@ -6,35 +6,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.like.system.file.application.port.in.FileDownloadUseCase;
 import com.like.system.file.application.service.FileService;
 import com.like.system.file.domain.FileInfo;
 
 @Controller
 public class FileController {
 			
-	private FileService fileService;	
+	private FileDownloadUseCase fileService;	
 			
-	public FileController(FileService fileService) {		
+	public FileController(FileDownloadUseCase fileService) {		
 		this.fileService = fileService;
 	}
 		
 	@GetMapping("/api/system/file/{id}")
 	public HttpServletResponse fileDownLoad(HttpServletResponse response
-										   ,@PathVariable String id) throws Exception {
-								
-		FileInfo fileInfo = fileService.getFileInfo(id);
-		
-		response = this.setResponse(response, fileInfo.getSize(), fileInfo.getFileName());
-		
-		fileService.downloadFile(fileInfo, response.getOutputStream());		
+										   ,@PathVariable String id) throws Exception {								
+							
+		fileService.downloadFile(id, response);		
 		
 		return response;
 	}
-		
+	
+	
 	@GetMapping("/api/system/fileimage/{id}")
 	public HttpServletResponse fileImageDownLoad(HttpServletResponse response
 												,@PathVariable String id) throws Exception {
-								
+		/*	
 		FileInfo fileInfo = fileService.getFileInfo(id);
 					
 		// set content attributes for the response
@@ -43,9 +41,9 @@ public class FileController {
 		response.setCharacterEncoding("UTF-8");
 									
 		fileService.downloadFile(fileInfo, response.getOutputStream());		
-		
+		*/
 		return response;
-	}					
+	}						
 		
 	private HttpServletResponse setResponse(HttpServletResponse response, long fileSize, String fileName) throws Exception {
 		

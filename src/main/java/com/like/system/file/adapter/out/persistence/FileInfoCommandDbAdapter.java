@@ -25,8 +25,8 @@ public class FileInfoCommandDbAdapter implements FileInfoCommandDbPort  {
 	}
 
 	@Override
-	public void save(FileInfo entity) {
-		this.repository.save(entity);
+	public FileInfo save(FileInfo entity) {
+		return this.repository.save(entity);
 	}
 
 	@Override

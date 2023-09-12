@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.service.StaffService;
-import com.like.system.file.adapter.out.file.LocalFileRepository.FileUploadLocation;
+import com.like.system.file.adapter.out.file.FileServerRepository.FileUploadLocation;
 import com.like.system.file.application.service.FileService;
 
 @Controller

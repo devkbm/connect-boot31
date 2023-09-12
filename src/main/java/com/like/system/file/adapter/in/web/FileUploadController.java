@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.like.system.file.adapter.out.file.LocalFileRepository;
+import com.like.system.file.adapter.out.file.FileServerRepository;
 import com.like.system.file.application.port.dto.FileResponseDTO;
 import com.like.system.file.application.service.FileService;
 import com.like.system.file.domain.FileInfo;
@@ -53,7 +53,7 @@ public class FileUploadController {
 			res.put("status", "success");
 			
 			Map<String, String> link = new HashMap<>();
-			link.put("download", LocalFileRepository.fileDownLoadUrl+info.getId());
+			link.put("download", FileServerRepository.fileDownLoadUrl+info.getId());
 			
 			FileResponseDTO response = FileResponseDTO.convert(info);
 			fileList.add(response);

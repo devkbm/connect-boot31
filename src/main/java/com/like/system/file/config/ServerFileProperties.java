@@ -7,17 +7,17 @@ import lombok.Data;
 
 @Component
 @Data
-@ConfigurationProperties(prefix = "server-file")
+@ConfigurationProperties(prefix = "file-server")
 public class ServerFileProperties {
 	/**
 	 * Web Server Static Resource Path
 	 */
-	String staticLocation;
+	String webStaticLocation;
 	
 	/**
 	 * Dynamic Resource Path
 	 */
-	String localLocation;	
+	String location;	
 	
 	/**
 	 * Client App에서 다운로드하기 위한 URL 경로

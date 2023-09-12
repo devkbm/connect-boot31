@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
@@ -70,6 +71,19 @@ public class FileInfo extends AbstractAuditEntity implements Serializable {
 		this.path = path;
 		this.fileName = fileName;
 		this.size = size;
+	}
+	
+	public static FileInfo create(MultipartFile sourceFile, String uploadPath, String uuid, String userId, String appUrl) {
+		
+		return FileInfo.builder()
+					   .uuid(uuid)
+				       .path(uploadPath)
+				       .fileName(sourceFile.getOriginalFilename())
+				       .size(sourceFile.getSize())
+				       .contentType(sourceFile.getContentType())
+				       .userId(userId)
+				       .appUrl(appUrl)
+				       .build();
 	}
 		
 	public void plusDownloadCount() {
