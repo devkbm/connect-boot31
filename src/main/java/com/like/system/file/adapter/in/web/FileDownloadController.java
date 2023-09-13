@@ -7,15 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.like.system.file.application.port.in.FileDownloadUseCase;
-import com.like.system.file.application.service.FileService;
-import com.like.system.file.domain.FileInfo;
 
 @Controller
-public class FileController {
+public class FileDownloadController {
 			
 	private FileDownloadUseCase fileService;	
 			
-	public FileController(FileDownloadUseCase fileService) {		
+	public FileDownloadController(FileDownloadUseCase fileService) {		
 		this.fileService = fileService;
 	}
 		
@@ -43,30 +41,6 @@ public class FileController {
 		fileService.downloadFile(fileInfo, response.getOutputStream());		
 		*/
 		return response;
-	}						
-		
-	private HttpServletResponse setResponse(HttpServletResponse response, long fileSize, String fileName) throws Exception {
-		
-		// get MIME type of the file
-		String mimeType= null;
-		if (mimeType == null) {
-			// set to binary type if MIME mapping not found
-			mimeType = "application/octet-stream";	         
-		}
-		
-		// set content attributes for the response
-		response.setContentType(mimeType);
-		response.setContentLengthLong(fileSize);
-		response.setCharacterEncoding("UTF-8");
-		
-		// set headers for the response
-		String headerKey = "Content-Disposition";
-		String headerValue = String.format("attachment;filename=\"%s\"", new String(fileName.getBytes("EUC-KR"), "8859_1"));
-		
-		response.setHeader(headerKey, headerValue);
-		response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");	
-		
-		return response;
-	}
+	}								
 			
 }
