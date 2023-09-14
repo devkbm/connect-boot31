@@ -70,11 +70,15 @@ public class StaffImageController {
 				
 		Staff staff = service.getStaff(organizationCode, staffId);			
 		
+		/*
 		File file = fileDownloadUseCase.getWebStaticFilePath(staff.getImagePath());
 				
 		response = this.setResponse(response, file.length(), staffId);
 		
 		fileDownloadUseCase.downloadFile(file, response);
+		*/
+		
+		fileDownloadUseCase.downloadWebStaticPath(staff.getImagePath(), staffId, response);
 			
 		return response;
 	}

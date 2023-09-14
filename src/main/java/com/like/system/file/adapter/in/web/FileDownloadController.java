@@ -21,7 +21,7 @@ public class FileDownloadController {
 	public HttpServletResponse fileDownLoad(HttpServletResponse response
 										   ,@PathVariable String id) throws Exception {								
 							
-		fileService.downloadFile(id, response);		
+		fileService.download(id, response);		
 		
 		return response;
 	}

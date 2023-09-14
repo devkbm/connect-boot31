@@ -37,11 +37,15 @@ public class SystemUserImageService implements SystemUserImageFileUseCase, Syste
 	@Override
 	public HttpServletResponse downloadImageFile(String organizationCode, String userId, HttpServletResponse response) throws Exception {
 		SystemUser user = this.port.select(organizationCode, userId);
+		/*
 		File file = fileService.getWebStaticFilePath(user.getImage()); 
 		
 		response = setDownloadResponseHeader(response, userId, file.length());
 		
 		fileService.downloadFile(file, response);
+		*/
+		
+		fileService.downloadWebStaticPath(user.getImage(), userId, response);
 		
 		return response;
 	}

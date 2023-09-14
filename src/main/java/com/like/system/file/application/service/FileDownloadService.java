@@ -27,21 +27,10 @@ public class FileDownloadService implements FileDownloadUseCase {
 					   ,FileServerRepository localFileRepository) {
 		this.port = port;
 		this.localFileRepository = localFileRepository;
-	}
-	
-	@Override
-	public void downloadFile(File file, HttpServletResponse response) {		
-		try {
-			FileConverterUtil.fileToStream(file, response.getOutputStream());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}							
 	}	
 	
 	@Override
-	public void downloadFile(String fileInfoId, HttpServletResponse response) {
+	public void download(String fileInfoId, HttpServletResponse response) {
 		FileInfo fileInfo = this.port.getFileInfo(fileInfoId);
 		File file = new File(fileInfo.getPath(), fileInfo.getUuid());
 		
@@ -70,9 +59,40 @@ public class FileDownloadService implements FileDownloadUseCase {
 		this.port.save(fileInfo);
 	}
 	
+	/*
+	@Override
+	public void downloadFile(File file, HttpServletResponse response) {		
+		try {
+			FileConverterUtil.fileToStream(file, response.getOutputStream());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}							
+	}	
+	
 	@Override
 	public File getWebStaticFilePath(String fileName) {
 		return localFileRepository.getStaticPathFile(fileName);		
+	}
+	*/
+	@Override
+	public void downloadWebStaticPath(String uploadFileName, String downloadFileName, HttpServletResponse response) {
+		File file = localFileRepository.getStaticPathFile(uploadFileName);
+		
+		try {
+			setResponse(response, file.length(), downloadFileName);
+		} catch (Exception e) {		
+			e.printStackTrace();
+		}
+		
+		try {
+			FileConverterUtil.fileToStream(file, response.getOutputStream());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private HttpServletResponse setResponse(HttpServletResponse response, long fileSize, String fileName) throws Exception {
@@ -98,5 +118,7 @@ public class FileDownloadService implements FileDownloadUseCase {
 		
 		return response;
 	}
+
+
 	
 }
