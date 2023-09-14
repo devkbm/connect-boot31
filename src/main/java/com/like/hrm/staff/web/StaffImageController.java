@@ -21,18 +21,22 @@ import org.springframework.web.multipart.MultipartFile;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.service.StaffService;
 import com.like.system.file.adapter.out.file.FileServerRepository.FileUploadLocation;
+import com.like.system.file.application.port.in.FileDownloadUseCase;
 import com.like.system.file.application.service.FileService;
 
 @Controller
 public class StaffImageController {
 	
 	private StaffService service;	
-	private FileService fileService;
+	private FileDownloadUseCase fileDownloadUseCase;
+	FileService fileService;
 				
 	public StaffImageController(StaffService service
+							   ,FileDownloadUseCase fileDownloadUseCase
 							   ,FileService fileService) {
 		this.service = service;
-		this.fileService = fileService;		
+		this.fileDownloadUseCase = fileDownloadUseCase;
+		this.fileService = fileService;
 	}
 
 	@PostMapping("/api/hrm/staff/changeimage")
@@ -66,11 +70,11 @@ public class StaffImageController {
 				
 		Staff staff = service.getStaff(organizationCode, staffId);			
 		
-		File file = fileService.getStaticPathFile(staff.getImagePath());
+		File file = fileDownloadUseCase.getWebStaticFilePath(staff.getImagePath());
 				
 		response = this.setResponse(response, file.length(), staffId);
 		
-		fileService.downloadFile(file, response);
+		fileDownloadUseCase.downloadFile(file, response);
 			
 		return response;
 	}

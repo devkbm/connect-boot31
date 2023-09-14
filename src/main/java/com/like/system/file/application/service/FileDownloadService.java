@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.file.adapter.out.file.FileConverterUtil;
+import com.like.system.file.adapter.out.file.FileServerRepository;
 import com.like.system.file.application.port.in.FileDownloadUseCase;
 import com.like.system.file.application.port.out.FileInfoCommandDbPort;
 import com.like.system.file.domain.FileInfo;
@@ -20,10 +21,24 @@ import jakarta.servlet.http.HttpServletResponse;
 public class FileDownloadService implements FileDownloadUseCase {
 
 	FileInfoCommandDbPort port;
+	FileServerRepository localFileRepository;
 	
-	FileDownloadService(FileInfoCommandDbPort port) {
+	FileDownloadService(FileInfoCommandDbPort port
+					   ,FileServerRepository localFileRepository) {
 		this.port = port;
+		this.localFileRepository = localFileRepository;
 	}
+	
+	@Override
+	public void downloadFile(File file, HttpServletResponse response) {		
+		try {
+			FileConverterUtil.fileToStream(file, response.getOutputStream());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}							
+	}	
 	
 	@Override
 	public void downloadFile(String fileInfoId, HttpServletResponse response) {
@@ -54,7 +69,11 @@ public class FileDownloadService implements FileDownloadUseCase {
 		//fileInfoRepository.save(fileInfo);
 		this.port.save(fileInfo);
 	}
-
+	
+	@Override
+	public File getWebStaticFilePath(String fileName) {
+		return localFileRepository.getStaticPathFile(fileName);		
+	}
 	
 	private HttpServletResponse setResponse(HttpServletResponse response, long fileSize, String fileName) throws Exception {
 		

@@ -1,7 +1,14 @@
 package com.like.system.file.application.port.in;
 
+import java.io.File;
+
 import jakarta.servlet.http.HttpServletResponse;
 
 public interface FileDownloadUseCase {
-	void downloadFile(String fileInfoId, HttpServletResponse response);
+	
+	File getWebStaticFilePath(String fileName);
+	
+	void downloadFile(File file, HttpServletResponse response);
+	
+	void downloadFile(String fileInfoId, HttpServletResponse response);	
 }

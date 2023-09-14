@@ -5,7 +5,7 @@ import java.io.File;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.like.system.file.application.service.FileService;
+import com.like.system.file.application.port.in.FileDownloadUseCase;
 import com.like.system.user.application.port.in.SystemUserImageChangeUseCase;
 import com.like.system.user.application.port.in.SystemUserImageFileUseCase;
 import com.like.system.user.application.port.out.SystemUserDbSavePort;
@@ -21,13 +21,13 @@ public class SystemUserImageService implements SystemUserImageFileUseCase, Syste
 	SystemUserDbSelectPort port;
 	SystemUserDbSavePort savePort;
 	ProfilePictureRepository profilePictureRepository;
-	FileService fileService;
+	FileDownloadUseCase fileService;
 	
 	
 	SystemUserImageService(SystemUserDbSelectPort port
 						  ,SystemUserDbSavePort savePort
 						  ,ProfilePictureRepository profilePictureRepository
-						  ,FileService fileService) {
+						  ,FileDownloadUseCase fileService) {
 		this.port = port;
 		this.savePort = savePort;
 		this.profilePictureRepository = profilePictureRepository;
@@ -37,7 +37,7 @@ public class SystemUserImageService implements SystemUserImageFileUseCase, Syste
 	@Override
 	public HttpServletResponse downloadImageFile(String organizationCode, String userId, HttpServletResponse response) throws Exception {
 		SystemUser user = this.port.select(organizationCode, userId);
-		File file = fileService.getStaticPathFile(user.getImage()); 
+		File file = fileService.getWebStaticFilePath(user.getImage()); 
 		
 		response = setDownloadResponseHeader(response, userId, file.length());
 		
