@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.system.file.adapter.out.file.FileConverterUtil;
 import com.like.system.file.adapter.out.file.FileServerRepository;
 import com.like.system.file.application.port.in.FileDownloadUseCase;
+import com.like.system.file.application.port.out.FileDownloadWebPort;
 import com.like.system.file.application.port.out.FileInfoCommandDbPort;
 import com.like.system.file.domain.FileInfo;
 
@@ -22,11 +23,14 @@ public class FileDownloadService implements FileDownloadUseCase {
 
 	FileInfoCommandDbPort port;
 	FileServerRepository localFileRepository;
+	FileDownloadWebPort webPort;
 	
 	FileDownloadService(FileInfoCommandDbPort port
-					   ,FileServerRepository localFileRepository) {
+					   ,FileServerRepository localFileRepository
+					   ,FileDownloadWebPort webPort) {
 		this.port = port;
 		this.localFileRepository = localFileRepository;
+		this.webPort = webPort;
 	}	
 	
 	@Override
@@ -34,20 +38,16 @@ public class FileDownloadService implements FileDownloadUseCase {
 		FileInfo fileInfo = this.port.getFileInfo(fileInfoId);
 		File file = new File(fileInfo.getPath(), fileInfo.getUuid());
 		
+		this.webPort.setResponse(response, fileInfo.getSize(), fileInfo.getFileName(), "application/octet-stream");
+		/*
 		try {
 			setResponse(response, fileInfo.getSize(), fileInfo.getFileName());
 		} catch (Exception e) {		
 			e.printStackTrace();
 		}
-		
-		try (OutputStream os = response.getOutputStream()) {
-			try {
-				FileConverterUtil.fileToStream(file, os);
-			} catch (FileNotFoundException e) {			
-				e.printStackTrace();
-			} catch (IOException e) {			
-				e.printStackTrace();
-			}
+		*/
+		try (OutputStream os = response.getOutputStream()) {			
+			FileConverterUtil.fileToStream(file, os);			
 		} catch (IOException e1) {		
 			e1.printStackTrace();
 		}

@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.adapter.out.file.FileConverterUtil;
 import com.like.system.file.adapter.out.file.FileServerRepository;
-import com.like.system.file.adapter.out.file.FileServerRepository.FileUploadLocation;
+import com.like.system.file.adapter.out.file.FileUploadLocation;
 import com.like.system.file.adapter.out.persistence.jpa.repository.FileInfoJpaRepository;
 import com.like.system.file.application.port.out.FileInfoCommandDbPort;
 import com.like.system.file.domain.FileInfo;

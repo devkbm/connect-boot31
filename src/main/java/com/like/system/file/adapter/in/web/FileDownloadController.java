@@ -11,17 +11,17 @@ import com.like.system.file.application.port.in.FileDownloadUseCase;
 @Controller
 public class FileDownloadController {
 			
-	private FileDownloadUseCase fileService;	
+	private FileDownloadUseCase useCase;	
 			
-	public FileDownloadController(FileDownloadUseCase fileService) {		
-		this.fileService = fileService;
+	public FileDownloadController(FileDownloadUseCase useCase) {		
+		this.useCase = useCase;
 	}
 		
 	@GetMapping("/api/system/file/{id}")
 	public HttpServletResponse fileDownLoad(HttpServletResponse response
 										   ,@PathVariable String id) throws Exception {								
 							
-		fileService.download(id, response);		
+		useCase.download(id, response);		
 		
 		return response;
 	}

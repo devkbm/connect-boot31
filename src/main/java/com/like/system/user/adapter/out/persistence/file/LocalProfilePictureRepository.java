@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.adapter.out.file.FileServerRepository;
-import com.like.system.file.adapter.out.file.FileServerRepository.FileUploadLocation;
+import com.like.system.file.adapter.out.file.FileUploadLocation;
 import com.like.system.user.domain.ProfilePictureRepository;
 
 @Repository

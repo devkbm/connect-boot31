@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.like.system.file.adapter.out.file.FileServerRepository;
 import com.like.system.file.application.port.dto.FileResponseDTO;
+import com.like.system.file.application.port.in.FileUploadUseCase;
 import com.like.system.file.application.service.FileService;
 import com.like.system.file.domain.FileInfo;
 
@@ -26,11 +27,49 @@ import com.like.system.file.domain.FileInfo;
 public class FileUploadController {
 			
 	private FileService fileService;	
+	FileUploadUseCase useCase;
 			
-	public FileUploadController(FileService fileService) {		
+	public FileUploadController(FileService fileService
+							   ,FileUploadUseCase useCase) {		
 		this.fileService = fileService;
+		this.useCase = useCase;
 	}
+	
+	@PostMapping("/api/system/file")
+	public ResponseEntity<?> fileUpload(final MultipartHttpServletRequest request
+									   ,@RequestParam(value="appUrl", required=false) String appUrl ) throws Exception {
+						
+		List<FileInfo> list = new ArrayList<FileInfo>();
+		final Map<String, MultipartFile> files = request.getFileMap();
+		Iterator<Entry<String,MultipartFile>> itr = files.entrySet().iterator();		
+				
+		while ( itr.hasNext() ) {			
+			Entry<String,MultipartFile> entry = itr.next(); 			
+			MultipartFile file = entry.getValue();					
+			list.add(useCase.uploadFile(file, "kbm", appUrl));																
+		}
 		
+								
+		List<FileResponseDTO> fileList = new ArrayList<>();
+		
+		for (FileInfo info : list) {
+			Map<String, String> res = new HashMap<>();
+			res.put("status", "success");
+			
+			Map<String, String> link = new HashMap<>();
+			link.put("download", FileServerRepository.fileDownLoadUrl+info.getId());
+			
+			FileResponseDTO response = FileResponseDTO.convert(info);
+			fileList.add(response);
+		}
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+						 					
+		return new ResponseEntity<List<FileResponseDTO>>(fileList, responseHeaders, HttpStatus.OK);
+	}
+	/*
+	
 	@PostMapping("/api/system/file")
 	public ResponseEntity<?> fileUpload(final MultipartHttpServletRequest request
 									   ,@RequestParam(value="appUrl", required=false) String appUrl ) throws Exception {
@@ -64,7 +103,7 @@ public class FileUploadController {
 						 					
 		return new ResponseEntity<List<FileResponseDTO>>(fileList, responseHeaders, HttpStatus.OK);
 	}
-	
+	*/
 	
 	@PostMapping("/api/system/file2")
 	public void handleFileUpload(@RequestParam("file") MultipartFile file) throws Exception {

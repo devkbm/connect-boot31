@@ -11,10 +11,7 @@ import com.like.system.file.config.ServerFileProperties;
 
 @Repository
 public class FileServerRepository {
-	
-	public enum FileUploadLocation {
-		WEB_SERVER_STATIC_PATH, FILE_SERVER_PATH
-	}	
+		
 	private ServerFileProperties properties;
 		
 	public static String fileDownLoadUrl;		
