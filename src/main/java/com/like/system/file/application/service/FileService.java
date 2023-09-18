@@ -77,7 +77,7 @@ public class FileService {
 	}
 	
 	public void deleteStaticFile(String fileName) throws FileNotFoundException {
-		localFileRepository.deleteStaticFile(fileName);
+		//localFileRepository.deleteStaticFile(fileName);
 	}
 	
 	public FileInfo getFileInfo(String id) {
@@ -91,7 +91,8 @@ public class FileService {
 	}
 	
 	public String fileTransefer(MultipartFile sourceFile, String fileName, FileUploadLocation location) throws FileNotFoundException, IOException {
-		return localFileRepository.fileTransfer(sourceFile, fileName, location);
+		//return localFileRepository.fileTransfer(sourceFile, fileName, location);
+		return null;
 	}
 	
 	public String downloadBase64(String id) throws FileNotFoundException, IOException {
@@ -103,7 +104,8 @@ public class FileService {
 	}
 	
 	public File getStaticPathFile(String fileName) {
-		return localFileRepository.getStaticPathFile(fileName);
+		//return localFileRepository.getStaticPathFile(fileName);
+		return null;
 	}
 		
 	

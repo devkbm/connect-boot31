@@ -1,6 +1,5 @@
 package com.like.hrm.staff.web;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,18 +20,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.service.StaffService;
 import com.like.system.file.adapter.out.file.FileUploadLocation;
-import com.like.system.file.application.port.in.FileDownloadUseCase;
+import com.like.system.file.application.port.in.WebServerDownloadUseCase;
 import com.like.system.file.application.service.FileService;
 
 @Controller
 public class StaffImageController {
 	
 	private StaffService service;	
-	private FileDownloadUseCase fileDownloadUseCase;
+	private WebServerDownloadUseCase fileDownloadUseCase;
 	FileService fileService;
 				
 	public StaffImageController(StaffService service
-							   ,FileDownloadUseCase fileDownloadUseCase
+							   ,WebServerDownloadUseCase fileDownloadUseCase
 							   ,FileService fileService) {
 		this.service = service;
 		this.fileDownloadUseCase = fileDownloadUseCase;
@@ -83,27 +82,4 @@ public class StaffImageController {
 		return response;
 	}
 	
-	private HttpServletResponse setResponse(HttpServletResponse response, long fileSize, String fileName) throws Exception {
-		
-		// get MIME type of the file
-		String mimeType= null;
-		if (mimeType == null) {
-			// set to binary type if MIME mapping not found
-			mimeType = "application/octet-stream";	         
-		}
-		
-		// set content attributes for the response
-		response.setContentType(mimeType);
-		response.setContentLengthLong(fileSize);
-		response.setCharacterEncoding("UTF-8");
-		
-		// set headers for the response
-		String headerKey = "Content-Disposition";
-		String headerValue = String.format("attachment;filename=\"%s\"", new String(fileName.getBytes("UTF-8"), "8859_1"));
-		
-		response.setHeader(headerKey, headerValue);
-		response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");	
-		
-		return response;
-	}
 }

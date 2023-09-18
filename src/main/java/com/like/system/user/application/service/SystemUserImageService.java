@@ -1,11 +1,9 @@
 package com.like.system.user.application.service;
 
-import java.io.File;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.like.system.file.application.port.in.FileDownloadUseCase;
+import com.like.system.file.application.port.in.WebServerDownloadUseCase;
 import com.like.system.user.application.port.in.SystemUserImageChangeUseCase;
 import com.like.system.user.application.port.in.SystemUserImageFileUseCase;
 import com.like.system.user.application.port.out.SystemUserDbSavePort;
@@ -21,13 +19,13 @@ public class SystemUserImageService implements SystemUserImageFileUseCase, Syste
 	SystemUserDbSelectPort port;
 	SystemUserDbSavePort savePort;
 	ProfilePictureRepository profilePictureRepository;
-	FileDownloadUseCase fileService;
+	WebServerDownloadUseCase fileService;
 	
 	
 	SystemUserImageService(SystemUserDbSelectPort port
 						  ,SystemUserDbSavePort savePort
 						  ,ProfilePictureRepository profilePictureRepository
-						  ,FileDownloadUseCase fileService) {
+						  ,WebServerDownloadUseCase fileService) {
 		this.port = port;
 		this.savePort = savePort;
 		this.profilePictureRepository = profilePictureRepository;

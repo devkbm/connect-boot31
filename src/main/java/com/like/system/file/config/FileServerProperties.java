@@ -8,7 +8,7 @@ import lombok.Data;
 @Component
 @Data
 @ConfigurationProperties(prefix = "file-server")
-public class ServerFileProperties {
+public class FileServerProperties {
 	/**
 	 * Web Server Static Resource Path
 	 */

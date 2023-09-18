@@ -1,5 +1,6 @@
 package com.like.system.file.adapter.out.persistence;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
@@ -30,8 +31,15 @@ public class FileInfoCommandDbAdapter implements FileInfoCommandDbPort  {
 	}
 
 	@Override
+	public List<FileInfo> save(List<FileInfo> entities) {
+		return this.repository.saveAll(entities);
+	}
+	
+	@Override
 	public void delete(String id) {
 		this.repository.deleteById(UUID.fromString(id));
 	}
+
+
 
 }

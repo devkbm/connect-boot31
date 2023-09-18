@@ -28,7 +28,7 @@ public abstract class FileConverterUtil {
 		return Base64.getEncoder().encodeToString(byteArray);		
 	}
 		
-	public static File convertAndCopy(MultipartFile sourceFile, String destinationPath, String destinationFileName) throws FileNotFoundException, IOException {
+	public static File copy(MultipartFile sourceFile, String destinationPath, String destinationFileName) throws FileNotFoundException, IOException {
 		
 		if(sourceFile == null || sourceFile.isEmpty()) throw new FileNotFoundException();
 		

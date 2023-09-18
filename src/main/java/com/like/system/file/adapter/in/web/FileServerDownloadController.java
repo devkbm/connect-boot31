@@ -6,14 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.like.system.file.application.port.in.FileDownloadUseCase;
+import com.like.system.file.application.port.in.FileServerDownloadUseCase;
 
 @Controller
-public class FileDownloadController {
+public class FileServerDownloadController {
 			
-	private FileDownloadUseCase useCase;	
+	private FileServerDownloadUseCase useCase;	
 			
-	public FileDownloadController(FileDownloadUseCase useCase) {		
+	public FileServerDownloadController(FileServerDownloadUseCase useCase) {		
 		this.useCase = useCase;
 	}
 		
