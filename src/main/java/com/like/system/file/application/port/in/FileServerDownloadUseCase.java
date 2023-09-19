@@ -5,4 +5,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface FileServerDownloadUseCase {
 	
 	void download(String fileInfoId, HttpServletResponse response);	
+	
+	void viewImage(String fileInfoId, HttpServletResponse response);
 }

@@ -42,4 +42,13 @@ public class FileDownloadWebAdapter implements FileDownloadWebPort {
 		return response;
 	}
 
+	@Override
+	public HttpServletResponse setImageResponse(HttpServletResponse response, long fileSize, String contentType) {
+		response.setContentType(contentType);
+		response.setContentLengthLong(fileSize);
+		response.setCharacterEncoding("UTF-8");
+		
+		return response;
+	}
+
 }

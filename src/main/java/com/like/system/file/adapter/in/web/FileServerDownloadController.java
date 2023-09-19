@@ -30,8 +30,12 @@ public class FileServerDownloadController {
 	@GetMapping("/api/system/fileimage/{id}")
 	public HttpServletResponse fileImageDownLoad(HttpServletResponse response
 												,@PathVariable String id) throws Exception {
+		
+		useCase.viewImage(id, response);
 		/*	
 		FileInfo fileInfo = fileService.getFileInfo(id);
+				
+					
 					
 		// set content attributes for the response
 		response.setContentType(fileInfo.getContentType());

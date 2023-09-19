@@ -3,6 +3,7 @@ package com.like.system.user.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.like.system.file.application.port.in.FileServerDownloadUseCase;
 import com.like.system.file.application.port.in.WebServerDownloadUseCase;
 import com.like.system.user.application.port.in.SystemUserImageChangeUseCase;
 import com.like.system.user.application.port.in.SystemUserImageFileUseCase;
@@ -19,13 +20,13 @@ public class SystemUserImageService implements SystemUserImageFileUseCase, Syste
 	SystemUserDbSelectPort port;
 	SystemUserDbSavePort savePort;
 	ProfilePictureRepository profilePictureRepository;
-	WebServerDownloadUseCase fileService;
+	FileServerDownloadUseCase fileService;
 	
 	
 	SystemUserImageService(SystemUserDbSelectPort port
 						  ,SystemUserDbSavePort savePort
 						  ,ProfilePictureRepository profilePictureRepository
-						  ,WebServerDownloadUseCase fileService) {
+						  ,FileServerDownloadUseCase fileService) {
 		this.port = port;
 		this.savePort = savePort;
 		this.profilePictureRepository = profilePictureRepository;
@@ -43,7 +44,9 @@ public class SystemUserImageService implements SystemUserImageFileUseCase, Syste
 		fileService.downloadFile(file, response);
 		*/
 		
-		fileService.downloadWebStaticPath(user.getImage(), userId, response);
+		//fileService.downloadWebStaticPath(user.getImage(), userId, response);
+		
+		fileService.download(user.getImage(), response);
 		
 		return response;
 	}

@@ -3,6 +3,7 @@ package com.like.system.file.application.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,7 @@ public class FileServerDownloadService implements FileServerDownloadUseCase {
 	}	
 	
 	@Override
-	public void download(String fileInfoId, HttpServletResponse response) {
+	public void download(String fileInfoId, HttpServletResponse response) {		
 		FileInfo fileInfo = this.dbPort.getFileInfo(fileInfoId);
 		File file = new File(fileInfo.getPath(), fileInfo.getUuid());
 		
@@ -45,6 +46,20 @@ public class FileServerDownloadService implements FileServerDownloadUseCase {
 		fileInfo.plusDownloadCount();
 				
 		this.dbPort.save(fileInfo);
+	}
+
+	@Override
+	public void viewImage(String fileInfoId, HttpServletResponse response) {
+		FileInfo fileInfo = this.dbPort.getFileInfo(fileInfoId);
+		File file = new File(fileInfo.getPath(), fileInfo.getUuid());
+		
+		this.webPort.setImageResponse(response, fileInfo.getSize(), fileInfo.getContentType());
+		
+		try (OutputStream os = response.getOutputStream()) {			
+			FileConverterUtil.fileToStream(file, os);			
+		} catch (IOException e1) {		
+			e1.printStackTrace();
+		}		
 	}	
 	
 }

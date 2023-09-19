@@ -1,46 +1,36 @@
 package com.like.system.user.adapter.out.persistence.file;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.UUID;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.like.system.file.adapter.out.file.WebServerStaticRepository;
+import com.like.system.file.application.port.in.FileServerUploadUseCase;
+import com.like.system.file.domain.FileInfo;
 import com.like.system.user.domain.ProfilePictureRepository;
 
 @Repository
 public class LocalProfilePictureRepository implements ProfilePictureRepository {
 
-	private WebServerStaticRepository repository;
+	private FileServerUploadUseCase uploadUseCase;
 	
-	public LocalProfilePictureRepository(WebServerStaticRepository repository) {
-		this.repository = repository;
+	public LocalProfilePictureRepository(FileServerUploadUseCase uploadUseCase) {
+		this.uploadUseCase = uploadUseCase;
 	}
 	
 	@Override
 	public String upload(MultipartFile sourceFile) {
-		String fileName = UUID.randomUUID().toString();
-		try {
-			repository.fileTransfer(sourceFile, fileName);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return fileName;
-	
+		FileInfo fileInfo = uploadUseCase.uploadFile(sourceFile, "kbm", "SystemUser");
+		return fileInfo.getId().toString();		
 	}
 
 	@Override
 	public void delete(String path) {
+		/*
 		try {
 			repository.deleteStaticFile(path);
 		} catch (FileNotFoundException e) {				
 			e.printStackTrace();
-		}		
+		}
+		*/		
 	}
 
 

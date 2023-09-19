@@ -215,10 +215,10 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		return this.image.getImage();
 	}
 	
-	public String changeImage(ProfilePictureRepository localFileRepository, MultipartFile sourceFile) {
-		if (this.image == null) this.image = new SystemUserProfilePicture(localFileRepository);		
+	public String changeImage(ProfilePictureRepository profilePictureRepository, MultipartFile sourceFile) {
+		if (this.image == null) this.image = new SystemUserProfilePicture(profilePictureRepository);		
 		
-		return this.image.changeImage(localFileRepository, sourceFile);
+		return this.image.changeImage(profilePictureRepository, sourceFile);
 	}
 	
 }
