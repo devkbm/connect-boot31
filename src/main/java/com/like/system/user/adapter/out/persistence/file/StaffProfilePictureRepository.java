@@ -3,17 +3,21 @@ package com.like.system.user.adapter.out.persistence.file;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.like.system.file.application.port.in.FileServerDeleteUseCase;
 import com.like.system.file.application.port.in.FileServerUploadUseCase;
 import com.like.system.file.domain.FileInfo;
 import com.like.system.user.domain.ProfilePictureRepository;
 
 @Repository
-public class LocalProfilePictureRepository implements ProfilePictureRepository {
+public class StaffProfilePictureRepository implements ProfilePictureRepository {
 
-	private FileServerUploadUseCase uploadUseCase;
+	FileServerUploadUseCase uploadUseCase;
+	FileServerDeleteUseCase deleteUseCase;
 	
-	public LocalProfilePictureRepository(FileServerUploadUseCase uploadUseCase) {
+	public StaffProfilePictureRepository(FileServerUploadUseCase uploadUseCase
+										,FileServerDeleteUseCase deleteUseCase) {
 		this.uploadUseCase = uploadUseCase;
+		this.deleteUseCase = deleteUseCase;
 	}
 	
 	@Override
@@ -23,16 +27,8 @@ public class LocalProfilePictureRepository implements ProfilePictureRepository {
 	}
 
 	@Override
-	public void delete(String path) {
-		/*
-		try {
-			repository.deleteStaticFile(path);
-		} catch (FileNotFoundException e) {				
-			e.printStackTrace();
-		}
-		*/		
+	public void delete(String path) {		
+		deleteUseCase.delete(path);				
 	}
-
-
 
 }

@@ -19,23 +19,22 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.service.StaffService;
-import com.like.system.file.adapter.out.file.FileUploadLocation;
 import com.like.system.file.application.port.in.WebServerDownloadUseCase;
-import com.like.system.file.application.service.FileService;
 
 @Controller
 public class StaffImageController {
 	
 	private StaffService service;	
 	private WebServerDownloadUseCase fileDownloadUseCase;
-	FileService fileService;
+	//FileService fileService;
 				
 	public StaffImageController(StaffService service
 							   ,WebServerDownloadUseCase fileDownloadUseCase
-							   ,FileService fileService) {
+							   //,FileService fileService
+							   ) {
 		this.service = service;
 		this.fileDownloadUseCase = fileDownloadUseCase;
-		this.fileService = fileService;
+		//this.fileService = fileService;
 	}
 
 	@PostMapping("/api/hrm/staff/changeimage")
@@ -48,7 +47,7 @@ public class StaffImageController {
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);				
 		
 		String uuid = UUID.randomUUID().toString();
-		String path = fileService.fileTransefer(file, uuid, FileUploadLocation.WEB_SERVER_STATIC_PATH);
+		String path = ""; //fileService.fileTransefer(file, uuid, FileUploadLocation.WEB_SERVER_STATIC_PATH);
 		
 		Staff staff = service.getStaff(organizationCode, staffNo);
 				

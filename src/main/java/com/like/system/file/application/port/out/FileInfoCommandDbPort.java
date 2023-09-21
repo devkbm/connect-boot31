@@ -7,6 +7,8 @@ import com.like.system.file.domain.FileInfo;
 public interface FileInfoCommandDbPort {
 	FileInfo getFileInfo(String id);
 	
+	List<FileInfo> getFileInfo(List<String> ids);
+	
 	FileInfo save(FileInfo entity);
 	
 	List<FileInfo> save(List<FileInfo> entities);

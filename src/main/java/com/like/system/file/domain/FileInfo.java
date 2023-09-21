@@ -62,21 +62,22 @@ public class FileInfo extends AbstractAuditEntity implements Serializable {
 	long downloadCount;			
 		
 	@Builder
-	public FileInfo(String appUrl, String userId, String contentType, String uuid, String path, String fileName, long size) {		
+	public FileInfo(String appUrl, String userId, String contentType, /*String uuid,*/ String path, String fileName, long size) {		
 		this.id = FileIdGenerator.generateSequencialUUID();
 		this.appUrl = appUrl;
 		this.userId = userId;
 		this.contentType = contentType;
-		this.uuid = uuid;
+		this.uuid = FileIdGenerator.generateSequencialUUID().toString();
+		//this.uuid = uuid;
 		this.path = path;
 		this.fileName = fileName;
 		this.size = size;
 	}
 	
-	public static FileInfo create(MultipartFile sourceFile, String uploadPath, String uuid, String userId, String appUrl) {
+	public static FileInfo create(MultipartFile sourceFile, String uploadPath, /*String uuid,*/ String userId, String appUrl) {
 		
 		return FileInfo.builder()
-					   .uuid(uuid)
+					   //.uuid(uuid)
 				       .path(uploadPath)
 				       .fileName(sourceFile.getOriginalFilename())
 				       .size(sourceFile.getSize())

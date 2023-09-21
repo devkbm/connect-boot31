@@ -1,7 +1,5 @@
 package com.like.cooperation.board.adapter.out.persistence;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,21 +18,25 @@ import com.like.cooperation.board.domain.ArticleAttachedFile;
 import com.like.cooperation.board.domain.AttachedFileConverter;
 import com.like.cooperation.board.domain.Board;
 import com.like.system.core.util.SessionUtil;
-import com.like.system.file.application.service.FileService;
+import com.like.system.file.application.port.in.FileServerSelectUseCase;
+import com.like.system.file.application.port.in.FileServerUploadUseCase;
 import com.like.system.file.domain.FileInfo;
 
 @Repository
 public class ArticleDbAdapter implements ArticleSelectDbPort, ArticleSaveDbPort, ArticleDeleteDbPort {
 	ArticleJpaRepository repository;
 	BoardJpaRepository boardRepository;
-	FileService fileService;
+	FileServerUploadUseCase uploadUseCase;
+	FileServerSelectUseCase fileSelectUseCase;
 	
 	ArticleDbAdapter(ArticleJpaRepository repository
 			        ,BoardJpaRepository boardRepository
-			        ,FileService fileService) {
+			        ,FileServerUploadUseCase uploadUseCase
+			        ,FileServerSelectUseCase fileSelectUseCase) {
 		this.repository = repository;
 		this.boardRepository = boardRepository;
-		this.fileService = fileService;
+		this.uploadUseCase = uploadUseCase;
+		this.fileSelectUseCase = fileSelectUseCase;
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class ArticleDbAdapter implements ArticleSelectDbPort, ArticleSaveDbPort,
 		// 2. 저장된 파일 리스트를 조회한다.
 		// 3. FileInfo를 AttachedFile로 변환한다.
 		if (dto.attachFile() != null) {
-			fileInfoList = fileService.getFileInfoList(dto.attachFile());
+			fileInfoList = fileSelectUseCase.select(dto.attachFile());
 			
 			attachedFileList = AttachedFileConverter.convert(entity, fileInfoList);				
 			if (!attachedFileList.isEmpty()) entity.setFiles(attachedFileList);
@@ -80,13 +82,9 @@ public class ArticleDbAdapter implements ArticleSelectDbPort, ArticleSaveDbPort,
 		// 첨부파일 저장
 		if (!dto.file().isEmpty()) {		
 			String userId = SessionUtil.getUserId();
-			try {
-				fileInfoList = fileService.uploadFile(dto.file(), userId, "board");
-			} catch (FileNotFoundException e) {
-				throw new IllegalStateException("파일 업로드중 오류가 발생했습니다.", e);
-			} catch (IOException e) {
-				throw new IllegalStateException("파일 업로드중 오류가 발생했습니다.", e);
-			}
+			
+			fileInfoList = uploadUseCase.uploadFile(dto.file(), userId, "board");
+			
 			attachedFileList = AttachedFileConverter.convert(article, fileInfoList);
 		}
 		

@@ -20,9 +20,12 @@ public class FileInfoCommandDbAdapter implements FileInfoCommandDbPort  {
 	
 	@Override
 	public FileInfo getFileInfo(String id) {
-		UUID uuid = UUID.fromString(id);
-		
-		return this.repository.findById(uuid).orElse(null);
+		return this.repository.findById(UUID.fromString(id)).orElse(null);
+	}
+	
+	@Override
+	public List<FileInfo> getFileInfo(List<String> ids) {		
+		return this.repository.findAllById(ids.stream().map(e -> UUID.fromString(e)).toList()); 
 	}
 
 	@Override
@@ -39,7 +42,5 @@ public class FileInfoCommandDbAdapter implements FileInfoCommandDbPort  {
 	public void delete(String id) {
 		this.repository.deleteById(UUID.fromString(id));
 	}
-
-
 
 }
