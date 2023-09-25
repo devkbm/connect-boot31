@@ -16,7 +16,7 @@ public record ResponseStaff(
 		String imagePath
 		) {
 			
-	public static ResponseStaff convert(Staff entity) {
+	public static ResponseStaff toDTO(Staff entity) {
 		
 		if (entity == null) return null;			
 		

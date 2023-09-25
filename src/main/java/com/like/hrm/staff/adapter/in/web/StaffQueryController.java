@@ -31,7 +31,7 @@ public class StaffQueryController {
 									
 		List<ResponseStaff> list = service.getStaff(dto)
 												   .stream()
-												   .map(e -> ResponseStaff.convert(e))
+												   .map(e -> ResponseStaff.toDTO(e))
 												   .toList(); 
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));

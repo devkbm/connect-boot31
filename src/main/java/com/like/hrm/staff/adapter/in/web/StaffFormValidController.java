@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.hrm.staff.adapter.out.persistence.jpa.repository.StaffJpaRepository;
 import com.like.hrm.staff.domain.model.StaffId;
-import com.like.hrm.staff.domain.model.StaffRepository;
 
 @RestController
 public class StaffFormValidController {
 
-	private StaffRepository repository;
+	private StaffJpaRepository repository;
 	
-	public StaffFormValidController(StaffRepository repository) {
+	public StaffFormValidController(StaffJpaRepository repository) {
 		this.repository = repository;		
 	}
 	

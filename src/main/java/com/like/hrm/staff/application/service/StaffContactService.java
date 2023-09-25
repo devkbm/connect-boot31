@@ -3,11 +3,11 @@ package com.like.hrm.staff.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.like.hrm.staff.adapter.out.persistence.jpa.repository.StaffJpaRepository;
 import com.like.hrm.staff.application.port.dto.FormContact;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffContact;
 import com.like.hrm.staff.domain.model.StaffId;
-import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.system.core.jpa.vo.Address;
 import com.like.system.core.jpa.vo.PhoneNumber;
 
@@ -15,9 +15,9 @@ import com.like.system.core.jpa.vo.PhoneNumber;
 @Transactional
 public class StaffContactService {
 
-	private StaffRepository repository;	
+	private StaffJpaRepository repository;	
 	
-	public StaffContactService(StaffRepository repository) {
+	public StaffContactService(StaffJpaRepository repository) {
 		this.repository = repository;
 	}
 	

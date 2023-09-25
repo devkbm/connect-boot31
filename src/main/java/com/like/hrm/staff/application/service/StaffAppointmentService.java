@@ -5,10 +5,10 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.like.hrm.staff.adapter.out.persistence.jpa.repository.StaffJpaRepository;
 import com.like.hrm.staff.application.port.dto.AppointmentRecordDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffId;
-import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 
@@ -16,9 +16,9 @@ import com.like.hrm.staff.domain.model.appointment.AppointmentRecordList;
 @Service
 public class StaffAppointmentService {
 
-	private StaffRepository repository;
+	private StaffJpaRepository repository;
 	
-	public StaffAppointmentService(StaffRepository repository) {
+	public StaffAppointmentService(StaffJpaRepository repository) {
 		this.repository = repository;		
 	}
 	

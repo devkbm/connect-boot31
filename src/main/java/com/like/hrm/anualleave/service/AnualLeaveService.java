@@ -9,19 +9,19 @@ import com.like.hrm.anualleave.boundary.AnualLeaveDTO;
 import com.like.hrm.anualleave.domain.model.AnualLeave;
 import com.like.hrm.anualleave.domain.model.AnualLeaveId;
 import com.like.hrm.anualleave.domain.model.AnualLeaveRepository;
+import com.like.hrm.staff.adapter.out.persistence.jpa.repository.StaffJpaRepository;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffId;
-import com.like.hrm.staff.domain.model.StaffRepository;
 
 @Service
 @Transactional
 public class AnualLeaveService {
 		
 	private AnualLeaveRepository repository;
-	private StaffRepository staffRepository;
+	private StaffJpaRepository staffRepository;
 	
 	public AnualLeaveService(AnualLeaveRepository repository
-							,StaffRepository staffRepository) {
+							,StaffJpaRepository staffRepository) {
 		this.repository = repository;
 		this.staffRepository = staffRepository;
 	}

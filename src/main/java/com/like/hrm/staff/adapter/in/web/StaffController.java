@@ -32,7 +32,7 @@ public class StaffController {
 	@GetMapping("/api/hrm/staff/{id}")
 	public ResponseEntity<?> getStaff(@RequestParam String organizationCode, @PathVariable String id) {
 								
-		ResponseStaff dto = ResponseStaff.convert(staffService.getStaff(organizationCode, id)); 
+		ResponseStaff dto = ResponseStaff.toDTO(staffService.getStaff(organizationCode, id)); 
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}

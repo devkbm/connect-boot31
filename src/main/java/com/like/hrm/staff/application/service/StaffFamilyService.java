@@ -7,19 +7,19 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.like.hrm.staff.adapter.out.persistence.jpa.repository.StaffJpaRepository;
 import com.like.hrm.staff.application.port.dto.FamilyDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffId;
-import com.like.hrm.staff.domain.model.StaffRepository;
 import com.like.hrm.staff.domain.model.family.StaffFamily;
 
 @Transactional
 @Service
 public class StaffFamilyService {
 
-	private StaffRepository repository;
+	private StaffJpaRepository repository;
 	
-	public StaffFamilyService(StaffRepository repository) {
+	public StaffFamilyService(StaffJpaRepository repository) {
 		this.repository = repository;
 	}
 	
