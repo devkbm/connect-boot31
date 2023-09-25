@@ -5,8 +5,8 @@ import jakarta.persistence.EntityExistsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.like.hrm.staff.application.port.dto.FormStaff;
 import com.like.hrm.staff.application.port.dto.NewStaff;
-import com.like.hrm.staff.application.port.dto.StaffDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffId;
 import com.like.hrm.staff.domain.model.StaffName;
@@ -31,7 +31,7 @@ public class StaffService {
 		repository.save(staff);
 	}
 	
-	public void saveStaff(StaffDTO.FormStaff dto) {
+	public void saveStaff(FormStaff dto) {
 		Staff staff = this.getStaff(dto.organizationCode(), dto.staffNo());
 		
 		dto.modifyEntity(staff);

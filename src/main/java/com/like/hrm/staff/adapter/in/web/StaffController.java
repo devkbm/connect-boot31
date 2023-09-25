@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.hrm.staff.application.port.dto.FormStaff;
 import com.like.hrm.staff.application.port.dto.NewStaff;
-import com.like.hrm.staff.application.port.dto.StaffDTO;
+import com.like.hrm.staff.application.port.dto.ResponseStaff;
 import com.like.hrm.staff.application.service.StaffService;
 import com.like.system.core.message.MessageUtil;
 
@@ -31,7 +32,7 @@ public class StaffController {
 	@GetMapping("/api/hrm/staff/{id}")
 	public ResponseEntity<?> getStaff(@RequestParam String organizationCode, @PathVariable String id) {
 								
-		StaffDTO.ResponseStaff dto = StaffDTO.ResponseStaff.convert(staffService.getStaff(organizationCode, id)); 
+		ResponseStaff dto = ResponseStaff.convert(staffService.getStaff(organizationCode, id)); 
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}
@@ -45,7 +46,7 @@ public class StaffController {
 	}
 		
 	@PostMapping("/api/hrm/staff")
-	public ResponseEntity<?> saveStaff(@RequestBody @Valid StaffDTO.FormStaff dto) {			
+	public ResponseEntity<?> saveStaff(@RequestBody @Valid FormStaff dto) {			
 														
 		staffService.saveStaff(dto);
 											 				

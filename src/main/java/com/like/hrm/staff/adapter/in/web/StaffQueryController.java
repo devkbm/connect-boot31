@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.hrm.staff.application.port.dto.ResponseStaff;
 import com.like.hrm.staff.application.port.dto.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.application.port.dto.SearchStaff;
-import com.like.hrm.staff.application.port.dto.StaffDTO;
 import com.like.hrm.staff.application.service.StaffQueryService;
 import com.like.system.core.message.MessageUtil;
 
@@ -29,9 +29,9 @@ public class StaffQueryController {
 	@GetMapping("/api/hrm/staff")
 	public ResponseEntity<?> getStaffList(SearchStaff dto) {
 									
-		List<StaffDTO.ResponseStaff> list = service.getStaff(dto)
+		List<ResponseStaff> list = service.getStaff(dto)
 												   .stream()
-												   .map(e -> StaffDTO.ResponseStaff.convert(e))
+												   .map(e -> ResponseStaff.convert(e))
 												   .toList(); 
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));

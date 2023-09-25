@@ -3,7 +3,7 @@ package com.like.hrm.staff.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.hrm.staff.application.port.dto.StaffDTO;
+import com.like.hrm.staff.application.port.dto.FormContact;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffContact;
 import com.like.hrm.staff.domain.model.StaffId;
@@ -21,13 +21,13 @@ public class StaffContactService {
 		this.repository = repository;
 	}
 	
-	public StaffDTO.FormContact get(String organizationCode, String staffNo) {
+	public FormContact get(String organizationCode, String staffNo) {
 		Staff staff = repository.findById(new StaffId(organizationCode,staffNo)).orElse(null);
 		
-		return StaffDTO.FormContact.convert(staff);
+		return FormContact.convert(staff);
 	}
 	
-	public void save(StaffDTO.FormContact dto) {
+	public void save(FormContact dto) {
 		Staff staff = repository.findById(new StaffId(dto.organizationCode(), dto.staffNo())).orElseThrow(() -> new IllegalArgumentException("직원정보가 존재하지 않습니다."));
 						
 		staff.changeContact(new StaffContact(new Address(dto.homeAddressType(), dto.homePostNumber(), dto.homeMainAddress(), dto.homeSubAddress())
