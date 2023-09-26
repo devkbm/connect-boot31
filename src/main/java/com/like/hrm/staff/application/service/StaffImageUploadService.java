@@ -1,5 +1,6 @@
 package com.like.hrm.staff.application.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.hrm.staff.application.port.in.StaffImageUploadUseCase;
@@ -7,6 +8,7 @@ import com.like.hrm.staff.application.port.out.StaffCommandDbPort;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.system.file.application.port.in.FileServerUploadUseCase;
 
+@Service
 public class StaffImageUploadService implements StaffImageUploadUseCase {
 	
 	StaffCommandDbPort dbPort;
