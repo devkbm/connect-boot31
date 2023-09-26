@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.application.port.dto.ResponseStaff;
 import com.like.hrm.staff.application.port.dto.ResponseStaffCurrentAppointment;
-import com.like.hrm.staff.application.port.dto.SearchStaff;
+import com.like.hrm.staff.application.port.dto.StaffQueryConditionDTO;
 import com.like.hrm.staff.application.service.StaffQueryService;
 import com.like.system.core.message.MessageUtil;
 
@@ -27,7 +27,7 @@ public class StaffQueryController {
 	}
 	
 	@GetMapping("/api/hrm/staff")
-	public ResponseEntity<?> getStaffList(SearchStaff dto) {
+	public ResponseEntity<?> getStaffList(StaffQueryConditionDTO dto) {
 									
 		List<ResponseStaff> list = service.getStaff(dto)
 												   .stream()

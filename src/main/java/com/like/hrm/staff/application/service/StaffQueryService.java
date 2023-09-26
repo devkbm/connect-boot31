@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.hrm.staff.application.port.dto.ResponseStaffAppointmentRecord;
 import com.like.hrm.staff.application.port.dto.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.application.port.dto.ResponseStaffDutyResponsibility;
-import com.like.hrm.staff.application.port.dto.SearchStaff;
+import com.like.hrm.staff.application.port.dto.StaffQueryConditionDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffQueryRepository;
 
@@ -22,7 +22,7 @@ public class StaffQueryService {
 		this.repository = repository;		
 	}
 	
-	public List<Staff> getStaff(SearchStaff dto) {
+	public List<Staff> getStaff(StaffQueryConditionDTO dto) {
 		return repository.getStaffList(dto);
 	}
 	

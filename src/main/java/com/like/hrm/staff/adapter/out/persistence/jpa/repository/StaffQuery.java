@@ -11,7 +11,7 @@ import com.like.hrm.staff.application.port.dto.QResponseStaffDutyResponsibility;
 import com.like.hrm.staff.application.port.dto.ResponseStaffAppointmentRecord;
 import com.like.hrm.staff.application.port.dto.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.application.port.dto.ResponseStaffDutyResponsibility;
-import com.like.hrm.staff.application.port.dto.SearchStaff;
+import com.like.hrm.staff.application.port.dto.StaffQueryConditionDTO;
 import com.like.hrm.staff.domain.model.QStaff;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffQueryRepository;
@@ -34,7 +34,7 @@ public class StaffQuery implements StaffQueryRepository {
 	}
 	
 	@Override
-	public List<Staff> getStaffList(SearchStaff dto) {
+	public List<Staff> getStaffList(StaffQueryConditionDTO dto) {
 		return queryFactory.selectFrom(qStaff).fetch();
 	}
 	

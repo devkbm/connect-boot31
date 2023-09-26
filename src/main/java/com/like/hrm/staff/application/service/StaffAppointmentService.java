@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.staff.adapter.out.persistence.jpa.repository.StaffJpaRepository;
-import com.like.hrm.staff.application.port.dto.AppointmentRecordDTO;
+import com.like.hrm.staff.application.port.dto.StaffAppointmentRecordDTO;
 import com.like.hrm.staff.domain.model.Staff;
 import com.like.hrm.staff.domain.model.StaffId;
 import com.like.hrm.staff.domain.model.appointment.AppointmentRecord;
@@ -32,7 +32,7 @@ public class StaffAppointmentService {
 		return staff.getAppointmentRecordList().get(staff, seq);	
 	}
 	
-	public void saveAppointmentRecord(AppointmentRecordDTO.FormStaffAppointmentRecord dto) {
+	public void saveAppointmentRecord(StaffAppointmentRecordDTO dto) {
 		Staff staff = findStaff(dto.organizationCode(), dto.staffNo());		
 		AppointmentRecord entity = staff.getAppointmentRecordList().get(staff, dto.seq());
 		

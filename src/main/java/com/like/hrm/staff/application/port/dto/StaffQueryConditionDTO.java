@@ -12,7 +12,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 @JsonInclude(Include.NON_EMPTY)
-public record SearchStaff(
+public record StaffQueryConditionDTO(
 		LocalDate referenceDate,
 		String staffId,
 		String name,

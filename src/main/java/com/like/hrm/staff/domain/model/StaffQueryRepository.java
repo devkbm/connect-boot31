@@ -5,12 +5,12 @@ import java.util.List;
 import com.like.hrm.staff.application.port.dto.ResponseStaffAppointmentRecord;
 import com.like.hrm.staff.application.port.dto.ResponseStaffCurrentAppointment;
 import com.like.hrm.staff.application.port.dto.ResponseStaffDutyResponsibility;
-import com.like.hrm.staff.application.port.dto.SearchStaff;
+import com.like.hrm.staff.application.port.dto.StaffQueryConditionDTO;
 
 public interface StaffQueryRepository {
 
 	
-	List<Staff> getStaffList(SearchStaff dto);
+	List<Staff> getStaffList(StaffQueryConditionDTO dto);
 	
 	ResponseStaffCurrentAppointment getStaffCurrentAppointment(String organizationCode, String staffNo);
 		
