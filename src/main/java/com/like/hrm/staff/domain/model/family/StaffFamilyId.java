@@ -10,12 +10,14 @@ import org.hibernate.annotations.Comment;
 import com.like.hrm.staff.domain.model.Staff;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString(onlyExplicitlyIncluded = true)
 @Getter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class StaffFamilyId implements Serializable {

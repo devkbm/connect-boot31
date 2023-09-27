@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.staff.application.service.StaffAppointmentService;
+import com.like.hrm.staff.application.port.in.StaffAppointmentApplyUseCase;
 
 @RestController
 public class StaffAppointmentApplyController {
 
-	private StaffAppointmentService service;
+	private StaffAppointmentApplyUseCase useCase;
 	
-	public StaffAppointmentApplyController(StaffAppointmentService service) {
-		this.service = service;
+	public StaffAppointmentApplyController(StaffAppointmentApplyUseCase useCase) {
+		this.useCase = useCase;
 	}	
 	
 	@GetMapping("/api/hrm/staff/{staffId}/appointmentrecord/{id}/apply")
@@ -25,7 +25,7 @@ public class StaffAppointmentApplyController {
 												   ,@PathVariable String staffId
  			 									   ,@PathVariable Long id) {									
 						
-		service.applyAppointmentRecord(organizationCode, staffId, id);
+		useCase.apply(organizationCode, staffId, id);
 											 				
 		return toList(null, "발령처리되었습니다.");
 	}

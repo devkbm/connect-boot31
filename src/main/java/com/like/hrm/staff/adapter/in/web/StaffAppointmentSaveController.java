@@ -10,23 +10,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.hrm.staff.application.port.dto.StaffAppointmentRecordDTO;
-import com.like.hrm.staff.application.service.StaffAppointmentService;
+import com.like.hrm.staff.application.port.in.StaffAppointmentSaveUseCase;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
 public class StaffAppointmentSaveController {
 
-	private StaffAppointmentService service;
+	private StaffAppointmentSaveUseCase useCase;
 	
-	public StaffAppointmentSaveController(StaffAppointmentService service) {
-		this.service = service;
+	public StaffAppointmentSaveController(StaffAppointmentSaveUseCase useCase) {
+		this.useCase = useCase;
 	}
 		
 		
 	@PostMapping("/api/hrm/staff/{staffId}/appointmentrecord")
 	public ResponseEntity<?> saveAppointmentRecord(@Valid @RequestBody StaffAppointmentRecordDTO dto) {			
 									
-		service.saveAppointmentRecord(dto);
+		useCase.save(dto);
 		
 		return toList(null, MessageUtil.getSaveMessage(1));
 	}
