@@ -1,7 +1,7 @@
 package com.like.hrm.staff.application.port.in;
 
-import com.like.hrm.staff.application.port.dto.FormStaff;
+import com.like.hrm.staff.application.port.dto.StaffSaveDTO;
 
 public interface StaffSaveUseCase {
-	void save(FormStaff dto);
+	void save(StaffSaveDTO dto);
 }

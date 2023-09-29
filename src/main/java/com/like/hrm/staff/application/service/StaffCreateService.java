@@ -2,7 +2,7 @@ package com.like.hrm.staff.application.service;
 
 import org.springframework.stereotype.Service;
 
-import com.like.hrm.staff.application.port.dto.NewStaff;
+import com.like.hrm.staff.application.port.dto.StaffCreateDTO;
 import com.like.hrm.staff.application.port.in.StaffCreateUseCase;
 import com.like.hrm.staff.application.port.out.StaffCommandDbPort;
 import com.like.hrm.staff.domain.model.Staff;
@@ -21,7 +21,7 @@ public class StaffCreateService implements StaffCreateUseCase {
 	}
 	
 	@Override
-	public void create(NewStaff dto) {
+	public void create(StaffCreateDTO dto) {
 		if (isExistStaff(dto.organizationCode(), dto.staffNo())) throw new EntityExistsException("동일 직원번호가 존재합니다 : " + dto.getStaffId());
 
 		StaffNoCreateStrategy strategy = () -> dto.staffNo();

@@ -12,7 +12,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 
 @Builder(access = AccessLevel.PRIVATE)
-public record FormContact(
+public record StaffContactSaveDTO(
 		String clientAppUrl,
 		String organizationCode,						
 		@NotEmpty String staffNo,
@@ -29,12 +29,12 @@ public record FormContact(
 		return new StaffContact(new Address(homeAddressType, homePostNumber, homeMainAddress, extensionNumber), new PhoneNumber(extensionNumber), new PhoneNumber(mobileNumber));
 	}
 				
-	public static FormContact convert(Staff entity) {			
+	public static StaffContactSaveDTO toDTO(Staff entity) {			
 		if (entity == null) return null;
 		
 		Optional<StaffContact> contact = Optional.ofNullable(entity.getContact());
 							
-		return FormContact.builder()
+		return StaffContactSaveDTO.builder()
 						  .organizationCode(entity.getId().getOrganizationCode())	
 				 		  .staffNo(entity.getId().getStaffNo())
 				 		  .homeAddressType(contact.map(StaffContact::getHome).map(Address::getAddress_type).orElse(null))

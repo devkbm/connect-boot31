@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.staff.application.port.dto.NewStaff;
+import com.like.hrm.staff.application.port.dto.StaffCreateDTO;
 import com.like.hrm.staff.application.port.in.StaffCreateUseCase;
 
 @RestController
@@ -23,7 +23,7 @@ public class StaffCreateController {
 	
 		
 	@PostMapping("/api/hrm/staff/create")
-	public ResponseEntity<?> newStaff(@RequestBody @Valid NewStaff dto) {											
+	public ResponseEntity<?> newStaff(@RequestBody @Valid StaffCreateDTO dto) {											
 								
 		useCase.create(dto);
 											 				

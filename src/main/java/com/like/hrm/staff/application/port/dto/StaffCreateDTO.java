@@ -2,7 +2,7 @@ package com.like.hrm.staff.application.port.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public record NewStaff(
+public record StaffCreateDTO(
 		String clientAppUrl,
 		String organizationCode,			
 		@NotEmpty(message = "직원번호는 필수 입력 값입니다.")

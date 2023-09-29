@@ -9,25 +9,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.staff.application.port.dto.StaffSaveDTO;
-import com.like.hrm.staff.application.port.in.StaffSaveUseCase;
+import com.like.hrm.staff.application.port.dto.StaffFamilySaveDTO;
+import com.like.hrm.staff.application.port.in.StaffFamilySaveUseCase;
 import com.like.system.core.message.MessageUtil;
 
+
 @RestController
-public class StaffSaveController {
-	
-	private StaffSaveUseCase useCase;
+public class StaffFamilySaveController {
+
+	private StaffFamilySaveUseCase useCase;
 		
-	public StaffSaveController(StaffSaveUseCase useCase) {
-		this.useCase = useCase;
-	}		
-			
-	@PostMapping("/api/hrm/staff")
-	public ResponseEntity<?> saveStaff(@RequestBody @Valid StaffSaveDTO dto) {			
-														
+	public StaffFamilySaveController(StaffFamilySaveUseCase useCase) {
+		this.useCase = useCase;	
+	}
+		
+	@PostMapping("/api/hrm/staff/{staffId}/family")
+	public ResponseEntity<?> saveFamily(@Valid @RequestBody StaffFamilySaveDTO dto) {			
+							
 		useCase.save(dto);
 											 				
 		return toList(null, MessageUtil.getSaveMessage(1));
-	}	
-			
+	}
+	
 }

@@ -2,7 +2,7 @@ package com.like.hrm.staff.application.service;
 
 import org.springframework.stereotype.Service;
 
-import com.like.hrm.staff.application.port.dto.FormStaff;
+import com.like.hrm.staff.application.port.dto.StaffSaveDTO;
 import com.like.hrm.staff.application.port.in.StaffSaveUseCase;
 import com.like.hrm.staff.application.port.out.StaffCommandDbPort;
 import com.like.hrm.staff.domain.model.Staff;
@@ -17,7 +17,7 @@ public class StaffSaveService implements StaffSaveUseCase {
 	}
 	
 	@Override
-	public void save(FormStaff dto) {
+	public void save(StaffSaveDTO dto) {
 		Staff staff = this.dbPort.select(dto.organizationCode(), dto.staffNo());
 		
 		dto.modifyEntity(staff);
