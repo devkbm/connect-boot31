@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.workchangeapp.adapter.out.persistence.jparepository.DutyApplicationRepository;
 import com.like.hrm.workchangeapp.application.port.dto.DutyApplicationDTO;
-import com.like.hrm.workchangeapp.domain.DutyApplication;
+import com.like.hrm.workchangeapp.domain.WorkChangeApplication;
 import com.like.system.holiday.domain.DateInfo;
 
 @Service
@@ -21,12 +21,12 @@ public class DutyApplicationCommandService {
 		this.repository = repository;		
 	}
 	
-	public DutyApplication getDutyApplication(Long dutyId) {
+	public WorkChangeApplication getDutyApplication(Long dutyId) {
 		return repository.findById(dutyId).orElse(null);
 	}
 	
 	public void saveDutyApplication(DutyApplicationDTO.Form dto) {
-		DutyApplication entity = null;
+		WorkChangeApplication entity = null;
 		
 		if (dto.dutyId() == null) {
 			entity = dto.newEntity();

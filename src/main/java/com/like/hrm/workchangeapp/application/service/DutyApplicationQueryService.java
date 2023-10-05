@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.workchangeapp.adapter.out.persistence.jparepository.DutyApplicationQueryRepository;
 import com.like.hrm.workchangeapp.application.port.dto.DutyApplicationDTO;
-import com.like.hrm.workchangeapp.domain.DutyApplication;
+import com.like.hrm.workchangeapp.domain.WorkChangeApplication;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,7 +19,7 @@ public class DutyApplicationQueryService {
 		this.repository = repository;
 	}
 	
-	public List<DutyApplication> getDutyApplicationList(DutyApplicationDTO.Search condition) {
+	public List<WorkChangeApplication> getDutyApplicationList(DutyApplicationDTO.Search condition) {
 		return this.repository.getDutyApplicationList(condition);
 	}
 }

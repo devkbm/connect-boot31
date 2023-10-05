@@ -18,18 +18,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "HRMDUTYAPPLICATIONDATE")
-public class DutyApplicationDate extends AbstractAuditEntity {
+public class WorkChangeApplicationDate extends AbstractAuditEntity {
 	
 	@EmbeddedId
-	private DutyApplicationDateId id;	
+	private WorkChangeApplicationDateId id;	
 	
 	@Column(name="DUTY_TIME", nullable = false)
 	private BigDecimal dutyTime;
 	
-	public DutyApplicationDate(DutyApplication dutyApplication
+	public WorkChangeApplicationDate(WorkChangeApplication dutyApplication
 							  ,LocalDate date
 							  ,BigDecimal dutyTime) {
-		this.id = new DutyApplicationDateId(dutyApplication, date);
+		this.id = new WorkChangeApplicationDateId(dutyApplication, date);
 		this.dutyTime = dutyTime;
 	}
 	

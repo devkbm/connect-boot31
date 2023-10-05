@@ -6,6 +6,6 @@ public class DutyApplicationAttachedFile {
 	
 	private String fileName;
 	
-	private DutyApplication duty;
+	private WorkChangeApplication duty;
 		
 }

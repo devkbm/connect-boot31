@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.hrm.workchangeapp.application.port.dto.DutyApplicationDTO;
 import com.like.hrm.workchangeapp.application.service.DutyApplicationCommandService;
 import com.like.hrm.workchangeapp.application.service.DutyApplicationQueryService;
-import com.like.hrm.workchangeapp.domain.DutyApplication;
+import com.like.hrm.workchangeapp.domain.WorkChangeApplication;
 import com.like.system.core.message.MessageUtil;
 import com.like.system.holiday.application.port.in.DateInfoSelectUseCase;
 
@@ -53,7 +53,7 @@ public class DutyApplicationController {
 	@GetMapping("/api/hrm/dutyapplication/{id}")
 	public ResponseEntity<?> getDutyApplication(@PathVariable Long id) {
 		
-		DutyApplication entity = dutyApplicationCommandService.getDutyApplication(id);
+		WorkChangeApplication entity = dutyApplicationCommandService.getDutyApplication(id);
 						
 		DutyApplicationDTO.Form dto = DutyApplicationDTO.Form.convert(entity, holidayUtilService);			
 				

@@ -18,18 +18,18 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Embeddable
-public class DutyApplicationDateId implements Serializable {
+public class WorkChangeApplicationDateId implements Serializable {
 		
 	private static final long serialVersionUID = 5466023572115599204L;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FK_DUTY_ID", nullable=false, updatable=false)
-	private DutyApplication dutyApplication;
+	private WorkChangeApplication dutyApplication;
 		
 	@Column(name="DUTY_DT", nullable = false)	
 	private LocalDate date;
 	
-	public DutyApplicationDateId(DutyApplication dutyApplication
+	public WorkChangeApplicationDateId(WorkChangeApplication dutyApplication
 			 					,LocalDate date) {
 		this.dutyApplication = dutyApplication;
 		this.date = date;

@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.like.hrm.dutycode.domain.DutyCode;
 import com.like.hrm.workchangeapp.application.port.dto.DutyApplicationDTO;
-import com.like.hrm.workchangeapp.domain.DutyApplication;
+import com.like.hrm.workchangeapp.domain.WorkChangeApplication;
 
 public interface DutyApplicationQueryRepository {
 
 	long getDutyApplicationCount(String staffId, List<DutyCode> dutyCodeList, LocalDate fromDate, LocalDate toDate);
 	
-	List<DutyApplication> getDutyApplicationList(DutyApplicationDTO.Search condition);
+	List<WorkChangeApplication> getDutyApplicationList(DutyApplicationDTO.Search condition);
 }

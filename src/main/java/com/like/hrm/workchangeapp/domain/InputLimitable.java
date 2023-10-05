@@ -6,6 +6,6 @@ package com.like.hrm.workchangeapp.domain;
  */
 public interface InputLimitable {
 	
-	boolean isLimit(DutyApplication entity);
+	boolean isLimit(WorkChangeApplication entity);
 	
 }

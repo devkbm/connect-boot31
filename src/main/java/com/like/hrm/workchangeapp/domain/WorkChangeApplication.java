@@ -40,7 +40,7 @@ import lombok.ToString;
 @Getter
 @Entity
 @Table(name = "HRMDUTYAPPLICATION")
-public class DutyApplication extends AbstractAuditEntity {
+public class WorkChangeApplication extends AbstractAuditEntity {
 	
 	@Id		
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,7 +67,7 @@ public class DutyApplication extends AbstractAuditEntity {
 		
 	//@OneToMany(mappedBy = "dutyApplication", orphanRemoval = true, cascade = CascadeType.ALL)
 	@OneToMany(mappedBy = "id.dutyApplication", orphanRemoval = true, cascade = CascadeType.ALL)
-	List<DutyApplicationDate> selectedDateList;
+	List<WorkChangeApplicationDate> selectedDateList;
 	
 	@Embedded
 	FamilyEvent familyEvent;
@@ -75,7 +75,7 @@ public class DutyApplication extends AbstractAuditEntity {
 	@Transient
 	private List<DutyApplicationAttachedFile> fileList;
 	
-	public DutyApplication(String staffId
+	public WorkChangeApplication(String staffId
 						  ,String dutyCode
 						  ,String dutyReason
 						  ,LocalDatePeriod period						  
@@ -112,7 +112,7 @@ public class DutyApplication extends AbstractAuditEntity {
 	public BigDecimal getSumDutyTime() {
 		// for loop
 		BigDecimal sum = BigDecimal.ZERO;		
-		for (DutyApplicationDate dates : this.selectedDateList) sum = sum.add(dates.getDutyTime());
+		for (WorkChangeApplicationDate dates : this.selectedDateList) sum = sum.add(dates.getDutyTime());
 		
 		// stream
 		/*
@@ -124,11 +124,11 @@ public class DutyApplication extends AbstractAuditEntity {
 		return sum;
 	}
 	
-	private List<DutyApplicationDate> addApplicationDateList(List<LocalDate> dateList, BigDecimal dutyTime) {
+	private List<WorkChangeApplicationDate> addApplicationDateList(List<LocalDate> dateList, BigDecimal dutyTime) {
 		if (this.selectedDateList == null) this.selectedDateList = new ArrayList<>();
 		
 		for (LocalDate date : dateList) {
-			this.selectedDateList.add(new DutyApplicationDate(this, date, dutyTime));
+			this.selectedDateList.add(new WorkChangeApplicationDate(this, date, dutyTime));
 		}
 		
 		return this.selectedDateList;

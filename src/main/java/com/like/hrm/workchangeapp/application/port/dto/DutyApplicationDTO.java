@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import com.like.hrm.workchangeapp.domain.DutyApplication;
-import com.like.hrm.workchangeapp.domain.QDutyApplication;
+import com.like.hrm.workchangeapp.domain.QWorkChangeApplication;
+import com.like.hrm.workchangeapp.domain.WorkChangeApplication;
 import com.like.system.core.jpa.vo.LocalDatePeriod;
 import com.like.system.holiday.application.port.in.DateInfoSelectUseCase;
 import com.like.system.holiday.domain.DateInfo;
@@ -28,7 +27,7 @@ public class DutyApplicationDTO {
 	public record Search(
 			String staffId
 			) {
-		private static QDutyApplication qDutyApplication = QDutyApplication.dutyApplication;
+		private static QWorkChangeApplication qDutyApplication = QWorkChangeApplication.workChangeApplication;
 		
 		public BooleanBuilder getBooleanBuilder() {
 			BooleanBuilder builder = new BooleanBuilder();
@@ -57,7 +56,7 @@ public class DutyApplicationDTO {
 			List<DutyDate> selectedDate,
 			BigDecimal dutyTime) {
 		
-		public static Form convert(DutyApplication e, DateInfoSelectUseCase service) {								
+		public static Form convert(WorkChangeApplication e, DateInfoSelectUseCase service) {								
 			DateInfoCollection dateInfoList = service.select("001", e.getPeriod().getFrom(), e.getPeriod().getTo());
 
 			
@@ -73,9 +72,9 @@ public class DutyApplicationDTO {
 					   .build();								  									  									  									
 		}
 		
-		public DutyApplication newEntity() {		
+		public WorkChangeApplication newEntity() {		
 			
-			DutyApplication entity = new DutyApplication(staffId								  
+			WorkChangeApplication entity = new WorkChangeApplication(staffId								  
 												        ,dutyCode
 												        ,dutyReason
 												        ,new LocalDatePeriod(fromDate, toDate)
@@ -88,7 +87,7 @@ public class DutyApplicationDTO {
 			
 		}
 		
-		public void modifyEntity(DutyApplication entity) {
+		public void modifyEntity(WorkChangeApplication entity) {
 			entity.modifyEntity(dutyCode
 							   ,dutyReason
 							   ,new LocalDatePeriod(fromDate, toDate)
@@ -102,7 +101,7 @@ public class DutyApplicationDTO {
 			return selectedDate.stream().map(e -> e.date()).toList();
 		}
 		
-		private static List<DutyDate> convertDutyDate(DutyApplication entity, DateInfoCollection dateInfoList) {
+		private static List<DutyDate> convertDutyDate(WorkChangeApplication entity, DateInfoCollection dateInfoList) {
 			List<DutyDate> dutyDatelist = new ArrayList<>(dateInfoList.size());
 			List<LocalDate> selectedDate = entity.getSelectedDate();					
 			

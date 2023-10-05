@@ -1,7 +1,7 @@
 package com.like.hrm.workchangeapp.domain.inputlimit;
 
 import com.like.hrm.workchangeapp.adapter.out.persistence.jparepository.DutyApplicationQueryRepository;
-import com.like.hrm.workchangeapp.domain.DutyApplication;
+import com.like.hrm.workchangeapp.domain.WorkChangeApplication;
 import com.like.hrm.workchangeapp.domain.InputLimitable;
 
 /**
@@ -16,14 +16,14 @@ public class DuplicationInputLimit implements InputLimitable {
 	}
 	
 	@Override
-	public boolean isLimit(DutyApplication entity) {
+	public boolean isLimit(WorkChangeApplication entity) {
 		if (isDuplicated(entity))
 			return true;
 		
 		return false;
 	}
 	
-	private boolean isDuplicated(DutyApplication entity) {
+	private boolean isDuplicated(WorkChangeApplication entity) {
 				
 		//List<DutyApplication> dutyList = repository.getDutyApplicationList(search);
 		

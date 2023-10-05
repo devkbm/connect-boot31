@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.like.hrm.dutycode.domain.DutyCode;
 import com.like.hrm.workchangeapp.application.port.dto.DutyApplicationDTO;
-import com.like.hrm.workchangeapp.domain.DutyApplication;
-import com.like.hrm.workchangeapp.domain.QDutyApplication;
+import com.like.hrm.workchangeapp.domain.WorkChangeApplication;
+import com.like.hrm.workchangeapp.domain.QWorkChangeApplication;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
@@ -21,9 +21,9 @@ public class DutyApplicationQueryJpaRepository implements DutyApplicationQueryRe
 	}
 	
 	@Override
-	public List<DutyApplication> getDutyApplicationList(DutyApplicationDTO.Search condition) {
+	public List<WorkChangeApplication> getDutyApplicationList(DutyApplicationDTO.Search condition) {
 		return queryFactory
-				.selectFrom(QDutyApplication.dutyApplication)
+				.selectFrom(QWorkChangeApplication.workChangeApplication)
 				.where(condition.getBooleanBuilder())
 				.fetch();
 	}
@@ -32,11 +32,11 @@ public class DutyApplicationQueryJpaRepository implements DutyApplicationQueryRe
 	public long getDutyApplicationCount(String staffId, List<DutyCode> dutyCodeList, LocalDate fromDate,
 			LocalDate toDate) {
 		
-		QDutyApplication qDutyApplication = QDutyApplication.dutyApplication;							
+		QWorkChangeApplication qDutyApplication = QWorkChangeApplication.workChangeApplication;							
 		List<String> dutyCodes = dutyCodeList.stream().map(e -> e.getDutyCode()).toList();
 				
 		return queryFactory
-				.selectFrom(QDutyApplication.dutyApplication)
+				.selectFrom(QWorkChangeApplication.workChangeApplication)
 				.where(qDutyApplication.staffId.eq(staffId)
 				  .and(qDutyApplication.dutyCode.in(dutyCodes)))
 				.fetch()
