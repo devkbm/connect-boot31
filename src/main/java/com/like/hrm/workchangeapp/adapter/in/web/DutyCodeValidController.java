@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.dutycode.domain.DutyCodeRepository;
+import com.like.hrm.workchangeapp.adapter.out.persistence.jparepository.WorkChangeCodeRepository;
 
 @RestController
 public class DutyCodeValidController {
 
-	private DutyCodeRepository dutyCodeRepository;
+	private WorkChangeCodeRepository dutyCodeRepository;
 	
-	public DutyCodeValidController(DutyCodeRepository dutyCodeRepository) {
+	public DutyCodeValidController(WorkChangeCodeRepository dutyCodeRepository) {
 		this.dutyCodeRepository = dutyCodeRepository;
 	}
 	

@@ -4,14 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.hrm.dutycode.boundary.DutyCodeDTO.SearchDutyCode;
-import com.like.hrm.dutycode.domain.DutyCode;
-import com.like.hrm.dutycode.domain.DutyCodeQueryRepository;
-import com.like.hrm.dutycode.domain.QDutyCode;
+import com.like.hrm.workchangeapp.application.port.dto.WorkChangeCodeDTO.SearchDutyCode;
+import com.like.hrm.workchangeapp.domain.QWorkChangeCode;
+import com.like.hrm.workchangeapp.domain.WorkChangeCode;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
-public class DutyCodeQueryJpaRepository implements DutyCodeQueryRepository {
+public class DutyCodeQueryJpaRepository implements WorkChangeCodeQueryRepository {
 
 	private JPAQueryFactory	queryFactory;
 	
@@ -20,9 +19,9 @@ public class DutyCodeQueryJpaRepository implements DutyCodeQueryRepository {
 	}
 
 	@Override
-	public List<DutyCode> getDutyCodeList(SearchDutyCode condition) {
+	public List<WorkChangeCode> getDutyCodeList(SearchDutyCode condition) {
 		return queryFactory
-				.selectFrom(QDutyCode.dutyCode1)
+				.selectFrom(QWorkChangeCode.workChangeCode)
 				.where(condition.getBooleanBuilder())
 				.fetch();
 	}

@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.dutycode.boundary.DutyCodeDTO;
+import com.like.hrm.workchangeapp.application.port.dto.WorkChangeCodeDTO;
 import com.like.hrm.workchangeapp.application.service.DutyCodeQueryService;
 import com.like.system.core.message.MessageUtil;
 
@@ -23,12 +23,12 @@ public class DutyCodeQueryController {
 	}
 	
 	@GetMapping("/api/hrm/dutycode")
-	public ResponseEntity<?> getDutyCodeList(DutyCodeDTO.SearchDutyCode dto) {
+	public ResponseEntity<?> getDutyCodeList(WorkChangeCodeDTO.SearchDutyCode dto) {
 								
 		
-		List<DutyCodeDTO.SaveDutyCode> list = service.getDutyCodeList(dto)
+		List<WorkChangeCodeDTO.SaveDutyCode> list = service.getDutyCodeList(dto)
 													 .stream()
-													 .map(e -> DutyCodeDTO.SaveDutyCode.convert(e))
+													 .map(e -> WorkChangeCodeDTO.SaveDutyCode.convert(e))
 													 .collect(Collectors.toList());
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));

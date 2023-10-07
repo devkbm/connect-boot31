@@ -1,4 +1,4 @@
-package com.like.hrm.dutycode.boundary;
+package com.like.hrm.workchangeapp.application.port.dto;
 
 import static org.springframework.util.StringUtils.hasText;
 
@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.like.hrm.dutycode.domain.DutyCode;
-import com.like.hrm.dutycode.domain.QDutyCode;
+import com.like.hrm.workchangeapp.domain.QWorkChangeCode;
+import com.like.hrm.workchangeapp.domain.WorkChangeCode;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
@@ -18,13 +18,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public class DutyCodeDTO {
+public class WorkChangeCodeDTO {
 
 	public static class SearchDutyCode implements Serializable {
 			
 		private static final long serialVersionUID = 393877591925132395L;
 
-		private final QDutyCode qDutyCode = QDutyCode.dutyCode1; 
+		private final QWorkChangeCode qDutyCode = QWorkChangeCode.workChangeCode; 
 		
 		String dutyCode;
 		
@@ -75,8 +75,8 @@ public class DutyCodeDTO {
 		
 		private List<Long> dutyApplicationInputLimitIdList;
 		
-		public DutyCode newEntity() {
-			return DutyCode.builder()
+		public WorkChangeCode newEntity() {
+			return WorkChangeCode.builder()
 						   .dutyCode(dutyCode)
 						   .dutyName(dutyName)
 						   .enabled(enabled)
@@ -88,7 +88,7 @@ public class DutyCodeDTO {
 						   .build();
 		}
 		
-		public void modifyEntity(DutyCode entity) {
+		public void modifyEntity(WorkChangeCode entity) {
 			entity.modifyEntity(dutyName
 							   ,enabled
 							   ,dutyGroup
@@ -97,7 +97,7 @@ public class DutyCodeDTO {
 							   ,comment);
 		}
 		
-		public static SaveDutyCode convert(DutyCode entity) {
+		public static SaveDutyCode convert(WorkChangeCode entity) {
 			return SaveDutyCode.builder()
 							   .dutyCode(entity.getDutyCode())
 							   .dutyName(entity.getDutyName())

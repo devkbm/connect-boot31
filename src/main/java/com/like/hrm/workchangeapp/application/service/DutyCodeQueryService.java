@@ -5,21 +5,21 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.hrm.dutycode.boundary.DutyCodeDTO;
-import com.like.hrm.dutycode.domain.DutyCode;
-import com.like.hrm.dutycode.domain.DutyCodeQueryRepository;
+import com.like.hrm.workchangeapp.adapter.out.persistence.jparepository.WorkChangeCodeQueryRepository;
+import com.like.hrm.workchangeapp.application.port.dto.WorkChangeCodeDTO;
+import com.like.hrm.workchangeapp.domain.WorkChangeCode;
 
 @Service
 @Transactional(readOnly = true)
 public class DutyCodeQueryService {
 
-	private DutyCodeQueryRepository repository;
+	private WorkChangeCodeQueryRepository repository;
 	
-	public DutyCodeQueryService(DutyCodeQueryRepository dutyCodeRepository) {
+	public DutyCodeQueryService(WorkChangeCodeQueryRepository dutyCodeRepository) {
 		this.repository = dutyCodeRepository;
 	}
 	
-	public List<DutyCode> getDutyCodeList(DutyCodeDTO.SearchDutyCode condition) {
+	public List<WorkChangeCode> getDutyCodeList(WorkChangeCodeDTO.SearchDutyCode condition) {
 		return this.repository.getDutyCodeList(condition);
 	}
 }

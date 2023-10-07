@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.hrm.dutycode.domain.DutyCode;
 import com.like.hrm.workchangeapp.application.port.dto.DutyApplicationDTO;
 import com.like.hrm.workchangeapp.domain.WorkChangeApplication;
+import com.like.hrm.workchangeapp.domain.WorkChangeCode;
 import com.like.hrm.workchangeapp.domain.QWorkChangeApplication;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -29,7 +29,7 @@ public class DutyApplicationQueryJpaRepository implements DutyApplicationQueryRe
 	}
 
 	@Override
-	public long getDutyApplicationCount(String staffId, List<DutyCode> dutyCodeList, LocalDate fromDate,
+	public long getDutyApplicationCount(String staffId, List<WorkChangeCode> dutyCodeList, LocalDate fromDate,
 			LocalDate toDate) {
 		
 		QWorkChangeApplication qDutyApplication = QWorkChangeApplication.workChangeApplication;							

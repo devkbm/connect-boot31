@@ -1,4 +1,4 @@
-package com.like.hrm.dutycode.domain;
+package com.like.hrm.workchangeapp.domain;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "HRMDUTYCODE")
-public class DutyCode extends AbstractAuditEntity {
+public class WorkChangeCode extends AbstractAuditEntity {
 
 	@Id		
 	@Column(name="DUTY_CODE", nullable = false)
@@ -48,10 +48,10 @@ public class DutyCode extends AbstractAuditEntity {
 	private String comment;
 	
 	@OneToMany(mappedBy = "dutyCode", cascade=CascadeType.ALL, orphanRemoval = true)
-	private List<DutyCodeRule> dutyCodeRule;
+	private List<WorkChangeCodeRule> dutyCodeRule;
 	
 	@Builder
-	public DutyCode(String dutyCode
+	public WorkChangeCode(String dutyCode
 				   ,String dutyName
 				   ,Boolean enabled
 				   ,String dutyGroup
@@ -68,7 +68,7 @@ public class DutyCode extends AbstractAuditEntity {
 		this.comment = comment;		
 		if (dutyApplicationInputLimitIdList != null) {			
 			this.dutyCodeRule = dutyApplicationInputLimitIdList.stream()
-															   .map(e-> new DutyCodeRule(this, e))
+															   .map(e-> new WorkChangeCodeRule(this, e))
 															   .collect(Collectors.toList());
 		}
 	}
@@ -94,7 +94,7 @@ public class DutyCode extends AbstractAuditEntity {
 	}
 	
 	public void addDutyCodeRule(Long dutyApplicationInputLimitId) {
-		this.dutyCodeRule.add(new DutyCodeRule(this, dutyApplicationInputLimitId));
+		this.dutyCodeRule.add(new WorkChangeCodeRule(this, dutyApplicationInputLimitId));
 	}
 	
 	public void removeDutyCodeRule(Long dutyApplicationInputLimitId) {

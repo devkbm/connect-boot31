@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.dutycode.boundary.DutyCodeDTO;
-import com.like.hrm.dutycode.domain.DutyCode;
+import com.like.hrm.workchangeapp.application.port.dto.WorkChangeCodeDTO;
 import com.like.hrm.workchangeapp.application.service.DutyCodeCommandService;
+import com.like.hrm.workchangeapp.domain.WorkChangeCode;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
@@ -28,13 +28,13 @@ public class DutyCodeController {
 	@GetMapping("/api/hrm/dutycode/{id}")
 	public ResponseEntity<?> getDutyCode(@PathVariable(value="id") String id) {
 		
-		DutyCode entity = service.getDutyCode(id);
+		WorkChangeCode entity = service.getDutyCode(id);
 					
 		return toOne(entity, MessageUtil.getQueryMessage(entity == null ? 0 : 1));
 	}
 		
 	@PostMapping("/api/hrm/dutycode")
-	public ResponseEntity<?> saveDutyCode(@RequestBody DutyCodeDTO.SaveDutyCode dto) {				
+	public ResponseEntity<?> saveDutyCode(@RequestBody WorkChangeCodeDTO.SaveDutyCode dto) {				
 									
 		service.saveDutyCode(dto);						
 								 					

@@ -3,30 +3,30 @@ package com.like.hrm.workchangeapp.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.hrm.dutycode.boundary.DutyCodeDTO;
-import com.like.hrm.dutycode.domain.DutyCode;
-import com.like.hrm.dutycode.domain.DutyCodeRepository;
+import com.like.hrm.workchangeapp.adapter.out.persistence.jparepository.WorkChangeCodeRepository;
+import com.like.hrm.workchangeapp.application.port.dto.WorkChangeCodeDTO;
+import com.like.hrm.workchangeapp.domain.WorkChangeCode;
 
 @Service
 @Transactional
 public class DutyCodeCommandService {
 
-	private DutyCodeRepository repository;
+	private WorkChangeCodeRepository repository;
 			
-	public DutyCodeCommandService(DutyCodeRepository repository) {
+	public DutyCodeCommandService(WorkChangeCodeRepository repository) {
 		this.repository = repository;		
 	}
 	
-	public DutyCode getDutyCode(String dutyCode) {
+	public WorkChangeCode getDutyCode(String dutyCode) {
 		return this.repository.findById(dutyCode).orElse(null);
 	}
 	
-	public void saveDutyCode(DutyCode dutyCode) {
+	public void saveDutyCode(WorkChangeCode dutyCode) {
 		this.repository.save(dutyCode);
 	}
 	
-	public void saveDutyCode(DutyCodeDTO.SaveDutyCode dto) {
-		DutyCode entity = repository.findById(dto.getDutyCode()).orElse(null);
+	public void saveDutyCode(WorkChangeCodeDTO.SaveDutyCode dto) {
+		WorkChangeCode entity = repository.findById(dto.getDutyCode()).orElse(null);
 		
 		if (entity == null) {
 			entity = dto.newEntity();

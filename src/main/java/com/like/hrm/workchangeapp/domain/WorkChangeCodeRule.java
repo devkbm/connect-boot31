@@ -1,4 +1,4 @@
-package com.like.hrm.dutycode.domain;
+package com.like.hrm.workchangeapp.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "HRMDUTYCODERULE")
-public class DutyCodeRule extends AbstractAuditEntity {
+public class WorkChangeCodeRule extends AbstractAuditEntity {
 
 	@Id		
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +29,12 @@ public class DutyCodeRule extends AbstractAuditEntity {
 			
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DUTY_CODE", nullable=false)
-	private DutyCode dutyCode;
+	private WorkChangeCode dutyCode;
 	
 	@Column(name="FK_LIMIT_ID", nullable = false)
 	private Long dutyApplicationInputLimitId;
 	
-	public DutyCodeRule(DutyCode dutyCode
+	public WorkChangeCodeRule(WorkChangeCode dutyCode
 					   ,Long dutyApplicationInputLimitId) {
 		this.dutyCode = dutyCode;
 		this.dutyApplicationInputLimitId = dutyApplicationInputLimitId;
