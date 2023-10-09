@@ -26,8 +26,8 @@ public class JpaRole extends AbstractAuditEntity implements Serializable {
 	@Column(name="description")
 	String description;	
 	
-	public JpaRole(String organizationCode, String authorityCode, String description) {		
-		this.id = new JpaRoleId(organizationCode, authorityCode);
+	public JpaRole(String organizationCode, String roleCode, String description) {		
+		this.id = new JpaRoleId(organizationCode, roleCode);
 		this.description = description;
 	}	
 	
@@ -39,8 +39,8 @@ public class JpaRole extends AbstractAuditEntity implements Serializable {
 		return this.id.getOrganizationCode();
 	}
 
-	public String getAuthorityCode() {
-		return this.id.getAuthorityCode();
+	public String getRoleCode() {
+		return this.id.getRoleCode();
 	}
 	
 	public String getDescription() {

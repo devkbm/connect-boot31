@@ -18,7 +18,7 @@ public class RoleMapper {
 		if (entity == null) return null; 
 		
 		return new Role(entity.getOrganizationCode()
-							,entity.getAuthorityCode()
+							,entity.getRoleCode()
 							,entity.getDescription());			
 	}
 	
@@ -29,7 +29,7 @@ public class RoleMapper {
 		builder.and(qType.id.organizationCode.eq(dto.organizationCode()));
 		
 		if (hasText(dto.roleCode())) {
-			builder.and(qType.id.authorityCode.like("%"+dto.roleCode()+"%"));
+			builder.and(qType.id.roleCode.like("%"+dto.roleCode()+"%"));
 		}
 		
 		if (hasText(dto.description())) {

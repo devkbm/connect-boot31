@@ -48,7 +48,7 @@ public class SystemUserRole extends AbstractAuditEntity implements GrantedAuthor
 		
 		this.id = new SystemUserRoleId(systemUser.getId().getOrganizationCode()
 										   ,systemUser.getId().getUserId()
-										   ,authority.getAuthorityCode());
+										   ,authority.getRoleCode());
 		this.systemUser = systemUser;
 		//this.authority = authority;		
 	}

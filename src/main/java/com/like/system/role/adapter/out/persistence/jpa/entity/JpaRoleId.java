@@ -16,21 +16,21 @@ public class JpaRoleId implements Serializable {
 	String organizationCode;
 	
 	@Column(name="ROLE_CD")
-	String authorityCode;
+	String roleCode;
 
 	protected JpaRoleId() {}
 	
-	public JpaRoleId(String organizationCode, String authorityCode) {
+	public JpaRoleId(String organizationCode, String roleCode) {
 		this.organizationCode = organizationCode;
-		this.authorityCode = authorityCode;
+		this.roleCode = roleCode;
 	}
 
 	public String getOrganizationCode() {
 		return organizationCode;
 	}
 
-	public String getAuthorityCode() {
-		return authorityCode;
+	public String getRoleCode() {
+		return roleCode;
 	}
 	
 	
