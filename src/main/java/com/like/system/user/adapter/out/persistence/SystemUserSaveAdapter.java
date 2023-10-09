@@ -6,22 +6,22 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
-import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthorityId;
-import com.like.system.authority.adapter.out.persistence.jpa.repository.AuthorityJpaRepository;
 import com.like.system.dept.adapter.out.persistence.jpa.repository.DeptJpaRepository;
 import com.like.system.dept.domain.Dept;
 import com.like.system.dept.domain.DeptId;
 import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuGroupJpaRepository;
 import com.like.system.menu.domain.MenuGroup;
 import com.like.system.menu.domain.MenuGroupId;
+import com.like.system.role.adapter.out.persistence.jpa.entity.JpaRole;
+import com.like.system.role.adapter.out.persistence.jpa.entity.JpaRoleId;
+import com.like.system.role.adapter.out.persistence.jpa.repository.RoleJpaRepository;
 import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserAuthorityRepository;
 import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserMenuGroupRepository;
 import com.like.system.user.adapter.out.persistence.jpa.repository.SystemUserRepository;
 import com.like.system.user.application.port.in.dto.SystemUserSaveDTO;
 import com.like.system.user.application.port.out.SystemUserDbSavePort;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.domain.SystemUserAuthority;
+import com.like.system.user.domain.SystemUserRole;
 import com.like.system.user.domain.SystemUserId;
 import com.like.system.user.domain.SystemUserMenuGroup;
 
@@ -32,14 +32,14 @@ public class SystemUserSaveAdapter implements SystemUserDbSavePort {
 
 	SystemUserRepository repository;
 	DeptJpaRepository deptRepository;	
-	AuthorityJpaRepository authorityRepository;
+	RoleJpaRepository authorityRepository;
 	MenuGroupJpaRepository menuRepository;
 	SystemUserAuthorityRepository systemUserAuthorityRepository;
 	SystemUserMenuGroupRepository systemUserMenuGroupRepository;
 	
 	SystemUserSaveAdapter(SystemUserRepository repository
 						 ,DeptJpaRepository deptRepository
-						 ,AuthorityJpaRepository authorityRepository
+						 ,RoleJpaRepository authorityRepository
 						 ,MenuGroupJpaRepository menuRepository
 						 ,SystemUserAuthorityRepository systemUserAuthorityRepository
 						 ,SystemUserMenuGroupRepository systemUserMenuGroupRepository) {
@@ -68,9 +68,9 @@ public class SystemUserSaveAdapter implements SystemUserDbSavePort {
 		saveMenuGroupList(dto);
 	}
 	
-	private List<JpaAuthority> getAuthorities(String organizationCode, List<String> authorities) {
+	private List<JpaRole> getAuthorities(String organizationCode, List<String> authorities) {
 		return authorityRepository.findAllById(authorities.stream()
-														  .map(r -> new JpaAuthorityId(organizationCode, r))
+														  .map(r -> new JpaRoleId(organizationCode, r))
 														  .toList());
 	}
 	
@@ -89,8 +89,8 @@ public class SystemUserSaveAdapter implements SystemUserDbSavePort {
 	
 	private void saveSystemUserAuhority(SystemUserSaveDTO dto) {
 		SystemUser user = repository.findById(new SystemUserId(dto.organizationCode(), dto.userId())).orElse(null);
-		List<JpaAuthority> authorityList = this.getAuthorities(dto.organizationCode(), dto.authorityList());		
-		this.systemUserAuthorityRepository.saveAll(authorityList.stream().map(r -> new SystemUserAuthority(user, r)).toList());
+		List<JpaRole> authorityList = this.getAuthorities(dto.organizationCode(), dto.authorityList());		
+		this.systemUserAuthorityRepository.saveAll(authorityList.stream().map(r -> new SystemUserRole(user, r)).toList());
 	}
 	
 }

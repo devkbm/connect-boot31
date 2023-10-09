@@ -9,12 +9,12 @@ import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
 
-import com.like.system.authority.domain.Authority;
 import com.like.system.dept.domain.Dept;
 import com.like.system.menu.domain.MenuGroup;
+import com.like.system.role.domain.Role;
 import com.like.system.user.domain.QSystemUser;
 import com.like.system.user.domain.SystemUser;
-import com.like.system.user.domain.SystemUserAuthority;
+import com.like.system.user.domain.SystemUserRole;
 import com.like.system.user.domain.vo.AccountSpec;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;

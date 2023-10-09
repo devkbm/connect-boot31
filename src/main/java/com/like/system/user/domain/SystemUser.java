@@ -20,9 +20,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.like.system.authority.adapter.out.persistence.jpa.entity.JpaAuthority;
 import com.like.system.core.jpa.domain.AbstractAuditEntity;
 import com.like.system.dept.domain.Dept;
+import com.like.system.role.adapter.out.persistence.jpa.entity.JpaRole;
 import com.like.system.user.domain.vo.AccountSpec;
 import com.like.system.user.domain.vo.SystemUserProfilePicture;
 import com.like.system.user.domain.vo.UserPassword;
@@ -87,7 +87,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	Set<Authority> authorities = new LinkedHashSet<>();
 	*/
 	@OneToMany(mappedBy = "systemUser")
-	Set<SystemUserAuthority> authorities = new LinkedHashSet<>();
+	Set<SystemUserRole> authorities = new LinkedHashSet<>();
 			
 	/*
 	@Setter
@@ -143,7 +143,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		return authorities; //.stream().map(r -> r.getAuthority()).toList();
 	}
 	
-	public Set<SystemUserAuthority> getAuthoritiesList() {
+	public Set<SystemUserRole> getAuthoritiesList() {
 		return this.authorities;		
 	}
 		
@@ -185,12 +185,12 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		return this.password.matchPassword(password);
 	}		
 		
-	public void addAuthoritiy(JpaAuthority authority) {
+	public void addAuthoritiy(JpaRole authority) {
 		if (this.authorities == null) {
 			this.authorities = new LinkedHashSet<>();
 		}
 		
-		this.authorities.add(new SystemUserAuthority(this, authority));
+		this.authorities.add(new SystemUserRole(this, authority));
 	}								
 	
 	public void changePassword(String password) {
