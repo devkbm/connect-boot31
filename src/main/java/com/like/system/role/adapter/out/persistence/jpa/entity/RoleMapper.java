@@ -10,16 +10,18 @@ public class RoleMapper {
 
 	public static JpaRole toJpaEntity(Role entity) {
 		return new JpaRole(entity.getOrganizationCode()
-							   ,entity.getAuthorityCode()
-							   ,entity.getDescription());
+						  ,entity.getRoleCode()
+						  ,entity.getDescription());
 	}
 	
-	public static Role toEntity(JpaRole entity) {
-		if (entity == null) return null; 
+	public static Role toEntity(JpaRole jpaEntity) {
+		if (jpaEntity == null) return null; 
 		
-		return new Role(entity.getOrganizationCode()
-							,entity.getRoleCode()
-							,entity.getDescription());			
+		return new Role(jpaEntity.getOrganizationCode()
+					   ,jpaEntity.getRoleCode()
+					   ,""
+					   ,jpaEntity.getDescription()
+					   ,null);			
 	}
 	
 	public static BooleanBuilder toPredicate(RoleQueryDTO dto) {

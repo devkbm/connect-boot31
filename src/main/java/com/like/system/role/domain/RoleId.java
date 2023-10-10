@@ -17,7 +17,7 @@ public class RoleId {
 		return organizationCode;
 	}
 
-	public String getAuthorityCode() {
+	public String getRoleCode() {
 		return roleCode;
 	}
 
