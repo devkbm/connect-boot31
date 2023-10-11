@@ -20,8 +20,7 @@ public class RoleMapper {
 		return new Role(jpaEntity.getOrganizationCode()
 					   ,jpaEntity.getRoleCode()
 					   ,""
-					   ,jpaEntity.getDescription()
-					   ,null);			
+					   ,jpaEntity.getDescription());			
 	}
 	
 	public static BooleanBuilder toPredicate(RoleQueryDTO dto) {

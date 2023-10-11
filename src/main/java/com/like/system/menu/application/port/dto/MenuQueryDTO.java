@@ -9,7 +9,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public record MenuQueryConditionDTO(
+public record MenuQueryDTO(
 		String organizationCode,
 		@NotEmpty(message = "필수 입력 값입니다.")
 		String menuGroupCode,

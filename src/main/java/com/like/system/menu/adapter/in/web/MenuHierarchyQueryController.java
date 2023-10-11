@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.menu.application.port.dto.ResponseMenuHierarchy;
+import com.like.system.menu.application.port.dto.MenuHierarchyResponseDTO;
 import com.like.system.menu.application.port.in.MenuHierarchySelectUseCase;
 
 
@@ -32,7 +32,7 @@ public class MenuHierarchyQueryController {
 		
 		log.info("organizationCode : "+ organizationCode);
 		log.info("menuGroupCode : "+ menuGroupCode);
-		List<ResponseMenuHierarchy> menuGroup = useCase.select(organizationCode, menuGroupCode); 										
+		List<MenuHierarchyResponseDTO> menuGroup = useCase.select(organizationCode, menuGroupCode); 										
 		
 		return toList(menuGroup, MessageUtil.getQueryMessage(menuGroup.size()));
 	}		

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.menu.application.port.dto.MenuQueryConditionDTO;
+import com.like.system.menu.application.port.dto.MenuQueryDTO;
 import com.like.system.menu.application.port.dto.MenuSaveDTO;
 import com.like.system.menu.application.port.in.MenuSelectUseCase;
 import com.like.system.menu.domain.MenuType;
@@ -41,7 +41,7 @@ public class MenuSelectController {
 	}
 	
 	@GetMapping("/api/system/menu")
-	public ResponseEntity<?> getMenuList(@Valid MenuQueryConditionDTO dto) {				
+	public ResponseEntity<?> getMenuList(@Valid MenuQueryDTO dto) {				
 		
 		List<MenuSaveDTO> dtoList = useCase.selectList(dto);																	
 		

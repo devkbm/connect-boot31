@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.menu.application.port.dto.ResponseMenuHierarchy;
-import com.like.system.menu.application.port.in.dto.QResponseMenuHierarchy;
+import com.like.system.menu.application.port.dto.MenuHierarchyResponseDTO;
+import com.like.system.menu.application.port.dto.QMenuHierarchyResponseDTO;
 import com.like.system.menu.application.port.out.MenuHierarchySelectDbPort;
 import com.like.system.menu.domain.QMenu;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -22,17 +22,17 @@ public class MenuHierarchyDbAdapter implements MenuHierarchySelectDbPort {
 	}
 	
 	@Override
-	public List<ResponseMenuHierarchy> select(String organizationCode, String menuGroupCode) {
+	public List<MenuHierarchyResponseDTO> select(String organizationCode, String menuGroupCode) {
 				
-		List<ResponseMenuHierarchy> rootList = this.getMenuRootList(organizationCode, menuGroupCode);
+		List<MenuHierarchyResponseDTO> rootList = this.getMenuRootList(organizationCode, menuGroupCode);
 		
 		return this.getMenuHierarchyDTO(organizationCode, rootList);
 	}
 	
-	private List<ResponseMenuHierarchy> getMenuRootList(String organizationCode, String menuGroupCode) {			
+	private List<MenuHierarchyResponseDTO> getMenuRootList(String organizationCode, String menuGroupCode) {			
 		
 		// menuGroupCode, organizationCode 반대로 동작 확인 필요
-		JPAQuery<ResponseMenuHierarchy> query = queryFactory
+		JPAQuery<MenuHierarchyResponseDTO> query = queryFactory
 				.select(projections(qMenu))
 				.from(qMenu)								
 				.where(qMenu.id.menuGroupId.organizationCode.eq(organizationCode)
@@ -44,10 +44,10 @@ public class MenuHierarchyDbAdapter implements MenuHierarchySelectDbPort {
 	}
 	
 	// TODO 계층 쿼리 테스트해보아야함 1 루트 노드 검색 : getMenuChildrenList 2. 하위노드 검색 : getMenuHierarchyDTO
-	private List<ResponseMenuHierarchy> getMenuHierarchyDTO(String organizationCode, List<ResponseMenuHierarchy> list) {
-		List<ResponseMenuHierarchy> children = null;
+	private List<MenuHierarchyResponseDTO> getMenuHierarchyDTO(String organizationCode, List<MenuHierarchyResponseDTO> list) {
+		List<MenuHierarchyResponseDTO> children = null;
 		
-		for ( ResponseMenuHierarchy dto : list ) {			
+		for ( MenuHierarchyResponseDTO dto : list ) {			
 			
 			children = getMenuChildrenList(organizationCode, dto.getMenuGroupCode(), dto.getKey());
 			
@@ -67,14 +67,14 @@ public class MenuHierarchyDbAdapter implements MenuHierarchySelectDbPort {
 		return list;
 	}
 	
-	private List<ResponseMenuHierarchy> getMenuChildrenList(String organizationCode, String menuGroupCode, String parentMenuCode) {					
+	private List<MenuHierarchyResponseDTO> getMenuChildrenList(String organizationCode, String menuGroupCode, String parentMenuCode) {					
 		/*
 		Expression<Boolean> isLeaf = new CaseBuilder()										
 											.when(qMenu.parent.menuCode.isNotNull()).then(true)
 											.otherwise(false).as("isLeaf");
 		*/
 		// menuGroupCode, organizationCode 반대로 동작 확인 필요
-		JPAQuery<ResponseMenuHierarchy> query = queryFactory			
+		JPAQuery<MenuHierarchyResponseDTO> query = queryFactory			
 				.select(projections(qMenu))
 				.from(qMenu)									
 				.where(qMenu.id.menuGroupId.organizationCode.eq(organizationCode)
@@ -85,20 +85,22 @@ public class MenuHierarchyDbAdapter implements MenuHierarchySelectDbPort {
 		return query.fetch();
 	}
 	
-	private QResponseMenuHierarchy projections(QMenu qMenu) {		
+	private QMenuHierarchyResponseDTO projections(QMenu qMenu) {		
 		
 		/*
-		 *  ResponseMenuHierarchy(String menuGroupCode, String key, String title, String parentMenuCode,
-			MenuType menuType, Long sequence, Long level, String url) {		
-		*/
-		return new QResponseMenuHierarchy(qMenu.menuGroup.id.menuGroupCode
-										 ,qMenu.id.menuCode
-										 ,qMenu.name
-										 ,qMenu.parentMenuCode
-										 ,qMenu.type
-										 ,qMenu.sequence
-										 ,qMenu.level
-										 ,qMenu.appUrl);
+		 *  
+		  	public MenuHierarchyResponseDTO(String key, String title, String menuGroupCode, String parentMenuCode,
+			MenuType menuType, Long sequence, Long level, String url) {			
+		 */
+		return new QMenuHierarchyResponseDTO(							
+				qMenu.id.menuCode,
+				qMenu.name,
+				qMenu.menuGroup.id.menuGroupCode,
+				qMenu.parentMenuCode,
+				qMenu.type,
+				qMenu.sequence,
+				qMenu.level,
+				qMenu.appUrl);
 	}
 
 }

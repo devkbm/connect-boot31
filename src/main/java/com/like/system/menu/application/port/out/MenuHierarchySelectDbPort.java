@@ -2,8 +2,8 @@ package com.like.system.menu.application.port.out;
 
 import java.util.List;
 
-import com.like.system.menu.application.port.dto.ResponseMenuHierarchy;
+import com.like.system.menu.application.port.dto.MenuHierarchyResponseDTO;
 
 public interface MenuHierarchySelectDbPort {
-	List<ResponseMenuHierarchy> select(String organizationCode, String menuGroupCode);
+	List<MenuHierarchyResponseDTO> select(String organizationCode, String menuGroupCode);
 }

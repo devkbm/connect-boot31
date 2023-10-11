@@ -8,7 +8,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record MenuGroupQueryConditionDTO(
+public record MenuGroupQueryDTO(
 		@NotBlank(message="조직 코드를 선택해주세요.")
 		String organizationCode,
 		String menuGroupId,

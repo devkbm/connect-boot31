@@ -12,7 +12,7 @@ public record RoleSaveDTO(
 		) {
 	
 	public Role newEntity() {
-		Role entity = new Role(this.organizationCode, this.roleCode, this.roleName, this.description, null);
+		Role entity = new Role(this.organizationCode, this.roleCode, this.roleName, this.description);
 		
 		//entity.setAppUrl(clientAppUrl);			
 		

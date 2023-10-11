@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.like.system.menu.application.port.dto.MenuGroupQueryConditionDTO;
+import com.like.system.menu.application.port.dto.MenuGroupQueryDTO;
 import com.like.system.menu.application.port.dto.MenuGroupSaveDTO;
 import com.like.system.menu.application.port.in.MenuGroupSelectUseCase;
 import com.like.system.menu.application.port.out.MenuGroupSelectDbPort;
@@ -24,7 +24,7 @@ public class MenuGroupSelectService implements MenuGroupSelectUseCase {
 	}
 
 	@Override
-	public List<MenuGroupSaveDTO> selectList(MenuGroupQueryConditionDTO dto) {
+	public List<MenuGroupSaveDTO> selectList(MenuGroupQueryDTO dto) {
 		return this.port.selectList(dto);
 	}
 
