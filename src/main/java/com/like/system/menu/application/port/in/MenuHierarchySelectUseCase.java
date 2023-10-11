@@ -2,7 +2,7 @@ package com.like.system.menu.application.port.in;
 
 import java.util.List;
 
-import com.like.system.menu.application.port.in.dto.ResponseMenuHierarchy;
+import com.like.system.menu.application.port.dto.ResponseMenuHierarchy;
 
 public interface MenuHierarchySelectUseCase {
 

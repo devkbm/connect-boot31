@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuGroupJpaRepository;
 import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuJpaRepository;
-import com.like.system.menu.application.port.in.dto.MenuQueryConditionDTO;
-import com.like.system.menu.application.port.in.dto.MenuSaveDTO;
+import com.like.system.menu.application.port.dto.MenuQueryConditionDTO;
+import com.like.system.menu.application.port.dto.MenuSaveDTO;
 import com.like.system.menu.application.port.out.MenuDeleteDbPort;
 import com.like.system.menu.application.port.out.MenuSaveDbPort;
 import com.like.system.menu.application.port.out.MenuSelectDbPort;

@@ -1,4 +1,4 @@
-package com.like.system.menu.application.port.in.dto;
+package com.like.system.menu.application.port.dto;
 
 import java.util.List;
 
