@@ -2,6 +2,14 @@ package com.like.system.menu.application.port.dto;
 
 import java.util.List;
 
+import com.querydsl.core.annotations.QueryProjection;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MenuRoleMappingHierarchyResponseDTO {
 
 	/* NzTreeNodeOptions */
@@ -18,11 +26,28 @@ public class MenuRoleMappingHierarchyResponseDTO {
 	List<MenuRoleMappingHierarchyResponseDTO> children;
 	/* NzTreeNodeOptions */
 	
-	public MenuRoleMappingHierarchyResponseDTO(String key, String title) {
+	String menuGroupCode;
+	
+	String menuCode;
+	
+	String roleCode;
+	
+	@QueryProjection
+	public MenuRoleMappingHierarchyResponseDTO(
+			String key, 
+			String title,
+			String menuGroupCode,
+			String menuCode,
+			String roleCode) {
 		this.key = key;
 		this.title = title;
 		this.expanded = false;
 		this.selected = false;
+		
+		this.menuGroupCode = menuGroupCode;
+		this.menuCode = menuCode;
+		this.roleCode = roleCode;
+				
 	}
 	
 	public void setChildren(List<MenuRoleMappingHierarchyResponseDTO> children) {

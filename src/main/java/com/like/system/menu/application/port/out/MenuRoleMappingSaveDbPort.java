@@ -1,10 +1,10 @@
-package com.like.system.menu.application.port.in;
+package com.like.system.menu.application.port.out;
 
 import java.util.List;
 
 import com.like.system.menu.application.port.dto.MenuRoleMappingSaveDTO;
 
-public interface MenuRoleMappingSaveUseCase {
+public interface MenuRoleMappingSaveDbPort {
 
 	void save(List<MenuRoleMappingSaveDTO> entityList);
 }
