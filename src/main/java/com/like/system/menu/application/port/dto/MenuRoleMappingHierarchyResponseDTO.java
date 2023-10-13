@@ -17,6 +17,8 @@ public class MenuRoleMappingHierarchyResponseDTO {
 	
 	String title;			
 					
+	boolean checked;
+	
 	boolean expanded;
 	
 	boolean selected;
@@ -36,11 +38,13 @@ public class MenuRoleMappingHierarchyResponseDTO {
 	public MenuRoleMappingHierarchyResponseDTO(
 			String key, 
 			String title,
+			boolean checked,
 			String menuGroupCode,
 			String menuCode,
 			String roleCode) {
 		this.key = key;
 		this.title = title;
+		this.checked = checked;
 		this.expanded = false;
 		this.selected = false;
 		
