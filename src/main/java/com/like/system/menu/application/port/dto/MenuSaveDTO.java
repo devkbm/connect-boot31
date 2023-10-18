@@ -28,9 +28,10 @@ public record MenuSaveDTO(
 		long sequence,
 		long level
 		) {
-	public Menu newMenu(MenuGroup menuGroup) {
+	public Menu newMenu(MenuGroup menuGroup, Menu parentMenu) {
 		Menu entity = Menu.builder()
 						  .menuGroup(menuGroup)
+						  .parent(parentMenu)
 						  .organizationCode(organizationCode)
 						  .menuCode(this.menuCode)
 						  .menuName(this.menuName)

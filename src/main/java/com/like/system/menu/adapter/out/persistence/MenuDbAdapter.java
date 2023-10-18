@@ -46,8 +46,8 @@ public class MenuDbAdapter implements MenuSelectDbPort, MenuSaveDbPort, MenuDele
 	@Override
 	public void save(MenuSaveDTO dto) {	
 		MenuGroup menuGroup = this.menuGroupRepository.findById(new MenuGroupId(dto.organizationCode(), dto.menuGroupCode())).orElse(null);
-		
-		this.repository.save(dto.newMenu(menuGroup));
+		Menu parent =  this.repository.findById(new MenuId(dto.organizationCode(), dto.menuGroupCode(), dto.parentMenuCode())).orElse(null);
+		this.repository.save(dto.newMenu(menuGroup, parent));
 	}
 
 	@Override
