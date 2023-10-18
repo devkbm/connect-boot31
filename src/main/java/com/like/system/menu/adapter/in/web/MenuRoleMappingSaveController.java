@@ -26,7 +26,7 @@ public class MenuRoleMappingSaveController {
 	
 	@PostMapping("/api/system/menurole")
 	public ResponseEntity<?> saveMenu(@RequestBody @Valid List<MenuRoleMappingSaveDTO> dto) throws Exception {												
-									
+						
 		useCase.save(dto);																			
 														 				
 		return toList(null, MessageUtil.getSaveMessage(1));

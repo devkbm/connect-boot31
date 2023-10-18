@@ -6,5 +6,5 @@ import com.like.system.menu.application.port.dto.MenuHierarchyResponseDTO;
 
 public interface MenuHierarchySelectUseCase {
 
-	List<MenuHierarchyResponseDTO> select(String organizationCode, String menuGroupCode);
+	List<MenuHierarchyResponseDTO> select(String organizationCode, String menuGroupCode);	
 }
