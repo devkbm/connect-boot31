@@ -14,21 +14,25 @@ public class MenuRoleMappingId implements Serializable {
 	
 	private static final long serialVersionUID = -128283423937776316L;
 
-	MenuId menuId;
+	@Column(name="ORG_CD")
+	String organizationCode;
+		
+	@Column(name="MENU_GROUP_CD")
+	String menuGroupCode;
+	
+	@Column(name="MENU_CD")
+	String menuCode;
 	
 	@Comment("메뉴코드")
 	@Column(name="ROLE_CD")
 	String roleCode;
 	
 	protected MenuRoleMappingId() {}
-
-	public MenuRoleMappingId(MenuId menuId, String roleCode) {	
-		this.menuId = menuId;
-		this.roleCode = roleCode;
-	}
 	
-	public MenuRoleMappingId(String organizationCode, String menuGroupCode, String menuCode, String roleCode) {	
-		this.menuId = new MenuId(organizationCode, menuGroupCode, menuCode);
+	public MenuRoleMappingId(String organizationCode, String menuGroupCode, String menuCode, String roleCode) {			
+		this.organizationCode = organizationCode;
+		this.menuGroupCode = menuGroupCode;
+		this.menuCode = menuCode;
 		this.roleCode = roleCode;
 	}
 }

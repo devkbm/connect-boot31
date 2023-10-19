@@ -31,7 +31,7 @@ public class MenuRoleMappingDbAdapter implements MenuRoleMappingSaveDbPort {
 	@Override
 	@Transactional
 	public void save(List<MenuRoleMappingSaveDTO> entityList) {
-		/*
+		
 		String orgnizationCode = entityList.get(0).organizationCode();
 		String menuGroupCode = entityList.get(0).menuGroupCode();
 		String roleCode = entityList.get(0).roleCode();
@@ -41,10 +41,11 @@ public class MenuRoleMappingDbAdapter implements MenuRoleMappingSaveDbPort {
 		log.info(roleCode);
 		
 		this.queryFactory.delete(qMenuRoleMapping)						 						 
-						 .where(qMenuRoleMapping.id.menuId.menuGroupId.eq(new MenuGroupId(orgnizationCode, menuGroupCode))							   
+						 .where(qMenuRoleMapping.id.organizationCode.eq(orgnizationCode)
+							   ,qMenuRoleMapping.id.menuGroupCode.eq(menuGroupCode) 
 							   ,qMenuRoleMapping.id.roleCode.eq(roleCode))												
 						 .execute();
-		*/
+		
 		
 		this.repository.saveAll(entityList.stream().map(e -> e.toEntity()).toList());		
 	}
