@@ -35,7 +35,7 @@ public class SystemUserMenuHierarchyDbAdapter implements SystemUserMenuHierarchy
 		JPAQuery<MenuHierarchyResponseDTO> query = queryFactory
 				.select(projections(qMenu))
 				.from(qMenu)
-				.leftJoin(qMenuRoleMapping)
+				.innerJoin(qMenuRoleMapping)
 					.on(qMenu.id.menuGroupId.organizationCode.eq(qMenuRoleMapping.id.organizationCode)
 					.and(qMenu.id.menuGroupId.menuGroupCode.eq(qMenuRoleMapping.id.menuGroupCode))
 					.and(qMenu.id.menuCode.eq(qMenuRoleMapping.id.menuCode))	
@@ -78,7 +78,7 @@ public class SystemUserMenuHierarchyDbAdapter implements SystemUserMenuHierarchy
 		JPAQuery<MenuHierarchyResponseDTO> query = queryFactory			
 				.select(projections(qMenu)).distinct()
 				.from(qMenu)
-				.leftJoin(qMenuRoleMapping)
+				.innerJoin(qMenuRoleMapping)
 					.on(qMenu.id.menuGroupId.organizationCode.eq(qMenuRoleMapping.id.organizationCode)
 					.and(qMenu.id.menuGroupId.menuGroupCode.eq(qMenuRoleMapping.id.menuGroupCode))
 					.and(qMenu.id.menuCode.eq(qMenuRoleMapping.id.menuCode))						
