@@ -1,5 +1,7 @@
 package com.like.system.menu.domain;
 
+import java.io.Serializable;
+
 import org.hibernate.annotations.Comment;
 
 import jakarta.persistence.Column;
@@ -8,7 +10,9 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Embeddable
-public class MenuRoleMappingId {
+public class MenuRoleMappingId implements Serializable {
+	
+	private static final long serialVersionUID = -128283423937776316L;
 
 	MenuId menuId;
 	
@@ -18,6 +22,11 @@ public class MenuRoleMappingId {
 	
 	protected MenuRoleMappingId() {}
 
+	public MenuRoleMappingId(MenuId menuId, String roleCode) {	
+		this.menuId = menuId;
+		this.roleCode = roleCode;
+	}
+	
 	public MenuRoleMappingId(String organizationCode, String menuGroupCode, String menuCode, String roleCode) {	
 		this.menuId = new MenuId(organizationCode, menuGroupCode, menuCode);
 		this.roleCode = roleCode;

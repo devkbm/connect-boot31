@@ -22,6 +22,11 @@ public class MenuId implements Serializable {
 	
 	protected MenuId() {}
 
+	public MenuId(MenuGroupId menuGroupId, String menuCode) {	
+		this.menuGroupId = menuGroupId;
+		this.menuCode = menuCode;
+	}
+	
 	public MenuId(String organizationCode, String menuGroupCode, String menuCode) {	
 		this.menuGroupId = new MenuGroupId(organizationCode, menuGroupCode);
 		this.menuCode = menuCode;
