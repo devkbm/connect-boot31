@@ -10,7 +10,9 @@ import com.like.system.menu.application.port.out.MenuRoleHierarchySelectDbPort;
 import com.like.system.menu.domain.QMenu;
 import com.like.system.menu.domain.QMenuRoleMapping;
 import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -117,13 +119,38 @@ public class MenuRoleHierarchyDbAdapter implements MenuRoleHierarchySelectDbPort
 			String menuCode,
 			String roleCode) {
 		 */
+		
+		QMenu qMenu2 = new QMenu("menu2");
+		QMenu qMenu3 = new QMenu("menu3");
+		QMenuRoleMapping qMenuRoleMapping3 = new QMenuRoleMapping("menurole");
+		
 		return new QMenuRoleMappingHierarchyResponseDTO(							
 				qMenu.id.menuCode,
 				qMenu.name,
 				checked,
 				qMenu.id.menuGroupId.menuGroupCode,
 				qMenu.id.menuCode,
-				roleCode);
+				roleCode,
+			    ExpressionUtils.as(
+			    		JPAExpressions.select(qMenu2.id.count())
+			    					  .from(qMenu2)
+			    					  .where(qMenu2.id.menuGroupId.organizationCode.eq(qMenu.id.menuGroupId.organizationCode)
+			    							,qMenu2.id.menuGroupId.menuGroupCode.eq(qMenu.id.menuGroupId.menuGroupCode)	 
+                                	        ,qMenu2.parentMenuCode.eq(qMenu.id.menuCode)),			    	
+                        "menuChildrenCount"),
+			    ExpressionUtils.as(
+			    		JPAExpressions.select(qMenuRoleMapping3.id.count())
+			    					  .from(qMenu3)
+			    					  .innerJoin(qMenuRoleMapping3)
+			    					  .on(qMenu3.id.menuGroupId.organizationCode.eq(qMenuRoleMapping3.id.organizationCode)
+			    						.and(qMenu3.id.menuGroupId.menuGroupCode.eq(qMenuRoleMapping3.id.menuGroupCode))
+			    						.and(qMenu3.id.menuCode.eq(qMenuRoleMapping3.id.menuCode))						
+			    						.and(qMenuRoleMapping3.id.roleCode.eq(qMenuRoleMapping3.id.roleCode)))
+			    					  .where(qMenu3.id.menuGroupId.organizationCode.eq(qMenu.id.menuGroupId.organizationCode)
+			    							,qMenu3.id.menuGroupId.menuGroupCode.eq(qMenu.id.menuGroupId.menuGroupCode)	 
+                                	        ,qMenu3.parentMenuCode.eq(qMenu.id.menuCode)),			    	
+                        "menuRoleChildrenCount")
+			     );
 	}
 
 }

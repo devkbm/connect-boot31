@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuRoleMappingJpaRepository;
 import com.like.system.menu.application.port.dto.MenuRoleMappingSaveDTO;
 import com.like.system.menu.application.port.out.MenuRoleMappingSaveDbPort;
-import com.like.system.menu.domain.MenuGroupId;
 import com.like.system.menu.domain.QMenuRoleMapping;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 

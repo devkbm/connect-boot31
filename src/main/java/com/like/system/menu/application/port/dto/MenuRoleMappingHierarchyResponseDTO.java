@@ -2,6 +2,7 @@ package com.like.system.menu.application.port.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.AccessLevel;
@@ -23,6 +24,7 @@ public class MenuRoleMappingHierarchyResponseDTO {
 	
 	boolean selected;
 	
+	@JsonProperty(value="isLeaf")
 	boolean isLeaf;
 	
 	List<MenuRoleMappingHierarchyResponseDTO> children;
@@ -34,6 +36,10 @@ public class MenuRoleMappingHierarchyResponseDTO {
 	
 	String roleCode;
 	
+	long menuChildrenCount;
+	
+	long menuRoleChildrenCount;
+	
 	@QueryProjection
 	public MenuRoleMappingHierarchyResponseDTO(
 			String key, 
@@ -41,7 +47,9 @@ public class MenuRoleMappingHierarchyResponseDTO {
 			boolean checked,
 			String menuGroupCode,
 			String menuCode,
-			String roleCode) {
+			String roleCode,
+			long menuChildrenCount,
+			long menuRoleChildrenCount) {
 		this.key = key;
 		this.title = title;
 		this.checked = checked;
@@ -51,7 +59,15 @@ public class MenuRoleMappingHierarchyResponseDTO {
 		this.menuGroupCode = menuGroupCode;
 		this.menuCode = menuCode;
 		this.roleCode = roleCode;
-				
+			
+		this.menuChildrenCount = menuChildrenCount;
+		this.menuRoleChildrenCount = menuRoleChildrenCount;
+		
+		
+		if (menuChildrenCount != menuRoleChildrenCount) {
+			this.checked = false;
+		}
+		
 	}
 	
 	public void setChildren(List<MenuRoleMappingHierarchyResponseDTO> children) {
