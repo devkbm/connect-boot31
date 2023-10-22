@@ -39,7 +39,7 @@ public class WorkCalendar extends AbstractAuditEntity {
 	@Column(name="ID")
 	Long id;
 	
-	@Column(name="NAME")
+	@Column(name="CALENDAR_NAME")
 	String name;
 	
 	@Column(name="COLOR")

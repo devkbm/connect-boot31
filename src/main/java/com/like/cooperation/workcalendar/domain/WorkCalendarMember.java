@@ -2,9 +2,6 @@ package com.like.cooperation.workcalendar.domain;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -23,22 +20,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @Entity
-//@IdClass(WorkCalendarMemberId.class)
 @Table(name = "GRWWORKCALENDARUSER")
 public class WorkCalendarMember extends AbstractAuditEntity {
-	/*
-	@JsonBackReference
-	@Id	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "WORKCALENDAR_ID")
-	WorkCalendar workCalendar;
 	
-	@JsonBackReference
-	@Id	
-	@ManyToOne
-	@JoinColumn(name="USER_ID")
-	SystemUser user;
-	*/
 	@EmbeddedId
 	WorkCalendarMemberId id;
 	
