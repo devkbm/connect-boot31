@@ -1,7 +1,7 @@
 package com.like.system.menu.application.port.out;
 
-import com.like.system.menu.application.port.dto.MenuSaveDTO;
+import com.like.system.menu.domain.Menu;
 
 public interface MenuSaveDbPort {
-	void save(MenuSaveDTO dto);
+	void save(Menu dto);
 }

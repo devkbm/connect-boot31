@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
+import com.like.system.dept.application.port.dto.DeptQueryDTO;
+import com.like.system.dept.application.port.dto.DeptSaveDTO;
 import com.like.system.dept.application.port.in.DeptSelectUseCase;
-import com.like.system.dept.application.port.in.dto.DeptQueryConditionDTO;
-import com.like.system.dept.application.port.in.dto.DeptSaveDTO;
 
 @RestController
 public class DeptSelectController {
@@ -35,7 +35,7 @@ public class DeptSelectController {
 	}		
 
 	@GetMapping("/api/system/dept")
-	public ResponseEntity<?> getDeptList(@ModelAttribute DeptQueryConditionDTO dto) {
+	public ResponseEntity<?> getDeptList(@ModelAttribute DeptQueryDTO dto) {
 							
 		List<DeptSaveDTO> list = useCase.select(dto);  						 						
 		

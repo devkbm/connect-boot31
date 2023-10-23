@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.user.application.port.dto.PasswordChangeRequestDTO;
 import com.like.system.user.application.port.in.SystemUserPasswordChangeUseCase;
-import com.like.system.user.application.port.in.dto.PasswordChangeRequestDTO;
 
 @RestController
 public class SystemUserPasswordChangeController {		

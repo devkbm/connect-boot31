@@ -2,8 +2,8 @@ package com.like.system.dept.application.service;
 
 import org.springframework.stereotype.Service;
 
+import com.like.system.dept.application.port.dto.DeptSaveDTO;
 import com.like.system.dept.application.port.in.DeptSaveUseCase;
-import com.like.system.dept.application.port.in.dto.DeptSaveDTO;
 import com.like.system.dept.application.port.out.DeptSavePort;
 import com.like.system.dept.application.port.out.DeptSelectPort;
 import com.like.system.dept.domain.Dept;

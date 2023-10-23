@@ -7,14 +7,14 @@ import com.like.system.role.adapter.out.persistence.jpa.entity.RoleMapper;
 import com.like.system.role.adapter.out.persistence.jpa.entity.JpaRole;
 import com.like.system.role.adapter.out.persistence.jpa.entity.JpaRoleId;
 import com.like.system.role.adapter.out.persistence.jpa.repository.RoleJpaRepository;
-import com.like.system.role.application.port.out.RoleDbDeletePort;
-import com.like.system.role.application.port.out.RoleDbSavePort;
-import com.like.system.role.application.port.out.RoleDbSelectPort;
+import com.like.system.role.application.port.out.RoleDeleteDbPort;
+import com.like.system.role.application.port.out.RoleSaveDbPort;
+import com.like.system.role.application.port.out.RoleSelectDbPort;
 import com.like.system.role.domain.Role;
 
 @Repository
 @Transactional
-public class RoleDbAdapter implements RoleDbSelectPort, RoleDbSavePort, RoleDbDeletePort {
+public class RoleDbAdapter implements RoleSelectDbPort, RoleSaveDbPort, RoleDeleteDbPort {
 
 	RoleJpaRepository jpaRepository;
 	
@@ -30,8 +30,8 @@ public class RoleDbAdapter implements RoleDbSelectPort, RoleDbSavePort, RoleDbDe
 	}
 
 	@Override
-	public void save(Role authority) {
-		this.jpaRepository.save(RoleMapper.toJpaEntity(authority));		
+	public void save(Role role) {
+		this.jpaRepository.save(RoleMapper.toJpaEntity(role));		
 	}
 	
 	@Override

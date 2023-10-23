@@ -27,7 +27,7 @@ public class SystemUserRoleId implements Serializable {
 		return userId;
 	}
 	
-	public String getAuthorityCode() {
+	public String getRoleCode() {
 		return roleCode;
 	}
 

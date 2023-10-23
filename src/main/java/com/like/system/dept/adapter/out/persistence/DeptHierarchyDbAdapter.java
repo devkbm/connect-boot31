@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.dept.adapter.out.persistence.jpa.repository.DeptJpaQueryRepository;
-import com.like.system.dept.application.port.in.dto.DeptQueryConditionDTO;
-import com.like.system.dept.application.port.in.dto.DeptHierarchyResponse;
+import com.like.system.dept.application.port.dto.DeptHierarchyResponse;
+import com.like.system.dept.application.port.dto.DeptQueryDTO;
 import com.like.system.dept.application.port.out.DeptHierarchySelectPort;
 
 @Repository
@@ -21,7 +21,7 @@ public class DeptHierarchyDbAdapter implements DeptHierarchySelectPort {
 	}
 
 	@Override
-	public List<DeptHierarchyResponse> select(DeptQueryConditionDTO dto) {
+	public List<DeptHierarchyResponse> select(DeptQueryDTO dto) {
 		return this.repository.getDeptHierarchy(dto.organizationCode());
 	}
 }

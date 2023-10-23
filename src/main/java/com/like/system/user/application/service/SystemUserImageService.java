@@ -4,11 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.like.system.file.application.port.in.FileServerDownloadUseCase;
-import com.like.system.file.application.port.in.WebServerDownloadUseCase;
 import com.like.system.user.application.port.in.SystemUserImageChangeUseCase;
 import com.like.system.user.application.port.in.SystemUserImageFileUseCase;
-import com.like.system.user.application.port.out.SystemUserDbSavePort;
-import com.like.system.user.application.port.out.SystemUserDbSelectPort;
+import com.like.system.user.application.port.out.SystemUserSaveDbPort;
+import com.like.system.user.application.port.out.SystemUserSelectDbPort;
 import com.like.system.user.domain.ProfilePictureRepository;
 import com.like.system.user.domain.SystemUser;
 
@@ -17,36 +16,26 @@ import jakarta.servlet.http.HttpServletResponse;
 @Service
 public class SystemUserImageService implements SystemUserImageFileUseCase, SystemUserImageChangeUseCase {
 
-	SystemUserDbSelectPort port;
-	SystemUserDbSavePort savePort;
+	SystemUserSelectDbPort port;
+	SystemUserSaveDbPort savePort;
 	ProfilePictureRepository profilePictureRepository;
-	FileServerDownloadUseCase fileService;
-	
-	
-	SystemUserImageService(SystemUserDbSelectPort port
-						  ,SystemUserDbSavePort savePort
+	FileServerDownloadUseCase fileDownLoadUseCase;
+		
+	SystemUserImageService(SystemUserSelectDbPort port
+						  ,SystemUserSaveDbPort savePort
 						  ,ProfilePictureRepository profilePictureRepository
-						  ,FileServerDownloadUseCase fileService) {
+						  ,FileServerDownloadUseCase fileDownLoadUseCase) {
 		this.port = port;
 		this.savePort = savePort;
 		this.profilePictureRepository = profilePictureRepository;
-		this.fileService = fileService;
+		this.fileDownLoadUseCase = fileDownLoadUseCase;
 	}
 	
 	@Override
 	public HttpServletResponse downloadImageFile(String organizationCode, String userId, HttpServletResponse response) throws Exception {
 		SystemUser user = this.port.select(organizationCode, userId);
-		/*
-		File file = fileService.getWebStaticFilePath(user.getImage()); 
-		
-		response = setDownloadResponseHeader(response, userId, file.length());
-		
-		fileService.downloadFile(file, response);
-		*/
-		
-		//fileService.downloadWebStaticPath(user.getImage(), userId, response);
-		
-		fileService.download(user.getImage(), response);
+				
+		fileDownLoadUseCase.download(user.getImage(), response);
 		
 		return response;
 	}
@@ -62,30 +51,6 @@ public class SystemUserImageService implements SystemUserImageFileUseCase, Syste
 		this.savePort.save(user);
 		
 		return path;
-	}
-	
-	private HttpServletResponse setDownloadResponseHeader(HttpServletResponse response, String fileName, long fileSize) throws Exception {
-		
-		// get MIME type of the file
-		String mimeType= null;
-		if (mimeType == null) {
-			// set to binary type if MIME mapping not found
-			mimeType = "application/octet-stream";	         
-		}
-		
-		// set content attributes for the response
-		response.setContentType(mimeType);
-		response.setContentLengthLong(fileSize);
-		response.setCharacterEncoding("UTF-8");
-		
-		// set headers for the response
-		String headerKey = "Content-Disposition";
-		String headerValue = String.format("attachment;filename=\"%s\"", new String(fileName.getBytes("UTF-8"), "8859_1"));
-		
-		response.setHeader(headerKey, headerValue);
-		response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");	
-		
-		return response;
-	}
+	}	
 
 }

@@ -3,12 +3,10 @@ package com.like.system.login.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.like.system.core.dto.HtmlSelectOptionRecord;
-import com.like.system.core.web.util.WebRequestUtil;
+import com.like.system.menu.application.port.dto.MenuGroupSaveDTO;
 import com.like.system.user.domain.SystemUser;
 
 import lombok.Builder;
@@ -28,7 +26,7 @@ public class AuthenticationToken implements Serializable {
 	private String ipAddress;
 	private String sessionId;
 	private String oAuthAccessToken;
-	private List<String> authorityList;
+	private List<String> roleList;
     private List<HtmlSelectOptionRecord> menuGroupList;
     
        
@@ -42,7 +40,7 @@ public class AuthenticationToken implements Serializable {
     						  ,String ipAddress
     						  ,String sessionId
     						  ,String oAuthAccessToken
-    						  ,List<String> authorityList
+    						  ,List<String> roleList
     						  ,List<HtmlSelectOptionRecord> menuGroupList) {
     	
     	this.organizationCode = organizationCode;
@@ -54,11 +52,11 @@ public class AuthenticationToken implements Serializable {
     	this.ipAddress = ipAddress;
         this.sessionId = sessionId;
         this.oAuthAccessToken = oAuthAccessToken;
-        this.authorityList = authorityList;
+        this.roleList = roleList;
         this.menuGroupList = menuGroupList;        
     }     
     
-    public static AuthenticationToken of(SystemUser user, String ipAddress, String sessionId) {    	
+    public static AuthenticationToken of(SystemUser user, List<MenuGroupSaveDTO> menuGroupList, String ipAddress, String sessionId) {    	
     	    	
     	return AuthenticationToken
 				.builder()
@@ -70,8 +68,9 @@ public class AuthenticationToken implements Serializable {
 				.imageUrl(user.getImage())
 				.ipAddress(ipAddress)
 				.sessionId(sessionId)
-				.authorityList(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
-				.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlSelectOptionRecord(e.getMenuGroupCode(), e.getMenuGroupCode())).toList())
+				.roleList(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
+				//.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlSelectOptionRecord(e.getMenuGroupCode(), e.getMenuGroupCode())).toList())
+				.menuGroupList(menuGroupList.stream().map(e -> new HtmlSelectOptionRecord(e.menuGroupName(), e.menuGroupCode())).toList())				
 				.build();
     }
        

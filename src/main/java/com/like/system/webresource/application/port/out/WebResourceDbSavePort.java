@@ -1,7 +1,7 @@
 package com.like.system.webresource.application.port.out;
 
-import com.like.system.webresource.application.port.in.dto.WebResourceSaveDTO;
+import com.like.system.webresource.domain.WebResource;
 
 public interface WebResourceDbSavePort {
-	void save(WebResourceSaveDTO dto);
+	void save(WebResource entity);
 }

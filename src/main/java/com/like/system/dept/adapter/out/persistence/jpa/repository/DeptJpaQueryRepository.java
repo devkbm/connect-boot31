@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.dept.application.port.in.dto.DeptHierarchyResponse;
-import com.like.system.dept.application.port.in.dto.QDeptHierarchyResponse;
+import com.like.system.dept.application.port.dto.DeptHierarchyResponse;
+import com.like.system.dept.application.port.dto.QDeptHierarchyResponse;
 import com.like.system.dept.domain.QDept;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 

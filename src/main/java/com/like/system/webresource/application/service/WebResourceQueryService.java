@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.like.system.webresource.application.port.dto.WebResourceQueryDTO;
+import com.like.system.webresource.application.port.dto.WebResourceSaveDTO;
 import com.like.system.webresource.application.port.in.WebResourceQueryUseCase;
-import com.like.system.webresource.application.port.in.dto.WebResourceQueryConditionDTO;
-import com.like.system.webresource.application.port.in.dto.WebResourceSaveDTO;
 import com.like.system.webresource.application.port.out.WebResourceQueryDbPort;
 
 @Service
@@ -19,7 +19,10 @@ public class WebResourceQueryService implements WebResourceQueryUseCase {
 	}	
 
 	@Override
-	public List<WebResourceSaveDTO> getResourceList(WebResourceQueryConditionDTO dto) {	
-		return this.port.getResourceList(dto);
+	public List<WebResourceSaveDTO> getResourceList(WebResourceQueryDTO dto) {	
+		return this.port.getResourceList(dto)
+						.stream()
+						.map(e -> WebResourceSaveDTO.toDTO(e))
+						.toList();
 	}
 }

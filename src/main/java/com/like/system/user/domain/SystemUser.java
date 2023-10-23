@@ -75,31 +75,9 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		@JoinColumn(name = "DEPT_CD", referencedColumnName = "DEPT_CD", insertable=false, updatable=false, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
 	})	
 	Dept dept;
-		
-	/*
-	@Setter	
-	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name="COMUSERAUTHORITY",
-    		joinColumns= {@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
-					      @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID") },
-    		inverseJoinColumns={@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
-    							@JoinColumn(name="AUTH_CD", referencedColumnName = "AUTH_CD")})    
-	Set<Authority> authorities = new LinkedHashSet<>();
-	*/
-	@OneToMany(mappedBy = "systemUser")
-	Set<SystemUserRole> authorities = new LinkedHashSet<>();
 			
-	/*
-	@Setter
-	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name="COMUSERMENUGROUP",
-    		joinColumns= {@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD"),
-    					  @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID")},
-    		inverseJoinColumns={@JoinColumn(name="ORG_CD", referencedColumnName = "ORG_CD", insertable = false, updatable = false),
-					  			@JoinColumn(name="MENU_GROUP_CD", referencedColumnName = "MENU_GROUP_CD")})
-	 */
 	@OneToMany(mappedBy = "systemUser")
-	Set<SystemUserMenuGroup> menuGroupList = new LinkedHashSet<>();		
+	Set<SystemUserRole> roles = new LinkedHashSet<>();				
 		
 	@Builder
 	public SystemUser(String organizationCode
@@ -140,12 +118,8 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	
 	@Override	
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities; //.stream().map(r -> r.getAuthority()).toList();
-	}
-	
-	public Set<SystemUserRole> getAuthoritiesList() {
-		return this.authorities;		
-	}
+		return roles; //.stream().map(r -> r.getAuthority()).toList();
+	}	
 		
 	@Override	
 	public String getUsername() {		
@@ -181,16 +155,20 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		//return accountSpec.getIsEnabled();
 	}			
 	
+	public Set<SystemUserRole> getRoleList() {
+		return this.roles;		
+	}
+	
 	public boolean isVaild(String password) {
 		return this.password.matchPassword(password);
 	}		
 		
 	public void addAuthoritiy(JpaRole authority) {
-		if (this.authorities == null) {
-			this.authorities = new LinkedHashSet<>();
+		if (this.roles == null) {
+			this.roles = new LinkedHashSet<>();
 		}
 		
-		this.authorities.add(new SystemUserRole(this, authority));
+		this.roles.add(new SystemUserRole(this, authority));
 	}								
 	
 	public void changePassword(String password) {

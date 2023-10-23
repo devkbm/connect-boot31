@@ -1,8 +1,8 @@
 package com.like.system.webresource.application.port.out;
 
-import com.like.system.webresource.application.port.in.dto.WebResourceSaveDTO;
+import com.like.system.webresource.domain.WebResource;
 
 public interface WebResourceDbSelectPort {
 
-	WebResourceSaveDTO select(String webResourceId);
+	WebResource select(String id);
 }

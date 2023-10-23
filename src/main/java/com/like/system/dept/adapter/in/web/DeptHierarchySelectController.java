@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.dept.application.port.dto.DeptHierarchyResponse;
+import com.like.system.dept.application.port.dto.DeptQueryDTO;
 import com.like.system.dept.application.port.in.DeptHierarchySelectUseCase;
-import com.like.system.dept.application.port.in.dto.DeptQueryConditionDTO;
-import com.like.system.dept.application.port.in.dto.DeptHierarchyResponse;
 
 
 @RestController
@@ -26,7 +26,7 @@ public class DeptHierarchySelectController {
 	}
 	
 	@GetMapping("/api/system/depttree")
-	public ResponseEntity<?> getDeptHierarchyList(@ModelAttribute @Valid DeptQueryConditionDTO dto) {
+	public ResponseEntity<?> getDeptHierarchyList(@ModelAttribute @Valid DeptQueryDTO dto) {
 							
 		List<DeptHierarchyResponse> list = useCase.select(dto);  						 						
 		

@@ -3,10 +3,10 @@ package com.like.system.menu.application.port.out;
 import java.util.List;
 
 import com.like.system.menu.application.port.dto.MenuGroupQueryDTO;
-import com.like.system.menu.application.port.dto.MenuGroupSaveDTO;
+import com.like.system.menu.domain.MenuGroup;
 
 public interface MenuGroupSelectDbPort {
-	MenuGroupSaveDTO select(String organizationCode, String menuGroupCode);
+	MenuGroup select(String organizationCode, String menuGroupCode);
 	
-	List<MenuGroupSaveDTO> selectList(MenuGroupQueryDTO dto);
+	List<MenuGroup> selectList(MenuGroupQueryDTO dto);
 }

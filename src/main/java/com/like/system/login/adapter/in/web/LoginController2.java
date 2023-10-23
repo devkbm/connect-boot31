@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.like.system.login.application.port.in.LoginRequestDTO;
 import com.like.system.login.application.port.in.LoginUseCase;
-import com.like.system.login.application.port.in.dto.LoginRequestDTO;
-
 import com.like.system.login.domain.AuthenticationToken;
 
 @RestController

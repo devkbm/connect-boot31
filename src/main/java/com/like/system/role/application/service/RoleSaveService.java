@@ -4,17 +4,17 @@ import org.springframework.stereotype.Service;
 
 import com.like.system.role.application.port.dto.RoleSaveDTO;
 import com.like.system.role.application.port.in.RoleSaveUseCase;
-import com.like.system.role.application.port.out.RoleDbSavePort;
-import com.like.system.role.application.port.out.RoleDbSelectPort;
+import com.like.system.role.application.port.out.RoleSaveDbPort;
+import com.like.system.role.application.port.out.RoleSelectDbPort;
 import com.like.system.role.domain.Role;
 
 @Service
 public class RoleSaveService implements RoleSaveUseCase {
 
-	RoleDbSelectPort selectPort;
-	RoleDbSavePort savePort;
+	RoleSelectDbPort selectPort;
+	RoleSaveDbPort savePort;
 	
-	public RoleSaveService(RoleDbSelectPort selectPort, RoleDbSavePort savePort) {
+	public RoleSaveService(RoleSelectDbPort selectPort, RoleSaveDbPort savePort) {
 		this.selectPort = selectPort;
 		this.savePort = savePort;
 	}

@@ -6,8 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.dept.adapter.out.persistence.jpa.repository.DeptJpaRepository;
-import com.like.system.dept.application.port.in.dto.DeptQueryConditionDTO;
-import com.like.system.dept.application.port.in.dto.DeptSaveDTO;
+import com.like.system.dept.application.port.dto.DeptQueryDTO;
 import com.like.system.dept.application.port.out.DeptDeletePort;
 import com.like.system.dept.application.port.out.DeptSavePort;
 import com.like.system.dept.application.port.out.DeptSelectPort;
@@ -30,17 +29,8 @@ public class DeptDbAdapter implements DeptSelectPort, DeptSavePort, DeptDeletePo
 	}
 
 	@Override
-	public DeptSaveDTO selectDTO(String organizationCode, String deptCode) {
-		Dept entity = this.repository.findById(new DeptId(organizationCode, deptCode)).orElse(null);
-		return DeptSaveDTO.toDTO(entity);
-	}
-
-	@Override
-	public List<DeptSaveDTO> select(DeptQueryConditionDTO dto) {
-		return this.repository.findAll(dto.getCondition())
-							  .stream()
-							  .map(e -> DeptSaveDTO.toDTO(e))
-							  .toList();
+	public List<Dept> select(DeptQueryDTO dto) {
+		return this.repository.findAll(dto.getCondition());
 	}
 	
 	@Override

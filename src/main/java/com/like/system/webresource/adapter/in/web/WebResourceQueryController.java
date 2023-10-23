@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.dto.HtmlSelectOptionRecord;
+import com.like.system.webresource.application.port.dto.WebResourceQueryDTO;
+import com.like.system.webresource.application.port.dto.WebResourceSaveDTO;
 import com.like.system.webresource.application.port.in.WebResourceQueryUseCase;
-import com.like.system.webresource.application.port.in.dto.WebResourceQueryConditionDTO;
-import com.like.system.webresource.application.port.in.dto.WebResourceSaveDTO;
 import com.like.system.webresource.domain.WebResourceType;
 
 @RestController
@@ -25,7 +25,7 @@ public class WebResourceQueryController {
 	}
 	
 	@GetMapping("/api/system/webresource")
-	public ResponseEntity<?> getWebResourceList(WebResourceQueryConditionDTO condition) {
+	public ResponseEntity<?> getWebResourceList(WebResourceQueryDTO condition) {
 										
 		List<WebResourceSaveDTO> dtoList = useCase.getResourceList(condition);
 		

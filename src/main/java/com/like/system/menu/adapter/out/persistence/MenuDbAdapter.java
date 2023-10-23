@@ -7,13 +7,10 @@ import org.springframework.stereotype.Repository;
 import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuGroupJpaRepository;
 import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuJpaRepository;
 import com.like.system.menu.application.port.dto.MenuQueryDTO;
-import com.like.system.menu.application.port.dto.MenuSaveDTO;
 import com.like.system.menu.application.port.out.MenuDeleteDbPort;
 import com.like.system.menu.application.port.out.MenuSaveDbPort;
 import com.like.system.menu.application.port.out.MenuSelectDbPort;
 import com.like.system.menu.domain.Menu;
-import com.like.system.menu.domain.MenuGroup;
-import com.like.system.menu.domain.MenuGroupId;
 import com.like.system.menu.domain.MenuId;
 
 @Repository
@@ -28,26 +25,20 @@ public class MenuDbAdapter implements MenuSelectDbPort, MenuSaveDbPort, MenuDele
 	}
 
 	@Override
-	public MenuSaveDTO select(String organizationCode, String menuGroupCode, String menuCode) {
-		Menu entity = this.repository.findById(new MenuId(organizationCode, menuGroupCode, menuCode)).orElse(null); 
+	public Menu select(String organizationCode, String menuGroupCode, String menuCode) {		
 						
-		return MenuSaveDTO.toDTO(entity);
+		return this.repository.findById(new MenuId(organizationCode, menuGroupCode, menuCode)).orElse(null);
 	}
 
 	@Override
-	public List<MenuSaveDTO> selectList(MenuQueryDTO dto) {
+	public List<Menu> selectList(MenuQueryDTO dto) {
 		
-		return this.repository.findAll(dto.getBooleanBuilder())
-							  .stream()
-							  .map(e -> MenuSaveDTO.toDTO(e))
-							  .toList();							  
+		return this.repository.findAll(dto.getBooleanBuilder());							  
 	}
 	
 	@Override
-	public void save(MenuSaveDTO dto) {	
-		MenuGroup menuGroup = this.menuGroupRepository.findById(new MenuGroupId(dto.organizationCode(), dto.menuGroupCode())).orElse(null);
-		Menu parent =  this.repository.findById(new MenuId(dto.organizationCode(), dto.menuGroupCode(), dto.parentMenuCode())).orElse(null);
-		this.repository.save(dto.newMenu(menuGroup, parent));
+	public void save(Menu entity) {		
+		this.repository.save(entity);
 	}
 
 	@Override

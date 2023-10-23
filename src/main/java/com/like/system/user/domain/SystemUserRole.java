@@ -35,15 +35,7 @@ public class SystemUserRole extends AbstractAuditEntity implements GrantedAuthor
 		@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
 	})
 	SystemUser systemUser;
-	
-	/*
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name = "ORG_CD", referencedColumnName = "ORG_CD"),
-		@JoinColumn(name = "AUTH_CD", referencedColumnName = "AUTH_CD")
-	})
-	Authority authority;
-	*/
+		
 	public SystemUserRole(SystemUser systemUser, JpaRole authority) {
 		
 		this.id = new SystemUserRoleId(systemUser.getId().getOrganizationCode()
@@ -51,6 +43,11 @@ public class SystemUserRole extends AbstractAuditEntity implements GrantedAuthor
 										   ,authority.getRoleCode());
 		this.systemUser = systemUser;
 		//this.authority = authority;		
+	}
+	
+	@Override
+	public String getAuthority() {
+		return this.id.getRoleCode();
 	}
 
 	public String getOrganizationCode() {
@@ -61,13 +58,8 @@ public class SystemUserRole extends AbstractAuditEntity implements GrantedAuthor
 		return this.id.getUserId().getUserId();
 	}
 
-	public String getAuthorityCode() {
-		return this.id.getAuthorityCode();
-	}
-
-	@Override
-	public String getAuthority() {
-		return this.id.getAuthorityCode();
+	public String getRoleCode() {
+		return this.id.getRoleCode();
 	}
 	
 }

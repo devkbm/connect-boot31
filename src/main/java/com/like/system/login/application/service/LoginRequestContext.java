@@ -1,6 +1,6 @@
 package com.like.system.login.application.service;
 
-import com.like.system.login.application.port.in.dto.LoginRequestDTO;
+import com.like.system.login.application.port.in.LoginRequestDTO;
 
 public class LoginRequestContext {
 

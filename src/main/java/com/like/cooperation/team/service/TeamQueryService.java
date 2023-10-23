@@ -9,7 +9,7 @@ import com.like.cooperation.team.boundary.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamMember;
 import com.like.cooperation.team.domain.TeamQueryRepository;
-import com.like.system.user.application.port.in.dto.SystemUserDTO;
+import com.like.system.user.application.port.dto.SystemUserQueryDTO;
 import com.like.system.user.application.service.SystemUserQueryService;
 import com.like.system.user.domain.SystemUser;
 
@@ -44,7 +44,7 @@ public class TeamQueryService {
 	 * @param searchCondition 조회 조건
 	 * @return User 
 	 */
-	public List<SystemUser> getAllMember(SystemUserDTO.Search searchCondition) {
+	public List<SystemUser> getAllMember(SystemUserQueryDTO searchCondition) {
 		return userQueryService.getUserList(searchCondition);
 	}	
 	

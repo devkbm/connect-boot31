@@ -15,7 +15,7 @@ import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamMember;
 import com.like.cooperation.team.service.TeamQueryService;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.user.application.port.in.dto.SystemUserDTO;
+import com.like.system.user.application.port.dto.SystemUserQueryDTO;
 import com.like.system.user.domain.SystemUser;
 
 @RestController
@@ -44,7 +44,7 @@ public class TeamQueryController {
 	}
 	
 	@GetMapping("/api/grw/team/allmember")
-	public ResponseEntity<?> getAllMemberList(SystemUserDTO.Search condition) {
+	public ResponseEntity<?> getAllMemberList(SystemUserQueryDTO condition) {
 				
 		List<SystemUser> list = service.getAllMember(condition);						 				
 		

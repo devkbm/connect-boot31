@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.like.system.menu.adapter.out.persistence.jpa.repository.MenuGroupJpaRepository;
 import com.like.system.menu.application.port.dto.MenuGroupQueryDTO;
-import com.like.system.menu.application.port.dto.MenuGroupSaveDTO;
 import com.like.system.menu.application.port.out.MenuGroupDeleteDbPort;
 import com.like.system.menu.application.port.out.MenuGroupSaveDbPort;
 import com.like.system.menu.application.port.out.MenuGroupSelectDbPort;
@@ -23,24 +22,19 @@ public class MenuGroupDbAdapter implements MenuGroupSelectDbPort, MenuGroupSaveD
 	}
 
 	@Override
-	public MenuGroupSaveDTO select(String organizationCode, String menuGroupCode) {
-		MenuGroup entity = this.repository.findById(new MenuGroupId(organizationCode, menuGroupCode)).orElse(null);
-				
-		return MenuGroupSaveDTO.toDTO(entity); 
+	public MenuGroup select(String organizationCode, String menuGroupCode) {		
+		
+		return this.repository.findById(new MenuGroupId(organizationCode, menuGroupCode)).orElse(null); 
 	}
 
 	@Override
-	public List<MenuGroupSaveDTO> selectList(MenuGroupQueryDTO dto) {
-		
-		return this.repository.findAll(dto.getBooleanBuilder())
-							  .stream()
-							  .map(e -> MenuGroupSaveDTO.toDTO(e))
-							  .toList();
+	public List<MenuGroup> selectList(MenuGroupQueryDTO dto) {		
+		return this.repository.findAll(dto.getBooleanBuilder());
 	}
 	
 	@Override
-	public void save(MenuGroupSaveDTO dto) {
-		this.repository.save(dto.newMenuGroup());		
+	public void save(MenuGroup entity) {
+		this.repository.save(entity);		
 	}
 
 	@Override

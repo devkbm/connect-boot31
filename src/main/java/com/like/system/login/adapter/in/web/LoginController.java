@@ -4,17 +4,13 @@ import java.util.Date;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.util.SessionUtil;
-import com.like.system.login.application.port.in.dto.LoginRequestDTO;
 import com.like.system.login.application.service.LoginService;
 import com.like.system.login.domain.AuthenticationToken;
 

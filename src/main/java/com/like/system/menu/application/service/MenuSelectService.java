@@ -20,12 +20,15 @@ public class MenuSelectService implements MenuSelectUseCase {
 	
 	@Override
 	public MenuSaveDTO select(String organizationCode, String menuGroupCode, String menuCode) {
-		return this.port.select(organizationCode, menuGroupCode, menuCode);
+		return MenuSaveDTO.toDTO(this.port.select(organizationCode, menuGroupCode, menuCode));
 	}
 
 	@Override
 	public List<MenuSaveDTO> selectList(MenuQueryDTO dto) {
-		return this.port.selectList(dto);
+		return this.port.selectList(dto)
+						.stream()
+						.map(e -> MenuSaveDTO.toDTO(e))
+						.toList();
 	}
 
 }

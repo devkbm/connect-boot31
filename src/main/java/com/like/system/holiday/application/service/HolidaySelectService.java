@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
 
+import com.like.system.holiday.application.port.dto.HolidaySaveDTO;
 import com.like.system.holiday.application.port.in.HolidaySelectUseCase;
-import com.like.system.holiday.application.port.in.dto.HolidaySaveDTO;
 import com.like.system.holiday.application.port.out.HolidaySelectPort;
 
 @Service
@@ -19,7 +19,7 @@ public class HolidaySelectService implements HolidaySelectUseCase {
 	
 	@Override
 	public HolidaySaveDTO select(String organizationCode, LocalDate date) {		
-		return this.port.select(organizationCode, date);
+		return HolidaySaveDTO.toDTO(this.port.select(organizationCode, date));
 	}
 	
 }

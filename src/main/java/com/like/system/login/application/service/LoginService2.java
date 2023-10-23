@@ -1,12 +1,16 @@
 package com.like.system.login.application.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.like.system.login.application.port.in.LoginRequestDTO;
 import com.like.system.login.application.port.in.LoginUseCase;
-import com.like.system.login.application.port.in.dto.LoginRequestDTO;
 import com.like.system.login.application.port.out.AuthenticationTokenSavePort;
-import com.like.system.login.application.port.out.SystemUserSelectPort;
+import com.like.system.login.application.port.out.SystemUserSelectDbPort;
 import com.like.system.login.domain.AuthenticationToken;
+import com.like.system.menu.application.port.in.SystemUserMenuGroupSelectUseCase;
+import com.like.system.menu.application.port.dto.MenuGroupSaveDTO;
 import com.like.system.user.domain.SystemUser;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,12 +18,15 @@ import jakarta.servlet.http.HttpServletRequest;
 @Service
 public class LoginService2 implements LoginUseCase {
 
-	SystemUserSelectPort userPort;
+	SystemUserSelectDbPort userPort;
+	SystemUserMenuGroupSelectUseCase menuGroupSelectUseCase;
 	AuthenticationTokenSavePort	tokenPort;
-	
-	public LoginService2(SystemUserSelectPort userPort
+		
+	public LoginService2(SystemUserSelectDbPort userPort
+						,SystemUserMenuGroupSelectUseCase menuGroupSelectUseCase
 						,AuthenticationTokenSavePort tokenPort) {
 		this.userPort = userPort;
+		this.menuGroupSelectUseCase = menuGroupSelectUseCase;
 		this.tokenPort = tokenPort;
 	}
 	@Override
@@ -32,8 +39,8 @@ public class LoginService2 implements LoginUseCase {
 		LoginRequestContext.setLoginRequest(new LoginRequestDTO(organizationCode, staffNo, password));
 		
 		SystemUser systemUser = userPort.select(organizationCode, staffNo);
-		
-		AuthenticationToken token = tokenPort.SaveAuthenticationToken(dto, systemUser, request);
+		List<MenuGroupSaveDTO> menuGroupList = menuGroupSelectUseCase.select(organizationCode, staffNo);
+		AuthenticationToken token = tokenPort.SaveAuthenticationToken(dto, systemUser, menuGroupList, request);
 		
 		// 로그인 요청정보 THREAD_LOCAL에서 제거
 		LoginRequestContext.remove();

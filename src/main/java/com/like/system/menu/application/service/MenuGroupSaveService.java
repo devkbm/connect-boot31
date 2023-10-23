@@ -17,7 +17,7 @@ public class MenuGroupSaveService implements MenuGroupSaveUseCase {
 	
 	@Override
 	public void save(MenuGroupSaveDTO dto) {
-		this.port.save(dto);		
+		this.port.save(dto.newMenuGroup());		
 	}
 
 }

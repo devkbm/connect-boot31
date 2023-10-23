@@ -3,14 +3,14 @@ package com.like.system.role.application.service;
 import org.springframework.stereotype.Service;
 
 import com.like.system.role.application.port.in.RoleDeleteUseCase;
-import com.like.system.role.application.port.out.RoleDbDeletePort;
+import com.like.system.role.application.port.out.RoleDeleteDbPort;
 
 @Service
 public class RoleDeleteService implements RoleDeleteUseCase {
 
-	RoleDbDeletePort port;
+	RoleDeleteDbPort port;
 
-	public RoleDeleteService(RoleDbDeletePort port) {
+	public RoleDeleteService(RoleDeleteDbPort port) {
 		this.port = port;
 	}
 	

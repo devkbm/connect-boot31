@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.like.system.holiday.adapter.out.persistence.jpa.repository.HolidayJpaRepository;
-import com.like.system.holiday.application.port.in.dto.HolidaySaveDTO;
 import com.like.system.holiday.application.port.out.HolidayDeletePort;
 import com.like.system.holiday.application.port.out.HolidaySavePort;
 import com.like.system.holiday.application.port.out.HolidaySelectPort;
@@ -25,14 +24,12 @@ public class HolidayAdapter implements HolidaySelectPort, HolidaySavePort, Holid
 	}
 	
 	@Override
-	public HolidaySaveDTO select(String organizationCode, LocalDate date) {
-		Holiday entity = this.repository.findById(new HolidayId(organizationCode, date)).orElse(null);
-		return HolidaySaveDTO.toDTO(entity);
+	public Holiday select(String organizationCode, LocalDate date) {		
+		return this.repository.findById(new HolidayId(organizationCode, date)).orElse(null);
 	}
 
 	@Override
-	public void save(HolidaySaveDTO dto) {
-		Holiday entity = dto.newEntity();
+	public void save(Holiday entity) {		
 		
 		this.repository.save(entity);
 	}

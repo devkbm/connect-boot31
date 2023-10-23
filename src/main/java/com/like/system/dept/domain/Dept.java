@@ -1,7 +1,5 @@
 package com.like.system.dept.domain;
 
-import java.io.Serializable;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
@@ -35,21 +33,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "comdept")
 @EntityListeners(AuditingEntityListener.class)
-public class Dept extends AbstractAuditEntity implements Serializable {
-
-	private static final long serialVersionUID = -969524977226888898L;
-
-	/*
-	@Id
-	@Column(name = "DEPT_ID", nullable = false)
-	String deptId;
-	
-	@Column(name = "ORG_CD", nullable = false)
-	String organizationCode;
-	
-	@Column(name = "DEPT_CD", nullable = false)
-	String deptCode;
-	*/
+public class Dept extends AbstractAuditEntity {
 	
 	@EmbeddedId
 	DeptId id;
@@ -79,8 +63,7 @@ public class Dept extends AbstractAuditEntity implements Serializable {
 	@Column(name = "P_DEPT_CD")
 	String parentDeptCode;
 	
-	@ManyToOne(fetch = FetchType.LAZY)	
-	//@JoinColumn(name = "P_DEPT_ID", nullable = true)
+	@ManyToOne(fetch = FetchType.LAZY)		
 	@JoinColumns({
 		@JoinColumn(name = "ORG_CD", referencedColumnName = "ORG_CD", insertable = false, updatable = false),
 		@JoinColumn(name = "P_DEPT_CD", referencedColumnName = "DEPT_CD", insertable = false, updatable = false)
@@ -90,15 +73,9 @@ public class Dept extends AbstractAuditEntity implements Serializable {
 	public static DeptBuilder builder(String organizationCode, String deptCode) {
 		Assert.hasText(organizationCode, "organizationCode must not be empty!");
 		Assert.hasText(deptCode, "deptCode must not be empty!");
-		
-		/*
-		return internalBuilder().id(organizationCode + deptCode)
-								.organizationCode(organizationCode)
-								.deptCode(deptCode);
-		*/
-		
+						
 		return internalBuilder().id(new DeptId(organizationCode, deptCode));
-	}	
+	}
 		
 	public Dept getParentDept() {
 		return parentDept;

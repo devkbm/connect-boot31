@@ -2,12 +2,12 @@ package com.like.system.dept.application.port.in;
 
 import java.util.List;
 
-import com.like.system.dept.application.port.in.dto.DeptQueryConditionDTO;
-import com.like.system.dept.application.port.in.dto.DeptSaveDTO;
+import com.like.system.dept.application.port.dto.DeptQueryDTO;
+import com.like.system.dept.application.port.dto.DeptSaveDTO;
 
 public interface DeptSelectUseCase {
 
 	DeptSaveDTO select(String organizationCode, String deptCode);
 	
-	List<DeptSaveDTO> select(DeptQueryConditionDTO dto);
+	List<DeptSaveDTO> select(DeptQueryDTO dto);
 }

@@ -2,9 +2,9 @@ package com.like.system.webresource.application.port.out;
 
 import java.util.List;
 
-import com.like.system.webresource.application.port.in.dto.WebResourceQueryConditionDTO;
-import com.like.system.webresource.application.port.in.dto.WebResourceSaveDTO;
+import com.like.system.webresource.application.port.dto.WebResourceQueryDTO;
+import com.like.system.webresource.domain.WebResource;
 
 public interface WebResourceQueryDbPort {
-	List<WebResourceSaveDTO> getResourceList(WebResourceQueryConditionDTO condition);
+	List<WebResource> getResourceList(WebResourceQueryDTO condition);
 }
