@@ -1,12 +1,12 @@
-package com.like.cooperation.todo.service;
+package com.like.cooperation.todo.application.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.todo.boundary.TodoDTO;
+import com.like.cooperation.todo.adapter.out.persistence.TodoGroupRepository;
+import com.like.cooperation.todo.application.dto.TodoDTO;
 import com.like.cooperation.todo.domain.Todo;
 import com.like.cooperation.todo.domain.TodoGroup;
-import com.like.cooperation.todo.domain.TodoGroupRepository;
 
 @Service
 @Transactional

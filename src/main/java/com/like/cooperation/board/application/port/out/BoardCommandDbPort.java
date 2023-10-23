@@ -1,9 +1,11 @@
 package com.like.cooperation.board.application.port.out;
 
-import com.like.cooperation.board.application.dto.BoardSaveDTO;
+import com.like.cooperation.board.domain.Board;
 
 public interface BoardCommandDbPort {
-	void save(BoardSaveDTO dto);
+	Board select(Long id);
 	
-	void delete(Long boardId);
+	void save(Board entity);
+	
+	void delete(Long id);
 }

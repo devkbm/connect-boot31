@@ -3,7 +3,7 @@ package com.like.cooperation.board.application.service;
 import org.springframework.stereotype.Service;
 
 import com.like.cooperation.board.application.port.in.ArticleUserHitCountUseCase;
-import com.like.cooperation.board.application.port.out.ArticleSelectDbPort;
+import com.like.cooperation.board.application.port.out.ArticleCommandDbPort;
 import com.like.cooperation.board.application.port.out.ArticleUserHitCountDbPort;
 import com.like.cooperation.board.domain.Article;
 
@@ -11,10 +11,10 @@ import com.like.cooperation.board.domain.Article;
 public class ArticleUserHitCountService implements ArticleUserHitCountUseCase {
 	
 	ArticleUserHitCountDbPort port;
-	ArticleSelectDbPort articlePort;
+	ArticleCommandDbPort articlePort;
 	
 	ArticleUserHitCountService(ArticleUserHitCountDbPort port
-							  ,ArticleSelectDbPort articlePort) {
+							  ,ArticleCommandDbPort articlePort) {
 		this.port = port;				
 		this.articlePort = articlePort;
 	}

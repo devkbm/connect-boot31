@@ -22,16 +22,7 @@ public class BoardQueryDbAdapter implements BoardQueryDbPort {
 	
 	public BoardQueryDbAdapter(JPAQueryFactory queryFactory) {
 		this.queryFactory = queryFactory;
-	}
-	
-
-	@Override
-	public BoardSaveDTO select(Long boardId) {
-		Board entity = queryFactory.selectFrom(qBoard)
-								   .where(qBoard.boardId.eq(boardId))
-								   .fetchFirst();
-		return BoardSaveDTO.toDTO(entity);
-	}
+	}	
 	
 	@Override
 	public List<BoardSaveDTO> selectList(BoardQueryConditionDTO dto) {

@@ -1,4 +1,4 @@
-package com.like.cooperation.todo.web;
+package com.like.cooperation.todo.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.todo.boundary.TodoDTO;
+import com.like.cooperation.todo.application.dto.TodoDTO;
+import com.like.cooperation.todo.application.service.TodoCommandService;
 import com.like.cooperation.todo.domain.TodoGroup;
-import com.like.cooperation.todo.service.TodoCommandService;
 import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
 

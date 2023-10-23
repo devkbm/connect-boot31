@@ -3,14 +3,14 @@ package com.like.cooperation.board.application.service;
 import org.springframework.stereotype.Service;
 
 import com.like.cooperation.board.application.port.in.ArticleDeleteUseCase;
-import com.like.cooperation.board.application.port.out.ArticleDeleteDbPort;
+import com.like.cooperation.board.application.port.out.ArticleCommandDbPort;
 
 @Service
 public class ArticleDeleteService implements ArticleDeleteUseCase {
 
-	ArticleDeleteDbPort port;
+	ArticleCommandDbPort port;
 	
-	ArticleDeleteService(ArticleDeleteDbPort port) {
+	ArticleDeleteService(ArticleCommandDbPort port) {
 		this.port = port;
 	}
 	

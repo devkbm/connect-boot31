@@ -1,7 +1,6 @@
-package com.like.cooperation.todo.boundary;
+package com.like.cooperation.todo.application.dto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.springframework.util.StringUtils;
 

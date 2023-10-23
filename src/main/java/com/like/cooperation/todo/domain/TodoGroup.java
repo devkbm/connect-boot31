@@ -24,7 +24,7 @@ import lombok.ToString;
 @ToString(callSuper=true)
 @Getter
 @Entity
-@Table(name = "grtodogroup")
+@Table(name = "GRWTODOGROUP")
 @EntityListeners(AuditingEntityListener.class)
 public class TodoGroup extends AbstractAuditEntity {		
 
@@ -32,13 +32,13 @@ public class TodoGroup extends AbstractAuditEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="pk_todo_group")
+	@Column(name="ID")
 	Long pkTodoGroup;	
 	
 	@Column(name="USER_ID")
 	String userId;
 	
-	@Column(name="todo_group_name")
+	@Column(name="TODO_GROUP_NAME")
 	String todoGroupName;		
 	
 	@OneToMany(mappedBy = "todoGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

@@ -8,8 +8,6 @@ import com.like.cooperation.board.application.dto.BoardSaveDTO;
 
 public interface BoardQueryDbPort {
 	
-	BoardSaveDTO select(Long boardId);
-	
 	List<BoardSaveDTO> selectList(BoardQueryConditionDTO dto);
 	
 	List<BoardHierarchy> selectHierarchy();

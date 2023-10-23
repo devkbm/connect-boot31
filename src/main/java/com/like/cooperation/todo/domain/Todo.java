@@ -28,30 +28,30 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Entity
-@Table(name = "grtodo")
+@Table(name = "GRWTODO")
 @EntityListeners(AuditingEntityListener.class)
 public class Todo extends AbstractAuditEntity {		
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="pk_todo")
+	@Column(name="ID")
 	Long pkTodo;	
 
-	@Column(name="todo")
+	@Column(name="TODO")
 	String todo;		
 	
-	@Column(name="completed")
+	@Column(name="COMPLETE_YN")
 	boolean isCompleted;
 	
-	@Column(name="due_dt")
+	@Column(name="DUE_DT")
     LocalDate dueDate;
 	
-	@Column(name="comments")
+	@Column(name="COMMENTS")
 	String comments;
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_todo_group", nullable=false)
+	@JoinColumn(name = "TODO_GROUP_ID", nullable=false)
 	TodoGroup todoGroup;	
 	
 	@Builder

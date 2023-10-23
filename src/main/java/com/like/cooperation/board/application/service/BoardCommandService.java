@@ -6,23 +6,26 @@ import com.like.cooperation.board.application.dto.BoardSaveDTO;
 import com.like.cooperation.board.application.port.in.BoardDeleteUseCase;
 import com.like.cooperation.board.application.port.in.BoardSaveUseCase;
 import com.like.cooperation.board.application.port.out.BoardCommandDbPort;
+import com.like.cooperation.board.domain.Board;
 
 @Service
 public class BoardCommandService implements BoardSaveUseCase, BoardDeleteUseCase {
 
-	BoardCommandDbPort port;
+	BoardCommandDbPort dbPort;
 	
-	BoardCommandService(BoardCommandDbPort port) {
-		this.port = port;
+	BoardCommandService(BoardCommandDbPort dbPort) {
+		this.dbPort = dbPort;		
 	}
 	
 	@Override
 	public void save(BoardSaveDTO dto) {
-		this.port.save(dto);		
+		Board parentBoard = dto.boardParentId() == null ? null : this.dbPort.select(dto.boardParentId());
+		
+		this.dbPort.save(dto.toEntity(parentBoard));		
 	}
 	
 	@Override
-	public void delete(Long boardId) {
-		this.port.delete(boardId);		
+	public void delete(Long id) {
+		this.dbPort.delete(id);		
 	}
 }
