@@ -1,4 +1,4 @@
-package com.like.system.term.web;
+package com.like.system.term.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.term.boundary.TermDTO;
-import com.like.system.term.service.TermService;
+import com.like.system.term.application.dto.TermSaveDTO;
+import com.like.system.term.application.service.TermService;
 
 @RestController
 public class TermController {
@@ -29,13 +29,13 @@ public class TermController {
 	@GetMapping("/api/system/terms/{id}")
 	public ResponseEntity<?> getTerm(@PathVariable String id) {
 		
-		TermDTO.FormTerm term = TermDTO.FormTerm.convert(service.get(id));								
+		TermSaveDTO term = TermSaveDTO.convert(service.get(id));								
 		
 		return toOne(term, MessageUtil.getQueryMessage(term == null ? 0 : 1));
 	}			
 		
 	@PostMapping("/api/system/terms")
-	public ResponseEntity<?> saveTerm(@Valid @RequestBody TermDTO.FormTerm dto) {
+	public ResponseEntity<?> saveTerm(@Valid @RequestBody TermSaveDTO dto) {
 														
 		service.save(dto);										
 		

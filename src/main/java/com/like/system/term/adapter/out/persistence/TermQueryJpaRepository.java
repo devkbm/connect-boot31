@@ -1,10 +1,10 @@
-package com.like.system.term.infra.jparepository;
+package com.like.system.term.adapter.out.persistence;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.system.term.boundary.TermDTO;
+import com.like.system.term.application.dto.TermQueryDTO;
 import com.like.system.term.domain.QTermDictionary;
 import com.like.system.term.domain.TermDictionary;
 import com.like.system.term.domain.TermQueryRepository;
@@ -22,7 +22,7 @@ public class TermQueryJpaRepository implements TermQueryRepository {
 	}	
 		
 	@Override
-	public List<TermDictionary> getTermList(TermDTO.Search condition) {									
+	public List<TermDictionary> getTermList(TermQueryDTO condition) {									
 		return queryFactory.selectFrom(qTermDictionary)
 						   .where(condition.getBooleanBuilder())
 						   .fetch();

@@ -1,4 +1,4 @@
-package com.like.system.term.service;
+package com.like.system.term.application.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.term.boundary.TermDTO;
+import com.like.system.term.adapter.out.persistence.DataDomainDictionaryJpaRepository;
+import com.like.system.term.application.dto.TermSaveDTO;
 import com.like.system.term.domain.DataDomainDictionary;
-import com.like.system.term.domain.DataDomainDictionaryRepository;
 import com.like.system.term.domain.TermDictionary;
 import com.like.system.term.domain.TermDictionaryRepository;
 import com.like.system.term.domain.WordDictionary;
@@ -20,11 +20,11 @@ public class TermService {
 	    
 	private TermDictionaryRepository repository; 
 	private WordDictionaryRepository wordDictionaryRepository;
-	private DataDomainDictionaryRepository dataDomainRepository;	
+	private DataDomainDictionaryJpaRepository dataDomainRepository;	
 	
     public TermService(TermDictionaryRepository repository,
     				   WordDictionaryRepository wordDictionaryRepository,
-    				   DataDomainDictionaryRepository dataDomainRepository) {
+    				   DataDomainDictionaryJpaRepository dataDomainRepository) {
     	this.repository = repository;
     	this.wordDictionaryRepository = wordDictionaryRepository;
     	this.dataDomainRepository = dataDomainRepository;
@@ -42,7 +42,7 @@ public class TermService {
 		repository.save(term);
 	}
 	
-	public void save(TermDTO.FormTerm dto) {
+	public void save(TermSaveDTO dto) {
 		TermDictionary entity = this.getTermDictionary(dto);
 						
 		if (entity == null) {
@@ -58,11 +58,11 @@ public class TermService {
 		repository.deleteById(termId);		
 	}
 	
-	private TermDictionary getTermDictionary(TermDTO.FormTerm dto) {
+	private TermDictionary getTermDictionary(TermSaveDTO dto) {
 		return dto.termId() == null ? null : repository.findById(dto.termId()).orElse(null);
 	}
 	
-	private TermDictionary createEntity(TermDTO.FormTerm dto) {
+	private TermDictionary createEntity(TermSaveDTO dto) {
 		TermDictionary entity = null;
 		DataDomainDictionary dataDomain = this.getDataDomainDictionary(dto);
 				
@@ -75,7 +75,7 @@ public class TermService {
 		return entity;
 	}
 	
-	private DataDomainDictionary getDataDomainDictionary(TermDTO.FormTerm dto) {
+	private DataDomainDictionary getDataDomainDictionary(TermSaveDTO dto) {
 		if (dto.dataDomainId() == null) return null;
 		
 		return dataDomainRepository.findById(dto.dataDomainId()).orElse(null);

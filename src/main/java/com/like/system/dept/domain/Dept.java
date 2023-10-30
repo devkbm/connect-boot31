@@ -12,6 +12,8 @@ import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.io.Serializable;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.util.Assert;
 
@@ -33,8 +35,10 @@ import lombok.ToString;
 @Entity
 @Table(name = "comdept")
 @EntityListeners(AuditingEntityListener.class)
-public class Dept extends AbstractAuditEntity {
-	
+public class Dept extends AbstractAuditEntity implements Serializable {
+		
+	private static final long serialVersionUID = 4652693444814045435L;
+
 	@EmbeddedId
 	DeptId id;
 

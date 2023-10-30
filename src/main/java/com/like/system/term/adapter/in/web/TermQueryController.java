@@ -1,4 +1,4 @@
-package com.like.system.term.web;
+package com.like.system.term.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 
@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.core.dto.HtmlSelectOptionable;
 import com.like.system.core.message.MessageUtil;
-import com.like.system.term.boundary.TermDTO;
+import com.like.system.term.application.dto.TermQueryDTO;
+import com.like.system.term.application.dto.TermSaveDTO;
+import com.like.system.term.application.service.TermQueryService;
 import com.like.system.term.domain.SystemType;
-import com.like.system.term.service.TermQueryService;
 
 @RestController
 public class TermQueryController {
@@ -25,11 +26,11 @@ public class TermQueryController {
 	}
 	
 	@GetMapping("/api/system/terms")
-	public ResponseEntity<?> getTermList(TermDTO.Search contidion) {
+	public ResponseEntity<?> getTermList(TermQueryDTO contidion) {
 				
-		List<TermDTO.FormTerm> list = service.getTermList(contidion)
+		List<TermSaveDTO> list = service.getTermList(contidion)
 											 .stream()
-											 .map(e -> TermDTO.FormTerm.convert(e))
+											 .map(e -> TermSaveDTO.convert(e))
 											 .toList(); 							
 							
 		return toList(list, MessageUtil.getQueryMessage(list.size()));

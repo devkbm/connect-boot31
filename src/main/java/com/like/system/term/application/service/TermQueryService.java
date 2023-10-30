@@ -1,11 +1,11 @@
-package com.like.system.term.service;
+package com.like.system.term.application.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.system.term.boundary.TermDTO;
+import com.like.system.term.application.dto.TermQueryDTO;
 import com.like.system.term.domain.TermDictionary;
 import com.like.system.term.domain.TermQueryRepository;
 
@@ -19,7 +19,7 @@ public class TermQueryService {
 		this.repository = repository;
 	}
 	
-	public List<TermDictionary> getTermList(TermDTO.Search condition) {
+	public List<TermDictionary> getTermList(TermQueryDTO condition) {
 		return repository.getTermList(condition);
 	}
 }

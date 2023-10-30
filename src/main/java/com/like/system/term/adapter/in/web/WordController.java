@@ -1,4 +1,4 @@
-package com.like.system.term.web;
+package com.like.system.term.adapter.in.web;
 
 import static com.like.system.core.web.util.ResponseEntityUtil.toList;
 import static com.like.system.core.web.util.ResponseEntityUtil.toOne;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.core.message.MessageUtil;
-import com.like.system.term.boundary.WordDTO;
-import com.like.system.term.service.WordService;
+import com.like.system.term.application.dto.WordSaveDTO;
+import com.like.system.term.application.service.WordService;
 
 @RestController
 public class WordController {
@@ -31,9 +31,9 @@ public class WordController {
 	@GetMapping("/api/system/word")
 	public ResponseEntity<?> getWordList() {
 		
-		List<WordDTO.FormWord> dto = service.getAllList()
+		List<WordSaveDTO> dto = service.getAllList()
 											.stream()
-											.map(e -> WordDTO.FormWord.convert(e))
+											.map(e -> WordSaveDTO.convert(e))
 											.toList();
 		
 		return toList(dto, MessageUtil.getQueryMessage(dto.size()));
@@ -42,13 +42,13 @@ public class WordController {
 	@GetMapping("/api/system/word/{id}")
 	public ResponseEntity<?> getWord(@PathVariable String id) {
 		
-		WordDTO.FormWord dto = WordDTO.FormWord.convert(service.get(id));								
+		WordSaveDTO dto = WordSaveDTO.convert(service.get(id));								
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));
 	}			
 		
 	@PostMapping("/api/system/word")
-	public ResponseEntity<?> saveWord(@Valid @RequestBody WordDTO.FormWord dto) {
+	public ResponseEntity<?> saveWord(@Valid @RequestBody WordSaveDTO dto) {
 														
 		service.save(dto);										
 		
