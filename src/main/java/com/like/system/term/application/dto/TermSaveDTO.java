@@ -55,7 +55,8 @@ public record TermSaveDTO(
 		
 	}
 	
-	public static TermSaveDTO convert(TermDictionary entity) {
+	public static TermSaveDTO toDTO(TermDictionary entity) {
+		
 		return TermSaveDTO.builder()						   
 					   .termId(entity.getId())
 					   .system(entity.getSystem())						   

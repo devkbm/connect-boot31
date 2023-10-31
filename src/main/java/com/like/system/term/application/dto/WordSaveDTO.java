@@ -28,12 +28,12 @@ public record WordSaveDTO(
 		entity.modify(logicalNameEng, comment);
 	}
 	
-	public static WordSaveDTO convert(WordDictionary entity) {
+	public static WordSaveDTO toDTO(WordDictionary entity) {
 		return WordSaveDTO.builder()
-					   .logicalName(entity.getLogicalName())
-					   .logicalNameEng(entity.getLogicalNameEng())
-					   .physicalName(entity.getPhysicalName())
-					   .comment(entity.getComment())
-					   .build(); 
+						  .logicalName(entity.getLogicalName())
+						  .logicalNameEng(entity.getLogicalNameEng())
+						  .physicalName(entity.getPhysicalName())
+						  .comment(entity.getComment())
+						  .build(); 
 	}
 }
