@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.todo.adapter.out.persistence.TodoGroupRepository;
-import com.like.cooperation.todo.application.dto.TodoDTO;
+import com.like.cooperation.todo.application.port.dto.TodoDTO;
 import com.like.cooperation.todo.domain.Todo;
 import com.like.cooperation.todo.domain.TodoGroup;
 

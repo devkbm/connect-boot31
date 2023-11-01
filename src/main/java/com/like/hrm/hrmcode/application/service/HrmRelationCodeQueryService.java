@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.hrmcode.adapter.out.persistence.HrmRelationCodeQueryRepository;
-import com.like.hrm.hrmcode.application.dto.HrmRelationCodeDTO;
+import com.like.hrm.hrmcode.application.port.dto.HrmRelationCodeDTO;
 
 @Service
 @Transactional(readOnly = true)

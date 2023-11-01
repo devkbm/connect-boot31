@@ -10,7 +10,7 @@ import com.like.system.dept.application.port.out.DeptSelectPort;
 import com.like.system.dept.domain.Dept;
 import com.like.system.user.application.port.dto.SystemUserSaveDTO;
 import com.like.system.user.application.port.in.SystemUserSaveUseCase;
-import com.like.system.user.application.port.out.SystemUserSaveDbPort;
+import com.like.system.user.application.port.out.SystemUserCommandDbPort;
 import com.like.system.user.application.port.out.SystemUserRoleSaveDbPort;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserRole;
@@ -19,11 +19,11 @@ import com.like.system.user.domain.SystemUserRole;
 @Service
 public class SystemUserSaveService implements SystemUserSaveUseCase {
 
-	SystemUserSaveDbPort dbPort;	
+	SystemUserCommandDbPort dbPort;	
 	DeptSelectPort deptDbPort;
 	SystemUserRoleSaveDbPort userRoleDbPort;
 	
-	SystemUserSaveService(SystemUserSaveDbPort dbPort,
+	SystemUserSaveService(SystemUserCommandDbPort dbPort,
 						  DeptSelectPort deptDbPort,
 						  SystemUserRoleSaveDbPort userRoleDbPort) {
 		this.dbPort = dbPort;

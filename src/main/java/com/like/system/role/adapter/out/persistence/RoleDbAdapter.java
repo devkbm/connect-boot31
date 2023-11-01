@@ -7,14 +7,12 @@ import com.like.system.role.adapter.out.persistence.jpa.entity.RoleMapper;
 import com.like.system.role.adapter.out.persistence.jpa.entity.JpaRole;
 import com.like.system.role.adapter.out.persistence.jpa.entity.JpaRoleId;
 import com.like.system.role.adapter.out.persistence.jpa.repository.RoleJpaRepository;
-import com.like.system.role.application.port.out.RoleDeleteDbPort;
-import com.like.system.role.application.port.out.RoleSaveDbPort;
-import com.like.system.role.application.port.out.RoleSelectDbPort;
+import com.like.system.role.application.port.out.RoleCommandDbPort;
 import com.like.system.role.domain.Role;
 
 @Repository
 @Transactional
-public class RoleDbAdapter implements RoleSelectDbPort, RoleSaveDbPort, RoleDeleteDbPort {
+public class RoleDbAdapter implements RoleCommandDbPort {
 
 	RoleJpaRepository jpaRepository;
 	
@@ -23,8 +21,8 @@ public class RoleDbAdapter implements RoleSelectDbPort, RoleSaveDbPort, RoleDele
 	}
 
 	@Override
-	public Role find(String organizationCode, String authorityCode) {
-		JpaRole entity = this.jpaRepository.findById(new JpaRoleId(organizationCode, authorityCode)).orElse(null);
+	public Role find(String organizationCode, String roleCode) {
+		JpaRole entity = this.jpaRepository.findById(new JpaRoleId(organizationCode, roleCode)).orElse(null);
 		
 		return RoleMapper.toEntity(entity);
 	}
@@ -35,7 +33,7 @@ public class RoleDbAdapter implements RoleSelectDbPort, RoleSaveDbPort, RoleDele
 	}
 	
 	@Override
-	public void delete(String organizationCode, String authorityCode) {
-		this.jpaRepository.deleteById(new JpaRoleId(organizationCode, authorityCode));		
+	public void delete(String organizationCode, String roleCode) {
+		this.jpaRepository.deleteById(new JpaRoleId(organizationCode, roleCode));		
 	}
 }

@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleJpaRepository;
 import com.like.cooperation.board.adapter.out.persistence.mybatis.BoardMapper;
-import com.like.cooperation.board.application.dto.ArticleDTO;
-import com.like.cooperation.board.application.dto.ResponseArticle;
+import com.like.cooperation.board.application.port.dto.ArticleDTO;
+import com.like.cooperation.board.application.port.dto.ResponseArticle;
 import com.like.cooperation.board.domain.Article;
 import com.like.cooperation.board.domain.ArticleQueryRepository;
 

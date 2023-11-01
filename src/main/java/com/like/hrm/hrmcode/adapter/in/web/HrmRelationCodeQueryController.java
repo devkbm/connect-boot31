@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.hrmcode.application.dto.HrmRelationCodeDTO;
+import com.like.hrm.hrmcode.application.port.dto.HrmRelationCodeDTO;
 import com.like.hrm.hrmcode.application.service.HrmRelationCodeQueryService;
 import com.like.system.core.message.MessageUtil;
 

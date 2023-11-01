@@ -7,8 +7,8 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.board.application.dto.ArticleQueryConditionDTO;
-import com.like.cooperation.board.application.dto.ResponseArticle;
+import com.like.cooperation.board.application.port.dto.ArticleQueryConditionDTO;
+import com.like.cooperation.board.application.port.dto.ResponseArticle;
 import com.like.cooperation.board.application.port.in.ArticleQueryUseCase;
 import com.like.cooperation.board.application.port.out.ArticleQueryDbPort;
 

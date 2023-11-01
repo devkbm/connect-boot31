@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.team.application.dto.TeamDTO;
+import com.like.cooperation.team.application.port.dto.TeamDTO;
 import com.like.cooperation.team.application.service.TeamService;
 import com.like.cooperation.team.domain.Team;
 import com.like.system.core.message.MessageUtil;

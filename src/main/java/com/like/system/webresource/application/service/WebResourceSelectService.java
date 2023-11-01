@@ -4,14 +4,14 @@ import org.springframework.stereotype.Service;
 
 import com.like.system.webresource.application.port.dto.WebResourceSaveDTO;
 import com.like.system.webresource.application.port.in.WebResourceSelectUseCase;
-import com.like.system.webresource.application.port.out.WebResourceDbSelectPort;
+import com.like.system.webresource.application.port.out.WebResourceCommandDbPort;
 
 @Service
 public class WebResourceSelectService implements WebResourceSelectUseCase {
 
-	WebResourceDbSelectPort port;
+	WebResourceCommandDbPort port;
 	
-	WebResourceSelectService(WebResourceDbSelectPort port) {
+	WebResourceSelectService(WebResourceCommandDbPort port) {
 		this.port = port;
 	}
 	

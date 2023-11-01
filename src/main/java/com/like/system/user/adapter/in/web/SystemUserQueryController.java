@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.like.system.core.message.MessageUtil;
 import com.like.system.user.application.port.dto.SystemUserQueryDTO;
 import com.like.system.user.application.port.dto.SystemUserSaveDTO;
-import com.like.system.user.application.port.in.SystemUserSelectUseCase;
+import com.like.system.user.application.port.in.SystemUserQueryUseCase;
 
 @RestController
 public class SystemUserQueryController {
 
-	private SystemUserSelectUseCase useCase;
+	private SystemUserQueryUseCase useCase;
 	
-	public SystemUserQueryController(SystemUserSelectUseCase useCase) {
+	public SystemUserQueryController(SystemUserQueryUseCase useCase) {
 		this.useCase = useCase;
 	}
 		

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.board.application.dto.BoardQueryConditionDTO;
-import com.like.cooperation.board.application.dto.BoardSaveDTO;
-import com.like.cooperation.board.application.dto.BoardTypeDTO;
+import com.like.cooperation.board.application.port.dto.BoardQueryConditionDTO;
+import com.like.cooperation.board.application.port.dto.BoardSaveDTO;
+import com.like.cooperation.board.application.port.dto.BoardTypeDTO;
 import com.like.cooperation.board.application.port.in.BoardQueryUseCase;
 import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.core.dto.HtmlSelectOptionable;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.cooperation.team.application.dto.TeamDTO.Search;
+import com.like.cooperation.team.application.port.dto.TeamDTO.Search;
 import com.like.cooperation.team.domain.QTeam;
 import com.like.cooperation.team.domain.QTeamMember;
 import com.like.cooperation.team.domain.Team;

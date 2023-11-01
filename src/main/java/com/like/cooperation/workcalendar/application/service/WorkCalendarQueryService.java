@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.workcalendar.application.dto.WorkCalendarDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarDTO;
 import com.like.cooperation.workcalendar.application.port.in.WorkCalendarQueryUseCase;
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
 

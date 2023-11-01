@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.like.cooperation.board.application.dto.ArticleSaveDTO;
-import com.like.cooperation.board.application.dto.ArticleSaveMultipartDTO;
+import com.like.cooperation.board.application.port.dto.ArticleSaveDTO;
+import com.like.cooperation.board.application.port.dto.ArticleSaveMultipartDTO;
 import com.like.cooperation.board.application.port.in.ArticleSaveUseCase;
 import com.like.system.core.message.MessageUtil;
 

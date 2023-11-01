@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.like.cooperation.board.application.dto.ResponseArticle;
+import com.like.cooperation.board.application.port.dto.ResponseArticle;
 import com.like.cooperation.board.application.port.in.ArticleSelectUseCase;
 import com.like.system.core.message.MessageUtil;
 

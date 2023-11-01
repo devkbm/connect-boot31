@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.like.cooperation.team.application.dto.TeamDTO;
+import com.like.cooperation.team.application.port.dto.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamRepository;
 import com.like.system.user.application.service.SystemUserSearchService;

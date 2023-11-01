@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.cooperation.team.application.dto.TeamDTO;
+import com.like.cooperation.team.application.port.dto.TeamDTO;
 
 @Repository
 public interface TeamQueryRepository {

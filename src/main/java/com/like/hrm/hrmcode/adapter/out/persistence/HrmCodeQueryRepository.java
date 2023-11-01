@@ -2,8 +2,8 @@ package com.like.hrm.hrmcode.adapter.out.persistence;
 
 import java.util.List;
 
-import com.like.hrm.hrmcode.application.dto.HrmCodeDTO;
-import com.like.hrm.hrmcode.application.dto.HrmCodeTypeDTO;
+import com.like.hrm.hrmcode.application.port.dto.HrmCodeDTO;
+import com.like.hrm.hrmcode.application.port.dto.HrmCodeTypeDTO;
 import com.like.hrm.hrmcode.domain.HrmCode;
 import com.like.hrm.hrmcode.domain.HrmCodeType;
 

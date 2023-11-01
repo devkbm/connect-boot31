@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleJpaRepository;
 import com.like.cooperation.board.adapter.out.persistence.mybatis.BoardMapper;
-import com.like.cooperation.board.application.dto.ArticleQueryConditionDTO;
-import com.like.cooperation.board.application.dto.ResponseArticle;
+import com.like.cooperation.board.application.port.dto.ArticleQueryConditionDTO;
+import com.like.cooperation.board.application.port.dto.ResponseArticle;
 import com.like.cooperation.board.application.port.out.ArticleQueryDbPort;
 
 @Repository

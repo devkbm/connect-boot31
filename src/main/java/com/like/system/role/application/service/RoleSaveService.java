@@ -1,27 +1,26 @@
 package com.like.system.role.application.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.role.application.port.dto.RoleSaveDTO;
 import com.like.system.role.application.port.in.RoleSaveUseCase;
-import com.like.system.role.application.port.out.RoleSaveDbPort;
-import com.like.system.role.application.port.out.RoleSelectDbPort;
+import com.like.system.role.application.port.out.RoleCommandDbPort;
 import com.like.system.role.domain.Role;
 
+@Transactional
 @Service
 public class RoleSaveService implements RoleSaveUseCase {
 
-	RoleSelectDbPort selectPort;
-	RoleSaveDbPort savePort;
+	RoleCommandDbPort dbPort;	
 	
-	public RoleSaveService(RoleSelectDbPort selectPort, RoleSaveDbPort savePort) {
-		this.selectPort = selectPort;
-		this.savePort = savePort;
+	public RoleSaveService(RoleCommandDbPort dbPort) {
+		this.dbPort = dbPort;		
 	}
 
 	@Override
 	public void save(RoleSaveDTO dto) {
-		Role authority = selectPort.find(dto.organizationCode(), dto.roleCode());			
+		Role authority = dbPort.find(dto.organizationCode(), dto.roleCode());			
 		
 		if (authority == null) {
 			authority = dto.newEntity();
@@ -29,7 +28,7 @@ public class RoleSaveService implements RoleSaveUseCase {
 			dto.modifyEntity(authority);
 		}
 		
-		savePort.save(authority);		
+		dbPort.save(authority);		
 	}
 	
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.hrmcode.application.dto.SaveHrmRelationCode;
+import com.like.hrm.hrmcode.application.port.dto.SaveHrmRelationCode;
 import com.like.hrm.hrmcode.application.service.HrmRelationCodeService;
 import com.like.hrm.hrmcode.domain.HrmRelationCode;
 import com.like.system.core.message.MessageUtil;

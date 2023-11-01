@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.team.application.dto.TeamDTO;
+import com.like.cooperation.team.application.port.dto.TeamDTO;
 import com.like.cooperation.team.application.service.TeamQueryService;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamMember;
 import com.like.system.core.message.MessageUtil;
 import com.like.system.user.application.port.dto.SystemUserQueryDTO;
-import com.like.system.user.domain.SystemUser;
+import com.like.system.user.application.port.dto.SystemUserSaveDTO;
 
 @RestController
 public class TeamQueryController {
@@ -46,7 +46,7 @@ public class TeamQueryController {
 	@GetMapping("/api/grw/team/allmember")
 	public ResponseEntity<?> getAllMemberList(SystemUserQueryDTO condition) {
 				
-		List<SystemUser> list = service.getAllMember(condition);						 				
+		List<SystemUserSaveDTO> list = service.getAllMember(condition);						 				
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}

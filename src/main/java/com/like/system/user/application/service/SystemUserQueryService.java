@@ -6,26 +6,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.user.application.port.dto.SystemUserQueryDTO;
-import com.like.system.user.application.port.in.SystemUserQueryRepository;
-import com.like.system.user.domain.SystemUser;
+import com.like.system.user.application.port.dto.SystemUserSaveDTO;
+import com.like.system.user.application.port.in.SystemUserQueryUseCase;
+import com.like.system.user.application.port.out.SystemUserQueryDbPort;
 
-
-@Service
 @Transactional(readOnly = true)
-public class SystemUserQueryService  {
+@Service
+public class SystemUserQueryService implements SystemUserQueryUseCase {
 
-	private SystemUserQueryRepository repository;
+	SystemUserQueryDbPort dbPort;
 	
-	public SystemUserQueryService(SystemUserQueryRepository repository) {
-		this.repository = repository;
+	SystemUserQueryService(SystemUserQueryDbPort dbPort) {
+		this.dbPort = dbPort;
 	}
 	
-	/**
-	 * 유저 도메인 리스트를 조회한다.
-	 * @return	유저 도메인 리스트
-	 */
-	public List<SystemUser> getUserList(SystemUserQueryDTO condition) {
-		return repository.getUserList(condition);
-	}		
-	
+	@Override
+	public List<SystemUserSaveDTO> selectList(SystemUserQueryDTO dto) {
+		return this.dbPort.selectList(dto)
+						  .stream()
+						  .map(e -> SystemUserSaveDTO.toDTO(e))
+						  .toList();
+	}
+
 }

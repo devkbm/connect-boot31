@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import com.like.hrm.hrmcode.domain.HrmCodeType;
 import com.like.hrm.hrmcode.domain.QHrmCode;
 import com.like.hrm.hrmcode.domain.QHrmCodeType;
-import com.like.hrm.hrmcode.application.dto.HrmCodeDTO;
-import com.like.hrm.hrmcode.application.dto.HrmCodeTypeDTO;
+import com.like.hrm.hrmcode.application.port.dto.HrmCodeDTO;
+import com.like.hrm.hrmcode.application.port.dto.HrmCodeTypeDTO;
 import com.like.hrm.hrmcode.domain.HrmCode;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 

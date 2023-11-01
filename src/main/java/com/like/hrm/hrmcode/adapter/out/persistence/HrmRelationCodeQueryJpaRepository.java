@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.like.hrm.hrmcode.application.dto.SaveHrmRelationCode;
-import com.like.hrm.hrmcode.application.dto.HrmRelationCodeDTO.SearchHrmRelationCode;
+import com.like.hrm.hrmcode.application.port.dto.SaveHrmRelationCode;
+import com.like.hrm.hrmcode.application.port.dto.HrmRelationCodeDTO.SearchHrmRelationCode;
 import com.like.hrm.hrmcode.domain.QHrmCode;
 import com.like.hrm.hrmcode.domain.QHrmCodeType;
 import com.like.hrm.hrmcode.domain.QHrmRelationCode;

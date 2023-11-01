@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.board.application.dto.ArticleSaveDTO;
-import com.like.cooperation.board.application.dto.ArticleSaveMultipartDTO;
+import com.like.cooperation.board.application.port.dto.ArticleSaveDTO;
+import com.like.cooperation.board.application.port.dto.ArticleSaveMultipartDTO;
 import com.like.cooperation.board.application.port.in.ArticleSaveUseCase;
 import com.like.cooperation.board.application.port.out.ArticleCommandDbPort;
 import com.like.cooperation.board.application.port.out.BoardCommandDbPort;

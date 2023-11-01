@@ -2,7 +2,7 @@ package com.like.cooperation.board.application.service;
 
 import org.springframework.stereotype.Service;
 
-import com.like.cooperation.board.application.dto.BoardSaveDTO;
+import com.like.cooperation.board.application.port.dto.BoardSaveDTO;
 import com.like.cooperation.board.application.port.in.BoardDeleteUseCase;
 import com.like.cooperation.board.application.port.in.BoardSaveUseCase;
 import com.like.cooperation.board.application.port.out.BoardCommandDbPort;

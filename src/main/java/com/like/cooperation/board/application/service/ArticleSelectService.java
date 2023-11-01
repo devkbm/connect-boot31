@@ -2,7 +2,7 @@ package com.like.cooperation.board.application.service;
 
 import org.springframework.stereotype.Service;
 
-import com.like.cooperation.board.application.dto.ResponseArticle;
+import com.like.cooperation.board.application.port.dto.ResponseArticle;
 import com.like.cooperation.board.application.port.in.ArticleSelectUseCase;
 import com.like.cooperation.board.application.port.out.ArticleCommandDbPort;
 

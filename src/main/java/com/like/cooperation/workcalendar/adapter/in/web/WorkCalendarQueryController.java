@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.workcalendar.application.dto.WorkCalendarDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarDTO;
 import com.like.cooperation.workcalendar.application.service.WorkCalendarQueryService;
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
 import com.like.system.core.message.MessageUtil;

@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.board.application.dto.BoardHierarchy;
-import com.like.cooperation.board.application.dto.BoardQueryConditionDTO;
-import com.like.cooperation.board.application.dto.BoardSaveDTO;
+import com.like.cooperation.board.application.port.dto.BoardHierarchy;
+import com.like.cooperation.board.application.port.dto.BoardQueryConditionDTO;
+import com.like.cooperation.board.application.port.dto.BoardSaveDTO;
 import com.like.cooperation.board.application.port.in.BoardQueryUseCase;
 import com.like.cooperation.board.application.port.out.BoardQueryDbPort;
 

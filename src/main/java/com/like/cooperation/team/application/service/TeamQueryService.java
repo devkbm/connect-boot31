@@ -5,23 +5,23 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.team.application.dto.TeamDTO;
+import com.like.cooperation.team.application.port.dto.TeamDTO;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamMember;
 import com.like.cooperation.team.domain.TeamQueryRepository;
 import com.like.system.user.application.port.dto.SystemUserQueryDTO;
-import com.like.system.user.application.service.SystemUserQueryService;
-import com.like.system.user.domain.SystemUser;
+import com.like.system.user.application.port.dto.SystemUserSaveDTO;
+import com.like.system.user.application.port.in.SystemUserQueryUseCase;
 
-@Service
 @Transactional(readOnly=true)
+@Service
 public class TeamQueryService {
 
 	private TeamQueryRepository teamQueryRepository;
-	private SystemUserQueryService userQueryService;
+	private SystemUserQueryUseCase userQueryService;
 	
 	public TeamQueryService(TeamQueryRepository teamQueryRepository
-						   ,SystemUserQueryService userQueryService) {
+						   ,SystemUserQueryUseCase userQueryService) {
 		this.teamQueryRepository = teamQueryRepository;
 		this.userQueryService = userQueryService;
 	}
@@ -44,8 +44,8 @@ public class TeamQueryService {
 	 * @param searchCondition 조회 조건
 	 * @return User 
 	 */
-	public List<SystemUser> getAllMember(SystemUserQueryDTO searchCondition) {
-		return userQueryService.getUserList(searchCondition);
+	public List<SystemUserSaveDTO> getAllMember(SystemUserQueryDTO searchCondition) {
+		return userQueryService.selectList(searchCondition);
 	}	
 	
 }

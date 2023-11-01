@@ -5,16 +5,16 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import org.springframework.stereotype.Component;
 
-import com.like.system.user.application.port.out.SystemUserSelectDbPort;
+import com.like.system.user.application.port.out.SystemUserCommandDbPort;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserId;
 
 @Component
 public class UserIdExistsValidator implements ConstraintValidator<UserIdExists, SystemUserId> {
 	
-	private SystemUserSelectDbPort userService;
+	private SystemUserCommandDbPort userService;
 	
-	public UserIdExistsValidator(SystemUserSelectDbPort userService) {
+	public UserIdExistsValidator(SystemUserCommandDbPort userService) {
 		this.userService = userService;
 	}
 	

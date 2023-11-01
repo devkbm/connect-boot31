@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
-import com.like.cooperation.board.application.dto.ArticleQueryConditionDTO;
-import com.like.cooperation.board.application.dto.ResponseArticle;
+import com.like.cooperation.board.application.port.dto.ArticleQueryConditionDTO;
+import com.like.cooperation.board.application.port.dto.ResponseArticle;
 
 public interface ArticleQueryUseCase {
 

@@ -2,9 +2,9 @@ package com.like.cooperation.board.application.port.out;
 
 import java.util.List;
 
-import com.like.cooperation.board.application.dto.BoardHierarchy;
-import com.like.cooperation.board.application.dto.BoardQueryConditionDTO;
-import com.like.cooperation.board.application.dto.BoardSaveDTO;
+import com.like.cooperation.board.application.port.dto.BoardHierarchy;
+import com.like.cooperation.board.application.port.dto.BoardQueryConditionDTO;
+import com.like.cooperation.board.application.port.dto.BoardSaveDTO;
 
 public interface BoardQueryDbPort {
 	

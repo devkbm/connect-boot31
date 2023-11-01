@@ -1,16 +1,18 @@
 package com.like.system.user.application.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.like.system.user.application.port.in.SystemUserDeleteUseCase;
-import com.like.system.user.application.port.out.SystemUserDeleteDbPort;
+import com.like.system.user.application.port.out.SystemUserCommandDbPort;
 
+@Transactional
 @Service
 public class SystemUserDeleteService implements SystemUserDeleteUseCase {
 
-	SystemUserDeleteDbPort port;
+	SystemUserCommandDbPort port;
 	
-	SystemUserDeleteService(SystemUserDeleteDbPort port) {
+	SystemUserDeleteService(SystemUserCommandDbPort port) {
 		this.port = port;
 	}
 	

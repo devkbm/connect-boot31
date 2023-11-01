@@ -2,7 +2,7 @@ package com.like.cooperation.workcalendar.application.port.in;
 
 import java.util.List;
 
-import com.like.cooperation.workcalendar.application.dto.WorkCalendarDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarDTO;
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
 
 public interface WorkCalendarQueryUseCase {

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.hrm.hrmcode.adapter.out.persistence.HrmRelationCodeRepository;
-import com.like.hrm.hrmcode.application.dto.SaveHrmRelationCode;
+import com.like.hrm.hrmcode.application.port.dto.SaveHrmRelationCode;
 import com.like.hrm.hrmcode.domain.HrmRelationCode;
 
 @Service

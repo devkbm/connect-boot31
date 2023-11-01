@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.hrm.hrmcode.application.dto.HrmCodeDTO;
-import com.like.hrm.hrmcode.application.dto.HrmCodeTypeDTO;
+import com.like.hrm.hrmcode.application.port.dto.HrmCodeDTO;
+import com.like.hrm.hrmcode.application.port.dto.HrmCodeTypeDTO;
 import com.like.hrm.hrmcode.application.service.HrmTypeService;
 import com.like.hrm.hrmcode.domain.HrmCodeId;
 import com.like.system.core.message.MessageUtil;
