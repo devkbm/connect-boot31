@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
-import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarQueryDTO;
 import com.like.cooperation.workcalendar.application.port.in.WorkCalendarQueryUseCase;
 import com.like.cooperation.workcalendar.domain.QWorkCalendar;
 import com.like.cooperation.workcalendar.domain.QWorkCalendarMember;
@@ -22,7 +22,7 @@ public class WorkCalendarQueryJpaRepository implements WorkCalendarQueryUseCase 
 	}
 	
 	@Override
-	public List<WorkCalendar> getWorkGroupList(WorkCalendarDTO.Search searchCondition) {
+	public List<WorkCalendar> getWorkGroupList(WorkCalendarQueryDTO searchCondition) {
 		return queryFactory
 				.selectFrom(qWorkCalendar)
 				.where(searchCondition.getBooleanBuilder())

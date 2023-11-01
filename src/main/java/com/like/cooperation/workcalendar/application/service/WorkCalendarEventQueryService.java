@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventQueryDTO;
 import com.like.cooperation.workcalendar.application.port.in.WorkCalendarEventQueryUseCase;
 import com.like.cooperation.workcalendar.domain.WorkCalendarEvent;
 
@@ -19,7 +19,7 @@ public class WorkCalendarEventQueryService {
 		this.repository = repository;
 	}
 	
-	public List<WorkCalendarEvent> getScheduleList(WorkCalendarEventDTO.Search searchCondition) {
+	public List<WorkCalendarEvent> getScheduleList(WorkCalendarEventQueryDTO searchCondition) {
 		return repository.getScheduleList(searchCondition);		
 	}
 }

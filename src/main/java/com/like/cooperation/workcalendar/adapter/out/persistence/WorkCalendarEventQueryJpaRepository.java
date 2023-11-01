@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.like.cooperation.workcalendar.domain.WorkCalendarEvent;
-import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventQueryDTO;
 import com.like.cooperation.workcalendar.application.port.in.WorkCalendarEventQueryUseCase;
 import com.like.cooperation.workcalendar.domain.QWorkCalendarEvent;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -20,7 +20,7 @@ public class WorkCalendarEventQueryJpaRepository implements WorkCalendarEventQue
 	}
 	
 	@Override
-	public List<WorkCalendarEvent> getScheduleList(WorkCalendarEventDTO.Search searchCondition) {
+	public List<WorkCalendarEvent> getScheduleList(WorkCalendarEventQueryDTO searchCondition) {
 		return queryFactory
 				.selectFrom(qWorkCalendarEvent)
 				.where(searchCondition.getBooleanBuilder())

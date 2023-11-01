@@ -7,7 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.like.cooperation.workcalendar.adapter.out.persistence.WorkCalendarMemberRepository;
-import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarSaveDTO;
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
 import com.like.cooperation.workcalendar.domain.WorkCalendarMember;
 import com.like.cooperation.workcalendar.domain.WorkCalendarMemberId;
@@ -41,7 +41,7 @@ public class WorkCalendarService {
 		return repository.findById(id).orElse(null);
 	}			
 	
-	public void saveWorkGroup(WorkCalendarDTO.Form dto) {
+	public void saveWorkGroup(WorkCalendarSaveDTO dto) {
 		WorkCalendar entity = null;
 		
 		if (dto.workCalendarId() != null) {

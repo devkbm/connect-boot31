@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventResponseDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventSaveDTO;
 import com.like.cooperation.workcalendar.application.service.WorkCalendarEventService;
 import com.like.cooperation.workcalendar.domain.WorkCalendarEvent;
 import com.like.system.core.message.MessageUtil;
@@ -32,13 +33,13 @@ public class WorkCalendarEventController {
 						
 		WorkCalendarEvent entity = service.getSchedule(id);							
 		
-		WorkCalendarEventDTO.Response dto = WorkCalendarEventDTO.Response.convert(entity);
+		WorkCalendarEventResponseDTO dto = WorkCalendarEventResponseDTO.convert(entity);
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
 	}
 		
 	@PostMapping("/api/grw/workcalendarevent")
-	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody WorkCalendarEventDTO.Form dto) {				
+	public ResponseEntity<?> saveWorkGroup(@Valid @RequestBody WorkCalendarEventSaveDTO dto) {				
 		
 		service.saveSchedule(dto);		
 										 					

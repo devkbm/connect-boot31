@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.like.cooperation.workcalendar.domain.WorkCalendarEvent;
 import com.like.cooperation.workcalendar.adapter.out.persistence.WorkCalendarEventRepository;
-import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventDTO;
+import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventSaveDTO;
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
 import com.like.cooperation.workcalendar.domain.WorkCalendarRepository;
 
@@ -31,7 +31,7 @@ public class WorkCalendarEventService {
 		repository.save(schedule);
 	}
 	
-	public void saveSchedule(WorkCalendarEventDTO.Form dto) {
+	public void saveSchedule(WorkCalendarEventSaveDTO dto) {
 		WorkCalendar workGroup = workGroupRepository.findById(dto.workCalendarId()).orElse(null);
 		WorkCalendarEvent entity = null; 
 		
