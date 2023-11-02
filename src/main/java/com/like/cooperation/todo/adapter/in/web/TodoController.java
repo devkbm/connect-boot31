@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.todo.application.port.dto.TodoDTO;
+import com.like.cooperation.todo.application.port.dto.TodoSaveDTO;
 import com.like.cooperation.todo.application.service.TodoCommandService;
 import com.like.cooperation.todo.domain.Todo;
 import com.like.system.core.message.MessageUtil;
@@ -34,17 +34,17 @@ public class TodoController {
 		
 		List<Todo> list = taskCommandService.getTodoGroup(id).getTodoList();
 		
-		List<TodoDTO.FormTodo> dtoList = list.stream()
-											 .map(e -> TodoDTO.FormTodo.convert(e))
+		List<TodoSaveDTO> dtoList = list.stream()
+											 .map(e -> TodoSaveDTO.convert(e))
 											 .toList(); 											
 		
 		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));
 	}
 	
 	@PostMapping("/api/todo/group/todo")
-	public ResponseEntity<?> saveTodo(@RequestBody @Valid TodoDTO.FormTodo dto) {								
+	public ResponseEntity<?> saveTodo(@RequestBody @Valid TodoSaveDTO dto) {								
 			
-		TodoDTO.FormTodo todo = TodoDTO.FormTodo.convert(taskCommandService.saveTodo(dto));
+		TodoSaveDTO todo = TodoSaveDTO.convert(taskCommandService.saveTodo(dto));
 																				 			
 		return toOne(todo, MessageUtil.getSaveMessage(1));
 	}

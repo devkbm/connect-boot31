@@ -6,28 +6,11 @@ import org.springframework.util.StringUtils;
 
 import com.like.cooperation.todo.domain.QTodo;
 import com.like.cooperation.todo.domain.QTodoGroup;
-import com.like.cooperation.todo.domain.Todo;
-import com.like.cooperation.todo.domain.TodoGroup;
-
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-import lombok.Builder;
-
 public class TodoDTO {
 
-	public record FormTodoGroup(			
-			String clientAppUrl,
-			String organizationCode,
-			Long pkTodoGroup,
-			String todoGroupName
-			) {
-		
-		public void modifyEntity(TodoGroup entity) {
-			entity.modify(todoGroupName);
-		}
-	}
-	
 	public record SearchTodo(
 			String userId,
 			String todo,
@@ -59,49 +42,6 @@ public class TodoDTO {
 			if (!StringUtils.hasText(todo)) return null;
 						
 			return qTask.todo.like("%"+todo+"%");
-		}
-	}
-		
-	@Builder
-	public static record FormTodo(
-			String clientAppUrl,
-			String organizationCode,
-			Long pkTodoGroup,
-			Long pkTodo,
-			String todo,
-			boolean isCompleted,
-			LocalDate dueDate,
-			String comments
-			) {
-		
-		public Todo newEntity(TodoGroup todoGroup) {
-			Todo entity = Todo.builder()
-							  .todoGroup(todoGroup)
-							  .todo(todo)
-							  .dueDate(dueDate)
-							  .comments(comments)
-							  .build();
-			
-			entity.setAppUrl(clientAppUrl);
-			
-			return entity;	
-		}
-		
-		public void modifyEntity(Todo entity) {
-			entity.modify(todo, isCompleted, dueDate, comments);
-			
-			entity.setAppUrl(clientAppUrl);
-		}
-		
-		public static FormTodo convert(Todo entity) {
-			return FormTodo.builder()
-					       .pkTodoGroup(entity.getTodoGroup().getPkTodoGroup())
-					       .pkTodo(entity.getPkTodo())
-					       .todo(entity.getTodo())
-					       .isCompleted(entity.isCompleted())
-					       .dueDate(entity.getDueDate())
-					       .comments(entity.getComments())
-						   .build();	
 		}
 	}	
 	

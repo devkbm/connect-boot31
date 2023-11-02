@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.todo.adapter.out.persistence.TodoGroupRepository;
+import com.like.cooperation.todo.adapter.out.persistence.TodoGroupJpaRepository;
 import com.like.cooperation.todo.domain.QTodoGroup;
 import com.like.cooperation.todo.domain.TodoGroup;
 
@@ -13,9 +13,9 @@ import com.like.cooperation.todo.domain.TodoGroup;
 @Transactional(readOnly=true)
 public class TodoQueryService {
 	
-	private TodoGroupRepository repository;
+	private TodoGroupJpaRepository repository;
 	
-	public TodoQueryService(TodoGroupRepository repository) {
+	public TodoQueryService(TodoGroupJpaRepository repository) {
 		this.repository = repository;
 	}
 			

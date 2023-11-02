@@ -3,8 +3,9 @@ package com.like.cooperation.todo.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.todo.adapter.out.persistence.TodoGroupRepository;
-import com.like.cooperation.todo.application.port.dto.TodoDTO;
+import com.like.cooperation.todo.adapter.out.persistence.TodoGroupJpaRepository;
+import com.like.cooperation.todo.application.port.dto.TodoSaveDTO;
+import com.like.cooperation.todo.application.port.dto.TodoGroupSaveDTO;
 import com.like.cooperation.todo.domain.Todo;
 import com.like.cooperation.todo.domain.TodoGroup;
 
@@ -12,9 +13,9 @@ import com.like.cooperation.todo.domain.TodoGroup;
 @Transactional
 public class TodoCommandService {
 		
-	private TodoGroupRepository repository;
+	private TodoGroupJpaRepository repository;
 	
-	public TodoCommandService(TodoGroupRepository repository) {
+	public TodoCommandService(TodoGroupJpaRepository repository) {
 		this.repository = repository;		
 	}
 	
@@ -29,7 +30,7 @@ public class TodoCommandService {
 		return repository.findById(id).orElse(null);	
 	}
 		
-	public void saveTodoGroup(TodoDTO.FormTodoGroup dto) {
+	public void saveTodoGroup(TodoGroupSaveDTO dto) {
 		TodoGroup entity = repository.findById(dto.pkTodoGroup()).orElse(null);
 		
 		entity.modify(dto.todoGroupName());
@@ -41,7 +42,7 @@ public class TodoCommandService {
 		repository.deleteById(pkTaskGroup);		
 	}	
 	
-	public Todo saveTodo(TodoDTO.FormTodo dto) {
+	public Todo saveTodo(TodoSaveDTO dto) {
 		TodoGroup todoGroup = repository.findById(dto.pkTodoGroup()).orElse(null);
 		Todo entity = null;
 		

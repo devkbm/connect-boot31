@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.todo.application.port.dto.TodoDTO;
+import com.like.cooperation.todo.application.port.dto.TodoGroupSaveDTO;
 import com.like.cooperation.todo.application.service.TodoCommandService;
 import com.like.cooperation.todo.domain.TodoGroup;
 import com.like.system.core.message.MessageUtil;
@@ -35,7 +35,7 @@ public class TodoGroupController {
 	}
 		
 	@PostMapping("/api/todo/group")
-	public ResponseEntity<?> saveTodoGroup(@RequestBody @Valid TodoDTO.FormTodoGroup dto) {								
+	public ResponseEntity<?> saveTodoGroup(@RequestBody @Valid TodoGroupSaveDTO dto) {								
 			
 		service.saveTodoGroup(dto);
 																				 			
