@@ -5,20 +5,20 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.like.cooperation.workcalendar.domain.WorkCalendarEvent;
-import com.like.cooperation.workcalendar.adapter.out.persistence.WorkCalendarEventRepository;
+import com.like.cooperation.workcalendar.adapter.out.persistence.jparepository.WorkCalendarEventJpaRepository;
+import com.like.cooperation.workcalendar.adapter.out.persistence.jparepository.WorkCalendarJpaRepository;
 import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventSaveDTO;
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
-import com.like.cooperation.workcalendar.domain.WorkCalendarRepository;
 
 @Service
 @Transactional
 public class WorkCalendarEventService {
 
-	private WorkCalendarEventRepository repository;
-	private WorkCalendarRepository workGroupRepository;
+	private WorkCalendarEventJpaRepository repository;
+	private WorkCalendarJpaRepository workGroupRepository;
 	
-	public WorkCalendarEventService(WorkCalendarEventRepository repository
-						  ,WorkCalendarRepository workGroupRepository) {
+	public WorkCalendarEventService(WorkCalendarEventJpaRepository repository
+						  ,WorkCalendarJpaRepository workGroupRepository) {
 		this.repository = repository;
 		this.workGroupRepository = workGroupRepository;
 	}

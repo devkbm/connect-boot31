@@ -6,18 +6,18 @@ import org.springframework.stereotype.Repository;
 
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
 import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarQueryDTO;
-import com.like.cooperation.workcalendar.application.port.in.WorkCalendarQueryUseCase;
+import com.like.cooperation.workcalendar.application.port.out.WorkCalendarQueryDbPort;
 import com.like.cooperation.workcalendar.domain.QWorkCalendar;
 import com.like.cooperation.workcalendar.domain.QWorkCalendarMember;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
-public class WorkCalendarQueryJpaRepository implements WorkCalendarQueryUseCase {
+public class WorkCalendarQueryDbAdapter implements WorkCalendarQueryDbPort {
 	private JPAQueryFactory queryFactory;
 	private final QWorkCalendar qWorkCalendar = QWorkCalendar.workCalendar;
 	private final QWorkCalendarMember qWorkCalendarMember = QWorkCalendarMember.workCalendarMember;
 	
-	public WorkCalendarQueryJpaRepository(JPAQueryFactory queryFactory) {
+	public WorkCalendarQueryDbAdapter(JPAQueryFactory queryFactory) {
 		this.queryFactory = queryFactory;		
 	}
 	

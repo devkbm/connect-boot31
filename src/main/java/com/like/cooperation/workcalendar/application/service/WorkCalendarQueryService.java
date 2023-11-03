@@ -7,24 +7,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarQueryDTO;
 import com.like.cooperation.workcalendar.application.port.in.WorkCalendarQueryUseCase;
+import com.like.cooperation.workcalendar.application.port.out.WorkCalendarQueryDbPort;
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
 
-
-@Service
 @Transactional(readOnly=true)
-public class WorkCalendarQueryService {
+@Service
+public class WorkCalendarQueryService implements WorkCalendarQueryUseCase {
 				
-	private WorkCalendarQueryUseCase repository;
+	WorkCalendarQueryDbPort dbPort;
 	
-	public WorkCalendarQueryService(WorkCalendarQueryUseCase repository) {		
-		this.repository = repository;
+	public WorkCalendarQueryService(WorkCalendarQueryDbPort dbPort) {		
+		this.dbPort = dbPort;
 	}
-	
+
+	@Override
 	public List<WorkCalendar> getWorkGroupList(WorkCalendarQueryDTO searchCondition) {
-		return repository.getWorkGroupList(searchCondition);		
+		return this.dbPort.getWorkGroupList(searchCondition);
 	}
-			
-	public List<WorkCalendar> getMyWorkGroupList(String userId) {
-		return repository.getWorkGroupList(userId);
-	}
+
+	@Override
+	public List<WorkCalendar> getWorkGroupList(String userId) {
+		return this.dbPort.getWorkGroupList(userId);
+	}	
 }

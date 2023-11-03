@@ -35,7 +35,7 @@ public record WorkCalendarSaveDTO(
 		workGroup.setAppUrl(clientAppUrl);
 	}
 	
-	public static WorkCalendarSaveDTO convertDTO(WorkCalendar entity) {
+	public static WorkCalendarSaveDTO toDTO(WorkCalendar entity) {
 		WorkCalendarSaveDTO dto = WorkCalendarSaveDTO.builder()
 									   .workCalendarId(entity.getId())
 									   .workCalendarName(entity.getName())

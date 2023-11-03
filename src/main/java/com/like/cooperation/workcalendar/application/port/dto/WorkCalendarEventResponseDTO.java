@@ -28,7 +28,8 @@ public record WorkCalendarEventResponseDTO(
 		Boolean allDay
 		) {
 	
-	public static WorkCalendarEventResponseDTO convert(WorkCalendarEvent entity) {
+	public static WorkCalendarEventResponseDTO toDTO
+	(WorkCalendarEvent entity) {
 		
 		WorkCalendar workCalendar = entity.getWorkCalendar();
 		

@@ -31,7 +31,7 @@ public class WorkCalendarController {
 						
 		WorkCalendar entity = service.getWorkGroup(id);										
 		
-		WorkCalendarSaveDTO dto = WorkCalendarSaveDTO.convertDTO(entity);
+		WorkCalendarSaveDTO dto = WorkCalendarSaveDTO.toDTO(entity);
 		
 		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));													
 	}

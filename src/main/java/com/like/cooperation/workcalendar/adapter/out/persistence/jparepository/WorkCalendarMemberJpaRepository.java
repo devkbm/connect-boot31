@@ -1,4 +1,4 @@
-package com.like.cooperation.workcalendar.adapter.out.persistence;
+package com.like.cooperation.workcalendar.adapter.out.persistence.jparepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -8,6 +8,6 @@ import com.like.cooperation.workcalendar.domain.WorkCalendarMember;
 import com.like.cooperation.workcalendar.domain.WorkCalendarMemberId;
 
 @Repository
-public interface WorkCalendarMemberRepository extends JpaRepository<WorkCalendarMember, WorkCalendarMemberId>, QuerydslPredicateExecutor<WorkCalendarMember> { 
+public interface WorkCalendarMemberJpaRepository extends JpaRepository<WorkCalendarMember, WorkCalendarMemberId>, QuerydslPredicateExecutor<WorkCalendarMember> { 
 
 }

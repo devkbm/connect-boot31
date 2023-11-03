@@ -9,8 +9,8 @@ import com.like.cooperation.todo.adapter.out.persistence.TodoGroupJpaRepository;
 import com.like.cooperation.todo.domain.QTodoGroup;
 import com.like.cooperation.todo.domain.TodoGroup;
 
-@Service
 @Transactional(readOnly=true)
+@Service
 public class TodoQueryService {
 	
 	private TodoGroupJpaRepository repository;
