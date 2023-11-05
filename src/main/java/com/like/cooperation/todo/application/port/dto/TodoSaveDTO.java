@@ -38,7 +38,7 @@ public record TodoSaveDTO(
 		entity.setAppUrl(clientAppUrl);
 	}
 	
-	public static TodoSaveDTO convert(Todo entity) {
+	public static TodoSaveDTO toDTO(Todo entity) {		
 		return TodoSaveDTO.builder()
 				       .pkTodoGroup(entity.getTodoGroup().getPkTodoGroup())
 				       .pkTodo(entity.getPkTodo())

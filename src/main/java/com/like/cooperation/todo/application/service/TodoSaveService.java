@@ -34,7 +34,7 @@ public class TodoSaveService implements TodoSaveUseCase {
 					
 		dbPort.save(todoGroup);			
 		
-		return TodoSaveDTO.convert(todoGroup.getLastTodo());
+		return TodoSaveDTO.toDTO(todoGroup.getLastTodo());
 		
 	}
 

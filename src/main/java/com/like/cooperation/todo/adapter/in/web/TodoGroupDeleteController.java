@@ -11,11 +11,11 @@ import com.like.cooperation.todo.application.port.in.TodoGroupDeleteUseCase;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
-public class TodoGroupDeleteService {
+public class TodoGroupDeleteController {
 
 	TodoGroupDeleteUseCase useCase;
 	
-	TodoGroupDeleteService(TodoGroupDeleteUseCase useCase) {
+	TodoGroupDeleteController(TodoGroupDeleteUseCase useCase) {
 		this.useCase = useCase;
 	}
 	

@@ -5,28 +5,30 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.like.cooperation.todo.adapter.out.persistence.TodoGroupJpaRepository;
-import com.like.cooperation.todo.domain.QTodoGroup;
-import com.like.cooperation.todo.domain.TodoGroup;
+import com.like.cooperation.todo.adapter.out.persistence.TodoJpaRepository;
+import com.like.cooperation.todo.application.port.dto.TodoSaveDTO;
+import com.like.cooperation.todo.application.port.in.TodoQueryUseCase;
+import com.like.cooperation.todo.domain.QTodo;
 
 @Transactional(readOnly=true)
 @Service
-public class TodoQueryService {
+public class TodoQueryService implements TodoQueryUseCase {
+
+	TodoJpaRepository repository;
 	
-	private TodoGroupJpaRepository repository;
-	
-	public TodoQueryService(TodoGroupJpaRepository repository) {
+	TodoQueryService(TodoJpaRepository repository) {
 		this.repository = repository;
 	}
-			
-	public List<TodoGroup> getTodoGroupList(String userId) {
-		QTodoGroup qTodoGroup = QTodoGroup.todoGroup;
-		
-		//Iterable<TodoGroup> result = repository.findAll(qTodoGroup.createdBy.eq(userId)); 
-		//List<TodoGroup> list = new ArrayList<>();
-		//result.forEach(e -> list.add(e));
-		
-		return repository.findAll(qTodoGroup.userId.eq(userId));
+	
+	@Override
+	public List<TodoSaveDTO> select(Long todoGroupId) {
+		QTodo qTodo = QTodo.todo1;
+				
+		return this.repository.findAll(qTodo.todoGroup.pkTodoGroup.eq(todoGroupId))
+							  .stream()
+							  .map(e -> TodoSaveDTO.toDTO(e))
+							  .toList();
 	}
-		
+
+	
 }

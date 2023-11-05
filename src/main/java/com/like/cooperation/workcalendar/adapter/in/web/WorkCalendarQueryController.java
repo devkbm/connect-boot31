@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarQueryDTO;
-import com.like.cooperation.workcalendar.application.service.WorkCalendarQueryService;
+import com.like.cooperation.workcalendar.application.port.in.WorkCalendarQueryUseCase;
 import com.like.cooperation.workcalendar.domain.WorkCalendar;
 import com.like.system.core.message.MessageUtil;
 import com.like.system.core.util.SessionUtil;
@@ -18,16 +18,16 @@ import com.like.system.core.util.SessionUtil;
 @RestController
 public class WorkCalendarQueryController {
 
-	private WorkCalendarQueryService service;
+	private WorkCalendarQueryUseCase useCase;
 	
-	public WorkCalendarQueryController(WorkCalendarQueryService service) {
-		this.service = service;		
+	public WorkCalendarQueryController(WorkCalendarQueryUseCase useCase) {
+		this.useCase = useCase;		
 	}
 	
 	@GetMapping("/api/grw/workcalendar")
 	public ResponseEntity<?> getWorkGroupList(@ModelAttribute WorkCalendarQueryDTO searchCondition) {
 						
-		List<WorkCalendar> list = service.getWorkGroupList(searchCondition);				
+		List<WorkCalendar> list = useCase.getWorkGroupList(searchCondition);				
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));												
 	}
@@ -35,7 +35,7 @@ public class WorkCalendarQueryController {
 	@GetMapping("/api/grw/myworkcalendar")
 	public ResponseEntity<?> getWorkGroupList() {							
 		
-		List<WorkCalendar> list = service.getMyWorkGroupList(SessionUtil.getUserId());				
+		List<WorkCalendar> list = useCase.getWorkGroupList(SessionUtil.getUserId());				
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));												
 	}

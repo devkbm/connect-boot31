@@ -10,26 +10,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventResponseDTO;
+import com.like.cooperation.workcalendar.application.port.in.WorkCalendarEventQueryUseCase;
 import com.like.cooperation.workcalendar.application.port.dto.WorkCalendarEventQueryDTO;
-import com.like.cooperation.workcalendar.application.service.WorkCalendarEventQueryService;
 import com.like.system.core.message.MessageUtil;
 
 @RestController
 public class WorkCalendarEventQueryController {
 
-	private WorkCalendarEventQueryService service;
+	private WorkCalendarEventQueryUseCase service;
 	
-	public WorkCalendarEventQueryController(WorkCalendarEventQueryService service) {
+	public WorkCalendarEventQueryController(WorkCalendarEventQueryUseCase service) {
 		this.service = service;
 	}
 	
 	@GetMapping("/api/grw/workcalendarevent")
 	public ResponseEntity<?> getScheduleList(@ModelAttribute WorkCalendarEventQueryDTO searchCondition) {										
 		
-		List<WorkCalendarEventResponseDTO> list = service.getScheduleList(searchCondition)
-												 .stream()
-												 .map( r -> WorkCalendarEventResponseDTO.convert(r))
-												 .toList();
+		List<WorkCalendarEventResponseDTO> list = service.getScheduleList(searchCondition);
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));												
 	}
