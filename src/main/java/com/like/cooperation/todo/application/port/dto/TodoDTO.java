@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import org.springframework.util.StringUtils;
 
 import com.like.cooperation.todo.domain.QTodo;
-import com.like.cooperation.todo.domain.QTodoGroup;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
@@ -17,7 +16,6 @@ public class TodoDTO {
 			Boolean isCompleted,
 			LocalDate dueDate
 			) {
-		private static final QTodoGroup qTodoGroup = QTodoGroup.todoGroup;
 		private static final QTodo qTask = QTodo.todo1;		
 		
 		public BooleanBuilder getQueryFilter() {		

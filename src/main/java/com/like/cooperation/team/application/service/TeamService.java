@@ -4,21 +4,21 @@ import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.like.cooperation.team.application.port.dto.TeamDTO;
+import com.like.cooperation.team.adapter.out.persistence.TeamJpaRepository;
+import com.like.cooperation.team.application.port.dto.TeamSaveDTO;
 import com.like.cooperation.team.domain.Team;
-import com.like.cooperation.team.domain.TeamRepository;
-import com.like.system.user.application.service.SystemUserSearchService;
+import com.like.system.user.application.port.in.share.SystemUserCommonSelectUseCase;
 import com.like.system.user.domain.SystemUser;
 
 @Service
 @Transactional
 public class TeamService {
 	
-	private TeamRepository teamRepository;	
-	private SystemUserSearchService userService;	
+	private TeamJpaRepository teamRepository;	
+	private SystemUserCommonSelectUseCase userService;	
 	
-	public TeamService(TeamRepository teamRepository					  
-					  ,SystemUserSearchService userService) {
+	public TeamService(TeamJpaRepository teamRepository					  
+					  ,SystemUserCommonSelectUseCase userService) {
 		this.teamRepository = teamRepository;		
 		this.userService = userService;		
 	}
@@ -27,7 +27,7 @@ public class TeamService {
 		return teamRepository.findById(teamId).orElse(null);
 	}
 		
-	public void saveTeam(TeamDTO.Form dto) {		
+	public void saveTeam(TeamSaveDTO dto) {		
 		Team entity = dto.teamId() == null ? null : teamRepository.findById(dto.teamId()).orElse(null);
 		
 		if (entity == null) {

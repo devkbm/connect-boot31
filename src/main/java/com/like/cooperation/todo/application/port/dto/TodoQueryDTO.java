@@ -5,12 +5,10 @@ import java.time.LocalDate;
 import org.springframework.util.StringUtils;
 
 import com.like.cooperation.todo.domain.QTodo;
-import com.like.cooperation.todo.domain.QTodoGroup;
 import com.querydsl.core.BooleanBuilder;
 
 public class TodoQueryDTO {
 
-	private final QTodoGroup qTodoGroup = QTodoGroup.todoGroup;
 	private final QTodo qTodo = QTodo.todo1;
 	private BooleanBuilder builder = new BooleanBuilder();
 		

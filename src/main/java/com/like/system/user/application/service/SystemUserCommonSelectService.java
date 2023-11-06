@@ -19,7 +19,12 @@ public class SystemUserCommonSelectService implements SystemUserCommonSelectUseC
 	}
 	
 	@Override
-	public List<SystemUser> selectList(List<SystemUserId> userIds) {
+	public SystemUser findUser(String orginizationCode, String userId) {
+		return this.repository.findById(new SystemUserId(orginizationCode, userId)).orElse(null);
+	}
+	
+	@Override
+	public List<SystemUser> findUsers(List<SystemUserId> userIds) {
 		return this.repository.findAllById(userIds);
 	}
 

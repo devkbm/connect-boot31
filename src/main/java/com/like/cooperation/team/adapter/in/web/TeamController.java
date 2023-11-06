@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.team.application.port.dto.TeamDTO;
+import com.like.cooperation.team.application.port.dto.TeamSaveDTO;
 import com.like.cooperation.team.application.service.TeamService;
 import com.like.cooperation.team.domain.Team;
 import com.like.system.core.message.MessageUtil;
@@ -27,18 +27,10 @@ public class TeamController {
 		this.teamService = teamService;		
 	}
 				
-	@GetMapping("/api/grw/team/{teamId}")
-	public ResponseEntity<?> getTeam(@PathVariable Long teamId) {
-						
-		Team team = teamService.getTeam(teamId);				
-		
-		TeamDTO.Form dto = TeamDTO.Form.convert(team);
-		
-		return toOne(dto, MessageUtil.getQueryMessage(dto == null ? 0 : 1));					
-	}
+	
 		
 	@PostMapping("/api/grw/team")
-	public ResponseEntity<?> saveTeam(@RequestBody @Valid TeamDTO.Form dto) {				
+	public ResponseEntity<?> saveTeam(@RequestBody @Valid TeamSaveDTO dto) {				
 		 												
 		teamService.saveTeam(dto);		
 										 					

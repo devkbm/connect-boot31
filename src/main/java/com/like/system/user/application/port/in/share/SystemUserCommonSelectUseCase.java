@@ -6,5 +6,7 @@ import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserId;
 
 public interface SystemUserCommonSelectUseCase {
-	List<SystemUser> selectList(List<SystemUserId> userIds);
+	SystemUser findUser(String orginizationCode, String userId);
+	
+	List<SystemUser> findUsers(List<SystemUserId> userIds);
 }

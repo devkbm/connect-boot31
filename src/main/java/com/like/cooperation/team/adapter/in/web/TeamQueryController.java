@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.team.application.port.dto.TeamDTO;
-import com.like.cooperation.team.application.service.TeamQueryService;
+import com.like.cooperation.team.application.port.dto.TeamQueryDTO;
+import com.like.cooperation.team.application.port.in.TeamQueryUseCase;
 import com.like.cooperation.team.domain.Team;
 import com.like.cooperation.team.domain.TeamMember;
 import com.like.system.core.message.MessageUtil;
@@ -21,16 +21,16 @@ import com.like.system.user.application.port.dto.SystemUserSaveDTO;
 @RestController
 public class TeamQueryController {
 
-	private TeamQueryService service;
+	private TeamQueryUseCase service;
 	
-	public TeamQueryController(TeamQueryService service) {
+	public TeamQueryController(TeamQueryUseCase service) {
 		this.service = service;
 	}
 	
 	@GetMapping("/api/grw/team")
-	public ResponseEntity<?> getTeamList(@ModelAttribute TeamDTO.Search searchCondition) {
+	public ResponseEntity<?> getTeamList(@ModelAttribute TeamQueryDTO searchCondition) {
 						
-		List<Team> list = service.getTeamList(searchCondition);				
+		List<Team> list = service.selectTeamList(searchCondition);				
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));												
 	}
@@ -38,7 +38,7 @@ public class TeamQueryController {
 	@GetMapping("/api/grw/team/{id}/member")
 	public ResponseEntity<?> getTeamMemberList(@PathVariable Long id) {
 						
-		List<TeamMember> list = service.getTeamMemberList(id);				
+		List<TeamMember> list = service.selectTeamMemeberList(id);				
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));												
 	}
@@ -46,7 +46,7 @@ public class TeamQueryController {
 	@GetMapping("/api/grw/team/allmember")
 	public ResponseEntity<?> getAllMemberList(SystemUserQueryDTO condition) {
 				
-		List<SystemUserSaveDTO> list = service.getAllMember(condition);						 				
+		List<SystemUserSaveDTO> list = service.selectAllMemberList(condition);						 				
 		
 		return toList(list, MessageUtil.getQueryMessage(list.size()));
 	}
