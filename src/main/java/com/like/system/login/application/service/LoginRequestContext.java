@@ -1,6 +1,6 @@
 package com.like.system.login.application.service;
 
-import com.like.system.login.application.port.in.LoginRequestDTO;
+import com.like.system.login.application.port.dto.LoginRequestDTO;
 /**
  * 로그인시 기관정보(organizationCode)를 저장하기 위해 ThreadLocal 사용
  * SpringSecurityUserService에서 참조함

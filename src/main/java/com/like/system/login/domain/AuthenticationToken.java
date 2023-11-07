@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.like.system.core.dto.HtmlSelectOptionRecord;
 import com.like.system.menu.application.port.dto.MenuGroupSaveDTO;
 import com.like.system.user.domain.SystemUser;
 
@@ -27,7 +26,7 @@ public class AuthenticationToken implements Serializable {
 	private String sessionId;
 	private String oAuthAccessToken;
 	private List<String> roleList;
-    private List<HtmlSelectOptionRecord> menuGroupList;
+    private List<MenuGroupSaveDTO> menuGroupList;
     
        
     @Builder
@@ -41,7 +40,7 @@ public class AuthenticationToken implements Serializable {
     						  ,String sessionId
     						  ,String oAuthAccessToken
     						  ,List<String> roleList
-    						  ,List<HtmlSelectOptionRecord> menuGroupList) {
+    						  ,List<MenuGroupSaveDTO> menuGroupList) {
     	
     	this.organizationCode = organizationCode;
     	this.userId = userId;
@@ -69,8 +68,8 @@ public class AuthenticationToken implements Serializable {
 				.ipAddress(ipAddress)
 				.sessionId(sessionId)
 				.roleList(user.getAuthorities().stream().map(e -> e.getAuthority()).toList())
-				//.menuGroupList(user.getMenuGroupList().stream().map(e -> new HtmlSelectOptionRecord(e.getMenuGroupCode(), e.getMenuGroupCode())).toList())
-				.menuGroupList(menuGroupList.stream().map(e -> new HtmlSelectOptionRecord(e.menuGroupName(), e.menuGroupCode())).toList())				
+				//.menuGroupList(menuGroupList.stream().map(e -> new HtmlSelectOptionRecord(e.menuGroupName(), e.menuGroupCode())).toList())				
+				.menuGroupList(menuGroupList)
 				.build();
     }
        
