@@ -35,11 +35,12 @@ public class LoginController {
 		return service.login(dto, request);
 	}	
 	*/
+	/*
 	@GetMapping("/api/system/user/auth")
 	public AuthenticationToken get(HttpServletRequest request, @RequestParam String organizationCode) {
 		return service.getAuthenticationToken(organizationCode, SessionUtil.getUserId(), request);
 	}			     
-    
+    */
 	@Transactional
 	@GetMapping("/api/system/user/session")
 	public String getSession(HttpSession session) {

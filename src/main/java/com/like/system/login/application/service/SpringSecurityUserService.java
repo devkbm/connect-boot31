@@ -22,7 +22,7 @@ public class SpringSecurityUserService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		LoginRequestDTO dto = LoginRequestContext.getLoginRequest();
+		LoginRequestDTO dto = LoginRequestContext.get();
 		
 		return repository.findById(new SystemUserId(dto.organizationCode(), username))
 						 .orElseThrow(() -> new UsernameNotFoundException(username + " is Not Found"));		
