@@ -11,7 +11,7 @@ import com.like.system.login.application.port.in.LoginUseCase;
 import com.like.system.login.application.port.out.AuthenticationTokenSavePort;
 import com.like.system.login.application.port.out.SystemUserSelectDbPort;
 import com.like.system.login.domain.AuthenticationToken;
-import com.like.system.login.domain.LoginSuccessEvent;
+import com.like.system.login.domain.event.LoginSuccessEvent;
 import com.like.system.menu.application.port.in.SystemUserMenuGroupSelectUseCase;
 import com.like.system.menu.application.port.dto.MenuGroupSaveDTO;
 import com.like.system.user.domain.SystemUser;

@@ -10,7 +10,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 import com.like.system.login.adapter.out.persistence.jpa.repository.LogInOutHistoryRepository;
 import com.like.system.login.domain.LogInOutHistory;
 import com.like.system.login.domain.LogInOutHistory.LOG_TYPE;
-import com.like.system.login.domain.LoginSuccessEvent;
+import com.like.system.login.domain.event.LoginSuccessEvent;
 
 @Transactional
 @Service
