@@ -1,4 +1,4 @@
-package com.like.system.login.application.port.in;
+package com.like.system.login.application.port.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

@@ -10,7 +10,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.stereotype.Component;
 
 import com.like.system.core.web.util.WebRequestUtil;
-import com.like.system.login.application.port.in.LoginRequestDTO;
+import com.like.system.login.application.port.dto.LoginRequestDTO;
 import com.like.system.login.application.port.out.AuthenticationTokenSavePort;
 import com.like.system.login.domain.AuthenticationToken;
 import com.like.system.menu.application.port.dto.MenuGroupSaveDTO;

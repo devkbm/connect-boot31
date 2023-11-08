@@ -1,5 +1,6 @@
 package com.like.system.menu.application.port.dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.like.system.menu.domain.MenuGroup;
@@ -16,14 +17,16 @@ public record MenuGroupSaveDTO(
 		String organizationCode,
 		String menuGroupCode,		
 		String menuGroupName,
+		String menuGroupUrl,
 		String description
-		) {
+		) implements Serializable {
 	
 	public MenuGroup newMenuGroup() {
 		MenuGroup entity = MenuGroup.builder()
 								    .organizationCode(this.organizationCode)
 								    .code(this.menuGroupCode)
 								    .name(this.menuGroupName)
+								    .menuGroupUrl(this.menuGroupUrl)
 								    .description(this.description)						    
 								    .build();
 		
@@ -33,7 +36,7 @@ public record MenuGroupSaveDTO(
 	}
 	
 	public void modifyMenuGroup(MenuGroup menuGroup) {
-		menuGroup.modifyEntity(this.menuGroupName, this.description);
+		menuGroup.modifyEntity(this.menuGroupName, this.menuGroupUrl, this.description);
 		
 		menuGroup.setAppUrl(clientAppUrl);
 	}
@@ -50,6 +53,7 @@ public record MenuGroupSaveDTO(
 							//.menuGroupId(entity.getId())
 							.menuGroupCode(entity.getId().getMenuGroupCode())
 							.menuGroupName(entity.getName())
+							.menuGroupUrl(entity.getMenuGroupUrl())
 							.description(entity.getDescription())
 							.build();
 	}
