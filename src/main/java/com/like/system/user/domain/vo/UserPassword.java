@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-
 import lombok.Getter;
 
 @Getter
@@ -15,13 +14,12 @@ public class UserPassword implements Serializable {
 	private static final String INIT_PASSWORD = "12345678";
 	
 	@Column(name="pwd")
-	String password;
+	String password;		
 		
-	public UserPassword() {
-		this.init();
+	public UserPassword() {			
 	}
-	
-	public UserPassword(String rawPassword) {
+			
+	public void change(String rawPassword) {
 		this.password = rawPassword;
 	}
 	
@@ -29,8 +27,8 @@ public class UserPassword implements Serializable {
 		return this.password.equals(password);
 	}
 	
-	public void init() {
-		this.password = INIT_PASSWORD;
+	public static String getInitPassword() {
+		return INIT_PASSWORD;
 	}
 	
 }

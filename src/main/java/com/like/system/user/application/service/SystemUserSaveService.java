@@ -2,6 +2,7 @@ package com.like.system.user.application.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -14,6 +15,7 @@ import com.like.system.user.application.port.out.SystemUserCommandDbPort;
 import com.like.system.user.application.port.out.SystemUserRoleSaveDbPort;
 import com.like.system.user.domain.SystemUser;
 import com.like.system.user.domain.SystemUserRole;
+import com.like.system.user.domain.vo.UserPassword;
 
 @Transactional
 @Service
@@ -22,19 +24,30 @@ public class SystemUserSaveService implements SystemUserSaveUseCase {
 	SystemUserCommandDbPort dbPort;	
 	DeptSelectPort deptDbPort;
 	SystemUserRoleSaveDbPort userRoleDbPort;
+	PasswordEncoder passwordEncoder;
 	
 	SystemUserSaveService(SystemUserCommandDbPort dbPort,
 						  DeptSelectPort deptDbPort,
-						  SystemUserRoleSaveDbPort userRoleDbPort) {
+						  SystemUserRoleSaveDbPort userRoleDbPort,
+						  PasswordEncoder passwordEncoder
+						  ) {
 		this.dbPort = dbPort;
 		this.deptDbPort = deptDbPort;
 		this.userRoleDbPort = userRoleDbPort;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	@Override
 	public void save(SystemUserSaveDTO dto) {
 		Dept dept = StringUtils.hasText(dto.deptCode()) ? deptDbPort.select(dto.organizationCode(), dto.deptCode()) : null;
-		SystemUser user = dto.newUser(dept);
+		SystemUser user = this.dbPort.select(dto.organizationCode(), dto.userId());
+		
+		if (user == null) {
+			user = dto.newUser(dept);
+			user.changePassword(passwordEncoder.encode(UserPassword.getInitPassword()));
+		} else {
+			dto.modifyUser(user, dept);
+		}							
 				
 		this.dbPort.save(user);
 		

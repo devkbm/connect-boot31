@@ -96,9 +96,7 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 		this.deptCode = dept == null ? null : dept.getId().getDeptCode();
 		this.mobileNum = mobileNum;
 		this.email = email;
-		this.accountSpec = accountSpec;						
-		
-		this.initPassword();
+		this.accountSpec = accountSpec;									
 	}	
 	
 	@Builder(builderMethodName = "modifyBuilder", buildMethodName = "modify")
@@ -172,20 +170,12 @@ public class SystemUser extends AbstractAuditEntity implements UserDetails {
 	}								
 	
 	public void changePassword(String password) {
-		this.password = new UserPassword(password);
-	}
-	
-	/**
-	 * 비밀번호를 초기화한다. 
-	 * 초기화 비밀번호 : 12345678
-	 */
-	public void initPassword() {
 		if (this.password == null) {
 			this.password = new UserPassword();
-		} else {
-			this.password.init();
-		}
-	}
+		} 
+						
+		this.password.change(password);
+	}	
 	
 	public String getImage() {
 		if (this.image == null) return null;
