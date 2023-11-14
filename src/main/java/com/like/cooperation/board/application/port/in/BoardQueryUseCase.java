@@ -6,9 +6,7 @@ import com.like.cooperation.board.application.port.dto.BoardHierarchy;
 import com.like.cooperation.board.application.port.dto.BoardQueryConditionDTO;
 import com.like.cooperation.board.application.port.dto.BoardSaveDTO;
 
-public interface BoardQueryUseCase {
-	
-	BoardSaveDTO select(Long boardId);
+public interface BoardQueryUseCase {	
 	
 	List<BoardSaveDTO> selectList(BoardQueryConditionDTO dto);
 	
