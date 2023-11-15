@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.like.cooperation.board.application.port.dto.BoardHierarchy;
-import com.like.cooperation.board.application.port.dto.BoardQueryConditionDTO;
+import com.like.cooperation.board.application.port.dto.BoardQueryDTO;
 import com.like.cooperation.board.application.port.dto.BoardSaveDTO;
 import com.like.cooperation.board.application.port.in.BoardQueryUseCase;
 import com.like.cooperation.board.application.port.out.BoardQueryDbPort;
@@ -22,7 +22,7 @@ public class BoardQueryService implements BoardQueryUseCase {
 	}	
 	
 	@Override
-	public List<BoardSaveDTO> selectList(BoardQueryConditionDTO dto) {
+	public List<BoardSaveDTO> selectList(BoardQueryDTO dto) {
 		return this.port.selectList(dto);
 	}
 

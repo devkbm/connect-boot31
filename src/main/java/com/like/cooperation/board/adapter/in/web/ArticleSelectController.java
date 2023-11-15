@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.like.cooperation.board.application.port.dto.ResponseArticle;
+import com.like.cooperation.board.application.port.dto.ArticleResponseDTO;
 import com.like.cooperation.board.application.port.in.ArticleSelectUseCase;
 import com.like.system.core.message.MessageUtil;
 
@@ -25,7 +25,7 @@ public class ArticleSelectController {
 	@GetMapping("/api/grw/board/article/{id}")
 	public ResponseEntity<?> getArticle(@PathVariable Long id, HttpSession session) {						
 					
-		ResponseArticle response =  useCase.select(id);				
+		ArticleResponseDTO response =  useCase.select(id);				
 		
 		return toOne(response, MessageUtil.getQueryMessage(response == null ? 0 : 1));
 	}

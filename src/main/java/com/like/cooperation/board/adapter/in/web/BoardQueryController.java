@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.like.cooperation.board.application.port.dto.BoardQueryConditionDTO;
+import com.like.cooperation.board.application.port.dto.BoardQueryDTO;
 import com.like.cooperation.board.application.port.dto.BoardSaveDTO;
 import com.like.cooperation.board.application.port.dto.BoardTypeDTO;
 import com.like.cooperation.board.application.port.in.BoardQueryUseCase;
@@ -42,7 +42,7 @@ public class BoardQueryController {
 	}	
 	
 	@GetMapping("/api/grw/board")
-	public ResponseEntity<?> getBoardList(BoardQueryConditionDTO dto) {
+	public ResponseEntity<?> getBoardList(BoardQueryDTO dto) {
 		List<BoardSaveDTO> dtoList = useCase.selectList(dto); 												
 				
 		return toList(dtoList, MessageUtil.getQueryMessage(dtoList.size()));

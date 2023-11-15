@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
-import com.like.cooperation.board.application.port.dto.ArticleQueryConditionDTO;
-import com.like.cooperation.board.application.port.dto.ResponseArticle;
+import com.like.cooperation.board.application.port.dto.ArticleQueryDTO;
+import com.like.cooperation.board.application.port.dto.ArticleResponseDTO;
 
 public interface ArticleQueryUseCase {
 
-	List<ResponseArticle> getList(ArticleQueryConditionDTO dto);
+	List<ArticleResponseDTO> getList(ArticleQueryDTO dto);
 	
-	Slice<ResponseArticle> getAritlceSlice(ArticleQueryConditionDTO dto, Pageable pageable);
+	Slice<ArticleResponseDTO> getAritlceSlice(ArticleQueryDTO dto, Pageable pageable);
 }

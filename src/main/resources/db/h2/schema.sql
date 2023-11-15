@@ -605,6 +605,7 @@ CREATE TABLE GRWARTICLE (
   SEQ                 INT             NULL    ,
   HIT_CNT             INT             NULL    ,
   HIER_DEPTH          INT             NULL    ,
+  FIXED_TOP_YN        BOOLEAN         NULL    ,
   PWD                 VARCHAR(500)		NULL    ,
   constraint pk_grwarticle primary key(ARTICLE_ID),  
   constraint fk_grwarticle1 	foreign key(BOARD_ID) references GRWBOARD(BOARD_ID)

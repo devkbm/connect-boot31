@@ -59,9 +59,12 @@ public class Article extends AbstractAuditEntity {
 	@Column(name="SEQ")
     Integer seq;
         
-	@Comment("계층 횟수")
+	@Comment("계층 레벨")
 	@Column(name="HIER_DEPTH")
     int depth;			
+	
+	@Column(name="FIXED_TOP_YN")
+	boolean isFixedTop;
 	
 	@Embedded
 	ArticlePassword password;
@@ -96,8 +99,10 @@ public class Article extends AbstractAuditEntity {
 				
 	}
 	
-	public void modifyEntity(ArticleContents content) {
+	public void modifyEntity(ArticleContents content
+							,boolean isFiexedTop) {
 		this.content = content;				
+		this.isFixedTop = isFiexedTop;
 	}
 	
 	public Long getId() {

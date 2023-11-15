@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ResponseArticle {
+public class ArticleResponseDTO {
 
 	LocalDateTime createdDt;
 	String createdBy;
@@ -41,14 +41,14 @@ public class ResponseArticle {
 	List<FileResponseDTO> fileList;
 	
 	
-	public static ResponseArticle toDTO(Article entity) {
+	public static ArticleResponseDTO toDTO(Article entity) {
 		
     	if (entity == null) return null;
     	
 		List<FileInfo> fileInfoList = entity.getAttachedFileInfoList();
 		List<FileResponseDTO> responseList = convertFileResponseDTO(fileInfoList);
 							
-		return ResponseArticle
+		return ArticleResponseDTO
 				 .builder()
 				 .createdDt(entity.getCreatedDt())
 				 .createdBy(entity.getCreatedBy() == null ? null : entity.getCreatedBy().getLoggedUser())

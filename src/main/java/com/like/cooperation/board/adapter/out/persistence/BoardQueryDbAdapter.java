@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.like.cooperation.board.application.port.dto.QBoardHierarchy;
 import com.like.cooperation.board.application.port.dto.BoardHierarchy;
-import com.like.cooperation.board.application.port.dto.BoardQueryConditionDTO;
+import com.like.cooperation.board.application.port.dto.BoardQueryDTO;
 import com.like.cooperation.board.application.port.dto.BoardSaveDTO;
 import com.like.cooperation.board.application.port.out.BoardQueryDbPort;
 import com.like.cooperation.board.domain.Board;
@@ -25,7 +25,7 @@ public class BoardQueryDbAdapter implements BoardQueryDbPort {
 	}	
 	
 	@Override
-	public List<BoardSaveDTO> selectList(BoardQueryConditionDTO dto) {
+	public List<BoardSaveDTO> selectList(BoardQueryDTO dto) {
 		List<Board> list = queryFactory.selectFrom(qBoard)
 									   .where(dto.getBooleanBuilder())
 									   .fetch(); 

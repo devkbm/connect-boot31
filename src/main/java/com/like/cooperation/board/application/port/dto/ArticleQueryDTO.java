@@ -6,7 +6,7 @@ import com.like.cooperation.board.domain.QArticle;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-public record ArticleQueryConditionDTO(
+public record ArticleQueryDTO(
 		Long boardId,
 		String title,
 		String contents

@@ -7,7 +7,7 @@ import com.like.cooperation.board.domain.QBoard;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-public record BoardQueryConditionDTO(
+public record BoardQueryDTO(
 		String boardName,
 		String boardType
 		) {

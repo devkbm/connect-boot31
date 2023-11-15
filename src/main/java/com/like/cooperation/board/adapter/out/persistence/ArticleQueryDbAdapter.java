@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.like.cooperation.board.adapter.out.persistence.jpa.repository.ArticleJpaRepository;
 import com.like.cooperation.board.adapter.out.persistence.mybatis.BoardMapper;
-import com.like.cooperation.board.application.port.dto.ArticleQueryConditionDTO;
-import com.like.cooperation.board.application.port.dto.ResponseArticle;
+import com.like.cooperation.board.application.port.dto.ArticleQueryDTO;
+import com.like.cooperation.board.application.port.dto.ArticleResponseDTO;
 import com.like.cooperation.board.application.port.out.ArticleQueryDbPort;
 
 @Repository
@@ -28,26 +28,26 @@ public class ArticleQueryDbAdapter implements ArticleQueryDbPort {
 	}
 	
 	@Override
-	public List<ResponseArticle> getList(ArticleQueryConditionDTO dto) {
+	public List<ArticleResponseDTO> getList(ArticleQueryDTO dto) {
 
 		
 		return this.repository.findAll(dto.getBooleanBuilder())
 							  .stream()
-							  .map(e -> ResponseArticle.toDTO(e))
+							  .map(e -> ArticleResponseDTO.toDTO(e))
 							  .toList();
 	}
 
 	@Override
-	public Slice<ResponseArticle> getAritlceSlice(ArticleQueryConditionDTO condition, Pageable pageable) {
+	public Slice<ArticleResponseDTO> getAritlceSlice(ArticleQueryDTO condition, Pageable pageable) {
 		
 		Map<String, Object> params = new HashMap<>();	
 		params.put("data", condition);
 		params.put("pageable", pageable);
 		
-		List<ResponseArticle> content = boardMapper.getArticleList(params);
+		List<ArticleResponseDTO> content = boardMapper.getArticleList(params);
 		
 		// 첨부파일 추가
-		for (ResponseArticle dto : content) {
+		for (ArticleResponseDTO dto : content) {
 			dto.addFileResponseDTO(repository);
 		}			
 		

@@ -29,6 +29,7 @@ public record ArticleSaveMultipartDTO(
 		String pwd,
 		int hitCount,						
 		Integer depth,
+		boolean isFiexedTop,
 		@JsonIgnore
 		List<MultipartFile> file
 		) {
@@ -38,6 +39,7 @@ public record ArticleSaveMultipartDTO(
 					    .articleId(articleId)
 					    .content(new ArticleContents(title, contents))						  						  
 					    .password(new ArticlePassword(this.pwd))
+					    .isFixedTop(isFiexedTop)
 					    .build();
 		
 		entity.setAppUrl(clientAppUrl);
@@ -46,7 +48,7 @@ public record ArticleSaveMultipartDTO(
 	}
     
     public void modifyArticle(Article entity) {
-    	entity.modifyEntity(new ArticleContents(title, contents));
+    	entity.modifyEntity(new ArticleContents(title, contents),isFiexedTop);
     	
     	entity.setAppUrl(clientAppUrl);
 	}

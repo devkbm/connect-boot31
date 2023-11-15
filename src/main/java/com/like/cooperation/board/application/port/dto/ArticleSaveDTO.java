@@ -27,6 +27,7 @@ public record ArticleSaveDTO(
 		int hitCount,			
 		Integer seq,
 		Integer depth,
+		boolean isFiexedTop,
 		List<String> attachFile
 		) {
 	public Article newArticle(Board board) {				    				    	
@@ -35,6 +36,7 @@ public record ArticleSaveDTO(
 							    .articleId(articleId)
 							    .content(new ArticleContents(title, contents))						  						  
 							    .password(new ArticlePassword(this.pwd))
+							    .isFixedTop(isFiexedTop)
 							    .build();
 		
 		entity.setAppUrl(clientAppUrl);
@@ -43,7 +45,7 @@ public record ArticleSaveDTO(
 	}
     
     public void modifyArticle(Article entity) {	    		  	    	
-    	entity.modifyEntity(new ArticleContents(title, contents));
+    	entity.modifyEntity(new ArticleContents(title, contents), isFiexedTop);
     	
     	entity.setAppUrl(clientAppUrl);
 	}
