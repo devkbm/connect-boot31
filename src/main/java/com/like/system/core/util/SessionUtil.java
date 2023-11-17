@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.like.system.login.domain.AuthenticationToken;
+import com.like.system.permission.domain.AuthenticationToken;
 
 import lombok.extern.slf4j.Slf4j;
 

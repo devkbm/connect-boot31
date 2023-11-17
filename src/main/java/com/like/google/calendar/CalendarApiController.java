@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.like.system.login.domain.AuthenticationToken;
+import com.like.system.permission.domain.AuthenticationToken;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.like.system.login.domain;
+package com.like.system.permission.domain;
 
 import java.io.Serializable;
 import java.util.List;

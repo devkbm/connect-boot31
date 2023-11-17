@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.like.system.login.application.port.dto.LoginRequestDTO;
 import com.like.system.login.application.port.in.LoginUseCase;
-import com.like.system.login.domain.AuthenticationToken;
+import com.like.system.permission.domain.AuthenticationToken;
 
 @RestController
 public class LoginController {		

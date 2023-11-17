@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.like.system.login.domain.AuthenticationToken;
+import com.like.system.permission.domain.AuthenticationToken;
 import com.like.system.user.application.service.SystemUserSelectService;
 import com.like.system.user.domain.SystemUser;
 
